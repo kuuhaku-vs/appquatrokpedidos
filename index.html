@@ -1110,7 +1110,7 @@ function mostrarApp(){
 function sair(motivo){
   try{ localStorage.removeItem(SESSAO_KEY); sessionStorage.removeItem(SESSAO_KEY) }catch{}
   SESSAO.user = SESSAO.pass = '';
-  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel2') }catch{}
+  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel3') }catch{}
   document.body.classList.remove('logado', 'preview');
   const lg = $('login'); lg.classList.remove('saindo');
   const w = $('lg-wrap'); w.classList.remove('busy', 'unido', 'mexendo'); w.style.transform = ''; $('lg-tab1').style.transform = $('lg-tab2').style.transform = '';
@@ -1216,7 +1216,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel2', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel3', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1229,9 +1229,13 @@ async function carregarPainel(forcar = false){
       ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_VEND2','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT','C6_BLQ'], extra,
       [...base, `C5_EMISSAO BETWEEN ${q(mes + '01')} AND ${q(mes + '31')}`].join(' AND '))));
     // pendentes (não faturados): consulta própria e pequena, sem limite de data
-    const pend = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
+    let pend = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
       [...base, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"].join(' AND '));
     const tipoDe = r => (opcao(CONFIG.campos.tpAmostra, get(r, CONFIG.campos.tpAmostra)) || 'NÃO INFORMADO').toUpperCase();
+    // Tags e Desenvolvimento de cor ficam fora de todos os painéis (dashboard, letreiro e cartão de tipos)
+    const contaNoPainel = r => !TIPOS_FORA_DASH.includes(tipoDe(r));
+    porMes.forEach((rows, i) => { porMes[i] = rows.filter(contaNoPainel) });
+    pend = pend.filter(contaNoPainel);
 
     const meses = listaMeses.map((mes, i) => {
       const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}};
@@ -1282,7 +1286,7 @@ async function carregarPainel(forcar = false){
         ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
       cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
     };
-    try{ store.set('pv-painel2', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel3', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }

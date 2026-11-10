@@ -30,8 +30,10 @@ Clique no **seu usuário** (canto superior direito) para abrir o menu com: Impre
 Aba **Dashboard** no topo (computador) ou embaixo (celular):
 - **Cartões:** Em aberto, Liberados e Faturados **do mês** escolhido; Faturados, Amostras enviadas (quantidade faturada) e Clientes atendidos (distintos) **no ano**.
 - **Amostras solicitadas por mês:** clique em um mês para ler como foi (volume, variação, tipo e item mais pedidos, quem mais pediu, clientes, faturados, dia de pico). O mês clicado vira o período "Mensal" dos outros quadros.
-- **Mensal / Anual:** alterna rosca de tipos de amostra (sem Tags e Desenvolvimento de cor), Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja) e Destaques.
+- **Mensal / Anual:** alterna rosca de tipos de amostra, Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja) e Destaques.
 - **Letreiro (AO VIVO):** fica dentro do topo, entre o logo e as abas; passe o mouse para pausar.
+
+Tags e Desenvolvimento de cor não entram em nenhum painel (dashboard, letreiro e cartão de tipos da tela Pedidos); os pedidos continuam aparecendo normalmente na lista para impressão.
 
 Os dados vêm do Protheus (12 consultas mensais dos últimos 12 meses + uma consulta dos pendentes) e são atualizados a cada 10 minutos ou no botão ↻.
 
