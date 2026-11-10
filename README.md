@@ -1,6 +1,6 @@
 # Impressão de Pedidos | Grupo 4K
 
-App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atual** (QKRFotoPV) do Protheus, bem mais rápido que pelo sistema.
+App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atual** (QKRFotoPV) do Protheus, com o logo do Grupo Quatro K, bem mais rápido que pelo sistema.
 
 **Acesse:** https://kuuhaku-vs.github.io/appquatrokpedidos/
 
@@ -24,14 +24,14 @@ No celular o app tem **abas embaixo**:
 O ícone instalado é o logo do Pedidos 4K. No site, o logo muda de cor conforme o tema. O app sempre busca a versão mais nova do site quando há internet.
 
 ## Temas
-Botões ao lado de **Impressos** no topo: a bolinha colorida escolhe o tema (Limão, Floresta, Sol, Pink, Noite, Violeta) e ☾/☀ alterna entre escuro e claro. A escolha fica salva no aparelho. O topo usa a cor principal do tema e os botões a cor de destaque; quando o destaque não aparece bem no fundo (ex.: Limão no claro), o site usa automaticamente outra cor do tema.
+Clique no **seu usuário** (canto superior direito) para abrir o menu com: Impressos (código do grupo), tema de cores (Limão, Floresta, Sol, Pink, Noite, Violeta), escuro/claro, instalar app e Sair. A escolha fica salva no aparelho. O topo usa a cor principal do tema e os botões a cor de destaque; quando o destaque não aparece bem no fundo (ex.: Limão no claro), o site usa automaticamente outra cor do tema.
 
 ## Dashboard
 Aba **Dashboard** no topo (computador) ou embaixo (celular):
 - **Cartões:** Em aberto, Liberados e Faturados **do mês** escolhido; Faturados, Amostras enviadas (quantidade faturada) e Clientes atendidos (distintos) **no ano**.
 - **Amostras solicitadas por mês:** clique em um mês para ler como foi (volume, variação, tipo e item mais pedidos, quem mais pediu, clientes, faturados, dia de pico). O mês clicado vira o período "Mensal" dos outros quadros.
-- **Mensal / Anual:** alterna rosca de tipos de amostra, Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja), Destaques e Clientes que mais pediram.
-- **Letreiro (AO VIVO):** fica dentro do topo, ao lado das abas; passe o mouse para pausar.
+- **Mensal / Anual:** alterna rosca de tipos de amostra (sem Tags e Desenvolvimento de cor), Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja) e Destaques.
+- **Letreiro (AO VIVO):** fica dentro do topo, entre o logo e as abas; passe o mouse para pausar.
 
 Os dados vêm do Protheus (12 consultas mensais dos últimos 12 meses + uma consulta dos pendentes) e são atualizados a cada 10 minutos ou no botão ↻.
 
@@ -43,7 +43,7 @@ Depois de imprimir, o site pergunta **"Os pedidos saíram na impressora?"**. Ao 
 - se alguém abrir um pedido já impresso, aparece um aviso antes de imprimir de novo (e o site não imprime sozinho);
 - **desfazer** na linha tira a marcação.
 
-A planilha da equipe já está configurada no site. Para **todos os computadores e celulares verem os mesmos impressos**, cada pessoa clica em **Impressos** (topo, à direita), digita o **código do grupo** e clica em **Salvar e testar**. Sem o código, a marcação fica só no aparelho em que foi feita.
+A planilha da equipe já está configurada no site. Para **todos os computadores e celulares verem os mesmos impressos**, cada pessoa clica no **seu usuário** (topo, à direita) → **Impressos**, digita o **código do grupo** e clica em **Salvar e testar**. Sem o código, a marcação fica só no aparelho em que foi feita.
 
 (Para criar uma planilha nova do zero, use o arquivo [`planilha-impressos/Code.gs`](planilha-impressos/Code.gs) e troque o endereço em `planilhaImpressos` no `index.html`.)
 
@@ -56,7 +56,7 @@ Nos itens de **Pilotagem** e de **Bandeira** cuja observação diz para não alt
 - endereços de **nível baixo** (final 1, 2, 3) primeiro;
 - depois: armazém 93 / AM01 / AM02 → menor CMC → entrada mais recente.
 
-Para considerar as **malhas com defeito** da planilha da equipe, informe o código da equipe no botão **Impressos** do topo (fica salvo só no navegador). Não publique o código da equipe neste repositório público.
+Para considerar as **malhas com defeito** da planilha da equipe, informe o código da equipe em **Impressos** (menu do usuário) (fica salvo só no navegador). Não publique o código da equipe neste repositório público.
 
 ## De onde vêm os dados
 Tudo vem direto do REST do Protheus (`/api/framework/v1/genericQuery`): SC5/SC6 (pedido), SA1 (cliente), SA3 (vendedor e centro de custo `A3_4KCC`), CTT (descrição do centro de custo), SE4 (condição de pagamento), SB1/SBM (grupo e gramatura) e SZ5 (rolos e endereços).

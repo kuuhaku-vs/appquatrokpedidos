@@ -1,8 +1,8 @@
 // Service worker do app Pedidos 4K: deixa o app instalável e abre rápido.
 // Página e ícones: busca na rede primeiro (para sempre pegar a versão nova) e usa o cache se estiver sem internet.
 // Chamadas ao Protheus e à planilha (outros endereços) não passam pelo cache.
-const CACHE = 'pedidos4k-v1';
-const BASE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/logo-96.png', './icons/icon-32.png', './icons/apple-touch-icon.png'];
+const CACHE = 'pedidos4k-v2';
+const BASE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/logo-96.png', './icons/icon-32.png', './icons/apple-touch-icon.png', './icons/logo-grupo4k-sm.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(BASE)).then(() => self.skipWaiting()));
