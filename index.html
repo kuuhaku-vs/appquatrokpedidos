@@ -4,60 +4,151 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Impressão de Pedidos | Grupo 4K</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
-/* ======================= CONFIGURAÇÃO VISUAL DO APP ======================= */
-:root{--navy:#0B1F3A;--blue:#2563EB;--bg:#F1F5F9;--card:#fff;--text:#0F172A;--muted:#64748B;--border:#DCE5EF;--soft:#EAF1F9}
+/* ======================= VISUAL DO APP (preto · branco · limão) ======================= */
+:root{
+ --bg:#101010;--panel:#161616;--panel-2:#1c1c1c;--line:#2a2a2a;--line-2:#383838;
+ --text:#ffffff;--muted:#9b9b9b;--dim:#6b6b6b;--lime:#cbff00;--ink:#101010;
+ --danger:#ff6b5b;--warn:#ffc94d;--radius:14px;
+ --font:'Inter',system-ui,'Segoe UI',Arial,sans-serif;--display:'Space Grotesk','Inter',system-ui,sans-serif;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:14px 'Segoe UI',Arial,sans-serif}
-button,input,select{font:inherit}
-header.app{background:var(--navy);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-header.app h1{font-size:17px;margin:0;font-weight:800;letter-spacing:.3px}
-header.app h1 span{font-weight:400;color:#bcd0e6}
-header.app .conn{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-header.app input{height:32px;border-radius:7px;border:1px solid #3c5677;background:#14304f;color:#fff;padding:0 9px;width:150px}
-header.app input.url{width:260px}
-header.app input::placeholder{color:#8fa8c5}
-main{max-width:1500px;margin:auto;padding:18px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 3px 14px rgba(11,31,58,.06)}
-.filters{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
-.filters label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;color:var(--muted)}
-.filters input,.filters select{height:36px;border:1px solid var(--border);border-radius:8px;padding:0 9px;background:#fff;color:var(--text)}
-.btn{height:36px;border-radius:8px;border:1px solid var(--blue);background:var(--blue);color:#fff;font-weight:700;padding:0 15px;cursor:pointer;white-space:nowrap}
-.btn:hover{filter:brightness(1.08)}
-.btn.sec{background:#fff;color:var(--blue)}
-.btn:disabled{opacity:.55;cursor:wait}
-.quick{display:flex;gap:8px;align-items:end;margin-left:auto;padding-left:14px;border-left:1px solid var(--border)}
-#msg{display:none;padding:11px 14px;border-radius:9px;margin-bottom:14px;font-size:13px}
-#msg.err{display:block;background:#fff4f2;border:1px solid #f6c8bd;color:#9a3412}
-#msg.ok{display:block;background:#effaf3;border:1px solid #bfe8cd;color:#166534}
-#msg.info{display:block;background:#eef5ff;border:1px solid #c9dcfb;color:#1e40af}
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.toolbar strong{font-size:15px}
+html{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+::selection{background:var(--lime);color:var(--ink)}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+
+/* topo */
+header.app{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:18px;padding:12px 28px;background:rgba(16,16,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.mark{width:38px;height:38px;border-radius:10px;background:var(--lime);color:var(--ink);display:grid;place-items:center;font:800 15px/1 var(--display);letter-spacing:-.5px}
+.brand h1{margin:0;font:700 18px/1.1 var(--display);letter-spacing:-.3px}
+.brand small{display:block;color:var(--muted);font-size:11.5px;font-weight:500;margin-top:2px}
+.conn{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.conn input{height:36px;width:150px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);padding:0 15px;font-size:13px;transition:border-color .15s}
+.conn input.url{width:250px;color:var(--muted)}
+.conn input:focus{border-color:var(--lime);outline:none}
+.conn input::placeholder{color:var(--dim)}
+.icon-btn{height:36px;min-width:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.icon-btn:hover{border-color:var(--lime);color:var(--text)}
+.icon-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--dim)}
+.icon-btn .dot.on{background:var(--lime);box-shadow:0 0 0 3px rgba(203,255,0,.18)}
+
+main{max-width:1480px;margin:0 auto;padding:26px 28px 60px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+.hero h2{margin:0;font:700 34px/1 var(--display);letter-spacing:-1px}
+.hero h2 em{font-style:normal;color:var(--lime)}
+.hero p{margin:8px 0 0;color:var(--muted);font-size:13.5px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card + .card{margin-top:16px}
+
+/* filtros */
+.filters{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:7px}
+.field > span{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{height:40px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel-2);padding:0 12px;min-width:150px}
+.field input:focus,.field select:focus{border-color:var(--lime);outline:none}
+.field input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.6}
+.seg{display:inline-flex;max-width:100%;overflow-x:auto;scrollbar-width:none;padding:4px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);gap:2px}
+.seg button{height:32px;padding:0 14px;border-radius:8px;border:0;background:transparent;color:var(--muted);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed="true"]{background:var(--lime);color:var(--ink)}
+.quick{display:flex;gap:8px;align-items:flex-end}
+.quick input{width:140px;min-width:0}
+
+.btn{height:40px;border-radius:10px;border:1px solid var(--lime);background:var(--lime);color:var(--ink);font-weight:700;padding:0 18px;cursor:pointer;white-space:nowrap;transition:transform .08s,filter .15s}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.btn.sec{background:transparent;color:var(--text);border-color:var(--line-2)}
+.btn.sec:hover{border-color:var(--lime);color:var(--lime)}
+.btn:disabled{opacity:.35;cursor:not-allowed;filter:none}
+
+/* mensagens */
+#msg{display:none;margin:16px 0 0;padding:12px 16px;border-radius:12px;font-size:13px;border:1px solid}
+#msg.err{display:block;background:rgba(255,107,91,.08);border-color:rgba(255,107,91,.35);color:#ffb3aa}
+#msg.ok{display:block;background:rgba(203,255,0,.07);border-color:rgba(203,255,0,.3);color:var(--lime)}
+#msg.info{display:block;background:var(--panel);border-color:var(--line-2);color:var(--muted)}
+
+/* números */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.stat span{display:block;font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.stat strong{display:block;margin-top:6px;font:700 32px/1 var(--display);letter-spacing:-1px}
+.stat.hi{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.stat.hi span{color:rgba(16,16,16,.65)}
+
+/* lista */
+.toolbar{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar h3{margin:0;font:700 17px var(--display)}
 .toolbar .count{color:var(--muted);font-size:13px}
-.toolbar .right{margin-left:auto;display:flex;gap:8px}
-.tablewrap{overflow:auto;max-height:62vh;border:1px solid var(--border);border-radius:9px}
-table.list{border-collapse:collapse;width:100%;font-size:13px}
-table.list th,table.list td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
-table.list th{position:sticky;top:0;background:var(--soft);z-index:1}
-table.list td.obs{white-space:normal;min-width:260px}
-table.list tr:hover td{background:#f6f9fd}
-table.list td.num{text-align:right}
-.link{color:var(--blue);cursor:pointer;font-weight:700;background:none;border:0;padding:0}
-.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
-.b-aberto{background:#dcfce7;color:#166534}.b-liberado{background:#fef9c3;color:#854d0e}.b-faturado{background:#fee2e2;color:#991b1b}
-.empty{padding:30px;text-align:center;color:var(--muted)}
+.toolbar .right{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.switch{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none;margin-right:6px}
+.switch input{appearance:none;width:36px;height:20px;border-radius:999px;background:var(--line-2);position:relative;cursor:pointer;margin:0;transition:background .15s}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .15s}
+.switch input:checked{background:var(--lime)}
+.switch input:checked::after{transform:translateX(16px);background:var(--ink)}
+.tablewrap{overflow:auto;max-height:64vh;border:1px solid var(--line);border-radius:12px}
+table.list{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+table.list th{position:sticky;top:0;z-index:1;background:var(--panel-2);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.list td{padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+table.list tbody tr:last-child td{border-bottom:0}
+table.list tbody tr:hover td{background:#1a1a1a}
+table.list tr.sel td{background:rgba(203,255,0,.05)}
+table.list td.obs{white-space:normal;min-width:240px;color:var(--muted)}
+table.list td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.list tr.impresso td:not(.imp){opacity:.42}
+table.list input[type=checkbox]{appearance:none;width:17px;height:17px;border-radius:5px;border:1.5px solid var(--line-2);background:transparent;cursor:pointer;display:grid;place-items:center;margin:0}
+table.list input[type=checkbox]:checked{background:var(--lime);border-color:var(--lime)}
+table.list input[type=checkbox]:checked::after{content:"";width:5px;height:9px;border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.link{color:var(--text);cursor:pointer;font-weight:700;background:none;border:0;padding:0;font-variant-numeric:tabular-nums;border-bottom:1px dashed var(--dim)}
+.link:hover{color:var(--lime);border-color:var(--lime)}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.2px;border:1px solid transparent;white-space:nowrap}
+.b-aberto{color:var(--lime);border-color:rgba(203,255,0,.45)}
+.b-liberado{color:var(--warn);border-color:rgba(255,201,77,.45)}
+.b-faturado{color:var(--muted);border-color:var(--line-2)}
+.b-end{background:var(--panel-2);color:var(--text);border-color:var(--line-2)}
+.b-imp{background:var(--lime);color:var(--ink)}
+.b-novo{color:var(--dim);border-color:var(--line)}
+.imp small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.undo{background:none;border:0;padding:0;margin-left:6px;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline}
+.undo:hover{color:var(--lime)}
+.empty{padding:44px;text-align:center;color:var(--muted)}
+
+/* configurações */
+dialog{border:1px solid var(--line-2);border-radius:18px;background:var(--panel);color:var(--text);padding:0;width:min(560px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(3px)}
+.dlg{padding:24px}
+.dlg h3{margin:0 0 6px;font:700 20px var(--display)}
+.dlg p{margin:0 0 18px;color:var(--muted);font-size:13px}
+.dlg .field{margin-bottom:14px}
+.dlg .field input{width:100%}
+.dlg .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;align-items:center}
+.dlg .acts .st{margin-right:auto;font-size:12.5px;color:var(--muted)}
+
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}header.app{flex-wrap:wrap}.conn{margin-left:0;justify-content:flex-start}}
+@media(max-width:600px){main{padding:18px 16px 50px}header.app{padding:12px 16px}.hero h2{font-size:27px}.conn input,.conn input.url{width:100%}}
 
 /* ======================= LAYOUT DO RELATÓRIO (FOTO ATUAL) ======================= */
 #print-area{display:none}
-body.preview #print-area{display:block;background:#7b8794;padding:20px 0}
+body.preview #print-area{display:block;background:#262626;padding:24px 0}
 body.preview #print-area .pv{margin:0 auto 20px;box-shadow:0 4px 20px rgba(0,0,0,.35)}
 .preview-bar{display:none}
-body.preview .preview-bar{display:flex;position:sticky;top:0;z-index:20;background:var(--navy);padding:10px 20px;gap:10px;align-items:center;color:#fff}
+body.preview .preview-bar{display:flex;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 24px;gap:10px;align-items:center;color:#fff}
+body.preview{background:#262626}
 body.preview .preview-bar #preview-title{font-weight:600}
 body.preview .preview-bar .grow{flex:1}
 .preview-warn{display:none;position:sticky;top:56px;z-index:19;padding:10px 20px;font-size:13px;line-height:1.5}
-.preview-warn.err{display:block;background:#fff4f2;border-bottom:1px solid #f6c8bd;color:#9a3412}
-.preview-warn.info{display:block;background:#fffbea;border-bottom:1px solid #f3e1a0;color:#854d0e}
+.preview-warn.err{display:block;background:#2a1412;border-bottom:1px solid #5c2a24;color:#ffb3aa}
+.preview-warn.info{display:block;background:#221f10;border-bottom:1px solid #4a4318;color:#ffe08a}
+.preview-warn b{color:#fff}
+.print-confirm{display:none;position:sticky;top:57px;z-index:19;padding:12px 24px;background:var(--lime);color:var(--ink);font-weight:600;align-items:center;gap:12px;flex-wrap:wrap}
+.print-confirm.on{display:flex}
+.print-confirm .btn{height:34px;background:var(--ink);color:var(--lime);border-color:var(--ink)}
+.print-confirm .btn.sec{background:transparent;color:var(--ink);border-color:rgba(16,16,16,.35)}
 .preview-warn .btn{height:30px;margin-left:10px}
 body.preview main,body.preview header.app{display:none}
 
@@ -90,7 +181,8 @@ table.res .r{text-align:right}
 @page{size:A4 landscape;margin:0}
 @media print{
  body{background:#fff}
- header.app,main,.preview-bar,.preview-warn{display:none!important}
+ header.app,main,.preview-bar,.preview-warn,.print-confirm,dialog{display:none!important}
+ body.preview{background:#fff}
  #print-area{display:block!important;background:none!important;padding:0!important}
  #print-area .pv{margin:0!important;box-shadow:none!important;page-break-after:always;break-after:page}
  #print-area .pv:last-child{page-break-after:auto;break-after:auto}
@@ -99,66 +191,92 @@ table.res .r{text-align:right}
 </head>
 <body>
 <header class="app">
- <h1>IMPRESSÃO DE PEDIDOS <span>| Grupo 4K</span></h1>
+ <div class="brand"><div class="mark">4K</div><div><h1>Pedidos</h1><small>Impressão de amostras · Grupo 4K</small></div></div>
  <div class="conn">
   <input class="url" id="cfg-url" placeholder="URL do REST do Protheus" title="URL do REST do Protheus">
   <input id="cfg-user" placeholder="Usuário Protheus" autocomplete="username">
   <input id="cfg-pass" type="password" placeholder="Senha" autocomplete="current-password">
+  <button class="icon-btn" id="btn-cfg" type="button" title="Controle de pedidos impressos"><span class="dot" id="cfg-dot"></span><span id="cfg-label">Impressos: este computador</span></button>
  </div>
 </header>
 
 <div class="preview-bar">
  <span id="preview-title">Visualização</span><span class="grow"></span>
- <button class="btn" id="btn-print-now">🖨 Imprimir</button>
+ <button class="btn" id="btn-print-now">Imprimir</button>
  <button class="btn sec" id="btn-close-preview">Voltar à lista</button>
 </div>
 
 <main>
+ <div class="hero">
+  <div><h2>Pedidos de <em>amostra</em></h2><p>Busque, confira o que já foi impresso e mande para a impressora no layout do Foto Atual.</p></div>
+  <div class="quick">
+   <label class="field"><span>Pedido avulso</span><input id="f-pedido" placeholder="ex.: 567858" inputmode="numeric"></label>
+   <button class="btn sec" id="btn-um">Visualizar</button>
+  </div>
+ </div>
+
  <section class="card">
   <div class="filters">
-   <label>Situação
-    <select id="f-status">
-     <option value="aberto" selected>Em aberto</option>
-     <option value="liberado">Liberados</option>
-     <option value="faturado">Faturados</option>
-     <option value="todos">Todos</option>
-    </select>
-   </label>
-   <label>Emissão de<input type="date" id="f-de"></label>
-   <label>Emissão até<input type="date" id="f-ate"></label>
-   <label>Tipo (TES)
+   <div class="field"><span>Situação</span>
+    <div class="seg" id="seg-status">
+     <button type="button" data-v="aberto" aria-pressed="true">Em aberto</button>
+     <button type="button" data-v="liberado" aria-pressed="false">Liberados</button>
+     <button type="button" data-v="faturado" aria-pressed="false">Faturados</button>
+     <button type="button" data-v="todos" aria-pressed="false">Todos</button>
+    </div>
+    <select id="f-status" hidden><option value="aberto" selected>Em aberto</option><option value="liberado">Liberados</option><option value="faturado">Faturados</option><option value="todos">Todos</option></select>
+   </div>
+   <label class="field"><span>Emissão de</span><input type="date" id="f-de"></label>
+   <label class="field"><span>Emissão até</span><input type="date" id="f-ate"></label>
+   <label class="field"><span>Tipo (TES)</span>
     <select id="f-tes">
-     <option value="todas" selected>Amostras (811, 816, 817)</option>
+     <option value="todas" selected>Amostras · 811, 816, 817</option>
      <option value="811">811</option><option value="816">816</option><option value="817">817</option>
     </select>
    </label>
    <button class="btn" id="btn-buscar">Buscar pedidos</button>
-   <div class="quick">
-    <label>Imprimir pedido nº<input id="f-pedido" placeholder="ex.: 567858" inputmode="numeric" style="width:130px"></label>
-    <button class="btn sec" id="btn-um">Visualizar</button>
-   </div>
   </div>
  </section>
 
  <div id="msg"></div>
 
+ <div class="stats">
+  <div class="stat"><span>Pedidos</span><strong id="st-total">—</strong></div>
+  <div class="stat hi"><span>A imprimir</span><strong id="st-pend">—</strong></div>
+  <div class="stat"><span>Já impressos</span><strong id="st-imp">—</strong></div>
+  <div class="stat"><span>Com endereço</span><strong id="st-end">—</strong></div>
+ </div>
+
  <section class="card">
   <div class="toolbar">
-   <strong>Pedidos</strong><span class="count" id="count">—</span>
+   <h3>Lista</h3><span class="count" id="count">—</span>
    <div class="right">
-    <button class="btn sec" id="btn-preview" disabled>Visualizar selecionados</button>
-    <button class="btn" id="btn-print" disabled>🖨 Imprimir selecionados</button>
+    <label class="switch"><input type="checkbox" id="f-ocultar"> Ocultar já impressos</label>
+    <button class="btn sec" id="btn-preview" disabled>Visualizar</button>
+    <button class="btn" id="btn-print" disabled>Imprimir selecionados</button>
    </div>
   </div>
   <div class="tablewrap">
    <table class="list" id="tbl">
-    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos"></th><th>Pedido</th><th>Emissão</th><th>Cliente</th><th>Vendedor</th><th>Itens</th><th>Situação</th><th>Endereçar</th><th>Obs. para Separação</th></tr></thead>
-    <tbody><tr><td colspan="9" class="empty">Informe usuário e senha e clique em "Buscar pedidos".</td></tr></tbody>
+    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos os que ainda não foram impressos"></th><th>Pedido</th><th>Impressão</th><th>Emissão</th><th>Cliente</th><th>Vend.</th><th>Itens</th><th>Situação</th><th>Endereçar</th><th>Obs. para Separação</th></tr></thead>
+    <tbody><tr><td colspan="10" class="empty">Informe usuário e senha do Protheus e clique em "Buscar pedidos".</td></tr></tbody>
    </table>
   </div>
  </section>
 </main>
 
+<dialog id="dlg-cfg">
+ <form class="dlg" method="dialog">
+  <h3>Controle de pedidos impressos</h3>
+  <p>Sem planilha, a marcação de "impresso" fica só neste computador. Com a planilha da equipe, todos os computadores veem os mesmos pedidos impressos. O código da equipe também é usado para considerar as malhas com defeito do NOVA.</p>
+  <label class="field"><span>URL da planilha de impressos (app da Web do Apps Script)</span><input id="cfg-imp-url" placeholder="https://script.google.com/macros/s/.../exec"></label>
+  <label class="field"><span>Código da equipe</span><input id="cfg-chave" type="password" placeholder="o mesmo código usado nas Pastas do NOVA"></label>
+  <div class="acts"><span class="st" id="cfg-st"></span><button class="btn sec" value="cancel">Fechar</button><button class="btn" id="btn-cfg-save" value="default">Salvar e testar</button></div>
+ </form>
+</dialog>
+
+
+<div class="print-confirm" id="print-confirm"></div>
 <div class="preview-warn" id="preview-warn"></div>
 <div id="print-area"></div>
 
@@ -333,6 +451,54 @@ function statusDe(r){
   if(trim(r.c5_liberok)) return ['liberado','Liberado'];
   return ['aberto','Em aberto'];
 }
+/* ============================ pedidos já impressos ============================ */
+// Sem planilha: marca só neste navegador (localStorage). Com planilha (Apps Script) + código da equipe: compartilhado.
+const IMP = {
+  mapa: new Map(),
+  url(){ return trim(store.get('pv-imp-url') || '') },
+  chave(){ return store.get('pv-chave') || '' },
+  compartilhado(){ return !!(this.url() && this.chave()) },
+  lerLocal(){ try{ return JSON.parse(store.get('pv-impressos') || '{}') || {} }catch{ return {} } },
+  gravarLocal(o){
+    const limite = Date.now() - 400 * 864e5; // guarda ~13 meses
+    Object.keys(o).forEach(k => { if(Date.parse(o[k].data) < limite) delete o[k] });
+    store.set('pv-impressos', JSON.stringify(o));
+    this.mapa = new Map(Object.entries(o));
+  },
+  async chamar(body){
+    let r;
+    try{ r = await fetch(this.url(), {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({...body, key:this.chave()}), redirect:'follow', cache:'no-store'}) }
+    catch{ throw Error('não foi possível acessar a planilha de impressos') }
+    let j; try{ j = await r.json() }catch{ throw Error('a planilha de impressos não respondeu corretamente (confira a URL)') }
+    if(!j.ok) throw Error(j.error || 'falha na planilha de impressos');
+    this.mapa = new Map((j.impressos || []).map(x => [chave(x.filial, x.pedido), {usuario:x.usuario, data:x.data}]));
+    return j;
+  },
+  async carregar(){
+    if(this.compartilhado()) await this.chamar({action:'list'});
+    else this.mapa = new Map(Object.entries(this.lerLocal()));
+  },
+  async marcar(peds){
+    const usuario = trim($('cfg-user').value), data = new Date().toISOString();
+    if(this.compartilhado()) return this.chamar({action:'mark', user:usuario, pedidos:peds.map(p => ({filial:trim(p.filial), pedido:trim(p.num)}))});
+    const o = this.lerLocal(); peds.forEach(p => o[chave(p.filial, p.num)] = {usuario, data}); this.gravarLocal(o);
+  },
+  async desmarcar(p){
+    if(this.compartilhado()) return this.chamar({action:'unmark', filial:trim(p.filial), pedido:trim(p.num)});
+    const o = this.lerLocal(); delete o[chave(p.filial, p.num)]; this.gravarLocal(o);
+  },
+  get(p){ return this.mapa.get(chave(p.filial, p.num)) || null }
+};
+function quando(iso){
+  const d = new Date(iso); if(isNaN(d)) return '';
+  return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+}
+function atualizaCfgLabel(){
+  const on = IMP.compartilhado();
+  $('cfg-dot').classList.toggle('on', on);
+  $('cfg-label').textContent = on ? 'Impressos: planilha da equipe' : 'Impressos: este computador';
+}
+
 let pedidos = [];
 async function buscar(){
   const btn = $('btn-buscar'); btn.disabled = true; msg('Consultando o Protheus…');
@@ -359,31 +525,56 @@ async function buscar(){
       map.set(k, o);
     });
     pedidos = [...map.values()].sort((a,b) => String(b.emissao).localeCompare(String(a.emissao)) || String(b.num).localeCompare(String(a.num)));
-    renderLista();
+    try{ await IMP.carregar() }catch(e){ avisos.add('Impressos: ' + e.message) }
+    marcados.clear(); renderLista();
+    if(avisos.size){ msg([...avisos].join(' • '), 'err'); avisos.clear(); btn.disabled = false; return }
     if(!pedidos.length) console.log('Consulta sem resultado. WHERE enviado:', w);
     msg(pedidos.length ? '' : `Nenhum pedido encontrado para os filtros selecionados (consulta em ${baseUrl()}).`, 'info');
   }catch(e){ msg(e.message, 'err'); console.error(e) }
   finally{ btn.disabled = false }
 }
+const marcados = new Set();
+const visiveis = () => pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)));
 function renderLista(){
   const tb = $('tbl').querySelector('tbody');
-  $('count').textContent = `${pedidos.length} pedido(s) • ${pedidos.reduce((s,p)=>s+p.itens,0)} item(ns)`;
-  if(!pedidos.length){ tb.innerHTML = '<tr><td colspan="9" class="empty">Nenhum pedido.</td></tr>'; atualizaBotoes(); return }
-  tb.innerHTML = pedidos.map((p,i) => `<tr>
-    <td><input type="checkbox" class="chk" data-i="${i}"></td>
+  const imp = pedidos.filter(p => IMP.get(p)).length;
+  $('st-total').textContent = pedidos.length;
+  $('st-pend').textContent = pedidos.length - imp;
+  $('st-imp').textContent = imp;
+  $('st-end').textContent = pedidos.filter(p => p.enderecar.size).length;
+  const vis = visiveis();
+  $('count').textContent = `${vis.length} de ${pedidos.length} pedido(s) · ${vis.reduce((s, {p}) => s + p.itens, 0)} item(ns)`;
+  if(!vis.length){
+    tb.innerHTML = `<tr><td colspan="10" class="empty">${pedidos.length ? 'Todos os pedidos desta busca já foram impressos.' : 'Nenhum pedido.'}</td></tr>`;
+    atualizaBotoes(); return;
+  }
+  tb.innerHTML = vis.map(({p, i}) => {
+    const k = chave(p.filial, p.num), im = IMP.get(p);
+    return `<tr class="${im ? 'impresso' : ''}${marcados.has(k) ? ' sel' : ''}">
+    <td><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
     <td><button class="link" data-ver="${i}">${esc(p.num)}</button></td>
+    <td class="imp">${im ? `<span class="badge b-imp">✓ Impresso</span><small>${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}<button class="undo" data-undo="${i}" title="Tirar a marcação de impresso">desfazer</button></small>`
+      : '<span class="badge b-novo">não impresso</span>'}</td>
     <td>${esc(dLonga(p.emissao))}</td>
     <td>${esc(p.cliente)}-${esc(p.loja || '')}</td>
     <td>${esc(p.vend)}</td>
     <td class="num">${p.itens}</td>
     <td><span class="badge b-${p.status[0]}">${p.status[1]}</span></td>
-    <td>${[...p.enderecar].map(m => `<span class="badge b-end">📍 ${esc(m)}</span>`).join(' ')}</td>
-    <td class="obs">${esc(p.obs)}</td></tr>`).join('');
-  $('chk-all').checked = false; atualizaBotoes();
+    <td>${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join(' ')}</td>
+    <td class="obs">${esc(p.obs)}</td></tr>`;
+  }).join('');
+  const livres = vis.filter(({p}) => !IMP.get(p));
+  $('chk-all').checked = livres.length > 0 && livres.every(({p}) => marcados.has(chave(p.filial, p.num)));
+  atualizaBotoes();
 }
-const selecionados = () => [...document.querySelectorAll('.chk:checked')].map(c => pedidos[+c.dataset.i]);
-function atualizaBotoes(){ const n = selecionados().length; $('btn-preview').disabled = $('btn-print').disabled = !n;
-  $('btn-print').textContent = n ? `🖨 Imprimir selecionados (${n})` : '🖨 Imprimir selecionados' }
+const selecionados = () => visiveis().map(({p}) => p).filter(p => marcados.has(chave(p.filial, p.num)));
+function atualizaBotoes(){
+  const sel = selecionados(), n = sel.length, ja = sel.filter(p => IMP.get(p)).length;
+  $('btn-preview').disabled = $('btn-print').disabled = !n;
+  $('btn-print').textContent = n ? `Imprimir selecionados (${n})` : 'Imprimir selecionados';
+  $('btn-print').title = ja ? `${ja} já impresso(s) antes` : '';
+}
+
 
 /* ======================== montagem do relatório ======================== */
 const cache = {sa3:new Map(), se4:new Map(), sbm:new Map(), sb1:new Map(), sa1:new Map(), ctt:new Map()};
@@ -564,10 +755,11 @@ function motivoEndereco(tpAmostra, obsTexto){
 let defeitosP = null;
 function carregarDefeitos(){
   const D = CONFIG.enderecamento.defeitos;
-  if(!D.url || !D.chave) return Promise.resolve(new Map());
+  const chaveEq = D.chave || IMP.chave();
+  if(!D.url || !chaveEq) return Promise.resolve(new Map());
   if(!defeitosP) defeitosP = (async () => {
     try{
-      const r = await fetch(D.url, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'listDefects', key:D.chave}), redirect:'follow', cache:'no-store'});
+      const r = await fetch(D.url, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'listDefects', key:chaveEq}), redirect:'follow', cache:'no-store'});
       const j = await r.json();
       if(!j.ok) throw Error(j.error || 'falha');
       return new Map((j.defects || []).map(d => [trim(d.produto).toUpperCase() + '|' + trim(d.op), d]));
@@ -642,14 +834,30 @@ async function pool(list, n, fn){
 let ultimo = {lista:[], paginas:new Map(), falhas:[]};
 function mostrarAvisoPreview(){
   const w = $('preview-warn'), f = ultimo.falhas, av = [...avisos];
-  if(f.length){
-    w.className = 'preview-warn err';
-    w.innerHTML = `<b>Atenção: ${f.length} pedido(s) NÃO foram carregados e não estão nesta impressão:</b> `
-      + f.map(x => `${esc(x.p.num)} (${esc(x.erro)})`).join(' · ')
-      + ` <button class="btn" id="btn-retry">Tentar de novo</button>`;
-    $('btn-retry').onclick = () => gerar(f.map(x => x.p), false, true);
-  }else if(av.length){ w.className = 'preview-warn info'; w.textContent = av.join(' • ') }
-  else{ w.className = 'preview-warn'; w.textContent = '' }
+  const ja = ultimo.lista.filter(p => ultimo.paginas.has(chave(p.filial, p.num)) && IMP.get(p));
+  const partes = [];
+  if(f.length) partes.push(`<b>Atenção: ${f.length} pedido(s) NÃO foram carregados e não estão nesta impressão:</b> `
+    + f.map(x => `${esc(x.p.num)} (${esc(x.erro)})`).join(' · ') + ` <button class="btn" id="btn-retry">Tentar de novo</button>`);
+  if(ja.length) partes.push(`<b>${ja.length} pedido(s) desta visualização já foram impressos antes:</b> `
+    + ja.map(p => { const im = IMP.get(p); return `${esc(p.num)} (${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''})` }).join(' · '));
+  if(av.length) partes.push(esc(av.join(' • ')));
+  w.className = 'preview-warn' + (f.length ? ' err' : partes.length ? ' info' : '');
+  w.innerHTML = partes.join('<br>');
+  if(f.length) $('btn-retry').onclick = () => gerar(f.map(x => x.p), false, true);
+}
+function perguntarSeImprimiu(){
+  const lista = ultimo.lista.filter(p => ultimo.paginas.has(chave(p.filial, p.num)));
+  const box = $('print-confirm');
+  if(!document.body.classList.contains('preview') || !lista.length) return;
+  box.innerHTML = `<span>Os ${lista.length} pedido(s) desta visualização saíram na impressora?</span>
+    <button class="btn" id="pc-sim">Sim, marcar como impressos</button><button class="btn sec" id="pc-nao">Não</button>`;
+  box.classList.add('on');
+  $('pc-nao').onclick = () => box.classList.remove('on');
+  $('pc-sim').onclick = async () => {
+    $('pc-sim').disabled = true; $('pc-sim').textContent = 'Marcando…';
+    try{ await IMP.marcar(lista); lista.forEach(p => marcados.delete(chave(p.filial, p.num))); box.innerHTML = `<span>✓ ${lista.length} pedido(s) marcados como impressos.</span>`; renderLista(); mostrarAvisoPreview(); setTimeout(() => box.classList.remove('on'), 3500) }
+    catch(e){ box.innerHTML = `<span>Não foi possível marcar: ${esc(e.message)}</span> <button class="btn" id="pc-sim2">Tentar de novo</button>`; $('pc-sim2').onclick = perguntarSeImprimiu }
+  };
 }
 async function gerar(lista, imprimir, reprocessar = false){
   if(!lista.length) return;
@@ -674,7 +882,9 @@ async function gerar(lista, imprimir, reprocessar = false){
     document.body.classList.add('preview'); window.scrollTo(0, 0);
     mostrarAvisoPreview(); msg('');
     // Só imprime sozinho se TODOS os pedidos carregaram; se faltar algum, o aviso fica na tela
-    if(imprimir && !ultimo.falhas.length) setTimeout(() => window.print(), 300);
+    // Só imprime sozinho se todos carregaram e nenhum já tinha sido impresso; senão o aviso fica na tela
+    const jaImp = ultimo.lista.some(p => ultimo.paginas.has(chave(p.filial, p.num)) && IMP.get(p));
+    if(imprimir && !ultimo.falhas.length && !jaImp) setTimeout(() => window.print(), 300);
   }catch(e){
     if(document.body.classList.contains('preview')){ const w = $('preview-warn'); w.className = 'preview-warn err'; w.textContent = e.message }
     else msg(e.message, 'err');
@@ -703,10 +913,42 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
   $('btn-print-now').onclick = () => window.print();
-  $('btn-close-preview').onclick = () => { document.body.classList.remove('preview'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn' };
-  $('chk-all').onchange = e => { document.querySelectorAll('.chk').forEach(c => c.checked = e.target.checked); atualizaBotoes() };
-  $('tbl').addEventListener('change', e => { if(e.target.classList.contains('chk')) atualizaBotoes() });
-  $('tbl').addEventListener('click', e => { const b = e.target.closest('[data-ver]'); if(b) gerar([pedidos[+b.dataset.ver]], false) });
+  $('btn-close-preview').onclick = () => { document.body.classList.remove('preview'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn'; $('print-confirm').classList.remove('on') };
+  window.addEventListener('afterprint', () => setTimeout(perguntarSeImprimiu, 200));
+  $('chk-all').onchange = e => {
+    visiveis().forEach(({p}) => { const k = chave(p.filial, p.num); if(e.target.checked && !IMP.get(p)) marcados.add(k); else if(!e.target.checked) marcados.delete(k) });
+    renderLista();
+  };
+  $('f-ocultar').checked = store.get('pv-ocultar') === '1';
+  $('f-ocultar').onchange = e => { store.set('pv-ocultar', e.target.checked ? '1' : '0'); renderLista() };
+  $('seg-status').addEventListener('click', e => {
+    const b = e.target.closest('button[data-v]'); if(!b) return;
+    $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $('f-status').value = b.dataset.v;
+  });
+  // configurações do controle de impressos
+  atualizaCfgLabel();
+  $('btn-cfg').onclick = () => { $('cfg-imp-url').value = IMP.url(); $('cfg-chave').value = IMP.chave(); $('cfg-st').textContent = ''; $('dlg-cfg').showModal() };
+  $('btn-cfg-save').onclick = async e => {
+    e.preventDefault();
+    store.set('pv-imp-url', trim($('cfg-imp-url').value)); store.set('pv-chave', trim($('cfg-chave').value));
+    atualizaCfgLabel();
+    if(!IMP.compartilhado()){ $('cfg-st').textContent = 'Salvo. Marcação só neste computador.'; await IMP.carregar(); renderLista(); return }
+    $('cfg-st').textContent = 'Testando…';
+    try{ await IMP.carregar(); $('cfg-st').textContent = `✓ Conectado: ${IMP.mapa.size} pedido(s) impresso(s) na planilha.`; renderLista() }
+    catch(err){ $('cfg-st').textContent = '✕ ' + err.message }
+  };
+  $('tbl').addEventListener('change', e => {
+    if(!e.target.classList.contains('chk')) return;
+    const p = pedidos[+e.target.dataset.i], k = chave(p.filial, p.num);
+    if(e.target.checked) marcados.add(k); else marcados.delete(k);
+    e.target.closest('tr').classList.toggle('sel', e.target.checked); atualizaBotoes();
+  });
+  $('tbl').addEventListener('click', async e => {
+    const b = e.target.closest('[data-ver]'); if(b) return gerar([pedidos[+b.dataset.ver]], false);
+    const u = e.target.closest('[data-undo]');
+    if(u){ u.disabled = true; try{ await IMP.desmarcar(pedidos[+u.dataset.undo]); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } }
+  });
   document.querySelectorAll('.conn input').forEach(i => i.addEventListener('keydown', e => { if(e.key === 'Enter') buscar() }));
 })();
 </script>
