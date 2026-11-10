@@ -10,6 +10,14 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
 4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**.
 
+## Aplicativo no celular
+O site funciona como aplicativo (lista em cartões e botões de imprimir fixos embaixo):
+- **Android (Chrome):** abra o link e toque em **⤓** no topo (ou no menu ⋮ → **Instalar app**).
+- **iPhone (Safari):** toque em **Compartilhar** → **Adicionar à Tela de Início**.
+- **Computador (Chrome/Edge):** botão **Instalar app** no topo ou o ícone de instalar na barra de endereço.
+
+O ícone instalado é o logo do Pedidos 4K. O app sempre busca a versão mais nova do site quando há internet.
+
 ## Painel
 - **Letreiro (AO VIVO):** faixa abaixo do topo que alterna entre: pedidos em aberto, liberados e faturados; amostras solicitadas mês a mês (com ▲▼ em relação ao mês anterior; o mês atual é comparado com o mesmo período do mês passado); destaques (pedidos e amostras de hoje, média por dia útil, tipo mais pedido, melhor mês, clientes atendidos, quem mais pediu) e amostras em aberto por tipo. Passe o mouse para pausar. Atualiza a cada 10 minutos.
 - **Amostras em aberto por tipo:** cartão com barra por Tp.Amostra; clique (ou no **?**) para ver a tabela com pedidos e quantidade por tipo.
@@ -22,13 +30,11 @@ Depois de imprimir, o site pergunta **"Os pedidos saíram na impressora?"**. Ao 
 - se alguém abrir um pedido já impresso, aparece um aviso antes de imprimir de novo (e o site não imprime sozinho);
 - **desfazer** na linha tira a marcação.
 
-Sem configurar nada, a marcação fica **só no computador** em que foi feita. Para **todos os computadores verem os mesmos impressos**, crie a planilha da equipe uma vez:
-1. Crie uma Planilha Google e abra **Extensões → Apps Script**.
-2. Cole todo o arquivo [`planilha-impressos/Code.gs`](planilha-impressos/Code.gs) e troque `TROQUE-ESTA-CHAVE` pelo código da equipe (pode ser o mesmo das Pastas do NOVA).
-3. **Implantar → Nova implantação → App da Web** (Executar como: Eu · Quem pode acessar: Qualquer pessoa) e copie o URL.
-4. No site, clique em **Impressos** (topo, à direita), cole o URL e o código da equipe e clique em **Salvar e testar**. Repita esse passo em cada computador.
+A planilha da equipe já está configurada no site. Para **todos os computadores e celulares verem os mesmos impressos**, cada pessoa clica em **Impressos** (topo, à direita), digita o **código do grupo** e clica em **Salvar e testar**. Sem o código, a marcação fica só no aparelho em que foi feita.
 
-O código da equipe fica salvo só no navegador de cada computador e também é usado para considerar as **malhas com defeito** do NOVA na escolha dos endereços.
+(Para criar uma planilha nova do zero, use o arquivo [`planilha-impressos/Code.gs`](planilha-impressos/Code.gs) e troque o endereço em `planilhaImpressos` no `index.html`.)
+
+O código do grupo fica salvo só no navegador de cada computador e também é usado para considerar as **malhas com defeito** do NOVA na escolha dos endereços.
 
 ## Endereços dos rolos
 Nos itens de **Pilotagem** e de **Bandeira** cuja observação diz para não alterar a cor, o relatório traz a coluna **Endereços** com até 3 endereços, no formato `08192 - 01201 - 09103`, com as mesmas regras do NOVA (Consulta de Estoque):

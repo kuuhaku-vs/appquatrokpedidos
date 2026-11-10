@@ -38,13 +38,14 @@ http.createServer((req, res) => {
     req.pipe(proxy);
     return;
   }
-  if (req.url === '/' || req.url.startsWith('/index') || req.url.startsWith('/impressao_pedidos.html')) {
-    fs.readFile(HTML, (err, data) => {
-      if (err) { res.writeHead(500); return res.end('index.html nao encontrado na pasta do servidor.'); }
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-      res.end(data);
-    });
-    return;
+  // arquivos do app: página, ícones, manifesto e service worker
+  const TIPOS = { '.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.png':'image/png', '.webmanifest':'application/manifest+json', '.json':'application/json' };
+  let rel = decodeURIComponent(req.url.split('?')[0]);
+  if (rel === '/' || rel === '/impressao_pedidos.html') rel = '/index.html';
+  const arq = path.join(__dirname, path.normalize(rel).replace(/^([/\\])+/, ''));
+  if (arq.startsWith(__dirname) && TIPOS[path.extname(arq)] && fs.existsSync(arq) && fs.statSync(arq).isFile()) {
+    res.writeHead(200, { 'Content-Type': TIPOS[path.extname(arq)], 'Cache-Control': 'no-store' });
+    return fs.createReadStream(arq).pipe(res);
   }
   res.writeHead(404); res.end();
 }).listen(PORT, () => {

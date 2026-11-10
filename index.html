@@ -2,8 +2,14 @@
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Impressão de Pedidos | Grupo 4K</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pedidos 4K | Impressão de amostras</title>
+<meta name="theme-color" content="#101010">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Pedidos 4K">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=DotGothic16&display=swap" rel="stylesheet">
 <style>
@@ -215,13 +221,13 @@ body.logado .app-shell{animation:app-in .6s cubic-bezier(.2,.8,.2,1)}
 .user-chip{display:inline-flex;align-items:center;gap:9px;height:36px;padding:0 14px 0 5px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);font-size:13px;font-weight:600}
 .user-chip i{width:26px;height:26px;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font:700 12px var(--display);font-style:normal;text-transform:uppercase}
 @media(max-width:520px){.lg-card{padding:44px 24px 28px}.lg-content h1{font-size:28px}.lg-wrap{--c1:52px;--c2:40px;--tab:36px}}
-@media(prefers-reduced-motion:reduce){.lg-bg svg,.lg-wrap{animation:none}}
+@media(prefers-reduced-motion:reduce){.lg-bg svg{animation:none}}
 
 body:not(.logado) .app-shell{visibility:hidden}
 
 /* ======================= LETREIRO DIGITAL ======================= */
-.ticker{position:sticky;top:63px;z-index:14;display:flex;align-items:stretch;height:46px;background:#070707;border-bottom:1px solid var(--line);overflow:hidden}
-.tk-tag{flex:none;display:flex;align-items:center;gap:9px;padding:0 18px 0 28px;background:#070707;position:relative;z-index:2;font:700 11px var(--font);letter-spacing:1.6px;color:var(--lime)}
+.ticker{position:sticky;top:63px;z-index:14;display:flex;align-items:stretch;height:34px;background:#070707;border-bottom:1px solid var(--line);overflow:hidden}
+.tk-tag{flex:none;display:flex;align-items:center;gap:8px;padding:0 16px 0 28px;background:#070707;position:relative;z-index:2;font:700 10px var(--font);letter-spacing:1.6px;color:var(--lime)}
 .tk-tag::after{content:"";position:absolute;right:-28px;top:0;bottom:0;width:28px;background:linear-gradient(90deg,#070707,rgba(7,7,7,0))}
 .tk-tag i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:tk-blink 1.4s steps(2,start) infinite}
 @keyframes tk-blink{to{visibility:hidden}}
@@ -231,18 +237,17 @@ body:not(.logado) .app-shell{visibility:hidden}
  background:radial-gradient(circle,rgba(0,0,0,0) 0 55%,rgba(7,7,7,.55) 56%) 0 0/3px 3px}
 .tk-view::after{content:"";position:absolute;right:0;top:0;bottom:0;width:60px;z-index:2;background:linear-gradient(270deg,#070707,rgba(7,7,7,0))}
 .tk-track{display:inline-block;white-space:nowrap;padding-left:100%;will-change:transform;
- font:400 21px/1 'DotGothic16',var(--font);letter-spacing:1.5px;color:var(--lime);text-shadow:0 0 6px rgba(203,255,0,.75),0 0 18px rgba(203,255,0,.35);text-transform:uppercase}
+ font:400 16px/1 'DotGothic16',var(--font);letter-spacing:1.3px;color:var(--lime);text-shadow:0 0 6px rgba(203,255,0,.75),0 0 18px rgba(203,255,0,.35);text-transform:uppercase}
 .tk-track .w{color:#fff;text-shadow:0 0 6px rgba(255,255,255,.6),0 0 16px rgba(255,255,255,.25)}
-.tk-track .d{color:#5e5e5e;text-shadow:none;margin:0 22px}
+.tk-track .d{color:#5e5e5e;text-shadow:none;margin:0 18px}
 .tk-track .up{color:var(--lime)}.tk-track .dn{color:#ff8f82;text-shadow:0 0 6px rgba(255,143,130,.6)}
-.tk-track .sec{display:inline-block;vertical-align:2px;color:#101010;background:var(--lime);text-shadow:none;padding:4px 9px 3px;border-radius:3px;margin-right:18px;font-size:16px}
+.tk-track .sec{display:inline-block;vertical-align:2px;color:#101010;background:var(--lime);text-shadow:none;padding:3px 7px 2px;border-radius:3px;margin-right:16px;font-size:12px;vertical-align:1px}
 .ticker:hover .tk-track{animation-play-state:paused!important}
 @keyframes tk-scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-@media(max-width:600px){.ticker{top:auto;position:relative}.tk-tag{padding:0 12px 0 16px}.tk-tag b{display:none}.tk-track{font-size:18px}}
-@media(prefers-reduced-motion:reduce){.tk-track{animation-duration:0s!important;padding-left:16px}}
+@media(max-width:600px){.ticker{top:auto;position:relative;height:30px}.tk-tag{padding:0 10px 0 14px}.tk-tag b{display:none}.tk-track{font-size:14px}}
 
 /* ======================= TIPOS DE AMOSTRA EM ABERTO ======================= */
-.stats{grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.35fr)}
+.stats{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.6fr)}
 .stat.tipos{position:relative;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .15s}
 .stat.tipos:hover{border-color:var(--lime)}
 .stat.tipos .q{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:700 12px var(--display);color:var(--muted)}
@@ -279,6 +284,91 @@ body:not(.logado) .app-shell{visibility:hidden}
  -webkit-mask:linear-gradient(135deg,transparent 0 calc(var(--c1)*.7071),#000 0),linear-gradient(315deg,transparent 0 calc(var(--c2)*.7071),#000 0);-webkit-mask-composite:source-in;
  mask:linear-gradient(135deg,transparent 0 calc(var(--c1)*.7071),#000 0),linear-gradient(315deg,transparent 0 calc(var(--c2)*.7071),#000 0);mask-composite:intersect}
 .lg-wrap.mexendo .lg-glare{opacity:1}
+
+/* ======================= LOGO + CELULAR (app) ======================= */
+.mark-img{width:40px;height:40px;border-radius:10px;display:block;flex:none;filter:drop-shadow(0 3px 10px rgba(203,255,0,.18))}
+.only-mobile{display:none}
+#btn-instalar{display:none}
+#btn-instalar.on{display:inline-flex;border-color:rgba(203,255,0,.5);color:var(--lime)}
+.ios-tip{display:none;margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);font-size:12.5px;color:var(--muted)}
+.ios-tip.on{display:block}
+
+@media(max-width:700px){
+ html{-webkit-tap-highlight-color:transparent}
+ header.app{padding:10px 14px;gap:10px;flex-wrap:nowrap;padding-top:max(10px,env(safe-area-inset-top))}
+ .brand small{display:none}
+ .brand h1{font-size:17px}
+ .mark-img{width:34px;height:34px}
+ .conn{flex-wrap:nowrap;gap:6px;margin-left:auto}
+ #cfg-label,#user-name{display:none}
+ #btn-instalar.on{font-size:0;gap:0}
+ #btn-instalar.on::before{content:"⤓";font-size:16px}
+ .user-chip{padding:0 4px}
+ .icon-btn{padding:0 10px;height:34px;min-width:34px}
+ .ticker{position:relative;top:auto}
+ main{padding:16px 14px calc(96px + env(safe-area-inset-bottom))}
+ .hero{margin-bottom:14px;gap:14px}
+ .hero h2{font-size:26px}
+ .hero p{display:none}
+ .hero > div:first-child{width:100%}
+ .quick{width:100%}
+ .quick .field{flex:1}
+ .quick input{width:100%}
+ .card{padding:14px;border-radius:14px}
+ .filters{gap:12px}
+ .filters > .field:first-child{width:100%}
+ .seg{width:100%;justify-content:space-between}
+ .seg button{flex:1;padding:0 8px}
+ .filters > label.field{flex:1 1 calc(50% - 6px);min-width:0}
+ .field input,.field select{min-width:0;width:100%}
+ #btn-buscar{width:100%}
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}
+ .stat{padding:12px 12px}
+ .stat span{font-size:9.5px;letter-spacing:.5px}
+ .stat strong{font-size:24px}
+ .stat.tipos{grid-column:1/-1}
+ .toolbar{gap:8px;margin-bottom:10px}
+ .toolbar .right{margin-left:0;width:100%;justify-content:space-between}
+ /* barra de ações fixa embaixo, como em app */
+ .toolbar .right .btn{position:fixed;z-index:30;bottom:calc(14px + env(safe-area-inset-bottom));height:50px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.55)}
+ #btn-preview{left:14px;width:calc(38% - 18px);background:var(--panel)}
+ #btn-print{right:14px;width:calc(62% - 14px)}
+ body:not(.logado) .toolbar .right .btn,body.preview .toolbar .right .btn{display:none}
+ /* lista vira cartões */
+ .tablewrap{border:0;max-height:none;overflow:visible}
+ table.list,table.list tbody{display:block}
+ table.list thead{display:none}
+ table.list tr{display:grid;grid-template-columns:30px 1fr auto;grid-template-areas:"chk num sit" "chk meta meta" "chk imp imp" "chk obs obs" "chk end end";gap:4px 8px;
+  padding:13px 12px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2)}
+ table.list tr.sel{border-color:rgba(203,255,0,.55)}
+ table.list td{padding:0;border:0!important;white-space:normal;background:none!important}
+ table.list td.empty{grid-column:1/-1}
+ table.list .c-chk{grid-area:chk;align-self:start;padding-top:2px}
+ table.list .c-num{grid-area:num;font-size:16px}
+ table.list .c-sit{grid-area:sit;justify-self:end}
+ table.list .c-imp{grid-area:imp}
+ table.list .c-imp small{display:inline;margin-left:6px}
+ table.list .c-em,table.list .c-cli,table.list .c-vend,table.list .c-itens{display:none}
+ table.list .c-meta{grid-area:meta;display:block!important;color:var(--muted);font-size:12.5px}
+ table.list td.obs{grid-area:obs;min-width:0;font-size:12.5px}
+ table.list .c-end{grid-area:end}
+ table.list .c-end:empty{display:none}
+ table.list tr.impresso td:not(.imp){opacity:.5}
+ table.list input[type=checkbox]{width:22px;height:22px;border-radius:7px}
+ .switch{margin-right:0}
+ .tp-pop{left:14px!important;right:14px;width:auto!important}
+ dialog{width:calc(100vw - 24px)}
+}
+table.list .c-meta{display:none}
+@media screen and (max-width:700px){
+ body.preview .preview-bar{padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));flex-wrap:wrap}
+ body.preview .preview-bar #preview-title{width:100%;font-size:13px}
+ body.preview .preview-bar .grow{display:none}
+ body.preview .preview-bar .btn{flex:1}
+ body.preview #print-area{padding:12px 0;overflow-x:hidden}
+ body.preview #print-area .pv{zoom:.335;margin-bottom:10px}
+ .preview-warn,.print-confirm{top:auto;position:relative;padding:10px 12px}
+}
 
 /* ======================= LAYOUT DO RELATÓRIO (FOTO ATUAL) ======================= */
 #print-area{display:none}
@@ -400,9 +490,10 @@ table.res .r{text-align:right}
 
 <div class="app-shell">
 <header class="app">
- <div class="brand"><div class="mark">4K</div><div><h1>Pedidos</h1><small>Impressão de amostras · Grupo 4K</small></div></div>
+ <div class="brand"><img class="mark-img" src="icons/logo-96.png" alt="Pedidos 4K"><div><h1>Pedidos</h1><small>Impressão de amostras · Grupo 4K</small></div></div>
  <div class="conn">
-  <button class="icon-btn" id="btn-cfg" type="button" title="Controle de pedidos impressos"><span class="dot" id="cfg-dot"></span><span id="cfg-label">Impressos: este computador</span></button>
+  <button class="icon-btn" id="btn-instalar" type="button" title="Instalar como aplicativo">⤓ Instalar app</button>
+  <button class="icon-btn" id="btn-cfg" type="button" title="Controle de pedidos impressos"><span class="dot" id="cfg-dot"></span><span id="cfg-label">Impressos: só este aparelho</span></button>
   <span class="user-chip" title="Usuário conectado"><i id="user-ini">?</i><span id="user-name"></span></span>
   <button class="icon-btn" id="btn-sair" type="button" title="Sair e esquecer este computador">Sair</button>
  </div>
@@ -450,7 +541,6 @@ table.res .r{text-align:right}
   <div class="stat"><span>Pedidos</span><strong id="st-total">—</strong></div>
   <div class="stat hi"><span>A imprimir</span><strong id="st-pend">—</strong></div>
   <div class="stat"><span>Já impressos</span><strong id="st-imp">—</strong></div>
-  <div class="stat"><span>Com endereço</span><strong id="st-end">—</strong></div>
   <button class="stat tipos" id="st-tipos" type="button" title="Ver tabela de amostras em aberto por tipo">
    <span>Amostras em aberto por tipo</span><strong id="tp-total">—</strong>
    <div class="tp-bar" id="tp-bar"></div><div class="tp-leg" id="tp-leg"></div><i class="q" style="font-style:normal">?</i>
@@ -484,9 +574,9 @@ table.res .r{text-align:right}
 <dialog id="dlg-cfg">
  <form class="dlg" method="dialog">
   <h3>Controle de pedidos impressos</h3>
-  <p>Sem planilha, a marcação de "impresso" fica só neste computador. Com a planilha da equipe, todos os computadores veem os mesmos pedidos impressos. O código da equipe também é usado para considerar as malhas com defeito do NOVA.</p>
-  <label class="field"><span>URL da planilha de impressos (app da Web do Apps Script)</span><input id="cfg-imp-url" placeholder="https://script.google.com/macros/s/.../exec"></label>
-  <label class="field"><span>Código da equipe</span><input id="cfg-chave" type="password" placeholder="o mesmo código usado nas Pastas do NOVA"></label>
+  <p>Digite o código do grupo para que todos os computadores e celulares vejam os mesmos pedidos impressos. Sem o código, a marcação fica só neste aparelho. O código também é usado para considerar as malhas com defeito do NOVA.</p>
+  <div class="ios-tip" id="ios-tip">No iPhone: toque em <b>Compartilhar</b> e depois em <b>Adicionar à Tela de Início</b> para instalar o app.</div>
+  <label class="field"><span>Código do grupo</span><input id="cfg-chave" type="password" placeholder="o mesmo código usado nas Pastas do NOVA"></label>
   <div class="acts"><span class="st" id="cfg-st"></span><button class="btn sec" value="cancel">Fechar</button><button class="btn" id="btn-cfg-save" value="default">Salvar e testar</button></div>
  </form>
 </dialog>
@@ -509,6 +599,7 @@ table.res .r{text-align:right}
    ===================================================================== */
 const CONFIG = {
   protheus: 'https://protheus.quatroktextil.com.br:6632/rest05', // REST do Protheus (não aparece na tela)
+  planilhaImpressos: 'https://script.google.com/macros/s/AKfycbzLUliELKaFmwmdMAcvwYE8SsashWDl88L5R-4C8ugXsDYjDHb3u3mfoKoVrWBqKiUs/exec',
   filial: '14',
   tesAmostras: ['811','816','817','827'],
   campos: {
@@ -677,7 +768,7 @@ function statusDe(r){
 // Sem planilha: marca só neste navegador (localStorage). Com planilha (Apps Script) + código da equipe: compartilhado.
 const IMP = {
   mapa: new Map(),
-  url(){ return trim(store.get('pv-imp-url') || '') },
+  url(){ return CONFIG.planilhaImpressos },
   chave(){ return store.get('pv-chave') || '' },
   compartilhado(){ return !!(this.url() && this.chave()) },
   lerLocal(){ try{ return JSON.parse(store.get('pv-impressos') || '{}') || {} }catch{ return {} } },
@@ -718,7 +809,7 @@ function quando(iso){
 function atualizaCfgLabel(){
   const on = IMP.compartilhado();
   $('cfg-dot').classList.toggle('on', on);
-  $('cfg-label').textContent = on ? 'Impressos: planilha da equipe' : 'Impressos: este computador';
+  $('cfg-label').textContent = on ? 'Impressos: grupo conectado' : 'Impressos: só este aparelho';
 }
 
 /* ============================ login / sessão ============================ */
@@ -956,7 +1047,8 @@ async function atualizarPainel(forcar = false){
 function iniciarInclinacao(){
   const w = $('lg-wrap'), lg = $('login');
   w.addEventListener('animationend', e => { if(e.animationName === 'lg-in') w.classList.add('pronto') });
-  if(matchMedia('(hover:none), (prefers-reduced-motion:reduce)').matches) return;
+  setTimeout(() => w.classList.add('pronto'), 900); // libera a inclinação mesmo se a animação de entrada não rodar
+  if(matchMedia('(pointer:coarse)').matches && !matchMedia('(pointer:fine)').matches) return; // celular/tablet: fica parado
   lg.addEventListener('mousemove', e => {
     if(w.classList.contains('busy')) return;
     const r = w.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
@@ -1010,7 +1102,6 @@ function renderLista(){
   $('st-total').textContent = pedidos.length;
   $('st-pend').textContent = pedidos.length - imp;
   $('st-imp').textContent = imp;
-  $('st-end').textContent = pedidos.filter(p => p.enderecar.size).length;
   const vis = visiveis();
   $('count').textContent = `${vis.length} de ${pedidos.length} pedido(s) · ${vis.reduce((s, {p}) => s + p.itens, 0)} item(ns)`;
   if(!vis.length){
@@ -1020,16 +1111,17 @@ function renderLista(){
   tb.innerHTML = vis.map(({p, i}) => {
     const k = chave(p.filial, p.num), im = IMP.get(p);
     return `<tr class="${im ? 'impresso' : ''}${marcados.has(k) ? ' sel' : ''}">
-    <td><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
-    <td><button class="link" data-ver="${i}">${esc(p.num)}</button></td>
-    <td class="imp">${im ? `<span class="badge b-imp">✓ Impresso</span><small>${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}<button class="undo" data-undo="${i}" title="Tirar a marcação de impresso">desfazer</button></small>`
+    <td class="c-chk"><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
+    <td class="c-num"><button class="link" data-ver="${i}">${esc(p.num)}</button></td>
+    <td class="c-meta">${esc(dLonga(p.emissao))} · cliente ${esc(p.cliente)} · vend. ${esc(p.vend)} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
+    <td class="imp c-imp">${im ? `<span class="badge b-imp">✓ Impresso</span><small>${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}<button class="undo" data-undo="${i}" title="Tirar a marcação de impresso">desfazer</button></small>`
       : '<span class="badge b-novo">não impresso</span>'}</td>
-    <td>${esc(dLonga(p.emissao))}</td>
-    <td>${esc(p.cliente)}-${esc(p.loja || '')}</td>
-    <td>${esc(p.vend)}</td>
-    <td class="num">${p.itens}</td>
-    <td><span class="badge b-${p.status[0]}">${p.status[1]}</span></td>
-    <td>${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join(' ')}</td>
+    <td class="c-em">${esc(dLonga(p.emissao))}</td>
+    <td class="c-cli">${esc(p.cliente)}-${esc(p.loja || '')}</td>
+    <td class="c-vend">${esc(p.vend)}</td>
+    <td class="num c-itens">${p.itens}</td>
+    <td class="c-sit"><span class="badge b-${p.status[0]}">${p.status[1]}</span></td>
+    <td class="c-end">${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join(' ')}</td>
     <td class="obs">${esc(p.obs)}</td></tr>`;
   }).join('');
   const livres = vis.filter(({p}) => !IMP.get(p));
@@ -1387,12 +1479,12 @@ async function gerar(lista, imprimir, reprocessar = false){
   });
   // configurações do controle de impressos
   atualizaCfgLabel();
-  $('btn-cfg').onclick = () => { $('cfg-imp-url').value = IMP.url(); $('cfg-chave').value = IMP.chave(); $('cfg-st').textContent = ''; $('dlg-cfg').showModal() };
+  $('btn-cfg').onclick = () => { $('cfg-chave').value = IMP.chave(); $('cfg-st').textContent = ''; $('dlg-cfg').showModal() };
   $('btn-cfg-save').onclick = async e => {
     e.preventDefault();
-    store.set('pv-imp-url', trim($('cfg-imp-url').value)); store.set('pv-chave', trim($('cfg-chave').value));
+    store.set('pv-chave', trim($('cfg-chave').value));
     atualizaCfgLabel();
-    if(!IMP.compartilhado()){ $('cfg-st').textContent = 'Salvo. Marcação só neste computador.'; await IMP.carregar(); renderLista(); return }
+    if(!IMP.compartilhado()){ $('cfg-st').textContent = 'Sem código: marcação só neste aparelho.'; await IMP.carregar(); renderLista(); return }
     $('cfg-st').textContent = 'Testando…';
     try{ await IMP.carregar(); $('cfg-st').textContent = `✓ Conectado: ${IMP.mapa.size} pedido(s) impresso(s) na planilha.`; renderLista() }
     catch(err){ $('cfg-st').textContent = '✕ ' + err.message }
@@ -1409,6 +1501,17 @@ async function gerar(lista, imprimir, reprocessar = false){
     if(u){ u.disabled = true; try{ await IMP.desmarcar(pedidos[+u.dataset.undo]); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } }
   });
   iniciarInclinacao();
+  // aplicativo (PWA): instalar no celular / computador
+  let pedidoInstalar = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); pedidoInstalar = e; $('btn-instalar').classList.add('on') });
+  window.addEventListener('appinstalled', () => $('btn-instalar').classList.remove('on'));
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone;
+  if(ios){ $('btn-instalar').classList.add('on') }
+  $('btn-instalar').onclick = async () => {
+    if(pedidoInstalar){ pedidoInstalar.prompt(); await pedidoInstalar.userChoice; pedidoInstalar = null; $('btn-instalar').classList.remove('on') }
+    else if(ios){ $('cfg-chave').value = IMP.chave(); $('ios-tip').classList.add('on'); $('dlg-cfg').showModal() }
+  };
+  if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
   // tabelinha de tipos em aberto
   $('st-tipos').onclick = e => { e.stopPropagation(); if($('tp-pop').classList.contains('on')) return $('tp-pop').classList.remove('on'); renderTipos(); abrirTipos(); if(!PAINEL) atualizarPainel().then(abrirTipos) };
   $('tp-x').onclick = () => $('tp-pop').classList.remove('on');
