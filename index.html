@@ -875,6 +875,12 @@ const CONFIG = {
   planilhaImpressos: 'https://script.google.com/macros/s/AKfycbzLUliELKaFmwmdMAcvwYE8SsashWDl88L5R-4C8ugXsDYjDHb3u3mfoKoVrWBqKiUs/exec',
   filial: '14',
   tesAmostras: ['811','816','817','827'],
+  // Regras dos painéis (dashboard, letreiro e cartão de tipos) = mesmas do Relatório Consolidado
+  painel: {
+    tes: ['811','816','817'],
+    tiposAmostra: ['1','2','3','4','5','6'], // Pilotagem, Bandeira, Cartela de cores, PDV, Brindes, Talão de vendas
+    campoQtdOriginal: 'C6_QTDEORI'          // quantidade original (arredondada para cima por item), como no Consolidado
+  },
   campos: {
     tpEncomenda: 'C5_4KTPENC', // "Tp.Encomenda: PAC"
     centroCusto: 'A3_4KCC',    // "Centro de Custo: 05006 - ..." (C5_ = cabeçalho, C6_ = 1º item, A3_ = cadastro do vendedor; descrição vem da CTT)
@@ -1110,7 +1116,7 @@ function mostrarApp(){
 function sair(motivo){
   try{ localStorage.removeItem(SESSAO_KEY); sessionStorage.removeItem(SESSAO_KEY) }catch{}
   SESSAO.user = SESSAO.pass = '';
-  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel3') }catch{}
+  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel4') }catch{}
   document.body.classList.remove('logado', 'preview');
   const lg = $('login'); lg.classList.remove('saindo');
   const w = $('lg-wrap'); w.classList.remove('busy', 'unido', 'mexendo'); w.style.transform = ''; $('lg-tab1').style.transform = $('lg-tab2').style.transform = '';
@@ -1216,13 +1222,17 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel3', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel4', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
-    const tes = `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`, fil = `C5_FILIAL=${q(CONFIG.filial)}`;
+    const tes = `C6_TES IN (${CONFIG.painel.tes.map(q).join(',')})`, fil = `C5_FILIAL=${q(CONFIG.filial)}`;
     const base = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', fil, tes, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"];
-    const extra = [CONFIG.campos.tpAmostra].filter(c => /^C6_/i.test(c || ''));
+    const campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
+    if(campoTp) base.push(`${campoTp} IN (${CONFIG.painel.tiposAmostra.map(q).join(',')})`);
+    const extra = [campoTp, campoOri].filter(c => /^C6_/i.test(c || ''));
+    // quantidade de amostras do item: original arredondada para cima (regra do Consolidado); sem o campo, usa C6_QTDVEN
+    const qa = r => { const o = get(r, campoOri); return Math.ceil(Math.max(0, num(o === undefined || o === null || o === '' ? r.c6_qtdven : o))) };
     const listaMeses = Array.from({length:12}, (_, i) => { const d = new Date(hoje.getFullYear(), hoje.getMonth() - 11 + i, 1); return ymd(d).slice(0, 6) });
     // 12 consultas menores (uma por mês) em vez de uma enorme: menos páginas, resultado mais confiável
     const porMes = await Promise.all(listaMeses.map(mes => gqSafe('SC5,SC6',
@@ -1242,13 +1252,13 @@ async function carregarPainel(forcar = false){
       const peds = new Map(), clis = new Set();
       porMes[i].forEach(r => {
         const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k); // ignora linhas repetidas entre páginas
-        const qv = num(r.c6_qtdven), qe = num(r.c6_qtdent), em = trim(r.c5_emissao).replace(/-/g, ''), tp = tipoDe(r);
-        M.qtd += qv; M.env += qe; clis.add(trim(r.c5_cliente));
-        M.tipos[tp] = (M.tipos[tp] || 0) + qv;
-        const pc = trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0]); pr[1] += qv;
-        const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + qv;
+        const qv = num(r.c6_qtdven), qe = num(r.c6_qtdent), am = qa(r), em = trim(r.c5_emissao).replace(/-/g, ''), tp = tipoDe(r);
+        M.qtd += am; M.env += am; clis.add(trim(r.c5_cliente));
+        M.tipos[tp] = (M.tipos[tp] || 0) + am;
+        const dsc = trim(r.c6_descri).toUpperCase().replace(/\s+/g, ' '), pc = dsc || trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0, trim(r.c6_produto)]); pr[1] += am; // agrupado pela descrição, como no Consolidado
+        const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + am;
         const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0};
-        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += qv; peds.set(r.c5_num, o);
+        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; peds.set(r.c5_num, o);
       });
       peds.forEach(o => {
         M.ped++;
@@ -1264,7 +1274,7 @@ async function carregarPainel(forcar = false){
     // pendentes por tipo
     const pt = new Map(), pp = new Map();
     pend.forEach(r => {
-      const t = tipoDe(r), o = pt.get(t) || {qtd:0, ped:new Set()}; o.qtd += num(r.c6_qtdven) - num(r.c6_qtdent); o.ped.add(r.c5_num); pt.set(t, o);
+      const t = tipoDe(r), o = pt.get(t) || {qtd:0, ped:new Set()}, v = num(r.c6_qtdven); o.qtd += Math.ceil(Math.max(0, qa(r) * (v > 0 ? (v - num(r.c6_qtdent)) / v : 1))); o.ped.add(r.c5_num); pt.set(t, o);
       pp.set(r.c5_num, trim(r.c5_liberok));
     });
     // nomes: vendedoras e clientes que aparecem nos rankings
@@ -1274,19 +1284,19 @@ async function carregarPainel(forcar = false){
     const vendCods = new Set(), cliCods = new Set();
     meses.forEach(m => { top(m.vend, 10, v => v.p).forEach(c => { vendCods.add(c); vendCods.add(m.vend[c].v1) }) });
     const vAno = juntarVend(doAno); top(vAno, 10, v => v.p).forEach(c => { vendCods.add(c); vendCods.add(vAno[c].v1) });
-    const cliAno = {}; porMes.forEach((rows, i) => { if(!listaMeses[i].startsWith(anoAtual)) return; rows.forEach(r => { const c = trim(r.c5_cliente); cliAno[c] = (cliAno[c] || 0) + num(r.c6_qtdven) }) });
-    const cliMes = {}; porMes[porMes.length - 1].forEach(r => { const c = trim(r.c5_cliente); cliMes[c] = (cliMes[c] || 0) + num(r.c6_qtdven) });
+    const cliAno = {}; porMes.forEach((rows, i) => { if(!listaMeses[i].startsWith(anoAtual)) return; rows.forEach(r => { const c = trim(r.c5_cliente); cliAno[c] = (cliAno[c] || 0) + qa(r) }) });
+    const cliMes = {}; porMes[porMes.length - 1].forEach(r => { const c = trim(r.c5_cliente); cliMes[c] = (cliMes[c] || 0) + qa(r) });
     top(cliAno, 10, v => v).concat(top(cliMes, 10, v => v)).forEach(c => cliCods.add(c));
     const nomesV = {}, nomesC = {};
     try{ const v = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, [...vendCods].filter(Boolean)); vendCods.forEach(c => { const n = trim(get(v(c), CONFIG.nomeVendedor)); if(n) nomesV[c] = n }) }catch(e){ if(e.auth) throw e }
     const dados = {
       ts:Date.now(), mesAtual, ano:anoAtual, meses, antAteHoje:Math.round(antAteHoje),
-      hoje:{ped:new Set(hojeRows.map(r => r.c5_num)).size, qtd:Math.round(hojeRows.reduce((s, r) => s + num(r.c6_qtdven), 0))},
+      hoje:{ped:new Set(hojeRows.map(r => r.c5_num)).size, qtd:Math.round(hojeRows.reduce((s, r) => s + qa(r), 0))},
       pend:{tipos:[...pt].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd), ped:pp.size,
         ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
       cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
     };
-    try{ store.set('pv-painel3', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel4', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
@@ -1303,7 +1313,7 @@ function visao(periodo){
   ms.forEach(m => {
     V.qtd += m.qtd; V.env += m.env; V.ped += m.ped; V.fat += m.fat; V.ab += m.ab; V.lib += m.lib; m.cli.forEach(c => V.cli.add(c));
     Object.entries(m.tipos).forEach(([t, q]) => { if(!TIPOS_FORA_DASH.includes(t)) V.tipos[t] = (V.tipos[t] || 0) + q });
-    Object.entries(m.prod).forEach(([c, [d, q]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0]); o[1] += q });
+    Object.entries(m.prod).forEach(([c, [d, q, cod]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0, cod]); o[1] += q });
     Object.entries(m.dias).forEach(([d, q]) => V.dias[m.mes + d] = (V.dias[m.mes + d] || 0) + q);
     V.uteis += diasUteis(m.mes, m.mes === P.mesAtual ? new Date().getDate() : 0);
   });
@@ -1522,7 +1532,7 @@ function renderDash(){
   const k = (lbl, v, sub, hi) => `<div class="dk${hi ? ' hi' : ''}"><span>${lbl}</span><strong>${fmtInt(v)}</strong><small>${sub}</small></div>`;
   const mn = nomeMes(DSH_MES);
   $('dsh-kpis').innerHTML = k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês') + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês')
-    + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade faturada') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
+    + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade original dos itens') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
   // barras mês a mês (clicáveis)
   const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd));
   $('dsh-meses').innerHTML = `<div class="bars">${ms.map(m => `<button type="button" class="bar${m.mes === DSH_MES ? ' sel' : ''}${m.mes === P.mesAtual ? ' cur' : ''}" data-mes="${m.mes}" title="Ver ${nomeMes(m.mes)}">
@@ -1533,7 +1543,7 @@ function renderDash(){
   $('dsh-donut').innerHTML = tps.length ? `<div class="dn-wrap">${donut(tps, V.qtdTipos)}<div class="dn-leg">${tps.map(([t, q]) => `<div><span class="tp-dot" style="background:${cores(t)}"></span><em>${esc(cap(t))}</em><b>${fmtInt(q)}</b><small>${Math.round(100 * q / V.qtdTipos)}%</small></div>`).join('')}</div></div>` : '<p class="vazio">Sem amostras no período.</p>';
   // top 10 itens
   const tp = Object.entries(V.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 10), tmax = Math.max(1, ...tp.map(x => x[1][1]));
-  $('dsh-top').innerHTML = tp.length ? tp.map(([c, [d, q]], i) => `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(d || c)}</b><small>${esc(c)}</small><i style="width:${100 * q / tmax}%"></i></div><strong>${fmtInt(q)}</strong></div>`).join('') : '<p class="vazio">Sem dados.</p>';
+  $('dsh-top').innerHTML = tp.length ? tp.map(([c, [d, q, cod]], i) => `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(d || c)}</b><small>${esc(cod || '')}</small><i style="width:${100 * q / tmax}%"></i></div><strong>${fmtInt(q)}</strong></div>`).join('') : '<p class="vazio">Sem dados.</p>';
   // quem mais solicita
   const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 8), vmax = Math.max(1, ...tv.map(x => x[1].p));
   $('dsh-vend').innerHTML = tv.length ? tv.map(([c, v], i) => { const r = rotuloVend(c, v); return `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(r.n)}</b><small>${esc(r.cod)}${r.setor ? ' · <span class="chip">' + esc(r.setor) + '</span>' : ''}</small><i style="width:${100 * v.p / vmax}%"></i></div><strong>${fmtInt(v.p)}<small>ped. · ${fmtInt(v.q)} am.</small></strong></div>` }).join('') : '<p class="vazio">Sem dados.</p>';

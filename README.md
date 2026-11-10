@@ -33,7 +33,7 @@ Aba **Dashboard** no topo (computador) ou embaixo (celular):
 - **Mensal / Anual:** alterna rosca de tipos de amostra, Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja) e Destaques.
 - **Letreiro (AO VIVO):** fica dentro do topo, entre o logo e as abas; passe o mouse para pausar.
 
-Tags e Desenvolvimento de cor não entram em nenhum painel (dashboard, letreiro e cartão de tipos da tela Pedidos); os pedidos continuam aparecendo normalmente na lista para impressão.
+Os painéis seguem as **mesmas regras do Relatório Consolidado**: só Tp.Amostra 1 a 6 (Pilotagem, Bandeira, Cartela de cores, PDV, Brindes, Talão de vendas), só TES 811/816/817, quantidade = **C6_QTDEORI** (quantidade original, arredondada para cima por item) e Top 10 agrupado pela descrição. Tags e Desenvolvimento de cor não entram em nenhum painel (dashboard, letreiro e cartão de tipos da tela Pedidos); os pedidos continuam aparecendo normalmente na lista para impressão.
 
 Os dados vêm do Protheus (12 consultas mensais dos últimos 12 meses + uma consulta dos pendentes) e são atualizados a cada 10 minutos ou no botão ↻.
 
