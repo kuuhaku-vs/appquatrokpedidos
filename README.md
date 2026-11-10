@@ -5,10 +5,10 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 **Acesse:** https://kuuhaku-vs.github.io/appquatrokpedidos/
 
 ## Como usar
-1. Abra o link e digite **usuário e senha do Protheus** no topo da página. A senha não fica salva (vale só enquanto a aba estiver aberta).
-2. Escolha a **Situação** (Em aberto, Liberados, Faturados ou Todos), o período e o tipo (TES) e clique em **Buscar pedidos**.
+1. Abra o link e entre com seu **usuário e senha do Protheus**. Com **Manter conectado** marcado, o site lembra o acesso neste navegador até você clicar em **Sair** (não marque em computador compartilhado). Desmarcado, o acesso vale só enquanto a aba estiver aberta.
+2. Escolha a **Situação** (Em aberto, Liberados, Faturados ou Todos), o período e o tipo (TES 811, 816, 817 ou 827) e clique em **Buscar pedidos**.
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
-4. Para um pedido só, digite o número em **Imprimir pedido nº** e clique em **Visualizar**.
+4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**.
 
 A coluna **Endereçar** da lista mostra os pedidos que vão sair com endereço dos rolos.
 
