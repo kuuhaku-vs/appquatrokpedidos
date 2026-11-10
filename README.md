@@ -6,9 +6,13 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 
 ## Como usar
 1. Abra o link e entre com seu **usuário e senha do Protheus**. Com **Manter conectado** marcado, o site lembra o acesso neste navegador até você clicar em **Sair** (não marque em computador compartilhado). Desmarcado, o acesso vale só enquanto a aba estiver aberta.
-2. Escolha a **Situação** (Em aberto, Liberados, Faturados ou Todos), o período e o tipo (TES 811, 816, 817 ou 827) e clique em **Buscar pedidos**.
+2. Escolha a **Situação** (Em aberto, Liberados, Faturados ou Todos) e o período e clique em **Buscar pedidos**. A busca considera as TES de amostra 811, 816, 817 e 827.
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
 4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**.
+
+## Painel
+- **Letreiro (AO VIVO):** faixa abaixo do topo que alterna entre: pedidos em aberto, liberados e faturados; amostras solicitadas mês a mês (com ▲▼ em relação ao mês anterior; o mês atual é comparado com o mesmo período do mês passado); destaques (pedidos e amostras de hoje, média por dia útil, tipo mais pedido, melhor mês, clientes atendidos, quem mais pediu) e amostras em aberto por tipo. Passe o mouse para pausar. Atualiza a cada 10 minutos.
+- **Amostras em aberto por tipo:** cartão com barra por Tp.Amostra; clique (ou no **?**) para ver a tabela com pedidos e quantidade por tipo.
 
 A coluna **Endereçar** da lista mostra os pedidos que vão sair com endereço dos rolos.
 

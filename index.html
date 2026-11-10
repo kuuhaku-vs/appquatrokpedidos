@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Impressão de Pedidos | Grupo 4K</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=DotGothic16&display=swap" rel="stylesheet">
 <style>
 /* ======================= VISUAL DO APP (preto · branco · limão) ======================= */
 :root{
@@ -219,6 +219,67 @@ body.logado .app-shell{animation:app-in .6s cubic-bezier(.2,.8,.2,1)}
 
 body:not(.logado) .app-shell{visibility:hidden}
 
+/* ======================= LETREIRO DIGITAL ======================= */
+.ticker{position:sticky;top:63px;z-index:14;display:flex;align-items:stretch;height:46px;background:#070707;border-bottom:1px solid var(--line);overflow:hidden}
+.tk-tag{flex:none;display:flex;align-items:center;gap:9px;padding:0 18px 0 28px;background:#070707;position:relative;z-index:2;font:700 11px var(--font);letter-spacing:1.6px;color:var(--lime)}
+.tk-tag::after{content:"";position:absolute;right:-28px;top:0;bottom:0;width:28px;background:linear-gradient(90deg,#070707,rgba(7,7,7,0))}
+.tk-tag i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:tk-blink 1.4s steps(2,start) infinite}
+@keyframes tk-blink{to{visibility:hidden}}
+.tk-tag b{font-weight:700;color:#fff;letter-spacing:1.2px}
+.tk-view{position:relative;flex:1;overflow:hidden;display:flex;align-items:center}
+.tk-view::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(circle,rgba(0,0,0,0) 0 55%,rgba(7,7,7,.55) 56%) 0 0/3px 3px}
+.tk-view::after{content:"";position:absolute;right:0;top:0;bottom:0;width:60px;z-index:2;background:linear-gradient(270deg,#070707,rgba(7,7,7,0))}
+.tk-track{display:inline-block;white-space:nowrap;padding-left:100%;will-change:transform;
+ font:400 21px/1 'DotGothic16',var(--font);letter-spacing:1.5px;color:var(--lime);text-shadow:0 0 6px rgba(203,255,0,.75),0 0 18px rgba(203,255,0,.35);text-transform:uppercase}
+.tk-track .w{color:#fff;text-shadow:0 0 6px rgba(255,255,255,.6),0 0 16px rgba(255,255,255,.25)}
+.tk-track .d{color:#5e5e5e;text-shadow:none;margin:0 22px}
+.tk-track .up{color:var(--lime)}.tk-track .dn{color:#ff8f82;text-shadow:0 0 6px rgba(255,143,130,.6)}
+.tk-track .sec{display:inline-block;vertical-align:2px;color:#101010;background:var(--lime);text-shadow:none;padding:4px 9px 3px;border-radius:3px;margin-right:18px;font-size:16px}
+.ticker:hover .tk-track{animation-play-state:paused!important}
+@keyframes tk-scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+@media(max-width:600px){.ticker{top:auto;position:relative}.tk-tag{padding:0 12px 0 16px}.tk-tag b{display:none}.tk-track{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.tk-track{animation-duration:0s!important;padding-left:16px}}
+
+/* ======================= TIPOS DE AMOSTRA EM ABERTO ======================= */
+.stats{grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.35fr)}
+.stat.tipos{position:relative;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .15s}
+.stat.tipos:hover{border-color:var(--lime)}
+.stat.tipos .q{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:700 12px var(--display);color:var(--muted)}
+.stat.tipos:hover .q{border-color:var(--lime);color:var(--lime)}
+.tp-bar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin:14px 0 9px;background:var(--panel-2)}
+.tp-bar i{display:block;height:100%}
+.tp-leg{display:flex;flex-wrap:nowrap;overflow:hidden;gap:4px 14px;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.stat.tipos .tp-leg span{display:inline;margin:0;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+.stat.tipos .tp-leg .tp-dot{display:inline-block}
+.tp-leg b{color:var(--text);font-weight:700;margin-left:3px}
+.tp-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:0}
+.tp-pop{position:fixed;z-index:40;width:min(420px,calc(100vw - 32px));background:var(--panel);border:1px solid var(--line-2);border-radius:16px;padding:18px;box-shadow:0 24px 60px rgba(0,0,0,.6);display:none}
+.tp-pop.on{display:block;animation:pop-in .18s ease-out}
+@keyframes pop-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.tp-pop h4{margin:0;font:700 16px var(--display)}
+.tp-pop p{margin:4px 0 14px;color:var(--muted);font-size:12.5px}
+.tp-pop table{width:100%;border-collapse:collapse;font-size:13px}
+.tp-pop th{text-align:left;color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:0 0 8px;border-bottom:1px solid var(--line)}
+.tp-pop td{padding:9px 0;border-bottom:1px solid var(--line)}
+.tp-pop tr:last-child td{border-bottom:0}
+.tp-pop .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;padding-left:12px}
+.tp-pop .mini{display:block;height:4px;border-radius:2px;margin-top:5px;background:var(--lime)}
+.tp-pop tfoot td{border-top:1px solid var(--line-2);border-bottom:0;font-weight:700;padding-top:10px}
+.tp-pop .x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-2);background:none;color:var(--muted);cursor:pointer;font-size:16px}
+.tp-pop .x:hover{color:var(--lime);border-color:var(--lime)}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat.tipos{grid-column:1/-1}}
+
+/* login: inclinação com o mouse + reflexo */
+.lg-wrap.pronto{animation:none}
+.lg-wrap{transition:transform .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.lg-wrap.mexendo{transition:transform .12s ease-out}
+.lg-glare{position:absolute;inset:0;border-radius:24px;pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;
+ background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.10),rgba(203,255,0,.05) 30%,transparent 60%);
+ -webkit-mask:linear-gradient(135deg,transparent 0 calc(var(--c1)*.7071),#000 0),linear-gradient(315deg,transparent 0 calc(var(--c2)*.7071),#000 0);-webkit-mask-composite:source-in;
+ mask:linear-gradient(135deg,transparent 0 calc(var(--c1)*.7071),#000 0),linear-gradient(315deg,transparent 0 calc(var(--c2)*.7071),#000 0);mask-composite:intersect}
+.lg-wrap.mexendo .lg-glare{opacity:1}
+
 /* ======================= LAYOUT DO RELATÓRIO (FOTO ATUAL) ======================= */
 #print-area{display:none}
 body.preview #print-area{display:block;background:#262626;padding:24px 0}
@@ -333,7 +394,7 @@ table.res .r{text-align:right}
   <span class="lg-edge tl"></span><span class="lg-edge br"></span>
   <span class="lg-tab tl" id="lg-tab1"><svg viewBox="0 0 40 40"><defs><linearGradient id="lgT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6ff7a"/><stop offset=".55" stop-color="#cbff00"/><stop offset="1" stop-color="#8fb300"/></linearGradient></defs><path d="M6 0H28Q40 0 32.8 7.2L7.2 32.8Q0 40 0 28V6Q0 0 6 0Z" fill="url(#lgT)" fill-opacity=".88" stroke="#f2ffc4" stroke-opacity=".7" stroke-width="1"/><path d="M6 1.5H27" stroke="#fff" stroke-opacity=".6" stroke-width="1.2" stroke-linecap="round"/></svg></span>
   <span class="lg-tab br" id="lg-tab2"><svg viewBox="0 0 40 40"><path d="M6 0H28Q40 0 32.8 7.2L7.2 32.8Q0 40 0 28V6Q0 0 6 0Z" fill="url(#lgT)" fill-opacity=".88" stroke="#f2ffc4" stroke-opacity=".7" stroke-width="1"/></svg></span>
-  <span class="lg-ring"></span>
+  <span class="lg-ring"></span><span class="lg-glare"></span>
  </div>
 </div>
 
@@ -346,6 +407,10 @@ table.res .r{text-align:right}
   <button class="icon-btn" id="btn-sair" type="button" title="Sair e esquecer este computador">Sair</button>
  </div>
 </header>
+<div class="ticker" aria-label="Letreiro de indicadores">
+ <div class="tk-tag"><i></i>AO VIVO <b>· PROTHEUS</b></div>
+ <div class="tk-view"><div class="tk-track" id="tk-track"></div></div>
+</div>
 
 <div class="preview-bar">
  <span id="preview-title">Visualização</span><span class="grow"></span>
@@ -375,12 +440,6 @@ table.res .r{text-align:right}
    </div>
    <label class="field"><span>Emissão de</span><input type="date" id="f-de"></label>
    <label class="field"><span>Emissão até</span><input type="date" id="f-ate"></label>
-   <label class="field"><span>Tipo (TES)</span>
-    <select id="f-tes">
-     <option value="todas" selected>Amostras · 811, 816, 817, 827</option>
-     <option value="811">811</option><option value="816">816</option><option value="817">817</option><option value="827">827</option>
-    </select>
-   </label>
    <button class="btn" id="btn-buscar">Buscar pedidos</button>
   </div>
  </section>
@@ -392,6 +451,15 @@ table.res .r{text-align:right}
   <div class="stat hi"><span>A imprimir</span><strong id="st-pend">—</strong></div>
   <div class="stat"><span>Já impressos</span><strong id="st-imp">—</strong></div>
   <div class="stat"><span>Com endereço</span><strong id="st-end">—</strong></div>
+  <button class="stat tipos" id="st-tipos" type="button" title="Ver tabela de amostras em aberto por tipo">
+   <span>Amostras em aberto por tipo</span><strong id="tp-total">—</strong>
+   <div class="tp-bar" id="tp-bar"></div><div class="tp-leg" id="tp-leg"></div><i class="q" style="font-style:normal">?</i>
+  </button>
+ </div>
+ <div class="tp-pop" id="tp-pop" role="dialog" aria-label="Amostras em aberto por tipo">
+  <button class="x" id="tp-x" type="button" aria-label="Fechar">×</button>
+  <h4>Amostras em aberto por tipo</h4><p id="tp-quando"></p>
+  <table><thead><tr><th>Tp.Amostra</th><th class="n">Pedidos</th><th class="n">Quantidade</th></tr></thead><tbody id="tp-body"></tbody><tfoot id="tp-foot"></tfoot></table>
  </div>
 
  <section class="card">
@@ -670,16 +738,17 @@ function salvarSessao(manter){
 }
 function mostrarApp(){
   document.body.classList.add('logado');
+  iniciarLetreiro(); atualizarPainel();
   const u = SESSAO.user;
   $('user-name').textContent = u; $('user-ini').textContent = (u.replace(/[^a-z0-9]/gi, '')[0] || '?');
 }
 function sair(motivo){
   try{ localStorage.removeItem(SESSAO_KEY); sessionStorage.removeItem(SESSAO_KEY) }catch{}
   SESSAO.user = SESSAO.pass = '';
-  pedidos = []; marcados.clear(); renderLista();
+  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel') }catch{}
   document.body.classList.remove('logado', 'preview');
   const lg = $('login'); lg.classList.remove('saindo');
-  const w = $('lg-wrap'); w.classList.remove('busy', 'unido'); $('lg-tab1').style.transform = $('lg-tab2').style.transform = '';
+  const w = $('lg-wrap'); w.classList.remove('busy', 'unido', 'mexendo'); w.style.transform = ''; $('lg-tab1').style.transform = $('lg-tab2').style.transform = '';
   $('lg-pass').value = ''; $('lg-submit').disabled = false; $('lg-submit').innerHTML = BTN_ENTRAR;
   const m = $('lg-msg'); m.className = 'lg-msg' + (motivo ? '' : ' info'); m.textContent = motivo || '';
   setTimeout(() => ($('lg-user').value ? $('lg-pass') : $('lg-user')).focus(), 50);
@@ -696,7 +765,9 @@ async function testarLogin(){
 }
 function animarEntrada(){
   return new Promise(res => {
-    const w = $('lg-wrap'), r = w.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const w = $('lg-wrap');
+    w.classList.remove('mexendo'); w.style.transition = 'none'; w.style.transform = ''; void w.offsetWidth; w.style.transition = '';
+    const r = w.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
     w.classList.add('busy');
     setTimeout(() => {
       [[$('lg-tab1'), -2.5], [$('lg-tab2'), 2.5]].forEach(([t, gap]) => { // pequeno vão na diagonal, como no vídeo
@@ -742,12 +813,167 @@ function iniciarLogin(){
   else setTimeout(() => ($('lg-user').value ? $('lg-pass') : $('lg-user')).focus(), 80);
 }
 
+/* ============================ painel: tipos em aberto + letreiro ============================ */
+const MESES = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+const COR_TIPO = {'PILOTAGEM':'#cbff00','BANDEIRA':'#ffffff','CARTELA DE CORES':'#8fb300','BRINDES':'#7a7a7a','PDV':'#e6ff80',
+  'TALAO DE VENDAS':'#4d4d4d','TAGS':'#b8b8b8','DESENVOLVIMENTO DE COR':'#a6d600','NÃO INFORMADO':'#333333'};
+const corTipo = t => COR_TIPO[t] || '#5a5a5a';
+const fmtInt = n => Math.round(num(n)).toLocaleString('pt-BR');
+let PAINEL = null, painelCarregando = null;
+
+/* Uma consulta (paginada) com os itens de amostra dos últimos 12 meses → todos os números do painel */
+async function carregarPainel(forcar = false){
+  if(painelCarregando) return painelCarregando;
+  if(!forcar){
+    try{ const c = JSON.parse(store.get('pv-painel', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c.dados; return PAINEL } }catch{}
+  }
+  painelCarregando = (async () => {
+    const hoje = new Date(), ini = new Date(hoje.getFullYear(), hoje.getMonth() - 11, 1);
+    const desde = `${ini.getFullYear()}${String(ini.getMonth() + 1).padStart(2, '0')}01`;
+    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
+      `C5_EMISSAO>=${q(desde)}`, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
+    const rows = await gqSafe('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_LIBEROK','C5_NOTA','C6_QTDVEN','C6_QTDENT','C6_BLQ'],
+      [CONFIG.campos.tpAmostra].filter(c => /^C6_/i.test(c || '')), w);
+    const ped = new Map(), meses = new Map(), tiposAbertos = new Map(), tiposMes = new Map(), vendMes = new Map(), cliMes = new Set();
+    const mesAtual = `${hoje.getFullYear()}${String(hoje.getMonth() + 1).padStart(2, '0')}`;
+    const hojeStr = mesAtual + String(hoje.getDate()).padStart(2, '0');
+    let amostrasHoje = 0, antAteHoje = 0; const pedHoje = new Set();
+    const ma = new Date(hoje.getFullYear(), hoje.getMonth() - 1, 1), mesAnt = `${ma.getFullYear()}${String(ma.getMonth() + 1).padStart(2, '0')}`;
+    rows.forEach(r => {
+      const em = trim(r.c5_emissao).replace(/-/g, ''), mes = em.slice(0, 6), qtd = num(r.c6_qtdven);
+      const tipo = (opcao(CONFIG.campos.tpAmostra, get(r, CONFIG.campos.tpAmostra)) || 'NÃO INFORMADO').toUpperCase();
+      const aberto = num(r.c6_qtdven) > num(r.c6_qtdent) && trim(r.c6_blq) !== 'R';
+      const o = ped.get(r.c5_num) || {em, nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, vend:trim(r.c5_vend1)};
+      if(aberto) o.aberto = true; ped.set(r.c5_num, o);
+      const m = meses.get(mes) || {qtd:0, ped:new Set()}; m.qtd += qtd; m.ped.add(r.c5_num); meses.set(mes, m);
+      if(!o.nota && !o.lib && aberto){ const t = tiposAbertos.get(tipo) || {qtd:0, ped:new Set()}; t.qtd += num(r.c6_qtdven) - num(r.c6_qtdent); t.ped.add(r.c5_num); tiposAbertos.set(tipo, t) }
+      if(mes === mesAtual){ tiposMes.set(tipo, (tiposMes.get(tipo) || 0) + qtd); cliMes.add(trim(r.c5_cliente)) }
+      if(em === hojeStr){ amostrasHoje += qtd; pedHoje.add(r.c5_num) }
+      if(mes === mesAnt && +em.slice(6, 8) <= hoje.getDate()) antAteHoje += qtd;
+    });
+    const st = {aberto:0, liberado:0, faturadoAno:0, faturadoMes:0};
+    const anoAtual = String(hoje.getFullYear());
+    ped.forEach(o => {
+      if(o.nota){ if(o.em.startsWith(anoAtual)) st.faturadoAno++; if(o.em.startsWith(mesAtual)) st.faturadoMes++ }
+      else if(o.aberto){ if(o.lib) st.liberado++; else st.aberto++ }
+      if(o.em.startsWith(mesAtual)) vendMes.set(o.vend, (vendMes.get(o.vend) || 0) + 1);
+    });
+    const topVend = [...vendMes].sort((a, b) => b[1] - a[1])[0];
+    let nomeVend = '';
+    if(topVend){ try{ const v = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, [topVend[0]]); nomeVend = trim(get(v(topVend[0]), CONFIG.nomeVendedor)) }catch{} }
+    // dias úteis do mês até hoje
+    let uteis = 0; for(let d = 1; d <= hoje.getDate(); d++){ const wd = new Date(hoje.getFullYear(), hoje.getMonth(), d).getDay(); if(wd && wd !== 6) uteis++ }
+    const dados = {
+      ts: Date.now(), st,
+      meses: [...meses].sort((a, b) => a[0].localeCompare(b[0])).map(([k, v]) => ({mes:k, qtd:Math.round(v.qtd), ped:v.ped.size})),
+      tipos: [...tiposAbertos].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd),
+      tiposMes: [...tiposMes].map(([t, q]) => ({tipo:t, qtd:Math.round(q)})).sort((a, b) => b.qtd - a.qtd),
+      hoje: {amostras:Math.round(amostrasHoje), pedidos:pedHoje.size},
+      clientesMes: cliMes.size, uteis, antAteHoje: Math.round(antAteHoje),
+      topVend: topVend ? {cod:topVend[0], nome:nomeVend, ped:topVend[1]} : null,
+      abertosPed: new Set([...tiposAbertos.values()].flatMap(v => [...v.ped])).size
+    };
+    store.set('pv-painel', JSON.stringify({ts:Date.now(), dados}), true);
+    PAINEL = dados; return dados;
+  })();
+  try{ return await painelCarregando }finally{ painelCarregando = null }
+}
+
+/* ---------- cartão + tabelinha de tipos em aberto ---------- */
+function renderTipos(){
+  const tile = $('st-tipos'); if(!tile) return;
+  if(!PAINEL){ $('tp-bar').innerHTML = ''; $('tp-leg').textContent = 'carregando…'; return }
+  const lista = PAINEL.tipos, total = lista.reduce((s, t) => s + t.qtd, 0);
+  $('tp-total').textContent = fmtInt(total);
+  $('tp-bar').innerHTML = total ? lista.map(t => `<i style="width:${100 * t.qtd / total}%;background:${corTipo(t.tipo)}" title="${esc(t.tipo)}: ${fmtInt(t.qtd)}"></i>`).join('') : '';
+  $('tp-leg').innerHTML = lista.length ? lista.slice(0, 3).map(t => `<span><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<b>${fmtInt(t.qtd)}</b></span>`).join('') + (lista.length > 3 ? `<span>+${lista.length - 3}</span>` : '') : 'nenhuma amostra em aberto';
+  const max = Math.max(1, ...lista.map(t => t.qtd));
+  $('tp-body').innerHTML = lista.length ? lista.map(t => `<tr><td><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<span class="mini" style="width:${100 * t.qtd / max}%;background:${corTipo(t.tipo)}"></span></td><td class="n">${fmtInt(t.ped)}</td><td class="n">${fmtInt(t.qtd)}</td></tr>`).join('')
+    : '<tr><td colspan="3" style="color:var(--muted)">Nenhuma amostra em aberto.</td></tr>';
+  $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(PAINEL.abertosPed || 0)}</td><td class="n">${fmtInt(total)}</td></tr>`;
+  $('tp-quando').textContent = 'Situação "em aberto" · atualizado às ' + new Date(PAINEL.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+}
+const cap = s => String(s).toLowerCase().replace(/(^|\s)\S/g, c => c.toUpperCase()).replace(/\bDe\b/g, 'de');
+function abrirTipos(){
+  const pop = $('tp-pop'), r = $('st-tipos').getBoundingClientRect();
+  pop.classList.add('on');
+  const w = pop.offsetWidth, left = Math.min(window.innerWidth - w - 16, Math.max(16, r.right - w));
+  pop.style.left = left + 'px'; pop.style.top = Math.min(r.bottom + 8, window.innerHeight - pop.offsetHeight - 16) + 'px';
+}
+
+/* ---------- letreiro ---------- */
+const TK = '<span class="d">◆</span>';
+function seta(atual, anterior){
+  if(!anterior) return '';
+  const v = Math.round(100 * (atual - anterior) / anterior);
+  return v > 0 ? ` <span class="up">▲${v}%</span>` : v < 0 ? ` <span class="dn">▼${Math.abs(v)}%</span>` : ' <span class="w">=</span>';
+}
+function telasLetreiro(){
+  const P = PAINEL, hoje = new Date(), ano = hoje.getFullYear();
+  const imp = pedidos.filter(p => IMP.get(p)).length;
+  if(!P) return [`<span class="sec">AGUARDE</span>CARREGANDO INDICADORES DO PROTHEUS${TK}PEDIDOS DE AMOSTRA · GRUPO 4K`];
+  const ms = P.meses, atual = ms[ms.length - 1], ant = ms[ms.length - 2];
+  const nomeMes = m => `${MESES[+m.slice(4, 6) - 1]}/${m.slice(2, 4)}`;
+  const t = [];
+  t.push(`<span class="sec">AGORA</span>EM ABERTO <span class="w">${fmtInt(P.st.aberto)}</span> PEDIDOS${TK}LIBERADOS <span class="w">${fmtInt(P.st.liberado)}</span>${TK}FATURADOS NO MÊS <span class="w">${fmtInt(P.st.faturadoMes)}</span>${TK}FATURADOS EM ${ano} <span class="w">${fmtInt(P.st.faturadoAno)}</span>`
+    + (pedidos.length ? `${TK}NA LISTA: <span class="w">${pedidos.length - imp}</span> A IMPRIMIR · <span class="w">${imp}</span> JÁ IMPRESSOS` : ''));
+  t.push(`<span class="sec">MÊS A MÊS</span>AMOSTRAS SOLICITADAS` + ms.slice(-6).reverse().map((m, i, arr) => `${TK}${nomeMes(m.mes)}${i === 0 ? ' (ATÉ HOJE)' : ''} <span class="w">${fmtInt(m.qtd)}</span>${i === 0 ? seta(m.qtd, P.antAteHoje) : seta(m.qtd, arr[i + 1]?.qtd)}`).join(''));
+  const dest = [];
+  dest.push(`HOJE <span class="w">${fmtInt(P.hoje.pedidos)}</span> PEDIDOS · <span class="w">${fmtInt(P.hoje.amostras)}</span> AMOSTRAS`);
+  if(atual) dest.push(`${nomeMes(atual.mes)} ATÉ AGORA <span class="w">${fmtInt(atual.qtd)}</span> AMOSTRAS EM <span class="w">${fmtInt(atual.ped)}</span> PEDIDOS${P.antAteHoje ? seta(atual.qtd, P.antAteHoje) + ' VS MESMO PERÍODO DE ' + (ant ? nomeMes(ant.mes) : 'MÊS PASSADO') : ''}`);
+  if(atual && P.uteis) dest.push(`MÉDIA DE <span class="w">${(atual.qtd / P.uteis).toLocaleString('pt-BR', {maximumFractionDigits:1})}</span> AMOSTRAS POR DIA ÚTIL`);
+  if(P.tiposMes[0] && atual?.qtd) dest.push(`TIPO MAIS PEDIDO NO MÊS: <span class="w">${esc(P.tiposMes[0].tipo)}</span> (${Math.round(100 * P.tiposMes[0].qtd / atual.qtd)}%)`);
+  const rec = ms.slice().sort((a, b) => b.qtd - a.qtd)[0];
+  if(rec) dest.push(`MELHOR MÊS DOS ÚLTIMOS 12: <span class="w">${nomeMes(rec.mes)}</span> COM <span class="w">${fmtInt(rec.qtd)}</span> AMOSTRAS`);
+  if(P.clientesMes) dest.push(`<span class="w">${fmtInt(P.clientesMes)}</span> CLIENTES ATENDIDOS NO MÊS`);
+  if(P.topVend) dest.push(`QUEM MAIS PEDIU NO MÊS: <span class="w">${esc(P.topVend.cod)}${P.topVend.nome ? ' - ' + esc(P.topVend.nome) : ''}</span> (${fmtInt(P.topVend.ped)} PEDIDOS)`);
+  t.push(`<span class="sec">DESTAQUES</span>` + dest.join(TK));
+  if(P.tipos.length) t.push(`<span class="sec">EM ABERTO POR TIPO</span>` + P.tipos.map(x => `${esc(x.tipo)} <span class="w">${fmtInt(x.qtd)}</span>`).join(TK));
+  return t;
+}
+let telaAtual = 0;
+function proximaTela(){
+  const tr = $('tk-track'); if(!tr) return;
+  const telas = telasLetreiro(); telaAtual = telaAtual % telas.length;
+  tr.style.animation = 'none'; tr.innerHTML = telas[telaAtual++]; void tr.offsetWidth;
+  const dist = tr.scrollWidth, vel = 95; // pixels por segundo
+  tr.style.animation = `tk-scroll ${Math.max(8, dist / vel)}s linear 1`;
+}
+function iniciarLetreiro(){
+  const tr = $('tk-track'); if(!tr || tr.dataset.on) return;
+  tr.dataset.on = '1';
+  tr.addEventListener('animationend', proximaTela);
+  proximaTela();
+}
+async function atualizarPainel(forcar = false){
+  const tinha = !!PAINEL;
+  try{ await carregarPainel(forcar) }catch(e){ console.warn('painel', e); if(e.auth) return }
+  renderTipos();
+  if(!tinha && PAINEL){ telaAtual = 0; proximaTela() } // sai do "carregando" assim que os números chegam
+}
+
+/* ---------- login: cartão inclina com o mouse ---------- */
+function iniciarInclinacao(){
+  const w = $('lg-wrap'), lg = $('login');
+  w.addEventListener('animationend', e => { if(e.animationName === 'lg-in') w.classList.add('pronto') });
+  if(matchMedia('(hover:none), (prefers-reduced-motion:reduce)').matches) return;
+  lg.addEventListener('mousemove', e => {
+    if(w.classList.contains('busy')) return;
+    const r = w.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    const rx = Math.max(-1, Math.min(1, (y - .5) * 2)), ry = Math.max(-1, Math.min(1, (x - .5) * 2));
+    w.classList.add('mexendo');
+    w.style.transform = `perspective(1100px) rotateX(${(-rx * 7).toFixed(2)}deg) rotateY(${(ry * 9).toFixed(2)}deg) translateZ(0)`;
+    w.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); w.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+  });
+  lg.addEventListener('mouseleave', () => { w.classList.remove('mexendo'); w.style.transform = '' });
+}
+
 let pedidos = [];
 async function buscar(){
   const btn = $('btn-buscar'); btn.disabled = true; msg('Consultando o Protheus…');
   try{
-    const st = $('f-status').value, de = isoToProtheus($('f-de').value), ate = isoToProtheus($('f-ate').value), tes = $('f-tes').value;
-    const tesList = tes === 'todas' ? CONFIG.tesAmostras : [tes];
+    const st = $('f-status').value, de = isoToProtheus($('f-de').value), ate = isoToProtheus($('f-ate').value);
+    const tesList = CONFIG.tesAmostras;
     const w = [
       'C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`,
       `C6_TES IN (${tesList.map(q).join(',')})`,
@@ -1182,6 +1408,14 @@ async function gerar(lista, imprimir, reprocessar = false){
     const u = e.target.closest('[data-undo]');
     if(u){ u.disabled = true; try{ await IMP.desmarcar(pedidos[+u.dataset.undo]); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } }
   });
+  iniciarInclinacao();
+  // tabelinha de tipos em aberto
+  $('st-tipos').onclick = e => { e.stopPropagation(); if($('tp-pop').classList.contains('on')) return $('tp-pop').classList.remove('on'); renderTipos(); abrirTipos(); if(!PAINEL) atualizarPainel().then(abrirTipos) };
+  $('tp-x').onclick = () => $('tp-pop').classList.remove('on');
+  document.addEventListener('click', e => { if(!e.target.closest('#tp-pop')) $('tp-pop').classList.remove('on') });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') $('tp-pop').classList.remove('on') });
+  window.addEventListener('resize', () => $('tp-pop').classList.remove('on'));
+  setInterval(() => { if(document.body.classList.contains('logado')) atualizarPainel(true) }, 10 * 60e3);
   iniciarLogin();
 })();
 </script>
