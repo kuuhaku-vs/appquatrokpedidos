@@ -16,11 +16,19 @@ O site funciona como aplicativo (lista em cartões e botões de imprimir fixos e
 - **iPhone (Safari):** toque em **Compartilhar** → **Adicionar à Tela de Início**.
 - **Computador (Chrome/Edge):** botão **Instalar app** no topo ou o ícone de instalar na barra de endereço.
 
+No celular o app tem **abas embaixo**:
+- **Pedidos:** só a busca e a lista. Os botões Visualizar/Imprimir aparecem quando há pedido selecionado. Com o celular em pé, a visualização gira a folha para ficar na horizontal.
+- **Dashboard:** em aberto, liberados, faturados no mês e no ano, a imprimir e já impressos, gráfico de amostras por mês, pendentes por tipo e destaques.
+- **Ajustes:** conta e Sair, tema de cores, claro/escuro, código do grupo e instalar app.
+
 O ícone instalado é o logo do Pedidos 4K. O app sempre busca a versão mais nova do site quando há internet.
+
+## Temas
+Botões ao lado de **Impressos** no topo: a bolinha colorida escolhe o tema (Limão, Floresta, Sol, Pink, Noite, Violeta) e ☾/☀ alterna entre escuro e claro. A escolha fica salva no aparelho. O topo usa a cor principal do tema e os botões a cor de destaque; quando o destaque não aparece bem no fundo (ex.: Limão no claro), o site usa automaticamente outra cor do tema.
 
 ## Painel
 - **Letreiro (AO VIVO):** faixa abaixo do topo que alterna entre: pedidos em aberto, liberados e faturados; amostras solicitadas mês a mês (com ▲▼ em relação ao mês anterior; o mês atual é comparado com o mesmo período do mês passado); destaques (pedidos e amostras de hoje, média por dia útil, tipo mais pedido, melhor mês, clientes atendidos, quem mais pediu) e amostras em aberto por tipo. Passe o mouse para pausar. Atualiza a cada 10 minutos.
-- **Amostras em aberto por tipo:** cartão com barra por Tp.Amostra; clique (ou no **?**) para ver a tabela com pedidos e quantidade por tipo.
+- **Amostras em aberto por tipo:** cartão com barra por Tp.Amostra; clique (ou no **?**) para ver a tabela com pedidos e quantidade por tipo. Conta tudo o que ainda não foi faturado (em aberto + liberados), então o pedido continua contando depois de impresso/liberado.
 
 A coluna **Endereçar** da lista mostra os pedidos que vão sair com endereço dos rolos.
 
