@@ -21,14 +21,19 @@ No celular o app tem **abas embaixo**:
 - **Dashboard:** em aberto, liberados, faturados no mês e no ano, a imprimir e já impressos, gráfico de amostras por mês, pendentes por tipo e destaques.
 - **Ajustes:** conta e Sair, tema de cores, claro/escuro, código do grupo e instalar app.
 
-O ícone instalado é o logo do Pedidos 4K. O app sempre busca a versão mais nova do site quando há internet.
+O ícone instalado é o logo do Pedidos 4K. No site, o logo muda de cor conforme o tema. O app sempre busca a versão mais nova do site quando há internet.
 
 ## Temas
 Botões ao lado de **Impressos** no topo: a bolinha colorida escolhe o tema (Limão, Floresta, Sol, Pink, Noite, Violeta) e ☾/☀ alterna entre escuro e claro. A escolha fica salva no aparelho. O topo usa a cor principal do tema e os botões a cor de destaque; quando o destaque não aparece bem no fundo (ex.: Limão no claro), o site usa automaticamente outra cor do tema.
 
-## Painel
-- **Letreiro (AO VIVO):** faixa abaixo do topo que alterna entre: pedidos em aberto, liberados e faturados; amostras solicitadas mês a mês (com ▲▼ em relação ao mês anterior; o mês atual é comparado com o mesmo período do mês passado); destaques (pedidos e amostras de hoje, média por dia útil, tipo mais pedido, melhor mês, clientes atendidos, quem mais pediu) e amostras em aberto por tipo. Passe o mouse para pausar. Atualiza a cada 10 minutos.
-- **Amostras em aberto por tipo:** cartão com barra por Tp.Amostra; clique (ou no **?**) para ver a tabela com pedidos e quantidade por tipo. Conta tudo o que ainda não foi faturado (em aberto + liberados), então o pedido continua contando depois de impresso/liberado.
+## Dashboard
+Aba **Dashboard** no topo (computador) ou embaixo (celular):
+- **Cartões:** Em aberto, Liberados e Faturados **do mês** escolhido; Faturados, Amostras enviadas (quantidade faturada) e Clientes atendidos (distintos) **no ano**.
+- **Amostras solicitadas por mês:** clique em um mês para ler como foi (volume, variação, tipo e item mais pedidos, quem mais pediu, clientes, faturados, dia de pico). O mês clicado vira o período "Mensal" dos outros quadros.
+- **Mensal / Anual:** alterna rosca de tipos de amostra, Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja), Destaques e Clientes que mais pediram.
+- **Letreiro (AO VIVO):** fica dentro do topo, ao lado das abas; passe o mouse para pausar.
+
+Os dados vêm do Protheus (12 consultas mensais dos últimos 12 meses + uma consulta dos pendentes) e são atualizados a cada 10 minutos ou no botão ↻.
 
 A coluna **Endereçar** da lista mostra os pedidos que vão sair com endereço dos rolos.
 

@@ -484,6 +484,100 @@ body.giro .giro-box{position:relative;margin:0 auto 12px;overflow:hidden;box-sha
 body.giro .giro-box .pv{position:absolute;left:0;top:0;transform-origin:0 0;zoom:1!important;margin:0!important;box-shadow:none!important}
 @media print{ .giro-box{display:contents} .giro-box .pv{position:static!important;transform:none!important} .tabbar,.tema-pop{display:none!important} }
 
+/* ======================= ABAS NO TOPO + LETREIRO DENTRO DO TOPO ======================= */
+.top-tabs{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:color-mix(in srgb,var(--head-fg) 8%,transparent);border:1px solid color-mix(in srgb,var(--head-fg) 16%,transparent);flex:none}
+.top-tabs button{height:30px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:color-mix(in srgb,var(--head-fg) 70%,transparent);font:600 13px var(--font);cursor:pointer}
+.top-tabs button:hover{color:var(--head-fg)}
+.top-tabs button[aria-current="true"]{background:var(--head-fg);color:var(--head-bg)}
+header.app .ticker{position:relative;top:auto;flex:1 1 auto;min-width:120px;height:36px;border-radius:10px;border:1px solid color-mix(in srgb,var(--head-fg) 18%,transparent);z-index:auto;margin:0 4px}
+header.app .ticker .tk-tag{padding:0 12px 0 14px}
+header.app .conn{margin-left:0;flex:none}
+@media(max-width:1180px){header.app .ticker .tk-tag b{display:none}#cfg-label{display:none}}
+@media(max-width:960px){header.app .ticker{display:none}}
+
+input.oculto{-webkit-text-security:disc}
+input[type=search]::-webkit-search-cancel-button{display:none}
+/* ======================= DASHBOARD ======================= */
+.dash-tab{display:none}
+body[data-tab="dash"] .dash-tab{display:block}
+body[data-tab="dash"] .tab-pedidos{display:none!important}
+.dsh-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:4px 0 18px}
+.dsh-head h2{margin:0;font:700 34px/1 var(--display);letter-spacing:-1px}
+.dsh-head p{margin:8px 0 0;color:var(--muted);font-size:13px}
+.dsh-ctl{display:flex;gap:8px;align-items:center}
+.dsh-ctl .icon-btn{width:40px;height:40px;padding:0;justify-content:center;font-size:17px}
+.dsh-ctl .seg button{height:32px}
+.dsh-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.dk{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+.dk span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dk strong{display:block;margin:8px 0 3px;font:700 32px/1 var(--display);letter-spacing:-1px}
+.dk small{color:var(--dim);font-size:11.5px}
+.dk.hi{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.dk.hi span,.dk.hi small{color:color-mix(in srgb,var(--ink) 65%,transparent)}
+.dsh-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.dsh-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.g8{grid-column:span 8}.g6{grid-column:span 6}.g4{grid-column:span 4}
+.dsh-card .ch{display:flex;align-items:baseline;justify-content:space-between;gap:4px 10px;margin-bottom:14px;flex-wrap:wrap}
+.dsh-card h3{margin:0;font:700 15px var(--display)}
+.dsh-card .ch small{color:var(--muted);font-size:12px;white-space:nowrap}
+.bars{display:flex;align-items:flex-end;height:200px;padding-top:18px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;padding:0 3px;border:0;background:none;cursor:pointer;border-radius:8px;font:inherit;color:inherit}
+.bar:hover{background:var(--hover)}
+.bar i{display:block;width:100%;max-width:30px;border-radius:6px 6px 2px 2px;background:color-mix(in srgb,var(--lime-t) 30%,var(--panel-2));transition:background .15s}
+.bar:hover i{background:color-mix(in srgb,var(--lime-t) 60%,var(--panel-2))}
+.bar.sel i{background:var(--lime-t)}
+.bar b{font-size:10.5px;color:var(--muted);margin-bottom:5px;font-weight:600}
+.bar.sel b{color:var(--text)}
+.bar span{margin-top:7px;font-size:10.5px;color:var(--dim);font-weight:600}
+.bar.sel span{color:var(--text)}
+.bar.cur span::after{content:"•";color:var(--lime-t);margin-left:2px}
+.story{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line);font-size:13.5px;line-height:1.6;color:var(--muted)}
+.story b{color:var(--text)}
+.story .up{color:var(--lime-t)}.story .dn{color:#ff7b6b}
+.dn-wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.donut{width:170px;height:170px;flex:none}
+.donut circle{transition:stroke-dasharray .4s}
+.dn-v{font:700 24px var(--display);fill:var(--text)}
+.dn-l{font:500 10px var(--font);fill:var(--muted)}
+.dn-leg{flex:1;min-width:150px;display:grid;gap:7px}
+.dn-leg div{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;font-size:12.5px}
+.dn-leg em{font-style:normal;color:var(--text)}
+.dn-leg b{font-variant-numeric:tabular-nums}
+.dn-leg small{color:var(--dim);width:34px;text-align:right}
+.rk{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.rk:last-child{border-bottom:0}
+.rk .pos{width:24px;height:24px;border-radius:7px;background:var(--panel-2);display:grid;place-items:center;font:700 11.5px var(--display);color:var(--muted)}
+.rk:nth-child(-n+3) .pos{background:var(--lime);color:var(--ink)}
+.rk-t{min-width:0}
+.rk-t b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-t small{display:block;color:var(--dim);font-size:11px;margin-top:1px}
+.rk-t i{display:block;height:4px;border-radius:2px;margin-top:6px;background:color-mix(in srgb,var(--lime-t) 70%,transparent)}
+.rk > strong{font:700 15px var(--display);text-align:right;white-space:nowrap}
+.rk > strong small{display:block;font:500 10.5px var(--font);color:var(--dim)}
+.chip{display:inline-block;padding:0 6px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);font-size:10px;line-height:15px}
+.drow{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.drow:last-child{border-bottom:0}
+.drow span{color:var(--muted)}
+.drow b{text-align:right;font-weight:600}
+.vazio{color:var(--muted);font-size:13px;margin:4px 0}
+@media(max-width:1200px){.dsh-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.g8,.g4{grid-column:span 12}}
+@media(max-width:900px){.g6{grid-column:span 12}}
+@media(max-width:700px){
+ .top-tabs{display:none}
+ .dsh-head h2{font-size:24px}
+ .dsh-ctl{width:100%}
+ .dsh-ctl .seg{flex:1}
+ .dsh-kpis{grid-template-columns:1fr 1fr;gap:10px}
+ .dk{padding:13px}
+ .dk strong{font-size:26px}
+ .dsh-grid{gap:12px}
+ .dsh-card{padding:15px}
+ .bars{height:170px}
+ .bar{padding:0 1px}
+ .bar b,.bar span{font-size:9px}
+ .donut{width:150px;height:150px}
+}
+
 /* ======================= LAYOUT DO RELATÓRIO (FOTO ATUAL) ======================= */
 #print-area{display:none}
 body.preview #print-area{display:block;background:#262626;padding:24px 0}
@@ -605,6 +699,11 @@ table.res .r{text-align:right}
 <div class="app-shell">
 <header class="app">
  <div class="brand"><img class="mark-img" src="icons/logo-96.png" alt="Pedidos 4K"><div><h1>Pedidos</h1><small>Impressão de amostras · Grupo 4K</small></div></div>
+ <nav class="top-tabs" aria-label="Seções"><button type="button" data-aba="pedidos" aria-current="true">Pedidos</button><button type="button" data-aba="dash" aria-current="false">Dashboard</button></nav>
+ <div class="ticker" aria-label="Letreiro de indicadores">
+  <div class="tk-tag"><i></i>AO VIVO <b>· PROTHEUS</b></div>
+  <div class="tk-view"><div class="tk-track" id="tk-track"></div></div>
+ </div>
  <div class="conn">
   <button class="icon-btn" id="btn-instalar" type="button" title="Instalar como aplicativo">⤓ Instalar app</button>
   <button class="icon-btn" id="btn-cfg" type="button" title="Controle de pedidos impressos"><span class="dot" id="cfg-dot"></span><span id="cfg-label">Impressos: só este aparelho</span></button>
@@ -614,10 +713,6 @@ table.res .r{text-align:right}
   <button class="icon-btn" id="btn-sair" type="button" title="Sair e esquecer este computador">Sair</button>
  </div>
 </header>
-<div class="ticker" aria-label="Letreiro de indicadores">
- <div class="tk-tag"><i></i>AO VIVO <b>· PROTHEUS</b></div>
- <div class="tk-view"><div class="tk-track" id="tk-track"></div></div>
-</div>
 
 <div class="preview-bar">
  <span id="preview-title">Visualização</span><span class="grow"></span>
@@ -629,7 +724,7 @@ table.res .r{text-align:right}
  <div class="hero tab-pedidos">
   <div><h2>Pedidos de <em>amostra</em></h2><p>Busque, confira o que já foi impresso e mande para a impressora no layout do Foto Atual.</p></div>
   <div class="quick">
-   <label class="field"><span>Pedido avulso</span><input id="f-pedido" placeholder="ex.: 567858" inputmode="numeric"></label>
+   <label class="field"><span>Pedido avulso</span><input id="f-pedido" name="numero-pedido-avulso" type="search" placeholder="ex.: 567858" inputmode="numeric" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
    <button class="btn sec" id="btn-um">Visualizar</button>
   </div>
  </div>
@@ -685,20 +780,24 @@ table.res .r{text-align:right}
    </table>
   </div>
  </section>
- <!-- ===== celular: Dashboard ===== -->
- <section id="dash" class="mob-tab">
-  <div class="dsh-head"><div><h2>Dashboard</h2><p id="dsh-quando">Carregando…</p></div><button class="icon-btn" id="dsh-refresh" type="button" title="Atualizar">↻</button></div>
-  <div class="dsh-kpis">
-   <div class="dk hi"><span>Em aberto</span><strong id="dk-aberto">—</strong><small>pedidos</small></div>
-   <div class="dk"><span>Liberados</span><strong id="dk-lib">—</strong><small>pedidos</small></div>
-   <div class="dk"><span>Faturados no mês</span><strong id="dk-fmes">—</strong><small>pedidos</small></div>
-   <div class="dk"><span>Faturados em <em id="dk-ano"></em></span><strong id="dk-fano">—</strong><small>pedidos</small></div>
-   <div class="dk"><span>A imprimir</span><strong id="dk-pend">—</strong><small>na lista atual</small></div>
-   <div class="dk"><span>Já impressos</span><strong id="dk-imp">—</strong><small>na lista atual</small></div>
+ <!-- ===== Dashboard (computador e celular) ===== -->
+ <section id="dash" class="dash-tab">
+  <div class="dsh-head">
+   <div><h2>Dashboard</h2><p id="dsh-quando">Carregando…</p></div>
+   <div class="dsh-ctl">
+    <div class="seg" id="dsh-per"><button type="button" data-per="mes" aria-pressed="true">Mensal · <span id="dsh-per-mes">—</span></button><button type="button" data-per="ano" aria-pressed="false">Anual</button></div>
+    <button class="icon-btn" id="dsh-refresh" type="button" title="Atualizar dados">↻</button>
+   </div>
   </div>
-  <div class="dsh-card"><h3>Amostras solicitadas por mês</h3><p class="sub" id="dsh-mes-res"></p><div id="dsh-meses"></div></div>
-  <div class="dsh-card"><h3>Pendentes por tipo de amostra</h3><p class="sub">Em aberto + liberados (ainda não faturados)</p><div id="dsh-tipos"></div></div>
-  <div class="dsh-card"><h3>Destaques</h3><div id="dsh-dest"></div></div>
+  <div class="dsh-kpis" id="dsh-kpis"></div>
+  <div class="dsh-grid">
+   <div class="dsh-card g8"><div class="ch"><h3>Amostras solicitadas por mês</h3><small>clique em um mês para ver como foi</small></div><div id="dsh-meses"></div></div>
+   <div class="dsh-card g4"><div class="ch"><h3>Tipos de amostra</h3><small class="dsh-rot"></small></div><div id="dsh-donut"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Top 10 mais solicitados</h3><small class="dsh-rot"></small></div><div id="dsh-top"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Quem mais solicita</h3><small class="dsh-rot"></small></div><div id="dsh-vend"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Clientes que mais pediram</h3><small class="dsh-rot"></small></div><div id="dsh-cli"></div></div>
+  </div>
  </section>
 
  <!-- ===== celular: Ajustes ===== -->
@@ -710,7 +809,7 @@ table.res .r{text-align:right}
    <div class="temas-grid"></div>
   </div>
   <div class="dsh-card"><h3>Pedidos impressos</h3><p class="sub">Digite o código do grupo para todos verem os mesmos impressos.</p>
-   <div class="aj-row"><input id="aj-chave" type="password" placeholder="Código do grupo"><button class="btn" id="aj-salvar" type="button">Salvar</button></div><p class="sub" id="aj-st"></p>
+   <div class="aj-row"><input id="aj-chave" class="oculto" type="text" name="codigo-grupo" autocomplete="off" spellcheck="false" placeholder="Código do grupo"><button class="btn" id="aj-salvar" type="button">Salvar</button></div><p class="sub" id="aj-st"></p>
   </div>
   <div class="dsh-card"><h3>Aplicativo</h3><p class="sub">Instale para abrir direto da tela inicial, em tela cheia.</p><button class="btn sec" id="aj-instalar" type="button" style="width:100%">Instalar app</button></div>
  </section>
@@ -727,7 +826,7 @@ table.res .r{text-align:right}
   <h3>Controle de pedidos impressos</h3>
   <p>Digite o código do grupo para que todos os computadores e celulares vejam os mesmos pedidos impressos. Sem o código, a marcação fica só neste aparelho. O código também é usado para considerar as malhas com defeito do NOVA.</p>
   <div class="ios-tip" id="ios-tip">No iPhone: toque em <b>Compartilhar</b> e depois em <b>Adicionar à Tela de Início</b> para instalar o app.</div>
-  <label class="field"><span>Código do grupo</span><input id="cfg-chave" type="password" placeholder="o mesmo código usado nas Pastas do NOVA"></label>
+  <label class="field"><span>Código do grupo</span><input id="cfg-chave" class="oculto" type="text" name="codigo-grupo" autocomplete="off" spellcheck="false" placeholder="o mesmo código usado nas Pastas do NOVA"></label>
   <div class="acts"><span class="st" id="cfg-st"></span><button class="btn sec" value="cancel">Fechar</button><button class="btn" id="btn-cfg-save" value="default">Salvar e testar</button></div>
  </form>
 </dialog>
@@ -990,7 +1089,7 @@ function mostrarApp(){
 function sair(motivo){
   try{ localStorage.removeItem(SESSAO_KEY); sessionStorage.removeItem(SESSAO_KEY) }catch{}
   SESSAO.user = SESSAO.pass = '';
-  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel') }catch{}
+  pedidos = []; marcados.clear(); renderLista(); PAINEL = null; try{ sessionStorage.removeItem('pv-painel2') }catch{}
   document.body.classList.remove('logado', 'preview');
   const lg = $('login'); lg.classList.remove('saindo');
   const w = $('lg-wrap'); w.classList.remove('busy', 'unido', 'mexendo'); w.style.transform = ''; $('lg-tab1').style.transform = $('lg-tab2').style.transform = '';
@@ -1058,8 +1157,9 @@ function iniciarLogin(){
   else setTimeout(() => ($('lg-user').value ? $('lg-pass') : $('lg-user')).focus(), 80);
 }
 
-/* ============================ painel: tipos em aberto + letreiro ============================ */
+/* ============================ painel: dados do Protheus (dashboard, letreiro, tipos) ============================ */
 const MESES = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+const MESES_EXT = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 function coresTipos(){
   const m = {'PILOTAGEM':'var(--lime-t)','BANDEIRA':'var(--text)','CARTELA DE CORES':'color-mix(in srgb,var(--lime-t) 55%,var(--bg))','BRINDES':'var(--muted)',
     'PDV':'color-mix(in srgb,var(--lime-t) 55%,var(--text))','TALAO DE VENDAS':'var(--line-2)','TAGS':'color-mix(in srgb,var(--text) 55%,var(--bg))','DESENVOLVIMENTO DE COR':'color-mix(in srgb,var(--lime-t) 75%,var(--bg))','NÃO INFORMADO':'var(--dim)'};
@@ -1067,81 +1167,141 @@ function coresTipos(){
 }
 const corTipo = t => coresTipos()(t);
 const fmtInt = n => Math.round(num(n)).toLocaleString('pt-BR');
+const cap = s => String(s || '').toLowerCase().replace(/(^|[\s.\-/])\S/g, c => c.toUpperCase()).replace(/\b(De|Da|Do|Dos|Das|E)\b/g, w => w.toLowerCase());
+const nomeMes = m => `${MESES[+m.slice(4, 6) - 1]}/${m.slice(2, 4)}`;
+const mesExt = m => `${MESES_EXT[+m.slice(4, 6) - 1]} de ${m.slice(0, 4)}`;
+const ymd = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+function diasUteis(mes, ateDia){
+  const y = +mes.slice(0, 4), m = +mes.slice(4, 6) - 1, ult = new Date(y, m + 1, 0).getDate();
+  let n = 0; for(let d = 1; d <= Math.min(ult, ateDia || ult); d++){ const w = new Date(y, m, d).getDay(); if(w && w !== 6) n++ }
+  return n;
+}
+// setor da vendedora pelo código (mesma regra do Consolidado) ou pelo nome do vendedor 1
+function setorVend(v2, v1nome){
+  const c = trim(v2).toUpperCase();
+  if(c.startsWith('V00')) return 'Supervisão';
+  if(c.startsWith('S50') || c.startsWith('S55')) return 'Televendas';
+  if(c.startsWith('S62')) return 'Loja Física';
+  if(c.startsWith('S00')) return 'Loja SP';
+  const n = semAcento(v1nome);
+  if(n.includes('TELEVENDA')) return 'Televendas';
+  if(n.includes('SUPERVIS')) return 'Supervisão';
+  if(n.includes('LOJA')) return 'Loja';
+  return v1nome ? cap(v1nome) : '';
+}
 let PAINEL = null, painelCarregando = null;
 
-/* Uma consulta (paginada) com os itens de amostra dos últimos 12 meses → todos os números do painel */
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c.dados; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel2', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
-    const hoje = new Date(), ini = new Date(hoje.getFullYear(), hoje.getMonth() - 11, 1);
-    const desde = `${ini.getFullYear()}${String(ini.getMonth() + 1).padStart(2, '0')}01`;
-    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
-      `C5_EMISSAO>=${q(desde)}`, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
-    const rows = await gqSafe('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_LIBEROK','C5_NOTA','C6_QTDVEN','C6_QTDENT','C6_BLQ'],
-      [CONFIG.campos.tpAmostra].filter(c => /^C6_/i.test(c || '')), w);
-    const ped = new Map(), meses = new Map(), tiposAbertos = new Map(), tiposMes = new Map(), vendMes = new Map(), cliMes = new Set();
-    const mesAtual = `${hoje.getFullYear()}${String(hoje.getMonth() + 1).padStart(2, '0')}`;
-    const hojeStr = mesAtual + String(hoje.getDate()).padStart(2, '0');
-    let amostrasHoje = 0, antAteHoje = 0; const pedHoje = new Set();
-    const ma = new Date(hoje.getFullYear(), hoje.getMonth() - 1, 1), mesAnt = `${ma.getFullYear()}${String(ma.getMonth() + 1).padStart(2, '0')}`;
-    rows.forEach(r => {
-      const em = trim(r.c5_emissao).replace(/-/g, ''), mes = em.slice(0, 6), qtd = num(r.c6_qtdven);
-      const tipo = (opcao(CONFIG.campos.tpAmostra, get(r, CONFIG.campos.tpAmostra)) || 'NÃO INFORMADO').toUpperCase();
-      const aberto = num(r.c6_qtdven) > num(r.c6_qtdent) && trim(r.c6_blq) !== 'R';
-      const o = ped.get(r.c5_num) || {em, nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, vend:trim(r.c5_vend1)};
-      if(aberto) o.aberto = true; ped.set(r.c5_num, o);
-      const m = meses.get(mes) || {qtd:0, ped:new Set()}; m.qtd += qtd; m.ped.add(r.c5_num); meses.set(mes, m);
-      if(!trim(r.c5_nota) && aberto){ const t = tiposAbertos.get(tipo) || {qtd:0, ped:new Set()}; t.qtd += num(r.c6_qtdven) - num(r.c6_qtdent); t.ped.add(r.c5_num); tiposAbertos.set(tipo, t) }
-      if(mes === mesAtual){ tiposMes.set(tipo, (tiposMes.get(tipo) || 0) + qtd); cliMes.add(trim(r.c5_cliente)) }
-      if(em === hojeStr){ amostrasHoje += qtd; pedHoje.add(r.c5_num) }
-      if(mes === mesAnt && +em.slice(6, 8) <= hoje.getDate()) antAteHoje += qtd;
+    const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
+    const tes = `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`, fil = `C5_FILIAL=${q(CONFIG.filial)}`;
+    const base = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', fil, tes, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"];
+    const extra = [CONFIG.campos.tpAmostra].filter(c => /^C6_/i.test(c || ''));
+    const listaMeses = Array.from({length:12}, (_, i) => { const d = new Date(hoje.getFullYear(), hoje.getMonth() - 11 + i, 1); return ymd(d).slice(0, 6) });
+    // 12 consultas menores (uma por mês) em vez de uma enorme: menos páginas, resultado mais confiável
+    const porMes = await Promise.all(listaMeses.map(mes => gqSafe('SC5,SC6',
+      ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_VEND2','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT','C6_BLQ'], extra,
+      [...base, `C5_EMISSAO BETWEEN ${q(mes + '01')} AND ${q(mes + '31')}`].join(' AND '))));
+    // pendentes (não faturados): consulta própria e pequena, sem limite de data
+    const pend = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
+      [...base, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"].join(' AND '));
+    const tipoDe = r => (opcao(CONFIG.campos.tpAmostra, get(r, CONFIG.campos.tpAmostra)) || 'NÃO INFORMADO').toUpperCase();
+
+    const meses = listaMeses.map((mes, i) => {
+      const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}};
+      const peds = new Map(), clis = new Set();
+      porMes[i].forEach(r => {
+        const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k); // ignora linhas repetidas entre páginas
+        const qv = num(r.c6_qtdven), qe = num(r.c6_qtdent), em = trim(r.c5_emissao).replace(/-/g, ''), tp = tipoDe(r);
+        M.qtd += qv; M.env += qe; clis.add(trim(r.c5_cliente));
+        M.tipos[tp] = (M.tipos[tp] || 0) + qv;
+        const pc = trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0]); pr[1] += qv;
+        const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + qv;
+        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0};
+        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += qv; peds.set(r.c5_num, o);
+      });
+      peds.forEach(o => {
+        M.ped++;
+        if(o.nota) M.fat++; else if(o.aberto){ if(o.lib) M.lib++; else M.ab++ }
+        const vk = o.v2 || o.v1; if(vk){ const v = M.vend[vk] || (M.vend[vk] = {p:0, q:0, v1:o.v1}); v.p++; v.q += o.q }
+      });
+      M.cli = [...clis].filter(Boolean); M.qtd = Math.round(M.qtd); M.env = Math.round(M.env);
+      return M;
     });
-    const st = {aberto:0, liberado:0, faturadoAno:0, faturadoMes:0};
-    const anoAtual = String(hoje.getFullYear());
-    ped.forEach(o => {
-      if(o.nota){ if(o.em.startsWith(anoAtual)) st.faturadoAno++; if(o.em.startsWith(mesAtual)) st.faturadoMes++ }
-      else if(o.aberto){ if(o.lib) st.liberado++; else st.aberto++ }
-      if(o.em.startsWith(mesAtual)) vendMes.set(o.vend, (vendMes.get(o.vend) || 0) + 1);
+    const atual = meses[meses.length - 1], anterior = meses[meses.length - 2];
+    const antAteHoje = anterior ? Object.entries(anterior.dias).filter(([d]) => +d <= hoje.getDate()).reduce((s, [, v]) => s + v, 0) : 0;
+    const hojeRows = porMes[porMes.length - 1].filter(r => trim(r.c5_emissao).replace(/-/g, '') === hojeStr);
+    // pendentes por tipo
+    const pt = new Map(), pp = new Map();
+    pend.forEach(r => {
+      const t = tipoDe(r), o = pt.get(t) || {qtd:0, ped:new Set()}; o.qtd += num(r.c6_qtdven) - num(r.c6_qtdent); o.ped.add(r.c5_num); pt.set(t, o);
+      pp.set(r.c5_num, trim(r.c5_liberok));
     });
-    const topVend = [...vendMes].sort((a, b) => b[1] - a[1])[0];
-    let nomeVend = '';
-    if(topVend){ try{ const v = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, [topVend[0]]); nomeVend = trim(get(v(topVend[0]), CONFIG.nomeVendedor)) }catch{} }
-    // dias úteis do mês até hoje
-    let uteis = 0; for(let d = 1; d <= hoje.getDate(); d++){ const wd = new Date(hoje.getFullYear(), hoje.getMonth(), d).getDay(); if(wd && wd !== 6) uteis++ }
+    // nomes: vendedoras e clientes que aparecem nos rankings
+    const top = (obj, n, f) => Object.entries(obj).sort((a, b) => f(b[1]) - f(a[1])).slice(0, n).map(x => x[0]);
+    const anoAtual = mesAtual.slice(0, 4);
+    const doAno = meses.filter(m => m.mes.startsWith(anoAtual));
+    const vendCods = new Set(), cliCods = new Set();
+    meses.forEach(m => { top(m.vend, 10, v => v.p).forEach(c => { vendCods.add(c); vendCods.add(m.vend[c].v1) }) });
+    const vAno = juntarVend(doAno); top(vAno, 10, v => v.p).forEach(c => { vendCods.add(c); vendCods.add(vAno[c].v1) });
+    const cliAno = {}; porMes.forEach((rows, i) => { if(!listaMeses[i].startsWith(anoAtual)) return; rows.forEach(r => { const c = trim(r.c5_cliente); cliAno[c] = (cliAno[c] || 0) + num(r.c6_qtdven) }) });
+    const cliMes = {}; porMes[porMes.length - 1].forEach(r => { const c = trim(r.c5_cliente); cliMes[c] = (cliMes[c] || 0) + num(r.c6_qtdven) });
+    top(cliAno, 10, v => v).concat(top(cliMes, 10, v => v)).forEach(c => cliCods.add(c));
+    const nomesV = {}, nomesC = {};
+    try{ const v = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, [...vendCods].filter(Boolean)); vendCods.forEach(c => { const n = trim(get(v(c), CONFIG.nomeVendedor)); if(n) nomesV[c] = n }) }catch(e){ if(e.auth) throw e }
+    try{ const c = await carregarClientes([...cliCods]); cliCods.forEach(k => { const n = trim(c(k, '')?.a1_nome); if(n) nomesC[k] = n }) }catch(e){ if(e.auth) throw e }
     const dados = {
-      ts: Date.now(), st,
-      meses: [...meses].sort((a, b) => a[0].localeCompare(b[0])).map(([k, v]) => ({mes:k, qtd:Math.round(v.qtd), ped:v.ped.size})),
-      tipos: [...tiposAbertos].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd),
-      tiposMes: [...tiposMes].map(([t, q]) => ({tipo:t, qtd:Math.round(q)})).sort((a, b) => b.qtd - a.qtd),
-      hoje: {amostras:Math.round(amostrasHoje), pedidos:pedHoje.size},
-      clientesMes: cliMes.size, uteis, antAteHoje: Math.round(antAteHoje),
-      topVend: topVend ? {cod:topVend[0], nome:nomeVend, ped:topVend[1]} : null,
-      abertosPed: new Set([...tiposAbertos.values()].flatMap(v => [...v.ped])).size
+      ts:Date.now(), mesAtual, ano:anoAtual, meses, antAteHoje:Math.round(antAteHoje),
+      hoje:{ped:new Set(hojeRows.map(r => r.c5_num)).size, qtd:Math.round(hojeRows.reduce((s, r) => s + num(r.c6_qtdven), 0))},
+      pend:{tipos:[...pt].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd), ped:pp.size,
+        ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
+      cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
     };
-    store.set('pv-painel', JSON.stringify({ts:Date.now(), dados}), true);
+    try{ store.set('pv-painel2', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
 }
+function juntarVend(lista){
+  const out = {}; lista.forEach(m => Object.entries(m.vend).forEach(([k, v]) => { const o = out[k] || (out[k] = {p:0, q:0, v1:v.v1}); o.p += v.p; o.q += v.q }));
+  return out;
+}
+/* visão de um período: um mês ('AAAAMM') ou o ano atual ('ano') */
+function visao(periodo){
+  const P = PAINEL; if(!P) return null;
+  const ms = periodo === 'ano' ? P.meses.filter(m => m.mes.startsWith(P.ano)) : P.meses.filter(m => m.mes === periodo);
+  const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms};
+  ms.forEach(m => {
+    V.qtd += m.qtd; V.env += m.env; V.ped += m.ped; V.fat += m.fat; V.ab += m.ab; V.lib += m.lib; m.cli.forEach(c => V.cli.add(c));
+    Object.entries(m.tipos).forEach(([t, q]) => V.tipos[t] = (V.tipos[t] || 0) + q);
+    Object.entries(m.prod).forEach(([c, [d, q]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0]); o[1] += q });
+    Object.entries(m.dias).forEach(([d, q]) => V.dias[m.mes + d] = (V.dias[m.mes + d] || 0) + q);
+    V.uteis += diasUteis(m.mes, m.mes === P.mesAtual ? new Date().getDate() : 0);
+  });
+  V.cliQ = periodo === 'ano' ? P.cliAnoQ : periodo === P.mesAtual ? P.cliMesQ : null;
+  return V;
+}
+const nomeVend = c => PAINEL?.nomesV?.[c] || c;
+const rotuloVend = (c, v) => { const n = nomeVend(c), s = setorVend(c, PAINEL?.nomesV?.[v?.v1]); return {n:cap(n.replace(/^[A-Z]\d+\s*-\s*/, '')), cod:c, setor:s} };
 
-/* ---------- cartão + tabelinha de tipos em aberto ---------- */
+/* ---------- cartão + tabelinha de tipos (página Pedidos) ---------- */
 function renderTipos(){
   const tile = $('st-tipos'); if(!tile) return;
   if(!PAINEL){ $('tp-bar').innerHTML = ''; $('tp-leg').textContent = 'carregando…'; return }
-  const lista = PAINEL.tipos, total = lista.reduce((s, t) => s + t.qtd, 0);
+  const lista = PAINEL.pend.tipos, total = lista.reduce((s, t) => s + t.qtd, 0);
   $('tp-total').textContent = fmtInt(total);
   $('tp-bar').innerHTML = total ? lista.map(t => `<i style="width:${100 * t.qtd / total}%;background:${corTipo(t.tipo)}" title="${esc(t.tipo)}: ${fmtInt(t.qtd)}"></i>`).join('') : '';
-  $('tp-leg').innerHTML = lista.length ? lista.slice(0, 3).map(t => `<span><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<b>${fmtInt(t.qtd)}</b></span>`).join('') + (lista.length > 3 ? `<span>+${lista.length - 3}</span>` : '') : 'nenhuma amostra em aberto';
+  $('tp-leg').innerHTML = lista.length ? lista.slice(0, 3).map(t => `<span><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<b>${fmtInt(t.qtd)}</b></span>`).join('') + (lista.length > 3 ? `<span>+${lista.length - 3}</span>` : '') : 'nenhuma amostra pendente';
   const max = Math.max(1, ...lista.map(t => t.qtd));
   $('tp-body').innerHTML = lista.length ? lista.map(t => `<tr><td><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<span class="mini" style="width:${100 * t.qtd / max}%;background:${corTipo(t.tipo)}"></span></td><td class="n">${fmtInt(t.ped)}</td><td class="n">${fmtInt(t.qtd)}</td></tr>`).join('')
-    : '<tr><td colspan="3" style="color:var(--muted)">Nenhuma amostra em aberto.</td></tr>';
-  $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(PAINEL.abertosPed || 0)}</td><td class="n">${fmtInt(total)}</td></tr>`;
-  $('tp-quando').textContent = 'Em aberto + liberados (ainda não faturados) · atualizado às ' + new Date(PAINEL.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    : '<tr><td colspan="3" style="color:var(--muted)">Nenhuma amostra pendente.</td></tr>';
+  $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(PAINEL.pend.ped)}</td><td class="n">${fmtInt(total)}</td></tr>`;
+  $('tp-quando').textContent = `Em aberto + liberados (ainda não faturados) · atualizado às ${new Date(PAINEL.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`;
 }
-const cap = s => String(s).toLowerCase().replace(/(^|\s)\S/g, c => c.toUpperCase()).replace(/\bDe\b/g, 'de');
 function abrirTipos(){
   const pop = $('tp-pop'), r = $('st-tipos').getBoundingClientRect();
   pop.classList.add('on');
@@ -1157,26 +1317,18 @@ function seta(atual, anterior){
   return v > 0 ? ` <span class="up">▲${v}%</span>` : v < 0 ? ` <span class="dn">▼${Math.abs(v)}%</span>` : ' <span class="w">=</span>';
 }
 function telasLetreiro(){
-  const P = PAINEL, hoje = new Date(), ano = hoje.getFullYear();
-  const imp = pedidos.filter(p => IMP.get(p)).length;
+  const P = PAINEL;
   if(!P) return [`<span class="sec">AGUARDE</span>CARREGANDO INDICADORES DO PROTHEUS${TK}PEDIDOS DE AMOSTRA · GRUPO 4K`];
-  const ms = P.meses, atual = ms[ms.length - 1], ant = ms[ms.length - 2];
-  const nomeMes = m => `${MESES[+m.slice(4, 6) - 1]}/${m.slice(2, 4)}`;
-  const t = [];
-  t.push(`<span class="sec">AGORA</span>EM ABERTO <span class="w">${fmtInt(P.st.aberto)}</span> PEDIDOS${TK}LIBERADOS <span class="w">${fmtInt(P.st.liberado)}</span>${TK}FATURADOS NO MÊS <span class="w">${fmtInt(P.st.faturadoMes)}</span>${TK}FATURADOS EM ${ano} <span class="w">${fmtInt(P.st.faturadoAno)}</span>`
-    + (pedidos.length ? `${TK}NA LISTA: <span class="w">${pedidos.length - imp}</span> A IMPRIMIR · <span class="w">${imp}</span> JÁ IMPRESSOS` : ''));
+  const M = visao(P.mesAtual), A = visao('ano'), ms = P.meses, mn = nomeMes(P.mesAtual);
+  const imp = pedidos.filter(p => IMP.get(p)).length, t = [];
+  t.push(`<span class="sec">${mn}</span>EM ABERTO <span class="w">${fmtInt(M.ab)}</span>${TK}LIBERADOS <span class="w">${fmtInt(M.lib)}</span>${TK}FATURADOS <span class="w">${fmtInt(M.fat)}</span>${TK}FATURADOS EM ${P.ano} <span class="w">${fmtInt(A.fat)}</span>${TK}PENDENTES AGORA <span class="w">${fmtInt(P.pend.ped)}</span> PEDIDOS`
+    + (pedidos.length ? `${TK}NA LISTA: <span class="w">${pedidos.length - imp}</span> A IMPRIMIR · <span class="w">${imp}</span> IMPRESSOS` : ''));
   t.push(`<span class="sec">MÊS A MÊS</span>AMOSTRAS SOLICITADAS` + ms.slice(-6).reverse().map((m, i, arr) => `${TK}${nomeMes(m.mes)}${i === 0 ? ' (ATÉ HOJE)' : ''} <span class="w">${fmtInt(m.qtd)}</span>${i === 0 ? seta(m.qtd, P.antAteHoje) : seta(m.qtd, arr[i + 1]?.qtd)}`).join(''));
-  const dest = [];
-  dest.push(`HOJE <span class="w">${fmtInt(P.hoje.pedidos)}</span> PEDIDOS · <span class="w">${fmtInt(P.hoje.amostras)}</span> AMOSTRAS`);
-  if(atual) dest.push(`${nomeMes(atual.mes)} ATÉ AGORA <span class="w">${fmtInt(atual.qtd)}</span> AMOSTRAS EM <span class="w">${fmtInt(atual.ped)}</span> PEDIDOS${P.antAteHoje ? seta(atual.qtd, P.antAteHoje) + ' VS MESMO PERÍODO DE ' + (ant ? nomeMes(ant.mes) : 'MÊS PASSADO') : ''}`);
-  if(atual && P.uteis) dest.push(`MÉDIA DE <span class="w">${(atual.qtd / P.uteis).toLocaleString('pt-BR', {maximumFractionDigits:1})}</span> AMOSTRAS POR DIA ÚTIL`);
-  if(P.tiposMes[0] && atual?.qtd) dest.push(`TIPO MAIS PEDIDO NO MÊS: <span class="w">${esc(P.tiposMes[0].tipo)}</span> (${Math.round(100 * P.tiposMes[0].qtd / atual.qtd)}%)`);
-  const rec = ms.slice().sort((a, b) => b.qtd - a.qtd)[0];
-  if(rec) dest.push(`MELHOR MÊS DOS ÚLTIMOS 12: <span class="w">${nomeMes(rec.mes)}</span> COM <span class="w">${fmtInt(rec.qtd)}</span> AMOSTRAS`);
-  if(P.clientesMes) dest.push(`<span class="w">${fmtInt(P.clientesMes)}</span> CLIENTES ATENDIDOS NO MÊS`);
-  if(P.topVend) dest.push(`QUEM MAIS PEDIU NO MÊS: <span class="w">${esc(P.topVend.cod)}${P.topVend.nome ? ' - ' + esc(P.topVend.nome) : ''}</span> (${fmtInt(P.topVend.ped)} PEDIDOS)`);
-  t.push(`<span class="sec">DESTAQUES</span>` + dest.join(TK));
-  if(P.tipos.length) t.push(`<span class="sec">PENDENTES POR TIPO</span>` + P.tipos.map(x => `${esc(x.tipo)} <span class="w">${fmtInt(x.qtd)}</span>`).join(TK));
+  const d = destaques(M, P.mesAtual).map(([k, v]) => `${k.toUpperCase()}: <span class="w">${esc(String(v).toUpperCase())}</span>`);
+  t.push(`<span class="sec">DESTAQUES DO MÊS</span>` + d.join(TK));
+  const tp = Object.entries(A.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 5);
+  if(tp.length) t.push(`<span class="sec">TOP ${P.ano}</span>` + tp.map(([c, [ds, q]], i) => `${i + 1}º ${esc(ds)} <span class="w">${fmtInt(q)}</span>`).join(TK));
+  if(P.pend.tipos.length) t.push(`<span class="sec">PENDENTES POR TIPO</span>` + P.pend.tipos.map(x => `${esc(x.tipo)} <span class="w">${fmtInt(x.qtd)}</span>`).join(TK));
   return t;
 }
 let telaAtual = 0;
@@ -1184,20 +1336,18 @@ function proximaTela(){
   const tr = $('tk-track'); if(!tr) return;
   const telas = telasLetreiro(); telaAtual = telaAtual % telas.length;
   tr.style.animation = 'none'; tr.innerHTML = telas[telaAtual++]; void tr.offsetWidth;
-  const dist = tr.scrollWidth, vel = 95; // pixels por segundo
+  const dist = tr.scrollWidth, vel = 85;
   tr.style.animation = `tk-scroll ${Math.max(8, dist / vel)}s linear 1`;
 }
 function iniciarLetreiro(){
   const tr = $('tk-track'); if(!tr || tr.dataset.on) return;
-  tr.dataset.on = '1';
-  tr.addEventListener('animationend', proximaTela);
-  proximaTela();
+  tr.dataset.on = '1'; tr.addEventListener('animationend', proximaTela); proximaTela();
 }
 async function atualizarPainel(forcar = false){
   const tinha = !!PAINEL;
-  try{ await carregarPainel(forcar) }catch(e){ console.warn('painel', e); if(e.auth) return }
+  try{ await carregarPainel(forcar) }catch(e){ console.warn('painel', e); if(e.auth) return; if(!PAINEL) $('dsh-quando') && ($('dsh-quando').textContent = 'Não foi possível carregar: ' + e.message) }
   renderTipos(); renderDash();
-  if(!tinha && PAINEL){ telaAtual = 0; proximaTela() } // sai do "carregando" assim que os números chegam
+  if(!tinha && PAINEL){ telaAtual = 0; proximaTela() }
 }
 
 /* ---------- login: cartão inclina com o mouse ---------- */
@@ -1257,6 +1407,7 @@ function aplicarTema(){
   document.querySelectorAll('[data-modo-ico]').forEach(el => el.textContent = escuro ? '☾' : '☀');
   document.querySelectorAll('.tema-op').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.tema === t.id)));
   document.querySelectorAll('.modo-op').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.modo === modo)));
+  recolorirLogo();
   if(typeof renderTipos === 'function' && PAINEL){ renderTipos(); renderDash() }
 }
 function htmlTemas(){
@@ -1279,46 +1430,92 @@ function iniciarTemas(){
   aplicarTema();
 }
 
-/* ============================ celular: abas + dashboard ============================ */
+/* ============================ abas + dashboard (computador e celular) ============================ */
+let DSH_PER = 'mes', DSH_MES = null; // 'mes' (mês escolhido no gráfico) ou 'ano'
 function trocarAba(aba){
   document.body.dataset.tab = aba;
-  document.querySelectorAll('.tabbar button').forEach(b => b.setAttribute('aria-current', String(b.dataset.aba === aba)));
+  document.querySelectorAll('[data-aba]').forEach(b => b.setAttribute('aria-current', String(b.dataset.aba === aba)));
   if(aba === 'dash'){ renderDash(); if(!PAINEL) atualizarPainel() }
   if(aba === 'ajustes'){ $('aj-chave').value = IMP.chave(); $('aj-user').textContent = SESSAO.user; $('aj-ini').textContent = (SESSAO.user.replace(/[^a-z0-9]/gi, '')[0] || '?') }
   window.scrollTo(0, 0);
 }
+function destaques(V, periodo){
+  if(!V) return [];
+  const P = PAINEL, out = [];
+  const nomeP = periodo === 'ano' ? `em ${P.ano}` : (periodo === P.mesAtual ? 'no mês' : `em ${nomeMes(periodo)}`);
+  if(periodo === P.mesAtual) out.push(['Hoje', `${fmtInt(P.hoje.ped)} pedidos · ${fmtInt(P.hoje.qtd)} amostras`]);
+  out.push([`Amostras ${nomeP}`, `${fmtInt(V.qtd)} em ${fmtInt(V.ped)} pedidos`]);
+  if(V.uteis) out.push(['Média por dia útil', `${fmtInt(Math.round(V.qtd / V.uteis))} amostras`]);
+  const tps = Object.entries(V.tipos).sort((a, b) => b[1] - a[1]);
+  if(tps[0] && V.qtd) out.push([`Tipo mais pedido ${nomeP}`, `${cap(tps[0][0])} (${Math.round(100 * tps[0][1] / V.qtd)}%)`]);
+  const pico = Object.entries(V.dias).sort((a, b) => b[1] - a[1])[0];
+  if(pico) out.push(['Dia mais movimentado', `${pico[0].slice(6, 8)}/${pico[0].slice(4, 6)} · ${fmtInt(pico[1])} amostras`]);
+  if(periodo === 'ano'){ const rec = V.meses.slice().sort((a, b) => b.qtd - a.qtd)[0]; if(rec) out.push(['Melhor mês', `${nomeMes(rec.mes)} · ${fmtInt(rec.qtd)} amostras`]) }
+  out.push([`Clientes atendidos ${nomeP}`, fmtInt(V.cli.size)]);
+  const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p)[0];
+  if(tv){ const r = rotuloVend(tv[0], tv[1]); out.push([`Quem mais pediu ${nomeP}`, `${r.n}${r.setor ? ' · ' + r.setor : ''} (${fmtInt(tv[1].p)} ped.)`]) }
+  if(V.ped) out.push(['Faturados', `${fmtInt(V.fat)} de ${fmtInt(V.ped)} pedidos (${Math.round(100 * V.fat / V.ped)}%)`]);
+  return out;
+}
+function historiaMes(mes){
+  const P = PAINEL, V = visao(mes), i = P.meses.findIndex(m => m.mes === mes), ant = P.meses[i - 1];
+  if(!V || !V.ped) return `<b>${cap(mesExt(mes))}</b>: nenhum pedido de amostra registrado.`;
+  const andamento = mes === P.mesAtual;
+  const comp = andamento ? (P.antAteHoje ? { base:P.antAteHoje, txt:`ao mesmo período de ${nomeMes(ant.mes)}`, igual:`o mesmo volume do mesmo período de ${nomeMes(ant.mes)}` } : null) : (ant?.qtd ? {base:ant.qtd, txt:`a ${nomeMes(ant.mes)}`, igual:`o mesmo volume de ${nomeMes(ant.mes)}`} : null);
+  const varTxt = comp ? (() => { const v = Math.round(100 * (V.qtd - comp.base) / comp.base); return v === 0 ? `, ${comp.igual}` : `, <b class="${v > 0 ? 'up' : 'dn'}">${v > 0 ? '▲' : '▼'} ${Math.abs(v)}%</b> em relação ${comp.txt}` })() : '';
+  const tps = Object.entries(V.tipos).sort((a, b) => b[1] - a[1]);
+  const tpTxt = tps.length ? ` O tipo mais pedido foi <b>${cap(tps[0][0])}</b> (${Math.round(100 * tps[0][1] / V.qtd)}%)` + (tps[1] ? `, seguido de ${cap(tps[1][0])} (${Math.round(100 * tps[1][1] / V.qtd)}%).` : '.') : '';
+  const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p)[0];
+  const vTxt = tv ? (() => { const r = rotuloVend(tv[0], tv[1]); return ` Quem mais pediu foi <b>${esc(r.n)}</b>${r.setor ? ' (' + esc(r.setor) + ')' : ''}, com ${fmtInt(tv[1].p)} pedidos.` })() : '';
+  const tp = Object.entries(V.prod).sort((a, b) => b[1][1] - a[1][1])[0];
+  const pTxt = tp ? ` O item mais solicitado foi <b>${esc(tp[1][0])}</b> (${fmtInt(tp[1][1])}).` : '';
+  const pico = Object.entries(V.dias).sort((a, b) => b[1] - a[1])[0];
+  const dTxt = pico ? ` O dia mais movimentado foi ${pico[0].slice(6, 8)}/${pico[0].slice(4, 6)}, com ${fmtInt(pico[1])} amostras.` : '';
+  return `<b>${cap(mesExt(mes))}</b>${andamento ? ' (em andamento)' : ''}: foram solicitadas <b>${fmtInt(V.qtd)} amostras</b> em ${fmtInt(V.ped)} pedidos${varTxt}.`
+    + `${tpTxt}${vTxt}${pTxt} <b>${fmtInt(V.cli.size)}</b> clientes atendidos e <b>${fmtInt(V.fat)}</b> pedidos já faturados.${dTxt}`;
+}
+function donut(entries, total){
+  const R = 54, C = 2 * Math.PI * R, cores = coresTipos(); let off = 0;
+  const arcs = entries.map(([t, q]) => { const len = total ? C * q / total : 0, s = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${cores(t)}" stroke-width="22" stroke-dasharray="${Math.max(0, len - 1.5)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"><title>${esc(cap(t))}: ${fmtInt(q)}</title></circle>`; off += len; return s }).join('');
+  return `<svg viewBox="0 0 140 140" class="donut"><circle r="${R}" cx="70" cy="70" fill="none" stroke="var(--panel-2)" stroke-width="22"/>${arcs}
+    <text x="70" y="66" text-anchor="middle" class="dn-v">${fmtInt(total)}</text><text x="70" y="84" text-anchor="middle" class="dn-l">amostras</text></svg>`;
+}
 function renderDash(){
-  const box = $('dash'); if(!box) return;
-  const P = PAINEL, imp = pedidos.filter(p => IMP.get(p)).length;
-  $('dsh-quando').textContent = P ? 'Atualizado às ' + new Date(P.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) + ' · últimos 12 meses' : 'Carregando dados do Protheus…';
-  const kpi = (id, v) => { $(id).textContent = v == null ? '—' : fmtInt(v) };
-  kpi('dk-aberto', P?.st.aberto); kpi('dk-lib', P?.st.liberado); kpi('dk-fmes', P?.st.faturadoMes); kpi('dk-fano', P?.st.faturadoAno);
-  kpi('dk-pend', pedidos.length ? pedidos.length - imp : null); kpi('dk-imp', pedidos.length ? imp : null);
-  $('dk-ano').textContent = new Date().getFullYear();
-  if(!P){ $('dsh-meses').innerHTML = ''; $('dsh-tipos').innerHTML = ''; $('dsh-dest').innerHTML = ''; return }
-  // gráfico de barras mês a mês
-  const ms = P.meses.slice(-12), max = Math.max(1, ...ms.map(m => m.qtd)), W = 100 / Math.max(1, ms.length);
-  $('dsh-meses').innerHTML = `<div class="bars">${ms.map((m, i) => `<div class="bar${i === ms.length - 1 ? ' cur' : ''}" style="width:${W}%">
-      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></div>`).join('')}</div>`;
-  const atual = ms[ms.length - 1];
-  $('dsh-mes-res').innerHTML = atual ? `<b>${fmtInt(atual.qtd)}</b> amostras em <b>${fmtInt(atual.ped)}</b> pedidos neste mês` + (P.antAteHoje ? ` · ${seta(atual.qtd, P.antAteHoje).replace(/<[^>]+>/g, '')} vs mesmo período do mês passado` : '') : '';
-  // pendentes por tipo
-  const tot = P.tipos.reduce((s, t) => s + t.qtd, 0), cores = coresTipos();
-  $('dsh-tipos').innerHTML = P.tipos.length ? P.tipos.map(t => `<div class="trow"><div class="tn"><span class="tp-dot" style="background:${cores(t.tipo)}"></span>${esc(cap(t.tipo))}</div>
-      <div class="tv"><b>${fmtInt(t.qtd)}</b><small>${fmtInt(t.ped)} ped.</small></div><div class="tb"><i style="width:${tot ? 100 * t.qtd / tot : 0}%;background:${cores(t.tipo)}"></i></div></div>`).join('')
-    + `<div class="trow tot"><div class="tn">Total pendente</div><div class="tv"><b>${fmtInt(tot)}</b><small>${fmtInt(P.abertosPed)} ped.</small></div></div>`
-    : '<p class="vazio">Nenhuma amostra pendente.</p>';
+  if(!$('dash')) return;
+  const P = PAINEL;
+  $('dsh-quando').textContent = P ? `Atualizado às ${new Date(P.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} · últimos 12 meses do Protheus` : 'Carregando dados do Protheus…';
+  document.querySelectorAll('#dsh-per button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.per === DSH_PER)));
+  if(!P){ ['dsh-kpis','dsh-meses','dsh-donut','dsh-top','dsh-vend','dsh-dest','dsh-cli'].forEach(id => $(id).innerHTML = '<p class="vazio">Carregando…</p>'); return }
+  if(!DSH_MES || !P.meses.some(m => m.mes === DSH_MES)) DSH_MES = P.mesAtual;
+  const per = DSH_PER === 'ano' ? 'ano' : DSH_MES, V = visao(per), M = visao(DSH_MES), A = visao('ano');
+  const rot = per === 'ano' ? `${P.ano}` : nomeMes(DSH_MES);
+  document.querySelectorAll('.dsh-rot').forEach(el => el.textContent = rot);
+  $('dsh-per-mes').textContent = nomeMes(DSH_MES);
+  // KPIs: três do mês escolhido + três do ano
+  const k = (lbl, v, sub, hi) => `<div class="dk${hi ? ' hi' : ''}"><span>${lbl}</span><strong>${fmtInt(v)}</strong><small>${sub}</small></div>`;
+  const mn = nomeMes(DSH_MES);
+  $('dsh-kpis').innerHTML = k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês') + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês')
+    + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade faturada') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
+  // barras mês a mês (clicáveis)
+  const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd));
+  $('dsh-meses').innerHTML = `<div class="bars">${ms.map(m => `<button type="button" class="bar${m.mes === DSH_MES ? ' sel' : ''}${m.mes === P.mesAtual ? ' cur' : ''}" data-mes="${m.mes}" title="Ver ${nomeMes(m.mes)}">
+      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></button>`).join('')}</div>
+    <div class="story">${historiaMes(DSH_MES)}</div>`;
+  // rosca por tipo
+  const tps = Object.entries(V.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
+  $('dsh-donut').innerHTML = tps.length ? `<div class="dn-wrap">${donut(tps, V.qtd)}<div class="dn-leg">${tps.map(([t, q]) => `<div><span class="tp-dot" style="background:${cores(t)}"></span><em>${esc(cap(t))}</em><b>${fmtInt(q)}</b><small>${Math.round(100 * q / V.qtd)}%</small></div>`).join('')}</div></div>` : '<p class="vazio">Sem amostras no período.</p>';
+  // top 10 itens
+  const tp = Object.entries(V.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 10), tmax = Math.max(1, ...tp.map(x => x[1][1]));
+  $('dsh-top').innerHTML = tp.length ? tp.map(([c, [d, q]], i) => `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(d || c)}</b><small>${esc(c)}</small><i style="width:${100 * q / tmax}%"></i></div><strong>${fmtInt(q)}</strong></div>`).join('') : '<p class="vazio">Sem dados.</p>';
+  // quem mais solicita
+  const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 8), vmax = Math.max(1, ...tv.map(x => x[1].p));
+  $('dsh-vend').innerHTML = tv.length ? tv.map(([c, v], i) => { const r = rotuloVend(c, v); return `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(r.n)}</b><small>${esc(r.cod)}${r.setor ? ' · <span class="chip">' + esc(r.setor) + '</span>' : ''}</small><i style="width:${100 * v.p / vmax}%"></i></div><strong>${fmtInt(v.p)}<small>ped. · ${fmtInt(v.q)} am.</small></strong></div>` }).join('') : '<p class="vazio">Sem dados.</p>';
   // destaques
-  const rec = ms.slice().sort((a, b) => b.qtd - a.qtd)[0], nm = m => `${MESES[+m.mes.slice(4, 6) - 1]}/${m.mes.slice(2, 4)}`;
-  const linhas = [
-    ['Hoje', `${fmtInt(P.hoje.pedidos)} pedidos · ${fmtInt(P.hoje.amostras)} amostras`],
-    atual && P.uteis ? ['Média por dia útil', (atual.qtd / P.uteis).toLocaleString('pt-BR', {maximumFractionDigits:1}) + ' amostras'] : null,
-    P.tiposMes[0] && atual?.qtd ? ['Tipo mais pedido no mês', `${cap(P.tiposMes[0].tipo)} (${Math.round(100 * P.tiposMes[0].qtd / atual.qtd)}%)`] : null,
-    rec ? ['Melhor mês (12 meses)', `${nm(rec)} · ${fmtInt(rec.qtd)} amostras`] : null,
-    ['Clientes atendidos no mês', fmtInt(P.clientesMes)],
-    P.topVend ? ['Quem mais pediu no mês', `${P.topVend.cod}${P.topVend.nome ? ' - ' + cap(P.topVend.nome) : ''} · ${fmtInt(P.topVend.ped)} ped.`] : null
-  ].filter(Boolean);
-  $('dsh-dest').innerHTML = linhas.map(([k, v]) => `<div class="drow"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
+  $('dsh-dest').innerHTML = destaques(V, per).map(([a, b]) => `<div class="drow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('');
+  // top clientes
+  const cq = V.cliQ ? Object.entries(V.cliQ).sort((a, b) => b[1] - a[1]).slice(0, 8) : null;
+  $('dsh-cli').innerHTML = cq ? cq.map(([c, q], i) => `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(cap(P.nomesC[c] || 'Cliente ' + c))}</b><small>${esc(c)}</small></div><strong>${fmtInt(q)}<small>amostras</small></strong></div>`).join('')
+    : '<p class="vazio">Disponível para o mês atual e para o ano.</p>';
 }
 
 /* visualização no celular em pé: gira as folhas para ficarem na horizontal */
@@ -1336,6 +1533,36 @@ function ajustarGiro(){
     pv.replaceWith(box); box.appendChild(pv);
     pv.style.transform = `translate(${h * z}px,0) rotate(90deg) scale(${z})`;
   });
+}
+
+/* logo acompanha a cor do tema (troca só as partes verde-limão) */
+const logoCache = {};
+function rgbHsl([r, g, b]){ r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2; let h = 0, s = 0;
+  if(mx !== mn){ const d = mx - mn; s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60 }
+  return [h, s, l] }
+function hslRgb(h, s, l){ const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l), f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1)); return [f(0) * 255, f(8) * 255, f(4) * 255] }
+function corDoLogo(){ const [marca, , dest] = temaAtual().c, croma = c => { const v = hexRgb(c); return Math.max(...v) - Math.min(...v) }; return croma(dest) > 60 ? dest : croma(marca) > 60 ? marca : dest }
+function recolorirLogo(){
+  const cor = corDoLogo().toLowerCase(), imgs = document.querySelectorAll('.mark-img'), fav = document.querySelector('link[rel="icon"]');
+  const aplicar = url => { imgs.forEach(i => i.src = url); if(fav) fav.href = url };
+  if(cor === '#cbff00') return aplicar('icons/logo-96.png');
+  if(logoCache[cor]) return aplicar(logoCache[cor]);
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const x = c.getContext('2d'); x.drawImage(img, 0, 0);
+    const d = x.getImageData(0, 0, c.width, c.height), px = d.data, [th, ts, tl] = rgbHsl(hexRgb(cor));
+    for(let i = 0; i < px.length; i += 4){
+      if(!px[i + 3]) continue;
+      const [h, s, l] = rgbHsl([px[i], px[i + 1], px[i + 2]]);
+      if(s > .35 && h > 50 && h < 115 && l > .12){ // partes verde-limão do logo
+        const nl = Math.max(.05, Math.min(.95, tl + (l - .5) * .9)), [r, g, b] = hslRgb(th, Math.min(1, ts * Math.min(1, s / .9 + .1)), nl);
+        px[i] = r; px[i + 1] = g; px[i + 2] = b;
+      }
+    }
+    x.putImageData(d, 0, 0); logoCache[cor] = c.toDataURL('image/png'); aplicar(logoCache[cor]);
+  };
+  img.src = 'icons/icon-192.png';
 }
 
 let pedidos = [];
@@ -1781,7 +2008,9 @@ async function gerar(lista, imprimir, reprocessar = false){
   });
   iniciarTemas();
   document.body.dataset.tab = 'pedidos';
-  document.querySelector('.tabbar').addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) });
+  document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
+  $('dsh-per').addEventListener('click', e => { const b = e.target.closest('button[data-per]'); if(b){ DSH_PER = b.dataset.per; renderDash() } });
+  $('dsh-meses').addEventListener('click', e => { const b = e.target.closest('.bar[data-mes]'); if(b){ DSH_MES = b.dataset.mes; DSH_PER = 'mes'; renderDash() } });
   document.querySelector('header.app .user-chip').addEventListener('click', () => { if(matchMedia('(max-width:700px)').matches) trocarAba('ajustes') });
   $('btn-periodo').onclick = () => document.body.classList.toggle('periodo');
   $('dsh-refresh').onclick = async () => { $('dsh-refresh').disabled = true; await atualizarPainel(true); $('dsh-refresh').disabled = false };
