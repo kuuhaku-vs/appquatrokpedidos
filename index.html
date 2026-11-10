@@ -53,7 +53,12 @@ body.preview #print-area{display:block;background:#7b8794;padding:20px 0}
 body.preview #print-area .pv{margin:0 auto 20px;box-shadow:0 4px 20px rgba(0,0,0,.35)}
 .preview-bar{display:none}
 body.preview .preview-bar{display:flex;position:sticky;top:0;z-index:20;background:var(--navy);padding:10px 20px;gap:10px;align-items:center;color:#fff}
-body.preview .preview-bar span{margin-right:auto;font-weight:600}
+body.preview .preview-bar #preview-title{font-weight:600}
+body.preview .preview-bar .grow{flex:1}
+.preview-warn{display:none;position:sticky;top:56px;z-index:19;padding:10px 20px;font-size:13px;line-height:1.5}
+.preview-warn.err{display:block;background:#fff4f2;border-bottom:1px solid #f6c8bd;color:#9a3412}
+.preview-warn.info{display:block;background:#fffbea;border-bottom:1px solid #f3e1a0;color:#854d0e}
+.preview-warn .btn{height:30px;margin-left:10px}
 body.preview main,body.preview header.app{display:none}
 
 .pv{width:277mm;min-height:190mm;background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;padding:7mm 8mm;position:relative}
@@ -85,7 +90,7 @@ table.res .r{text-align:right}
 @page{size:A4 landscape;margin:0}
 @media print{
  body{background:#fff}
- header.app,main,.preview-bar{display:none!important}
+ header.app,main,.preview-bar,.preview-warn{display:none!important}
  #print-area{display:block!important;background:none!important;padding:0!important}
  #print-area .pv{margin:0!important;box-shadow:none!important;page-break-after:always;break-after:page}
  #print-area .pv:last-child{page-break-after:auto;break-after:auto}
@@ -103,7 +108,7 @@ table.res .r{text-align:right}
 </header>
 
 <div class="preview-bar">
- <span id="preview-title">Visualização</span>
+ <span id="preview-title">Visualização</span><span class="grow"></span>
  <button class="btn" id="btn-print-now">🖨 Imprimir</button>
  <button class="btn sec" id="btn-close-preview">Voltar à lista</button>
 </div>
@@ -154,6 +159,7 @@ table.res .r{text-align:right}
  </section>
 </main>
 
+<div class="preview-warn" id="preview-warn"></div>
 <div id="print-area"></div>
 
 <script>
@@ -187,7 +193,9 @@ const CONFIG = {
   ccVendedor: 1,              // de qual vendedor vem o centro de custo (1 ou 2); se estiver vazio, usa o outro
   nomeVendedor: 'A3_NOME',    // troque para 'A3_NREDUZ' se preferir o nome reduzido
   pageSize: 500,
-  paralelo: 4,                // pedidos carregados ao mesmo tempo na impressão em lote
+  maxRequisicoes: 3,          // consultas simultâneas ao Protheus (mais que isso o REST começa a recusar)
+  tentativas: 4,              // novas tentativas quando o Protheus falha ou não responde
+  lotePedidos: 25,            // pedidos buscados por consulta na impressão em lote
 
   /* Endereço dos rolos (mesmas regras do NOVA - Consulta de Estoque) */
   enderecamento: {
@@ -242,25 +250,45 @@ function authHeader(){
   if(!u || !p) throw Error('Informe usuário e senha do Protheus no topo da página.');
   return 'Basic ' + b64(u + ':' + p);
 }
+class ErroProtheus extends Error{ constructor(m, transitorio=false, auth=false){ super(m); this.transitorio = transitorio; this.auth = auth } }
+const dormir = ms => new Promise(r => setTimeout(r, ms));
+// Fila: no máximo CONFIG.maxRequisicoes consultas ao Protheus ao mesmo tempo
+let ativos = 0; const fila = [];
+async function limitar(fn){
+  if(ativos >= CONFIG.maxRequisicoes) await new Promise(r => fila.push(r));
+  ativos++;
+  try{ return await fn() } finally{ ativos--; const prox = fila.shift(); if(prox) prox() }
+}
+async function gqUma(url, auth){
+  let res;
+  try{ res = await fetch(url, {headers:{Authorization:auth, Accept:'application/json'}, cache:'no-store'}) }
+  catch(e){ throw new ErroProtheus('Não foi possível conectar ao Protheus (' + baseUrl() + '). Verifique a internet/VPN; se continuar, o REST do Protheus pode estar fora.', true) }
+  if(res.status === 401) throw new ErroProtheus('Usuário ou senha do Protheus inválidos (HTTP 401).', false, true);
+  if(!res.ok){ let t = ''; try{ t = (await res.text()).slice(0, 300) }catch{}
+    throw new ErroProtheus(`Protheus respondeu HTTP ${res.status}. ${t}`, res.status === 408 || res.status === 429 || res.status >= 500) }
+  let body;
+  try{ body = await res.json() }catch{ throw new ErroProtheus('Protheus devolveu uma resposta incompleta.', true) }
+  if(Array.isArray(body.items)){
+    // normaliza os nomes dos campos para minúsculo (algumas versões do REST devolvem em maiúsculo)
+    body.items = body.items.map(r => Object.fromEntries(Object.entries(r).map(([k,v]) => [k.toLowerCase(), v])));
+    return body;
+  }
+  if(body.errorMessage || body.message) throw new ErroProtheus('Protheus: ' + (body.errorMessage || body.message));
+  throw new ErroProtheus('Protheus devolveu uma resposta sem itens.', true);
+}
 async function gq(tables, fields, where, page = 1, pageSize = CONFIG.pageSize){
   const url = `${baseUrl()}/api/framework/v1/genericQuery?tables=${encodeURIComponent(tables)}`
     + `&fields=${encodeURIComponent(fields.join(','))}`
     + (where ? `&where=${encodeURIComponent(where)}` : '')
     + `&pagesize=${pageSize}&page=${page}`;
-  let res;
-  try{
-    res = await fetch(url, {headers:{Authorization: authHeader(), Accept:'application/json'}, cache:'no-store'});
-  }catch(e){
-    throw Error('Não foi possível conectar ao Protheus (' + baseUrl() + '). Verifique se está na rede da empresa/VPN. '
-      + 'Se o problema continuar, o serviço REST do Protheus pode estar fora.');
+  const auth = authHeader();
+  let ultimo;
+  for(let t = 0; t <= CONFIG.tentativas; t++){
+    if(t) await dormir(700 * 2 ** (t - 1)); // espera 0,7s · 1,4s · 2,8s · 5,6s entre as tentativas
+    try{ return await limitar(() => gqUma(url, auth)) }
+    catch(e){ ultimo = e; if(!e.transitorio) throw e }
   }
-  if(res.status === 401) throw Error('Usuário ou senha do Protheus inválidos (HTTP 401).');
-  if(!res.ok){ let t = ''; try{ t = (await res.text()).slice(0, 300) }catch{} ; throw Error(`Protheus respondeu HTTP ${res.status}. ${t}`) }
-  const body = await res.json();
-  // normaliza os nomes dos campos para minúsculo (algumas versões do REST devolvem em maiúsculo)
-  if(Array.isArray(body.items)) body.items = body.items.map(r => Object.fromEntries(Object.entries(r).map(([k,v]) => [k.toLowerCase(), v])));
-  else if(body.errorMessage || body.message) throw Error('Protheus: ' + (body.errorMessage || body.message));
-  return body;
+  throw ultimo;
 }
 async function gqAll(tables, fields, where){
   let page = 1, out = [], body;
@@ -271,21 +299,19 @@ async function gqAll(tables, fields, where){
 const avisos = new Set();
 const invalidos = new Set();
 async function gqSafe(tables, base, extras, where){
-  let ex = [...new Set(extras.filter(Boolean))].filter(c => !invalidos.has(c));
-  if(ex.length){
-    try{ return await gqAll(tables, [...base, ...ex], where) }
-    catch(e){
-      if(/401|conectar/.test(e.message)) throw e;
-      // descobre qual campo foi recusado, testando um por um
-      const ok = [];
-      for(const c of ex){
-        try{ await gq(tables, [base[0], c], where, 1, 1); ok.push(c) }
-        catch(e2){ if(/401|conectar/.test(e2.message)) throw e2; invalidos.add(c); avisos.add(`Campo ${c} não existe em ${tables} e saiu em branco.`) }
-      }
-      if(ok.length) return gqAll(tables, [...base, ...ok], where);
+  const ex = [...new Set(extras.filter(Boolean))].filter(c => !invalidos.has(c));
+  if(!ex.length) return gqAll(tables, base, where);
+  try{ return await gqAll(tables, [...base, ...ex], where) }
+  catch(e){
+    if(e.auth || e.transitorio) throw e;               // falha do Protheus, não campo errado
+    const semExtras = await gqAll(tables, base, where); // se isto também falhar, o erro sobe
+    const ok = [];
+    for(const c of ex){
+      try{ await gq(tables, [base[0], c], where, 1, 1); ok.push(c) }
+      catch(e2){ if(e2.auth || e2.transitorio) throw e2; invalidos.add(c); avisos.add(`Campo ${c} não existe em ${tables} e saiu em branco.`) }
     }
+    return ok.length ? gqAll(tables, [...base, ...ok], where) : semExtras;
   }
-  return gqAll(tables, base, where);
 }
 function opcao(campo, valor){
   const v = trim(valor), mapa = CONFIG.opcoes[String(campo || '').toUpperCase()];
@@ -375,47 +401,87 @@ async function lookup(cacheMap, table, keyField, fields, keys, extraWhere = ''){
   return k => cacheMap.get(trim(k)) || null;
 }
 
-async function carregarPedido(filial, numero){
-  const wc = `C5_FILIAL=${q(filial)} AND C5_NUM=${q(numero)} AND D_E_L_E_T_=' '`;
-  const cab = (await gqSafe('SC5',
-    ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_TPFRETE','C5_CONDPAG','C5_OBSSEP','C5_LIBEROK','C5_NOTA'],
-    extrasDe('C5_'), wc))[0];
-  if(!cab) throw Error(`Pedido ${numero} não encontrado na filial ${filial}.`);
-
-  const itens = (await gqSafe('SC6',
-    ['C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_LOCAL','C6_QTDVEN','C6_QTDENT','C6_PRCVEN','C6_VALOR','C6_ENTREG','C6_TES'],
-    extrasDe('C6_'), `C6_FILIAL=${q(filial)} AND C6_NUM=${q(numero)} AND D_E_L_E_T_=' '`))
-    .sort((a,b) => String(a.c6_item).localeCompare(String(b.c6_item)));
-
-  // Data de liberação (SC9) — opcional
-  let dtLib = '';
-  try{
-    const lib = await gqAll('SC9', ['C9_PEDIDO','C9_DATALIB'], `C9_FILIAL=${q(filial)} AND C9_PEDIDO=${q(numero)} AND D_E_L_E_T_=' '`);
-    dtLib = lib.map(r => trim(r.c9_datalib)).filter(Boolean).sort()[0] || '';
-  }catch{}
-
-  const [cli, vend, cond, prod] = await Promise.all([
-    lookup(cache.sa1, 'SA1', 'A1_COD', {base:['A1_LOJA','A1_NOME','A1_CGC','A1_EST','A1_CONTRIB']}, [cab.c5_cliente]),
-    lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor], extras:extrasDe('A3_')}, [cab.c5_vend1, cab.c5_vend2]),
-    lookup(cache.se4, 'SE4', 'E4_CODIGO', {base:['E4_DESCRI']}, [cab.c5_condpag]),
-    lookup(cache.sb1, 'SB1', 'B1_COD', {base:['B1_GRUPO'], extras:extrasDe('B1_')}, itens.map(i => i.c6_produto))
-  ]);
-  const grp = await lookup(cache.sbm, 'SBM', 'BM_GRUPO', {base:['BM_DESC'], extras:['BM_GRAMTIN']}, itens.map(i => prod(i.c6_produto)?.b1_grupo));
-  let ccDesc = '';
-  const ccCampo = String(CONFIG.campos.centroCusto || '').toUpperCase();
-  const cc = trim(ccCampo.startsWith('C6_') ? (itens.map(i => trim(get(i, ccCampo))).find(Boolean) || '')
-    : ccCampo.startsWith('A3_') ? ccDoVendedor(cab, vend, ccCampo) : get(cab, ccCampo));
-  if(cc){ try{ const ctt = await lookup(cache.ctt, 'CTT', 'CTT_CUSTO', {base:['CTT_DESC01']}, [cc]); ccDesc = trim(ctt(cc)?.ctt_desc01) }catch{} }
-
-  // SA1 pode ter mais de uma loja: procura a loja exata
-  let cliente = cli(cab.c5_cliente);
-  if(cliente && trim(cliente.a1_loja) !== trim(cab.c5_lojacli)){
-    try{ cliente = (await gqAll('SA1', ['A1_COD','A1_LOJA','A1_NOME','A1_CGC','A1_EST','A1_CONTRIB'],
-      `A1_COD=${q(cab.c5_cliente)} AND A1_LOJA=${q(cab.c5_lojacli)} AND D_E_L_E_T_=' '`))[0] || cliente }catch{}
+const C5_BASE = ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_TPFRETE','C5_CONDPAG','C5_OBSSEP','C5_LIBEROK','C5_NOTA'];
+const C6_BASE = ['C6_NUM','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_LOCAL','C6_QTDVEN','C6_QTDENT','C6_PRCVEN','C6_VALOR','C6_ENTREG','C6_TES'];
+const SA1_CAMPOS = ['A1_COD','A1_LOJA','A1_NOME','A1_CGC','A1_EST','A1_CONTRIB'];
+const sa1Lojas = new Map(), sa1Codigos = new Set();
+async function carregarClientes(codigos){
+  const falta = [...new Set(codigos.map(trim).filter(c => c && !sa1Codigos.has(c)))];
+  for(let i = 0; i < falta.length; i += 80){
+    const lote = falta.slice(i, i + 80);
+    const rows = await gqAll('SA1', SA1_CAMPOS, `A1_COD IN (${lote.map(q).join(',')}) AND D_E_L_E_T_=' '`);
+    rows.forEach(r => sa1Lojas.set(trim(r.a1_cod) + '|' + trim(r.a1_loja), r));
+    lote.forEach(c => sa1Codigos.add(c));
   }
-  const dados = {cab, itens, dtLib, cliente, vend, cond, prod, grp, cc, ccDesc};
-  await enderecarItens(dados);
-  return dados;
+  return (cod, loja) => sa1Lojas.get(trim(cod) + '|' + trim(loja))
+    || [...sa1Lojas.entries()].find(([k]) => k.startsWith(trim(cod) + '|'))?.[1] || null;
+}
+const chave = (f, n) => trim(f) + ':' + trim(n);
+
+/* Carrega vários pedidos com poucas consultas: SC5/SC6/SC9 de 25 em 25 pedidos e os cadastros
+   (cliente, vendedor, produto...) de uma vez só. Devolve [{p, dados}] ou [{p, erro}] na ordem da lista. */
+async function carregarLote(lista, progresso){
+  const cabs = new Map(), itensPor = new Map(), libPor = new Map(), porFilial = new Map();
+  lista.forEach(p => { const f = trim(p.filial); if(!porFilial.has(f)) porFilial.set(f, []); porFilial.get(f).push(trim(p.num)) });
+  let feitos = 0;
+  for(const [filial, nums] of porFilial){
+    for(let i = 0; i < nums.length; i += CONFIG.lotePedidos){
+      const lote = [...new Set(nums.slice(i, i + CONFIG.lotePedidos))], inList = lote.map(q).join(',');
+      const [c5, c6, c9] = await Promise.all([
+        gqSafe('SC5', C5_BASE, extrasDe('C5_'), `C5_FILIAL=${q(filial)} AND C5_NUM IN (${inList}) AND D_E_L_E_T_=' '`),
+        gqSafe('SC6', C6_BASE, extrasDe('C6_'), `C6_FILIAL=${q(filial)} AND C6_NUM IN (${inList}) AND D_E_L_E_T_=' '`),
+        gqAll('SC9', ['C9_PEDIDO','C9_DATALIB'], `C9_FILIAL=${q(filial)} AND C9_PEDIDO IN (${inList}) AND D_E_L_E_T_=' '`).catch(e => { if(e.auth) throw e; return [] })
+      ]);
+      c5.forEach(r => cabs.set(chave(filial, r.c5_num), r));
+      c6.forEach(r => { const k = chave(filial, r.c6_num); if(!itensPor.has(k)) itensPor.set(k, []); itensPor.get(k).push(r) });
+      c9.forEach(r => { const k = chave(filial, r.c9_pedido), d = trim(r.c9_datalib); if(d && (!libPor.has(k) || d < libPor.get(k))) libPor.set(k, d) });
+      feitos += lote.length; progresso?.(`Lendo pedidos… ${Math.min(feitos, lista.length)}/${lista.length}`);
+    }
+  }
+  // Conferência: pedido encontrado mas sem itens → busca os itens de novo, sozinho
+  for(const p of lista){
+    const k = chave(p.filial, p.num);
+    if(cabs.has(k) && !(itensPor.get(k) || []).length){
+      for(let t = 0; t < 3 && !(itensPor.get(k) || []).length; t++){
+        if(t) await dormir(1000 * t);
+        try{
+          const r = await gqSafe('SC6', C6_BASE, extrasDe('C6_'), `C6_FILIAL=${q(p.filial)} AND C6_NUM=${q(p.num)} AND D_E_L_E_T_=' '`);
+          if(r.length) itensPor.set(k, r);
+        }catch(e){ if(e.auth) throw e }
+      }
+    }
+  }
+  progresso?.('Lendo cadastros (clientes, vendedores, produtos)…');
+  const cabsOk = [...cabs.values()], todosItens = [...itensPor.values()].flat();
+  const [cli, vend, cond, prod] = await Promise.all([
+    carregarClientes(cabsOk.map(c => c.c5_cliente)),
+    lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor], extras:extrasDe('A3_')}, cabsOk.flatMap(c => [c.c5_vend1, c.c5_vend2])),
+    lookup(cache.se4, 'SE4', 'E4_CODIGO', {base:['E4_DESCRI']}, cabsOk.map(c => c.c5_condpag)),
+    lookup(cache.sb1, 'SB1', 'B1_COD', {base:['B1_GRUPO'], extras:extrasDe('B1_')}, todosItens.map(i => i.c6_produto))
+  ]);
+  const grp = await lookup(cache.sbm, 'SBM', 'BM_GRUPO', {base:['BM_DESC'], extras:['BM_GRAMTIN']}, todosItens.map(i => prod(i.c6_produto)?.b1_grupo));
+  const ccCampo = String(CONFIG.campos.centroCusto || '').toUpperCase();
+  const ccDe = (cab, itens) => trim(ccCampo.startsWith('C6_') ? (itens.map(i => trim(get(i, ccCampo))).find(Boolean) || '')
+    : ccCampo.startsWith('A3_') ? ccDoVendedor(cab, vend, ccCampo) : get(cab, ccCampo));
+  let ctt = () => null;
+  try{ ctt = await lookup(cache.ctt, 'CTT', 'CTT_CUSTO', {base:['CTT_DESC01']}, cabsOk.map(c => ccDe(c, itensPor.get(chave(c.c5_filial, c.c5_num)) || []))) }
+  catch(e){ if(e.auth) throw e }
+
+  // Monta cada pedido e procura os endereços dos rolos (pilotagem / bandeira)
+  let n = 0;
+  return pool(lista, 2, async p => {
+    const k = chave(p.filial, p.num), cab = cabs.get(k);
+    try{
+      if(!cab) throw Error('pedido não encontrado no Protheus');
+      const itens = (itensPor.get(k) || []).slice().sort((a, b) => String(a.c6_item).localeCompare(String(b.c6_item)));
+      if(!itens.length) throw Error('o Protheus não devolveu os itens');
+      const cc = ccDe(cab, itens);
+      const dados = {cab, itens, dtLib:libPor.get(k) || '', cliente:cli(cab.c5_cliente, cab.c5_lojacli), vend, cond, prod, grp, cc, ccDesc:trim(ctt(cc)?.ctt_desc01)};
+      await enderecarItens(dados);
+      progresso?.(`Montando pedidos… ${++n}/${lista.length}`);
+      return {p, dados};
+    }catch(e){ if(e.auth) throw e; return {p, erro:e.message} }
+  });
 }
 
 function ccDoVendedor(cab, vend, campo){
@@ -471,7 +537,7 @@ function htmlPedido(d, usuario, agora){
      <td>${esc(trim(i.c6_produto))}</td><td>${esc(trim(i.c6_local))}</td><td>${esc(trim(i.c6_descri))}</td>
      <td>${esc(trim(prod(i.c6_produto)?.b1_grupo))}</td><td>${esc(valorItem(i, C.tonalidade, prod))}</td>
      <td>${esc(dLonga(i.c6_entreg))}</td><td class="r">${money(i.c6_qtdven)}</td><td class="r">${money(i.c6_prcven)}</td>
-     <td class="r">${money(i.c6_valor)}</td><td style="padding-left:18px">${esc(valorItem(i, C.tpAmostra, prod))}</td><td style="white-space:nowrap">${esc(textoEnderecos(i._end))}</td></tr>`).join('')}</tbody>
+     <td class="r">${money(i.c6_valor)}</td><td style="padding-left:18px;white-space:nowrap">${esc(valorItem(i, C.tpAmostra, prod))}</td><td style="white-space:nowrap">${esc(textoEnderecos(i._end))}</td></tr>`).join('')}</tbody>
   </table>
   <div class="aviso">
    AVISO P/ A SEPARACAO : ${esc(obs1)}<br>
@@ -573,30 +639,47 @@ async function pool(list, n, fn){
   return out;
 }
 
-async function gerar(lista, imprimir){
+let ultimo = {lista:[], paginas:new Map(), falhas:[]};
+function mostrarAvisoPreview(){
+  const w = $('preview-warn'), f = ultimo.falhas, av = [...avisos];
+  if(f.length){
+    w.className = 'preview-warn err';
+    w.innerHTML = `<b>Atenção: ${f.length} pedido(s) NÃO foram carregados e não estão nesta impressão:</b> `
+      + f.map(x => `${esc(x.p.num)} (${esc(x.erro)})`).join(' · ')
+      + ` <button class="btn" id="btn-retry">Tentar de novo</button>`;
+    $('btn-retry').onclick = () => gerar(f.map(x => x.p), false, true);
+  }else if(av.length){ w.className = 'preview-warn info'; w.textContent = av.join(' • ') }
+  else{ w.className = 'preview-warn'; w.textContent = '' }
+}
+async function gerar(lista, imprimir, reprocessar = false){
   if(!lista.length) return;
   avisos.clear(); rolosCache.clear(); defeitosP = null;
   const btns = [$('btn-preview'), $('btn-print'), $('btn-um')]; btns.forEach(b => b.disabled = true);
+  const retry = $('btn-retry'); if(retry){ retry.disabled = true; retry.textContent = 'Carregando…' }
   try{
-    let feitos = 0;
     msg(`Carregando ${lista.length} pedido(s)…`);
+    if(!reprocessar) ultimo = {lista:lista.slice(), paginas:new Map(), falhas:[]};
     const now = new Date(), agora = {d: now.toLocaleDateString('pt-BR'), h: now.toLocaleTimeString('pt-BR')};
     const usuario = trim($('cfg-user').value);
-    const erros = [];
-    const html = await pool(lista, CONFIG.paralelo, async p => {
-      try{ const d = await carregarPedido(p.filial, p.num); msg(`Carregando pedidos… ${++feitos}/${lista.length}`); return htmlPedido(d, usuario, agora) }
-      catch(e){ erros.push(`${p.num}: ${e.message}`); return '' }
-    });
-    const ok = html.filter(Boolean);
-    if(!ok.length) throw Error(erros.join(' | ') || 'Nada para imprimir.');
-    $('print-area').innerHTML = ok.join('');
-    $('preview-title').textContent = `Visualização • ${ok.length} pedido(s)`;
+    const res = await carregarLote(lista, t => { msg(t); if(retry) retry.textContent = t });
+    res.forEach(r => { if(r.dados) ultimo.paginas.set(chave(r.p.filial, r.p.num), htmlPedido(r.dados, usuario, agora)) });
+    ultimo.falhas = ultimo.lista
+      .filter(p => !ultimo.paginas.has(chave(p.filial, p.num)))
+      .map(p => res.find(r => r.erro && chave(r.p.filial, r.p.num) === chave(p.filial, p.num))
+        || ultimo.falhas.find(x => chave(x.p.filial, x.p.num) === chave(p.filial, p.num)) || {p, erro:'não carregado'});
+    const paginas = ultimo.lista.map(p => ultimo.paginas.get(chave(p.filial, p.num))).filter(Boolean);
+    if(!paginas.length) throw Error('Nenhum pedido carregado: ' + ultimo.falhas.map(x => `${x.p.num} (${x.erro})`).join(' · '));
+    $('print-area').innerHTML = paginas.join('');
+    $('preview-title').textContent = `Visualização • ${paginas.length} de ${ultimo.lista.length} pedido(s)`;
     document.body.classList.add('preview'); window.scrollTo(0, 0);
-    const extras = [...erros.map(e => 'Erro ' + e), ...avisos];
-    msg(extras.join(' • '), extras.length ? 'err' : 'ok');
-    if(imprimir) setTimeout(() => window.print(), 300);
-  }catch(e){ msg(e.message, 'err'); console.error(e) }
-  finally{ btns.forEach(b => b.disabled = false); atualizaBotoes() }
+    mostrarAvisoPreview(); msg('');
+    // Só imprime sozinho se TODOS os pedidos carregaram; se faltar algum, o aviso fica na tela
+    if(imprimir && !ultimo.falhas.length) setTimeout(() => window.print(), 300);
+  }catch(e){
+    if(document.body.classList.contains('preview')){ const w = $('preview-warn'); w.className = 'preview-warn err'; w.textContent = e.message }
+    else msg(e.message, 'err');
+    console.error(e);
+  }finally{ btns.forEach(b => b.disabled = false); atualizaBotoes() }
 }
 
 /* ============================ eventos ============================ */
@@ -620,7 +703,7 @@ async function gerar(lista, imprimir){
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
   $('btn-print-now').onclick = () => window.print();
-  $('btn-close-preview').onclick = () => { document.body.classList.remove('preview'); $('print-area').innerHTML = '' };
+  $('btn-close-preview').onclick = () => { document.body.classList.remove('preview'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn' };
   $('chk-all').onchange = e => { document.querySelectorAll('.chk').forEach(c => c.checked = e.target.checked); atualizaBotoes() };
   $('tbl').addEventListener('change', e => { if(e.target.classList.contains('chk')) atualizaBotoes() });
   $('tbl').addEventListener('click', e => { const b = e.target.closest('[data-ver]'); if(b) gerar([pedidos[+b.dataset.ver]], false) });
