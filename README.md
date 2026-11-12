@@ -84,7 +84,7 @@ Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços
 - **Dashboard:** comparação com o mês anterior (mês em andamento comparado até o mesmo dia) e **tempo até faturar** (média de dias da emissão ao faturamento, % dentro do prazo, por tipo e por vendedora).
 
 ### Modo TV
-No Dashboard, botão **Modo TV**: tela cheia que passa sozinha entre 6 telas (Agora, Atrasados, Amostras do mês, Tipos, Ranking e Tempo até faturar), a cada 15 segundos, e mantém a tela ligada. Setas ← → trocam a tela, Esc sai. Para abrir direto no Modo TV, use o endereço do site com `?tv` no final (ex.: `.../appquatrokpedidos/?tv`).
+No Dashboard, botão **Modo TV**: tela cheia que passa sozinha entre as telas úteis para a separação (Agora, Atrasados, Pilotagens para separar e Em aberto por tipo), a cada 15 segundos, e mantém a tela ligada. Setas ← → trocam a tela, Esc sai. Para abrir direto no Modo TV, use o endereço do site com `?tv` no final (ex.: `.../appquatrokpedidos/?tv`).
 
 ### Notificações
 Menu do usuário → **Notificações de pedidos novos** (ou Ajustes, no celular):
@@ -97,3 +97,9 @@ Bolinha no canto da tela: programação do dia (atrasados, o que vence hoje e am
 - **Tipos e pilotagens:** o resumo mostra as amostras em aberto por tipo e a lista de pilotagens para separar (item, quantidade e pedidos). Pergunte "pilotagens" ou "tipos".
 - **Aviso falado de pedido novo:** quando chega pedido novo, ele avisa pelo nome, dizendo os tipos e, se tiver pilotagem, os itens e as quantidades.
 - **Horário de uso:** os avisos de pedido novo só acontecem de segunda a sexta, das 07:30 às 17:18 (ajustável no ⚙), com o site aberto no computador.
+
+### Por que atrasou?
+No Dashboard → **Tempo até faturar**, quando há pedidos faturados fora do prazo aparece o botão **"N pedidos passaram do prazo · ver o resumo do porquê"**. Ele abre um resumo: % fora do prazo, atraso médio, tipo e vendedora com mais atrasos, efeito de fim de semana, tamanho dos pedidos, em que etapa o pedido ficou parado (até liberar × da liberação ao faturamento, pela data de liberação da SC9), o pedido que mais destoou e a tabela dos pedidos fora do prazo.
+
+### Assistente (versão simples)
+Quatro cartões grandes (Atrasados, Em aberto, Liberados, Pilotagens), algumas linhas curtas e três botões. Clicar em **Atrasados / Em aberto / Liberados** filtra a lista (últimos 180 dias; o × no aviso volta ao filtro normal). **Pilotagens**, tipos, "vencem hoje" e "novos" abrem uma **tabela separada**, que fecha no ✕, no Esc ou clicando fora. As respostas do assistente também têm ✕. No ⚙, o botão **Estilo mordomo** deixa a voz grave e calma.

@@ -446,6 +446,66 @@ button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
 .ai-tab td:nth-child(3){color:var(--muted);font-size:11.5px}
 .ai-tab td small{display:block;color:var(--dim);font-size:10.5px}
 .ai-resp{max-height:260px;overflow:auto}
+.dlg-tab{width:min(980px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;overflow:hidden}
+.dlg-tab[open]{display:flex;flex-direction:column}
+.tb-head{display:flex;align-items:flex-start;gap:12px;padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+.tb-head div{flex:1;min-width:0}.tb-head h3{margin:0;font:700 18px var(--display)}.tb-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.tb-x{width:36px;height:36px;border-radius:10px;border:1px solid var(--line-2);background:none;color:var(--muted);cursor:pointer;font-size:15px;flex:none}
+.tb-x:hover{color:var(--text);border-color:var(--text)}
+.tb-corpo{overflow:auto;padding:16px 20px 20px}
+.tb-t{width:100%;border-collapse:collapse;font-size:13px}
+.tb-t th{position:sticky;top:-16px;background:var(--panel);text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);padding:8px 10px 8px 0;border-bottom:1px solid var(--line-2)}
+.tb-t td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tb-t .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb-t td small{display:block;color:var(--dim);font-size:11px;margin-top:1px}
+.tb-t tr[data-ped]{cursor:pointer}.tb-t tr[data-ped]:hover td{background:var(--hover)}
+.tb-t .red{color:var(--st-fat);font-weight:700}
+.tb-t tfoot td{font-weight:700;border-top:1px solid var(--line-2);border-bottom:0}
+.tb-dica{margin:10px 0 0;color:var(--dim);font-size:11.5px}
+.rs-txt{font-size:14px;line-height:1.65;color:var(--muted);margin:0 0 14px}
+.rs-txt b{color:var(--text)}
+.rs-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:0 0 16px}
+.rs-cards > div{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.rs-cards span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.rs-cards strong{display:block;margin-top:6px;font:700 22px var(--display)}
+.rs-cards small{display:block;color:var(--dim);font-size:11.5px;margin-top:3px}
+.rs-cards .red strong{color:var(--st-fat)}
+.rs-dest{border:1px solid color-mix(in srgb,var(--st-fat) 45%,transparent);background:color-mix(in srgb,var(--st-fat) 7%,var(--panel));border-radius:14px;padding:14px 16px;margin:0 0 16px;font-size:13.5px;line-height:1.55}
+.rs-dest h4{margin:0 0 4px;font:700 14px var(--display);color:var(--st-fat)}
+.rs-h{margin:18px 0 8px;font:700 14px var(--display)}
+.ld-atr{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 16px;padding:11px 14px;border-radius:12px;border:1px solid color-mix(in srgb,var(--st-fat) 45%,transparent);background:color-mix(in srgb,var(--st-fat) 8%,transparent);color:var(--text);font:500 13px var(--font);cursor:pointer;text-align:left}
+.ld-atr:hover{border-color:var(--st-fat)}.ld-atr b{color:var(--st-fat)}.ld-atr .go{margin-left:auto;color:var(--muted)}
+/* assistente simplificado */
+.ai-sub{margin:-8px 0 12px;color:var(--dim);font-size:11.5px;display:flex;align-items:center;gap:8px}
+.ai-sub button{border:0;background:none;color:var(--lime-t);font:600 11.5px var(--font);cursor:pointer;padding:0}
+.ai-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.ai-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);cursor:pointer;text-align:left;font:inherit;transition:border-color .15s}
+.ai-tile:hover{border-color:var(--lime-t)}
+.ai-tile span{font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.ai-tile strong{font:700 28px/1.05 var(--display)}
+.ai-tile small{color:var(--dim);font-size:11px}
+.ai-tile.red{border-color:color-mix(in srgb,var(--st-fat) 45%,transparent)}.ai-tile.red strong{color:var(--st-fat)}
+.ai-tile.grn strong{color:var(--st-ab)}.ai-tile.yel strong{color:var(--st-lib)}
+.ai-lin{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
+.ai-l{display:flex;gap:10px;align-items:flex-start;width:100%;padding:8px 6px;border:0;border-radius:10px;background:none;color:var(--text);font:400 13px/1.4 var(--font);text-align:left}
+button.ai-l{cursor:pointer}button.ai-l:hover{background:var(--panel-2)}
+.ai-l .ic{flex:none;width:20px;text-align:center}.ai-l b{font-weight:700}.ai-l.red b{color:var(--st-fat)}
+.ai-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.ai-chips button{height:30px;padding:0 11px;border-radius:999px;border:1px solid var(--line-2);background:none;color:var(--text);font:500 12px var(--font);cursor:pointer}
+.ai-chips button:hover{border-color:var(--lime-t)}
+.ai-resp{position:relative;padding-right:34px!important}
+.ai-resp-x{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:7px;border:0;background:none;color:var(--muted);cursor:pointer}
+.ai-resp-x:hover{background:var(--panel);color:var(--text)}
+.tv-tab{width:100%;border-collapse:collapse;font-size:1.8vw}
+.tv-tab th{text-align:left;font:600 1.1vw var(--font);letter-spacing:.1vw;text-transform:uppercase;color:var(--muted);padding:0 1vw .8vw 0;border-bottom:1px solid var(--line-2)}
+.tv-tab td{padding:1vw 1vw 1vw 0;border-bottom:1px solid var(--line)}
+.tv-tab .n{text-align:right;font:700 2.4vw var(--display)}
+.tv-tab td small{display:block;font-size:1.1vw;color:var(--dim)}
+.tv-tipo{display:flex;flex-direction:column;gap:1.4vw}
+.tv-tipo > div{display:grid;grid-template-columns:18vw minmax(0,1fr) 8vw;align-items:center;gap:2vw;font-size:2vw}
+.tv-tipo .tvb{height:2.4vw;border-radius:1vw;background:var(--panel-2);overflow:hidden}.tv-tipo .tvb i{display:block;height:100%;border-radius:1vw}
+.tv-tab th.n{font:600 1.1vw var(--font);text-align:right}
+.tv-tipo b{font:700 3vw var(--display);text-align:right}
 .ai-op{display:flex;align-items:center;gap:8px;padding:0 16px 12px;color:var(--dim);font-size:11.5px}
 @media(max-width:700px){.ai-orb{bottom:84px;right:14px;width:48px;height:48px}.ai-pan{right:12px;bottom:142px;max-height:calc(100vh - 200px)}}
 @media print{.ai-orb,.ai-pan,.tv{display:none!important}}
@@ -1168,17 +1228,22 @@ table.res .r{text-align:right}
   <label>Como ele te chama<input id="aic-apelido" type="text" maxlength="20" placeholder="ex.: Kaue"></label>
   <label>Voz<select id="aic-voz"></select></label>
   <div class="aic-2"><label>Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label>Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
+  <button type="button" class="btn sec" id="aic-mordomo">🎩 Estilo mordomo (voz grave e calma)</button>
   <label class="aic-ck"><input type="checkbox" id="aic-avisa"> Avisar (falando) quando chegar pedido novo, com os tipos e as pilotagens</label>
+  <label class="aic-ck"><input type="checkbox" id="ai-auto"> Falar o resumo sozinho ao abrir o site (1x por dia)</label>
   <div class="aic-2"><label>Horário de uso · início<input id="aic-ini" type="time"></label><label>fim<input id="aic-fim" type="time"></label></div>
   <p class="aic-nota">Avisos de pedido novo só de segunda a sexta, dentro deste horário, com o site aberto no computador.</p>
   <div class="aic-acts"><button type="button" class="btn sec" id="aic-testar">Testar voz</button><button type="submit" class="btn">Salvar</button></div>
  </form>
  <div class="ai-corpo" id="ai-corpo"></div>
  <div class="ai-resp" id="ai-resp" hidden></div>
- <form class="ai-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte: atrasados, novos, pedido 500123…"><button type="button" class="ai-ic" id="ai-mic" title="Falar">🎤</button><button class="ai-ic" type="submit" title="Enviar">➤</button></form>
- <label class="ai-op"><input type="checkbox" id="ai-auto"> Falar o resumo ao abrir o site (1x por dia)</label>
+ <form class="ai-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte ou fale com o 🎤…"><button type="button" class="ai-ic" id="ai-mic" title="Falar">🎤</button><button class="ai-ic" type="submit" title="Enviar">➤</button></form>
 </div>
 
+<dialog id="dlg-tab" class="dlg-tab">
+ <div class="tb-head"><div><h3 id="tb-tit"></h3><p id="tb-sub"></p></div><button type="button" class="tb-x" id="tb-x" title="Fechar (Esc)">✕</button></div>
+ <div class="tb-corpo" id="tb-corpo"></div>
+</dialog>
 <div class="dsh-tip" id="dsh-tip" role="tooltip"></div>
 <div class="print-confirm" id="print-confirm"></div>
 <div class="preview-warn" id="preview-warn"></div>
@@ -1560,7 +1625,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel7', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel8', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1588,7 +1653,7 @@ async function carregarPainel(forcar = false){
 
     const fatDia = {}; // pedidos faturados por data de faturamento (para o "ontem" do assistente)
     const meses = listaMeses.map((mes, i) => {
-      const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}, pd:{}, lt:{n:0, s:0, ok:0, t:{}, v:{}}};
+      const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}, pd:{}, lt:{n:0, s:0, ok:0, t:{}, v:{}, sq:0, si:0, na:0, sqa:0, sia:0, atr:[]}};
       const peds = new Map(), clis = new Set(), vistosPT = new Set();
       porMes[i].forEach(r => {
         const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k); // ignora linhas repetidas entre páginas
@@ -1598,10 +1663,10 @@ async function carregarPainel(forcar = false){
         const dsc = trim(r.c6_descri).toUpperCase().replace(/\s+/g, ' '), pc = dsc || trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0, trim(r.c6_produto), {}, 0]); pr[1] += am; if(!vistosPT.has(pc + '||' + r.c5_num)){ vistosPT.add(pc + '||' + r.c5_num); pr[4]++ } // agrupado pela descrição, como no Consolidado
         const prt = pr[3][tp] || (pr[3][tp] = {p:0, q:0}); prt.q += am; if(!vistosPT.has(pc + '|' + tp + '|' + r.c5_num)){ vistosPT.add(pc + '|' + tp + '|' + r.c5_num); prt.p++ }
         const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + am;
-        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0, tq:{}, em, cli:trim(r.c5_cliente), df:''};
-        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; o.tq[tp] = (o.tq[tp] || 0) + am;
+        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0, tq:{}, em, cli:trim(r.c5_cliente), df:'', it:0};
+        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; o.it++; o.tq[tp] = (o.tq[tp] || 0) + am;
         const df = trim(get(r, 'C6_DATFAT') || '').replace(/-/g, ''); if(/^\d{8}$/.test(df) && df > o.df) o.df = df;
-        peds.set(r.c5_num, o);
+        o.num = trim(r.c5_num); peds.set(r.c5_num, o);
       });
       peds.forEach(o => {
         M.ped++;
@@ -1617,12 +1682,16 @@ async function carregarPainel(forcar = false){
             const add = x => { x.n++; x.s += d; if(d <= PRAZO_DIAS) x.ok++ };
             add(M.lt); Object.keys(o.tq).forEach(t => add(M.lt.t[t] || (M.lt.t[t] = {n:0, s:0, ok:0})));
             const vk = o.v2 || o.v1; if(vk) add(M.lt.v[vk] || (M.lt.v[vk] = {n:0, s:0, ok:0}));
+            M.lt.sq += o.q; M.lt.si += o.it;
+            if(d > PRAZO_DIAS){ M.lt.na++; M.lt.sqa += o.q; M.lt.sia += o.it;
+              M.lt.atr.push({num:o.num, d, em:o.em, df:o.df, t:Object.keys(o.tq), q:Math.round(o.q), it:o.it, vk:vk || '', cli:o.cli}) }
           }
         }
         const vk = o.v2 || o.v1; if(vk){ const v = M.vend[vk] || (M.vend[vk] = {p:0, q:0, v1:o.v1, t:{}}); v.p++; v.q += o.q;
           Object.entries(o.tq).forEach(([t, q]) => { const x = v.t[t] || (v.t[t] = {p:0, q:0}); x.p++; x.q += q }) }
       });
       M.cli = [...clis].filter(Boolean); M.qtd = Math.round(M.qtd); M.env = Math.round(M.env);
+      M.lt.atr = M.lt.atr.sort((a, b) => b.d - a.d).slice(0, 60); M.lt.sq = Math.round(M.lt.sq); M.lt.sqa = Math.round(M.lt.sqa);
       return M;
     });
     const atual = meses[meses.length - 1], anterior = meses[meses.length - 2];
@@ -1656,11 +1725,11 @@ async function carregarPainel(forcar = false){
     };
     // Tudo zerado = o Protheus não respondeu direito: não grava (para não ficar 10 min zerado) e mantém o último painel bom
     if(!porMes.some(r => r.length)){
-      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel7', true) || 'null') }catch{}
+      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel8', true) || 'null') }catch{}
       if(velho && velho.meses?.some(m => m.qtd)){ PAINEL = velho; return velho }
       throw new Error('o Protheus não devolveu dados agora. Tente atualizar em alguns segundos.');
     }
-    try{ store.set('pv-painel7', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel8', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
@@ -1674,10 +1743,10 @@ function juntarVend(lista){
 function visao(periodo){
   const P = PAINEL; if(!P) return null;
   const ms = periodo === 'ano' ? P.meses.filter(m => m.mes.startsWith(P.ano)) : P.meses.filter(m => m.mes === periodo);
-  const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms, lt:{n:0, s:0, ok:0, t:{}, v:{}}};
+  const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms, lt:{n:0, s:0, ok:0, t:{}, v:{}, sq:0, si:0, na:0, sqa:0, sia:0, atr:[]}};
   const somaLt = (a, b) => { a.n += b.n; a.s += b.s; a.ok += b.ok };
   ms.forEach(m => {
-    if(m.lt){ somaLt(V.lt, m.lt); [['t', 't'], ['v', 'v']].forEach(([k]) => Object.entries(m.lt[k] || {}).forEach(([c, x]) => somaLt(V.lt[k][c] || (V.lt[k][c] = {n:0, s:0, ok:0}), x))) }
+    if(m.lt){ somaLt(V.lt, m.lt); ['sq', 'si', 'na', 'sqa', 'sia'].forEach(k => V.lt[k] += m.lt[k] || 0); V.lt.atr.push(...(m.lt.atr || [])); [['t', 't'], ['v', 'v']].forEach(([k]) => Object.entries(m.lt[k] || {}).forEach(([c, x]) => somaLt(V.lt[k][c] || (V.lt[k][c] = {n:0, s:0, ok:0}), x))) }
     V.qtd += m.qtd; V.env += m.env; V.ped += m.ped; V.fat += m.fat; V.ab += m.ab; V.lib += m.lib; m.cli.forEach(c => V.cli.add(c));
     Object.entries(m.tipos).forEach(([t, q]) => { if(!TIPOS_FORA_DASH.includes(t)) V.tipos[t] = (V.tipos[t] || 0) + q });
     Object.entries(m.prod).forEach(([c, [d, q, cod, ts, np]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0, cod, {}, 0]); o[1] += q; o[4] += np || 0;
@@ -2016,6 +2085,7 @@ function htmlLead(V, modo = LEAD_MODO, maxLinhas = 8){
       <div><span>Média até faturar</span><strong>${media.toLocaleString('pt-BR', {maximumFractionDigits:1})}<small>dias</small></strong><small>da emissão ao faturamento</small></div>
       <div><span>Dentro do prazo</span><strong class="${pct >= 80 ? 'ok' : pct < 50 ? 'ruim' : ''}">${pct}%</strong><small>${fmtInt(L.ok)} de ${fmtInt(L.n)} pedidos em até ${PRAZO_DIAS} dias</small></div>
     </div>
+    ${L.na ? `<button type="button" class="ld-atr" data-atrasos><span>⚠</span><span><b>${pl(L.na, 'pedido passou', 'pedidos passaram')} do prazo</b> · ver o resumo do porquê</span><span class="go">›</span></button>` : ''}
     <div class="ld-head"><div class="seg seg-mini"><button type="button" data-ld="t" aria-pressed="${modo === 't'}">Por tipo</button><button type="button" data-ld="v" aria-pressed="${modo === 'v'}">Por vendedora</button></div><span class="ld-leg"><u></u> prazo de ${PRAZO_DIAS} dias</span></div>
     <div class="ld-rows">${linhas.map(({nome, cor, x}) => { const m = med(x), lento = m > PRAZO_DIAS ? ' lento' : '';
       return `<div class="ld-row"><div class="ld-nome"><span title="${esc(nome)}">${cor ? `<span class="tp-dot" style="background:${cor}"></span>` : ''}${esc(nome)}</span><small>${fmtInt(x.n)} pedido${x.n === 1 ? '' : 's'} · ${Math.round(100 * x.ok / x.n)}% no prazo</small></div>
@@ -2112,28 +2182,23 @@ function ontemResumo(){
 const TV = {on:false, i:0, timer:0, relogio:0, fila:0, lock:null, SEG:15000};
 function tvTelas(){
   const P = PAINEL, F = FILA, t = [];
-  if(F) t.push(['Agora', () => {
-    const h = P?.hoje || {ped:0, qtd:0};
-    return `<div class="tv-big"><div class="hi"><span>Em aberto</span><strong>${fmtInt(F.ab)}</strong><small>pedidos aguardando liberação</small></div>
+  if(!F) return [['Carregando…', () => '<div class="tv-vazio" style="color:var(--muted)">Carregando dados do Protheus…</div>']];
+  // 1. o que importa agora
+  t.push(['Agora', () => { const h = P?.hoje || {ped:0, qtd:0};
+    return `<div class="tv-big"><div class="${F.atr.length ? 'red' : 'grn'}"><span>Atrasados · +${PRAZO_DIAS} dias</span><strong>${fmtInt(F.atr.length)}</strong><small>${F.atr[0] ? `mais antigo: há ${F.atr[0].dias} dias` : 'tudo dentro do prazo'}</small></div>
+      <div class="hi"><span>Em aberto</span><strong>${fmtInt(F.ab)}</strong><small>para separar</small></div>
       <div class="yel"><span>Liberados</span><strong>${fmtInt(F.lib)}</strong><small>aguardando faturamento</small></div>
-      <div class="${F.atr.length ? 'red' : 'grn'}"><span>Atrasados · +${PRAZO_DIAS} dias</span><strong>${fmtInt(F.atr.length)}</strong><small>${F.atr[0] ? `mais antigo: há ${F.atr[0].dias} dias` : 'tudo dentro do prazo'}</small></div>
       <div><span>Chegaram hoje</span><strong>${fmtInt(h.ped)}</strong><small>${pl(h.qtd, 'amostra', 'amostras')}</small></div></div>
       <p class="tv-linha">Vencem hoje: <b>${fmtInt(F.hoje.length)}</b> &nbsp;·&nbsp; vencem amanhã: <b>${fmtInt(F.amanha.length)}</b></p>` }]);
-  if(F) t.push(['Atrasados', () => F.atr.length ? `<div class="tv-lista">${F.atr.slice(0, 7).map(p => `<div><b>${esc(p.num)}</b><span>${esc(p.nomeCli || 'Cliente ' + p.cliente)}</span><span>${esc(nomeVendLista(p.vend2) || p.vend2)} · ${p.lib ? 'liberado' : 'em aberto'}</span><em>há ${p.dias} dias</em></div>`).join('')}</div>${F.atr.length > 7 ? `<p class="tv-linha">e mais <b>${F.atr.length - 7}</b> atrasado(s)</p>` : ''}`
-    : `<div class="tv-vazio">✓ Nenhum pedido atrasado<small>Todos os pedidos estão dentro do prazo de ${PRAZO_DIAS} dias</small></div>`]);
-  if(P){
-    const M = visao(P.mesAtual), C = comparacaoMes(P.mesAtual), mx = Math.max(1, ...P.meses.map(m => m.qtd));
-    t.push([`Amostras · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-mes"><div><div class="lbl">Amostras no mês</div><div class="num">${fmtInt(M.qtd)}</div>
-      <div class="cmp">${pl(M.ped, 'pedido', 'pedidos')}${C ? ` · ${delta(C.at.qtd, C.an.qtd, 1)} vs ${nomeMes(C.mesAnt)}` : ''}</div></div>
-      <div class="tv-bars">${P.meses.map(m => `<div class="${m.mes === P.mesAtual ? 'cur' : ''}"><b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(2, 100 * m.qtd / mx)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></div>`).join('')}</div></div>`]);
-    const tps = Object.entries(M.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
-    if(tps.length) t.push([`Tipos de amostra · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-tipos">${donut(tps, M.qtdTipos)}<div class="lg">${tps.map(([tp, q]) => `<div><i style="background:${cores(tp)}"></i><span>${esc(cap(tp))}</span><b>${fmtInt(q)}</b><small>${Math.round(100 * q / M.qtdTipos)}%</small></div>`).join('')}</div></div>`]);
-    const top = Object.entries(M.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 6), vend = Object.entries(M.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 6);
-    t.push([`Ranking · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-rank"><div><h4>Mais solicitados</h4>${top.map(([c, [d, q]], i) => `<div><span class="p">${i + 1}</span><span>${esc(d || c)}</span><b>${fmtInt(q)}</b></div>`).join('')}</div>
-      <div><h4>Quem mais solicita · pedidos</h4>${vend.map(([c, v], i) => `<div><span class="p">${i + 1}</span><span>${esc(rotuloVend(c, v).n)}</span><b>${fmtInt(v.p)}</b></div>`).join('')}</div></div>`]);
-    if(M.lt?.n) t.push([`Tempo até faturar · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-lead">${htmlLead(M, 't')}</div>`]);
-  }
-  if(!t.length) t.push(['Carregando…', () => '<div class="tv-vazio" style="color:var(--muted)">Carregando dados do Protheus…</div>']);
+  // 2. atrasados (e os que vencem hoje)
+  t.push(['Atrasados', () => F.atr.length ? `<div class="tv-lista">${F.atr.slice(0, 7).map(p => `<div><b>${esc(p.num)}</b><span>${esc(p.nomeCli || 'Cliente ' + p.cliente)}</span><span>${esc(Object.keys(p.tipos).map(cap).join(', ') || '—')} · ${p.lib ? 'liberado' : 'em aberto'}</span><em>há ${p.dias} dias</em></div>`).join('')}</div>${F.atr.length > 7 ? `<p class="tv-linha">e mais <b>${F.atr.length - 7}</b> atrasado(s)</p>` : ''}`
+    : `<div class="tv-vazio">✓ Nenhum pedido atrasado<small>${F.hoje.length ? `${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje: ${F.hoje.slice(0, 6).map(p => p.num).join(', ')}` : `Todos dentro do prazo de ${PRAZO_DIAS} dias`}</small></div>`]);
+  // 3. pilotagens para separar
+  if(F.pilot.length){ const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
+    t.push([`Pilotagens para separar · ${pl(tot, 'peça', 'peças')}`, () => `<table class="tv-tab"><thead><tr><th>Item</th><th class="n">Qtd</th><th>Pedidos</th></tr></thead><tbody>${F.pilot.slice(0, 8).map(x => `<tr><td>${esc(x.desc)}<small>${esc(x.prod)}</small></td><td class="n">${fmtInt(x.qtd)}</td><td>${x.peds.slice(0, 4).join(', ')}${x.peds.length > 4 ? '…' : ''}</td></tr>`).join('')}</tbody></table>${F.pilot.length > 8 ? `<p class="tv-linha">e mais <b>${F.pilot.length - 8}</b> itens</p>` : ''}`]) }
+  // 4. em aberto por tipo
+  if(F.tiposAb.length){ const mx = Math.max(...F.tiposAb.map(x => x[1])), cores = coresTipos();
+    t.push(['Em aberto por tipo de amostra', () => `<div class="tv-tipo">${F.tiposAb.map(([tp, q]) => `<div><span>${esc(cap(tp))}</span><div class="tvb"><i style="width:${100 * q / mx}%;background:${cores(tp)}"></i></div><b>${fmtInt(q)}</b></div>`).join('')}</div>`]) }
   return t;
 }
 function tvMostrar(i){
@@ -2167,7 +2232,85 @@ function iniciarTVControles(){
   $('tv-dots').addEventListener('click', e => { const b = e.target.closest('[data-k]'); if(b) tvMostrar(+b.dataset.k) });
   document.addEventListener('keydown', e => { if(!TV.on) return; if(e.key === 'Escape') sairTV(); if(e.key === 'ArrowRight') tvMostrar(TV.i + 1); if(e.key === 'ArrowLeft') tvMostrar(TV.i - 1) });
   document.addEventListener('visibilitychange', async () => { if(TV.on && document.visibilityState === 'visible' && !TV.lock){ try{ TV.lock = await navigator.wakeLock?.request('screen') }catch{} } });
-  $('dsh-lead').addEventListener('click', e => { const b = e.target.closest('[data-ld]'); if(!b) return; LEAD_MODO = b.dataset.ld; const per = DSH_PER === 'ano' ? 'ano' : DSH_MES; $('dsh-lead').innerHTML = htmlLead(visao(per)) });
+  $('dsh-lead').addEventListener('click', e => { if(e.target.closest('[data-atrasos]')) return abrirResumoAtrasos(visao(DSH_PER === 'ano' ? 'ano' : DSH_MES), DSH_PER === 'ano' ? PAINEL.ano : nomeMes(DSH_MES));
+    const b = e.target.closest('[data-ld]'); if(!b) return; LEAD_MODO = b.dataset.ld; const per = DSH_PER === 'ano' ? 'ano' : DSH_MES; $('dsh-lead').innerHTML = htmlLead(visao(per)) });
+}
+
+/* ============== tabela flutuante (fora do assistente) ============== */
+function abrirTabela(titulo, sub, html){
+  $('tb-tit').textContent = titulo; $('tb-sub').textContent = sub || ''; $('tb-corpo').innerHTML = html;
+  const d = $('dlg-tab'); if(!d.open) d.showModal(); $('tb-corpo').scrollTop = 0;
+}
+function iniciarTabela(){
+  const d = $('dlg-tab');
+  $('tb-x').onclick = () => d.close();
+  d.addEventListener('click', e => { if(e.target === d) d.close() }); // clique fora fecha
+  $('tb-corpo').addEventListener('click', e => { const tr = e.target.closest('tr[data-ped]'); if(!tr) return; d.close(); gerar([{filial:CONFIG.filial, num:tr.dataset.ped}], false) });
+}
+const linhaPed = p => `<tr data-ped="${esc(p.num)}"><td><b>${esc(p.num)}</b></td><td>${esc(p.nomeCli || p.cliente)}</td><td>${esc(nomeVendLista(p.vend2) || p.vend2 || '—')}</td><td>${esc(Object.keys(p.tipos || {}).map(cap).join(', ') || '—')}</td><td>${p.lib ? 'Liberado' : 'Em aberto'}</td><td class="n${p.dias > PRAZO_DIAS ? ' red' : ''}">${p.dias} dias</td></tr>`;
+const tabelaPeds = (lista, vazio) => lista.length ? `<table class="tb-t"><thead><tr><th>Pedido</th><th>Cliente</th><th>Vendedora</th><th>Tipos</th><th>Situação</th><th class="n">Parado</th></tr></thead><tbody>${lista.map(linhaPed).join('')}</tbody></table><p class="tb-dica">Clique em uma linha para abrir o pedido.</p>` : `<p class="vazio">${vazio}</p>`;
+function tabelaPilotagens(){
+  const F = FILA; if(!F) return;
+  const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
+  abrirTabela('Pilotagens para separar', `${pl(F.pilot.length, 'item', 'itens')} · ${pl(tot, 'peça', 'peças')} · pedidos em aberto`,
+    F.pilot.length ? `<table class="tb-t"><thead><tr><th>Item</th><th>Código</th><th class="n">Qtd</th><th>Pedidos</th></tr></thead><tbody>${F.pilot.map(x => `<tr><td><b>${esc(x.desc)}</b></td><td>${esc(x.prod)}</td><td class="n"><b>${fmtInt(x.qtd)}</b></td><td>${x.peds.join(', ')}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="n">${fmtInt(tot)}</td><td></td></tr></tfoot></table>` : '<p class="vazio">Nenhuma pilotagem em aberto. ✓</p>');
+}
+function tabelaTiposAb(){
+  const F = FILA; if(!F) return; const tot = F.tiposAb.reduce((s, x) => s + x[1], 0), cores = coresTipos();
+  const peds = t => F.peds.filter(p => !p.lib && p.tipos[t]).length;
+  abrirTabela('Em aberto por tipo de amostra', `${pl(tot, 'amostra', 'amostras')} em ${pl(F.ab, 'pedido', 'pedidos')} em aberto`,
+    `<table class="tb-t"><thead><tr><th>Tipo</th><th class="n">Pedidos</th><th class="n">Amostras</th><th class="n">%</th></tr></thead><tbody>${F.tiposAb.map(([t, q]) => `<tr><td><span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}</td><td class="n">${fmtInt(peds(t))}</td><td class="n"><b>${fmtInt(q)}</b></td><td class="n">${Math.round(100 * q / tot)}%</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td class="n">${fmtInt(F.ab)}</td><td class="n">${fmtInt(tot)}</td><td></td></tr></tfoot></table>`);
+}
+// Por que atrasou? Resumo dos pedidos faturados fora do prazo, deduzido dos dados do Protheus
+async function abrirResumoAtrasos(V, rot){
+  const L = V?.lt; if(!L || !L.na) return;
+  const atr = L.atr.slice().sort((a, b) => b.d - a.d), D = d => d ? `${d.slice(6, 8)}/${d.slice(4, 6)}` : '—';
+  const excesso = atr.reduce((s, x) => s + x.d - PRAZO_DIAS, 0) / atr.length, pct = Math.round(100 * L.na / L.n);
+  const okN = L.n - L.na, medQ = L.na ? L.sqa / L.na : 0, medQok = okN ? (L.sq - L.sqa) / okN : 0, medI = L.na ? L.sia / L.na : 0, medIok = okN ? (L.si - L.sia) / okN : 0;
+  // onde os atrasos se concentram (taxa de atraso por tipo e por vendedora, com pelo menos 3 pedidos)
+  const taxa = (grupo, contar) => Object.entries(grupo).filter(([, x]) => x.n >= 3).map(([k, x]) => ({k, n:x.n, a:contar(k), r:contar(k) / x.n})).sort((a, b) => b.r - a.r || b.a - a.a);
+  const tT = taxa(L.t, k => atr.filter(x => x.t.includes(k)).length), tV = taxa(L.v, k => atr.filter(x => x.vk === k).length);
+  const dsem = atr.filter(x => { const g = new Date(+x.em.slice(0, 4), +x.em.slice(4, 6) - 1, +x.em.slice(6, 8)).getDay(); return g === 4 || g === 5 || g === 6 || g === 0 }).length;
+  const nomeV = k => rotuloVend(k, PAINEL.meses.map(m => m.vend[k]).find(Boolean)).n;
+  const pior = atr[0];
+  // nomes dos clientes
+  let nomeCli = () => null; try{ nomeCli = await carregarClientes(atr.map(x => x.cli)) }catch{}
+  const cli = c => cap(trim(get(nomeCli(c, ''), 'A1_NOME'))) || c;
+  const montar = lib => {
+    const temLib = lib && atr.some(x => lib.has(x.num));
+    let etapa = '';
+    if(temLib){ const xs = atr.filter(x => lib.has(x.num)), aLib = xs.reduce((s, x) => s + Math.max(0, diasEntre(x.em, lib.get(x.num))), 0) / xs.length, aFat = xs.reduce((s, x) => s + Math.max(0, diasEntre(lib.get(x.num), x.df)), 0) / xs.length;
+      etapa = ` Nos atrasados, foram em média <b>${fmtDias(aLib)} até a liberação</b> e <b>${fmtDias(aFat)} da liberação até o faturamento</b>, ou seja, ${aLib >= aFat ? 'a maior espera foi <b>antes de liberar</b> o pedido' : 'a maior espera foi <b>depois de liberado</b>, até faturar'}.` }
+    const txt = `Em <b>${esc(rot)}</b>, <b>${fmtInt(L.na)} de ${fmtInt(L.n)} pedidos faturados (${pct}%)</b> passaram do prazo de ${PRAZO_DIAS} dias, em média <b>${fmtDias(excesso)} além</b>. `
+      + `O que mais destoou foi o <b>${esc(pior.num)}</b>, com <b>${fmtDias(pior.d)}</b>. `
+      + (tT[0]?.a ? `Os atrasos se concentraram em <b>${esc(cap(tT[0].k))}</b> (${tT[0].a} de ${tT[0].n} pedidos atrasaram)` : '')
+      + (tV[0]?.a ? `${tT[0]?.a ? ' e com a vendedora' : 'Os atrasos se concentraram com a vendedora'} <b>${esc(nomeV(tV[0].k))}</b> (${tV[0].a} de ${tV[0].n}). ` : (tT[0]?.a ? '. ' : ''))
+      + (dsem / atr.length >= .4 ? `<b>${Math.round(100 * dsem / atr.length)}%</b> dos atrasados foram emitidos de quinta a domingo, com fim de semana no meio. ` : '')
+      + (medQ > medQok * 1.25 ? `Os atrasados eram maiores: <b>${medQ.toLocaleString('pt-BR', {maximumFractionDigits:1})} amostras</b> e ${medI.toLocaleString('pt-BR', {maximumFractionDigits:1})} itens por pedido, contra ${medQok.toLocaleString('pt-BR', {maximumFractionDigits:1})} amostras e ${medIok.toLocaleString('pt-BR', {maximumFractionDigits:1})} itens dos que saíram no prazo. ` : '')
+      + etapa;
+    const lp = temLib && lib.get(pior.num);
+    return `<p class="rs-txt">${txt}</p>
+      <div class="rs-cards"><div class="red"><span>Fora do prazo</span><strong>${pct}%</strong><small>${fmtInt(L.na)} de ${fmtInt(L.n)} faturados</small></div>
+        <div class="red"><span>Atraso médio</span><strong>+${excesso.toLocaleString('pt-BR', {maximumFractionDigits:1})} dias</strong><small>além dos ${PRAZO_DIAS} dias</small></div>
+        ${tT[0]?.a ? `<div><span>Tipo que mais atrasa</span><strong>${esc(cap(tT[0].k))}</strong><small>${Math.round(100 * tT[0].r)}% dos pedidos desse tipo</small></div>` : ''}
+        ${tV[0]?.a ? `<div><span>Vendedora com mais atrasos</span><strong>${esc(nomeV(tV[0].k))}</strong><small>${tV[0].a} de ${tV[0].n} pedidos</small></div>` : ''}</div>
+      <div class="rs-dest"><h4>O que mais destoou · pedido ${esc(pior.num)}</h4>${esc(cli(pior.cli))} · ${esc(nomeV(pior.vk) || '—')} · ${esc(pior.t.map(cap).join(', '))}<br>
+        Emitido em ${D(pior.em)}${lp ? `, liberado em ${D(lp)}` : ''} e faturado em ${D(pior.df)}: <b>${pior.d} dias</b>, ${pior.d - PRAZO_DIAS} além do prazo · ${pl(pior.q, 'amostra', 'amostras')} em ${pl(pior.it, 'item', 'itens')}.</div>
+      <h4 class="rs-h">Pedidos fora do prazo</h4>
+      <table class="tb-t"><thead><tr><th>Pedido</th><th>Cliente</th><th>Vendedora</th><th>Tipos</th><th>Emissão</th>${temLib ? '<th>Liberação</th>' : ''}<th>Faturamento</th><th class="n">Dias</th></tr></thead><tbody>
+      ${atr.map(x => `<tr data-ped="${esc(x.num)}"><td><b>${esc(x.num)}</b></td><td>${esc(cli(x.cli))}</td><td>${esc(nomeV(x.vk) || '—')}</td><td>${esc(x.t.map(cap).join(', '))}</td><td>${D(x.em)}</td>${temLib ? `<td>${D(lib.get(x.num))}</td>` : ''}<td>${D(x.df)}</td><td class="n red">${x.d}</td></tr>`).join('')}</tbody></table>
+      <p class="tb-dica">Os motivos são deduzidos dos dados do Protheus (tipo, vendedora, dia da emissão, tamanho do pedido${temLib ? ' e data de liberação' : ''}); o Protheus não registra o motivo do atraso. Clique em uma linha para abrir o pedido.</p>`;
+  };
+  abrirTabela('Por que atrasou?', `${rot} · pedidos faturados depois de ${PRAZO_DIAS} dias`, montar(null));
+  // data de liberação (SC9): mostra em que etapa o pedido ficou parado
+  try{
+    const lib = new Map(), nums = atr.map(x => x.num);
+    for(let i = 0; i < nums.length; i += 60){
+      const rows = await gqSafe('SC9', ['C9_PEDIDO', 'C9_DATALIB'], [], `C9_FILIAL=${q(CONFIG.filial)} AND C9_PEDIDO IN (${nums.slice(i, i + 60).map(q).join(',')}) AND D_E_L_E_T_=' '`);
+      rows.forEach(r => { const n = trim(r.c9_pedido), d = trim(r.c9_datalib).replace(/-/g, ''); if(/^\d{8}$/.test(d) && (!lib.has(n) || d < lib.get(n))) lib.set(n, d) });
+    }
+    if(lib.size && $('dlg-tab').open && $('tb-tit').textContent === 'Por que atrasou?') $('tb-corpo').innerHTML = montar(lib);
+  }catch(e){ console.warn('SC9', e) }
 }
 
 /* ============================ notificações ============================ */
@@ -2260,87 +2403,102 @@ function novidadesAI(){
   const v = new Set(vistos); return FILA.peds.filter(p => !v.has(p.num));
 }
 function marcarVistoAI(){ if(FILA) store.set('pv-ai-vistos', JSON.stringify(FILA.peds.map(p => p.num).slice(-3000))) }
-function resumoAI(){
-  const F = FILA, P = PAINEL, O = ontemResumo(), itens = [], fala = [];
-  const dt = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
-  fala.push(`${saud()}, ${nomeUser()}. Hoje é ${dt}.`);
+// Tudo o que o assistente mostra e responde fica aqui, em listas simples (fácil de mudar depois)
+function falaResumo(){
+  const F = FILA, P = PAINEL, O = ontemResumo(), f = [];
+  f.push(`${saud()}, ${nomeUser()}. Hoje é ${new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'})}.`);
   if(F){
-    if(F.atr.length){ itens.push(['prog', 'red', '⏰', `<b>${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}</b> · o mais antigo é o ${F.atr[0].num}, há ${F.atr[0].dias} dias.`, 'atr']);
-      fala.push(`Atenção: ${pl(F.atr.length, 'pedido está atrasado', 'pedidos estão atrasados')}. O mais antigo é o ${F.atr[0].num.split('').join(' ')}, parado há ${F.atr[0].dias} dias.`) }
-    else { itens.push(['prog', 'ok', '✓', '<b>Nenhum pedido atrasado.</b> Tudo dentro do prazo.', '']); fala.push('Nenhum pedido atrasado.') }
-    if(F.hoje.length){ itens.push(['prog', '', '📌', `<b>${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje</b> (${PRAZO_DIAS}º dia): ${F.hoje.slice(0, 5).map(p => p.num).join(', ')}.`, 'hoje']); fala.push(`${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje.`) }
-    if(F.amanha.length){ itens.push(['prog', '', '🗓️', `<b>${pl(F.amanha.length, 'vence', 'vencem')} amanhã.</b>`, 'amanha']); fala.push(`${pl(F.amanha.length, 'vence', 'vencem')} amanhã.`) }
-    itens.push(['prog', '', '📦', `<b>${fmtInt(F.ab)}</b> em aberto e <b>${fmtInt(F.lib)}</b> liberados aguardando faturamento.`, 'pend']);
-    if(F.tiposAb.length){ itens.push(['tipo', '', '🧵', `Em aberto por tipo: ${F.tiposAb.map(([t, q]) => `<b>${esc(cap(t))}</b> ${fmtInt(q)}`).join(' · ')}.`, 'tipos']);
-      fala.push(`Amostras em aberto: ${F.tiposAb.slice(0, 4).map(([t, q]) => `${fmtInt(q)} de ${cap(t).toLowerCase()}`).join(', ')}.`) }
-    if(F.pilot.length){ const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
-      itens.push(['tipo', '', '✂️', `<b>${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}</b> para separar (${pl(tot, 'peça', 'peças')}) · <u>ver a lista</u>`, 'pilot']);
-      fala.push(`Pilotagens para separar: ${pl(F.pilot.length, 'item', 'itens')}, somando ${pl(tot, 'peça', 'peças')}.`) }
-    fala.push(`Na fila: ${fmtInt(F.ab)} em aberto e ${fmtInt(F.lib)} liberados.`);
-    const sem = pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length).length;
-    if(sem){ itens.push(['prog', 'red', '⚠️', `<b>${pl(sem, 'pedido', 'pedidos')} de pilotagem sem estoque</b> na lista atual.`, 'sem']); fala.push(`${pl(sem, 'pedido de pilotagem está', 'pedidos de pilotagem estão')} sem estoque.`) }
-    const nov = novidadesAI();
-    if(nov.length){ itens.push(['novo', '', '✨', `<b>${pl(nov.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita: ${nov.slice(0, 6).map(p => p.num).join(', ')}${nov.length > 6 ? '…' : ''}.`, 'novos']); fala.push(`Desde a sua última visita, ${pl(nov.length, 'chegou um pedido novo', 'chegaram pedidos novos')}.`) }
-  } else itens.push(['prog', '', '…', 'Carregando a fila do Protheus…', '']);
-  if(O && (O.ped || O.fat)){ const dia = O.data.toLocaleDateString('pt-BR', {weekday:'long'});
-    itens.push(['novo', '', '📈', `<b>${c1(dia)}:</b> ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} (${pl(O.qtd, 'amostra', 'amostras')}) e ${pl(O.fat, 'faturado', 'faturados')}.`, '']);
-    fala.push(`${c1(dia === new Date(Date.now() - 864e5).toLocaleDateString('pt-BR', {weekday:'long'}) ? 'Ontem' : dia)}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`) }
-  if(P){ const C = comparacaoMes(P.mesAtual), M = visao(P.mesAtual);
-    if(C){ const v = C.an.qtd ? Math.round(100 * (C.at.qtd - C.an.qtd) / C.an.qtd) : 0;
-      itens.push(['mes', '', '📊', `<b>${fmtInt(M.qtd)} amostras</b> no mês · ${delta(C.at.qtd, C.an.qtd, 1)} vs ${nomeMes(C.mesAnt)} até o mesmo dia.`, 'dash']);
-      fala.push(`No mês, ${fmtInt(M.qtd)} amostras, ${v === 0 ? 'igual ao' : Math.abs(v) + ' por cento ' + (v > 0 ? 'acima do' : 'abaixo do')} mês passado.`) }
-    if(M.lt?.n){ const m = M.lt.s / M.lt.n; itens.push(['mes', m > PRAZO_DIAS ? 'red' : '', '⏱️', `Tempo médio até faturar: <b>${fmtDias(m)}</b> · ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.`, 'dash']) } }
-  return {itens, fala:fala.join(' ')};
+    f.push(F.atr.length ? `Atenção: ${pl(F.atr.length, 'pedido está atrasado', 'pedidos estão atrasados')}. O mais antigo está parado há ${F.atr[0].dias} dias.` : 'Nenhum pedido atrasado.');
+    if(F.hoje.length) f.push(`${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje.`);
+    f.push(`Na fila: ${fmtInt(F.ab)} em aberto e ${fmtInt(F.lib)} liberados.`);
+    if(F.pilot.length) f.push(`Pilotagens para separar: ${pl(F.pilot.length, 'item', 'itens')}, somando ${pl(F.pilot.reduce((s, x) => s + x.qtd, 0), 'peça', 'peças')}.`);
+    const nov = novidadesAI(); if(nov.length) f.push(`Desde a sua última visita, ${pl(nov.length, 'chegou um pedido novo', 'chegaram pedidos novos')}.`);
+  }
+  if(O && (O.ped || O.fat)) f.push(`${O.data.toDateString() === new Date(Date.now() - 864e5).toDateString() ? 'Ontem' : c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`);
+  if(P){ const M = visao(P.mesAtual); if(M.lt?.n) f.push(`Tempo médio até faturar no mês: ${fmtDias(M.lt.s / M.lt.n)}.`) }
+  return f.join(' ');
 }
 function renderAI(){
-  const R = resumoAI();
+  const F = FILA, P = PAINEL, O = ontemResumo();
   $('ai-nome').textContent = aiCfg().nome; $('ai-data').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
-  const sec = (k, t) => { const l = R.itens.filter(x => x[0] === k); return l.length ? `<div class="ai-sec"><h5>${t}</h5>${l.map(([, cls, ic, h, acao]) => acao ? `<button type="button" class="ai-it ${cls}" data-ai="${acao}"><span class="ic">${ic}</span><span>${h}</span></button>` : `<div class="ai-it ${cls}"><span class="ic">${ic}</span><span>${h}</span></div>`).join('')}</div>` : '' };
-  $('ai-corpo').innerHTML = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p>${sec('prog', 'Programação do dia')}${sec('tipo', 'Amostras para separar')}${sec('novo', 'O que teve de novo')}${sec('mes', 'Números do mês')}`;
-  const n = FILA ? FILA.atr.length + novidadesAI().length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
-  return R;
+  const tile = (acao, cls, rot, n, sub) => `<button type="button" class="ai-tile ${cls}" data-ai="${acao}"><span>${rot}</span><strong>${n}</strong><small>${sub}</small></button>`;
+  const lin = (acao, cls, ic, h) => acao ? `<button type="button" class="ai-l ${cls}" data-ai="${acao}"><span class="ic">${ic}</span><span>${h}</span></button>` : `<div class="ai-l ${cls}"><span class="ic">${ic}</span><span>${h}</span></div>`;
+  let html = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p><p class="ai-sub">${F ? 'Atualizado às ' + new Date(F.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) : 'Carregando…'}<button type="button" data-ai="atualizar">↻ Atualizar</button></p>`;
+  if(F){
+    const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
+    html += `<div class="ai-tiles">${tile('atr', F.atr.length ? 'red' : 'grn', 'Atrasados', fmtInt(F.atr.length), F.atr[0] ? `mais antigo: ${F.atr[0].dias} dias` : 'tudo no prazo')}
+      ${tile('aberto', '', 'Em aberto', fmtInt(F.ab), 'ver na lista')}${tile('liberado', 'yel', 'Liberados', fmtInt(F.lib), 'ver na lista')}
+      ${tile('pilot', '', 'Pilotagens', fmtInt(F.pilot.length), pl(tot, 'peça', 'peças') + ' · ver tabela')}</div>`;
+    const ls = [];
+    if(F.hoje.length) ls.push(lin('hoje', 'red', '📌', `<b>${pl(F.hoje.length, 'vence', 'vencem')} hoje</b> (${PRAZO_DIAS}º dia)`));
+    if(F.amanha.length) ls.push(lin('amanha', '', '🗓️', `<b>${pl(F.amanha.length, 'vence', 'vencem')} amanhã</b>`));
+    const nov = novidadesAI(); if(nov.length) ls.push(lin('novos', '', '✨', `<b>${pl(nov.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita`));
+    const sem = pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length).length; if(sem) ls.push(lin('sem', 'red', '⚠️', `<b>${pl(sem, 'pedido', 'pedidos')} de pilotagem sem estoque</b>`));
+    if(O && (O.ped || O.fat)) ls.push(lin('', '', '📈', `${O.data.toDateString() === new Date(Date.now() - 864e5).toDateString() ? 'Ontem' : c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: <b>${pl(O.ped, 'pedido', 'pedidos')}</b> recebidos, <b>${fmtInt(O.fat)}</b> faturados`));
+    if(P){ const M = visao(P.mesAtual); if(M.lt?.n){ const m = M.lt.s / M.lt.n; ls.push(lin('dash', m > PRAZO_DIAS ? 'red' : '', '⏱️', `Tempo até faturar no mês: <b>${fmtDias(m)}</b> · ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo`)) } }
+    if(ls.length) html += `<div class="ai-lin">${ls.join('')}</div>`;
+  }
+  html += `<div class="ai-chips"><button type="button" data-ai="falar">🔊 Ouvir resumo</button><button type="button" data-ai="tipos">🧵 Tipos em aberto</button><button type="button" data-ai="tv">📺 Modo TV</button></div>`;
+  $('ai-corpo').innerHTML = html;
+  const n = F ? F.atr.length + novidadesAI().length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
+  AI.ultimo = falaResumo(); return {fala:AI.ultimo};
+}
+// ações dos cartões / botões do assistente
+const ACOES_AI = {
+  atr:      () => { fecharAI(); abrirListaAssist('atr') },
+  aberto:   () => { fecharAI(); abrirListaAssist('aberto') },
+  liberado: () => { fecharAI(); abrirListaAssist('liberado') },
+  pilot:    () => tabelaPilotagens(),
+  tipos:    () => tabelaTiposAb(),
+  hoje:     () => abrirTabela('Vencem hoje', `${PRAZO_DIAS}º dia desde a emissão`, tabelaPeds(FILA.hoje, 'Nenhum pedido vence hoje.')),
+  amanha:   () => abrirTabela('Vencem amanhã', `${PRAZO_DIAS - 1}º dia desde a emissão`, tabelaPeds(FILA.amanha, 'Nenhum pedido vence amanhã.')),
+  novos:    () => abrirTabela('Pedidos novos', 'desde a sua última visita', tabelaPeds(novidadesAI(), 'Nenhum pedido novo.')),
+  sem:      () => { fecharAI(); trocarAba('pedidos') },
+  dash:     () => { fecharAI(); trocarAba('dash') },
+  tv:       () => { fecharAI(); iniciarTV() },
+  falar:    () => falar(AI.ultimo || renderAI().fala),
+  atualizar: async () => { $('ai-corpo').querySelector('.ai-sub').firstChild.textContent = 'Atualizando…'; try{ await carregarFila(true) }catch{} renderAI() },
+};
+// perguntas (texto ou voz): [palavras, resposta curta, ação]
+const COMANDOS_AI = [
+  [/pedido\D*(\d{3,6})|^\s*(\d{5,6})\s*$/, m => { const n = (m[1] || m[2]).padStart(6, '0'); return [`Abrindo o pedido ${n}.`, () => { fecharAI(); gerar([{filial:CONFIG.filial, num:n}], false) }] }],
+  [/modo tv|televis|\btv\b/, () => ['Ligando o modo TV.', ACOES_AI.tv]],
+  [/dashboard|painel|grafico/, () => ['Abrindo o dashboard.', ACOES_AI.dash]],
+  [/pilot/, () => FILA.pilot.length ? [`${pl(FILA.pilot.length, 'item de pilotagem', 'itens de pilotagem')}, somando ${pl(FILA.pilot.reduce((s, x) => s + x.qtd, 0), 'peça', 'peças')}. Abri a tabela.`, ACOES_AI.pilot] : ['Nenhuma pilotagem em aberto.']],
+  [/tipo/, () => [FILA.tiposAb.length ? `Em aberto: ${FILA.tiposAb.map(([t, q]) => `${fmtInt(q)} de ${cap(t).toLowerCase()}`).join(', ')}.` : 'Nenhuma amostra em aberto.', ACOES_AI.tipos]],
+  [/atras/, () => FILA.atr.length ? [`${pl(FILA.atr.length, 'pedido atrasado', 'pedidos atrasados')}. O mais antigo está há ${FILA.atr[0].dias} dias. Filtrei na lista.`, ACOES_AI.atr] : ['Nenhum pedido atrasado.']],
+  [/novo|novidade|chegou|chegaram/, () => { const n = novidadesAI(); return n.length ? [`${pl(n.length, 'pedido novo', 'pedidos novos')} desde a sua última visita.`, ACOES_AI.novos] : ['Nenhum pedido novo desde a sua última visita.'] }],
+  [/vence|venc/, () => [`Vencem hoje: ${fmtInt(FILA.hoje.length)}. Vencem amanhã: ${fmtInt(FILA.amanha.length)}.`, FILA.hoje.length ? ACOES_AI.hoje : null]],
+  [/liberad/, () => [`${pl(FILA.lib, 'pedido liberado', 'pedidos liberados')} aguardando faturamento.`, ACOES_AI.liberado]],
+  [/aberto|fila|pendente/, () => [`${fmtInt(FILA.ab)} em aberto e ${fmtInt(FILA.lib)} liberados.`, ACOES_AI.aberto]],
+  [/fatur|tempo|demora/, () => { const M = PAINEL && visao(PAINEL.mesAtual); return M?.lt?.n ? [`Tempo médio até faturar: ${fmtDias(M.lt.s / M.lt.n)}, ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.${M.lt.na ? ' Abri o resumo dos atrasos.' : ''}`, M.lt.na ? () => abrirResumoAtrasos(M, nomeMes(PAINEL.mesAtual)) : null] : ['Ainda sem dados de faturamento no mês.'] }],
+  [/hoje/, () => PAINEL ? [`Hoje chegaram ${pl(PAINEL.hoje.ped, 'pedido', 'pedidos')} com ${pl(PAINEL.hoje.qtd, 'amostra', 'amostras')}.`] : null],
+  [/ontem/, () => { const O = ontemResumo(); return O ? [`${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`] : null }],
+  [/resumo|programa|bom dia|boa tarde|boa noite|status|como esta/, () => [falaResumo()]],
+];
+function responderAI(txt){
+  const t = semAcento(txt).toLowerCase();
+  const mostrar = (msg, acao) => { $('ai-resp').hidden = false; $('ai-resp').innerHTML = `<button type="button" class="ai-resp-x" title="Fechar">✕</button>${esc(msg)}`; falar(msg); if(acao) setTimeout(acao, 500) };
+  if(!FILA && !/pedido|tv|dashboard|painel/.test(t)) return mostrar('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
+  for(const [re, fn] of COMANDOS_AI){ const m = t.match(re); if(m){ const r = fn(m); if(r) return mostrar(r[0], r[1]) } }
+  mostrar('Ainda não sei responder isso. Tente: atrasados, pilotagens, tipos, novos, vencem hoje, liberados, tempo até faturar, pedido 500123 ou modo TV.');
 }
 async function abrirAI(falarJa = false){
   AI.aberto = true; $('ai-pan').hidden = false; renderAI();
   try{ await Promise.all([carregarFila(), PAINEL ? null : atualizarPainel()]) }catch(e){ console.warn('ai', e) }
-  const R = renderAI(); AI.ultimo = R.fala; if(falarJa) falar(R.fala);
+  renderAI(); if(falarJa) falar(AI.ultimo);
   setTimeout(marcarVistoAI, 4000);
 }
-function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; try{ speechSynthesis.cancel() }catch{} AI.rec?.abort?.() }
-function responderAI(txt){
-  const t = semAcento(txt).toLowerCase(), F = FILA, P = PAINEL;
-  const r = (h, f, acao) => { $('ai-resp').hidden = false; $('ai-resp').innerHTML = h; falar(f || h.replace(/<[^>]+>/g, '')); if(acao) setTimeout(acao, 400) };
-  let m;
-  if((m = t.match(/pedido\D*(\d{3,6})/)) || (m = t.match(/^\s*(\d{5,6})\s*$/))){ const n = m[1].padStart(6, '0'); return r(`Abrindo o pedido <b>${n}</b>…`, `Abrindo o pedido ${n.split('').join(' ')}.`, () => { fecharAI(); gerar([{filial:CONFIG.filial, num:n}], false) }) }
-  if(/modo tv|televis|\btv\b/.test(t)) return r('Ligando o Modo TV…', 'Ligando o modo TV.', () => { fecharAI(); iniciarTV() });
-  if(/dashboard|painel|grafico/.test(t)) return r('Abrindo o dashboard…', 'Abrindo o dashboard.', () => { fecharAI(); trocarAba('dash') });
-  if(!F) return r('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
-  if(/pilot/.test(t)){
-    if(!F.pilot.length) return r('Nenhuma pilotagem em aberto agora. ✓');
-    const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
-    return r(`<b>${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}</b> em aberto · ${pl(tot, 'peça', 'peças')}:<table class="ai-tab"><thead><tr><th>Item</th><th>Qtd</th><th>Pedidos</th></tr></thead><tbody>${F.pilot.slice(0, 25).map(x => `<tr><td>${esc(x.desc)}<small>${esc(x.prod)}</small></td><td>${fmtInt(x.qtd)}</td><td>${x.peds.slice(0, 4).join(', ')}${x.peds.length > 4 ? '…' : ''}</td></tr>`).join('')}</tbody></table>${F.pilot.length > 25 ? `<small>e mais ${F.pilot.length - 25} itens</small>` : ''}`,
-      `Há ${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}, somando ${pl(tot, 'peça', 'peças')}. ${F.pilot.slice(0, 5).map(x => `${x.desc.toLowerCase()}, ${pl(x.qtd, 'peça', 'peças')}`).join('; ')}${F.pilot.length > 5 ? '; e outros.' : '.'}`);
-  }
-  if(/tipo/.test(t)) return r(F.tiposAb.length ? `Amostras em aberto por tipo: ${F.tiposAb.map(([tp, q]) => `<b>${esc(cap(tp))}</b> ${fmtInt(q)}`).join(' · ')}.` : 'Nenhuma amostra em aberto.',
-    F.tiposAb.length ? `Em aberto: ${F.tiposAb.map(([tp, q]) => `${fmtInt(q)} de ${cap(tp).toLowerCase()}`).join(', ')}.` : 'Nenhuma amostra em aberto.');
-  if(/atras/.test(t)) return r(F.atr.length ? `<b>${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}</b>. Mais antigos: ${F.atr.slice(0, 5).map(p => `${p.num} (${p.dias} dias)`).join(', ')}.` : 'Nenhum pedido atrasado. 👏',
-    F.atr.length ? `${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}. O mais antigo está há ${F.atr[0].dias} dias.` : 'Nenhum pedido atrasado.', F.atr.length ? () => { fecharAI(); abrirAtrasadosNaLista() } : null);
-  if(/novo|novidade|chegou|chegaram/.test(t)){ const n = novidadesAI(); return r(n.length ? `<b>${pl(n.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita: ${n.slice(0, 8).map(p => p.num).join(', ')}.` : 'Nenhum pedido novo desde a sua última visita.') }
-  if(/vence|venc|prazo/.test(t)) return r(`Vencem hoje: <b>${fmtInt(F.hoje.length)}</b>${F.hoje.length ? ' (' + F.hoje.slice(0, 6).map(p => p.num).join(', ') + ')' : ''}. Vencem amanhã: <b>${fmtInt(F.amanha.length)}</b>.`);
-  if(/liberad/.test(t)) return r(`<b>${pl(F.lib, 'pedido liberado', 'pedidos liberados')}</b> aguardando faturamento.`);
-  if(/aberto|fila|pendente/.test(t)) return r(`<b>${fmtInt(F.ab)}</b> em aberto e <b>${fmtInt(F.lib)}</b> liberados.`);
-  if(/fatur|tempo|demora/.test(t) && P){ const M = visao(P.mesAtual); if(M.lt?.n) return r(`Tempo médio até faturar em ${nomeMes(P.mesAtual)}: <b>${fmtDias(M.lt.s / M.lt.n)}</b>, ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.`) }
-  if(/hoje/.test(t) && P) return r(`Hoje chegaram <b>${pl(P.hoje.ped, 'pedido', 'pedidos')}</b> com ${pl(P.hoje.qtd, 'amostra', 'amostras')}.`);
-  if(/ontem/.test(t)){ const O = ontemResumo(); if(O) return r(`${c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`) }
-  if(/mes|amostra/.test(t) && P){ const M = visao(P.mesAtual); return r(`Em ${nomeMes(P.mesAtual)}: <b>${fmtInt(M.qtd)} amostras</b> em ${pl(M.ped, 'pedido', 'pedidos')}.`) }
-  if(/resumo|programa|bom dia|boa tarde|boa noite|status|como esta|novidades do dia/.test(t)){ const R = renderAI(); return r('Aqui está o resumo do dia.', R.fala) }
-  return r('Ainda não sei responder isso. Tente: <b>resumo</b>, <b>pilotagens</b>, <b>tipos</b>, <b>atrasados</b>, <b>novos</b>, <b>vencem hoje</b>, <b>liberados</b>, <b>tempo até faturar</b>, <b>pedido 500123</b> ou <b>modo TV</b>.', 'Ainda não sei responder isso. Tente perguntar por atrasados, novos ou o resumo do dia.');
+function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; $('ai-resp').hidden = true; try{ speechSynthesis.cancel() }catch{} AI.rec?.abort?.() }
+let MODO_ASSIST = '';
+const ROT_ASSIST = {atr:'Atrasados', aberto:'Em aberto', liberado:'Liberados'};
+function abrirListaAssist(modo){
+  trocarAba('pedidos'); TERMO_SRV = ''; $('f-busca').value = ''; MODO_ASSIST = modo; SO_ATR = modo === 'atr';
+  const v = modo === 'atr' ? 'todos' : modo;
+  $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === v))); $('f-status').value = v;
+  buscar();
 }
-function abrirAtrasadosNaLista(){
-  trocarAba('pedidos'); TERMO_SRV = ''; $('f-busca').value = '';
-  $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'todos'))); $('f-status').value = 'todos';
-  SO_ATR = true; buscar();
-}
+const abrirAtrasadosNaLista = () => abrirListaAssist('atr');
 function iniciarAI(){
   $('ai-orb').onclick = () => AI.aberto ? fecharAI() : abrirAI(false);
   $('ai-x').onclick = fecharAI;
@@ -2360,9 +2518,11 @@ function iniciarAI(){
   $('ai-conf').onsubmit = e => { e.preventDefault(); salvarCfg(); $('ai-conf').hidden = true; renderAI(); falar(`Configurações salvas, ${nomeUser()}.`) };
   $('ai-auto').onchange = e => store.set('pv-ai-auto', e.target.checked ? '1' : '0');
   $('ai-perg').onsubmit = e => { e.preventDefault(); const v = trim($('ai-txt').value); if(v){ responderAI(v); $('ai-txt').value = '' } };
-  $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(!b) return; const a = b.dataset.ai;
-    if(a === 'atr'){ fecharAI(); abrirAtrasadosNaLista() } else if(a === 'dash'){ fecharAI(); trocarAba('dash') }
-    else if(a === 'novos'){ responderAI('novos') } else if(a === 'pilot'){ responderAI('pilotagens') } else if(a === 'tipos'){ responderAI('tipos') } else if(a === 'hoje' || a === 'amanha'){ responderAI('vencem') } else if(a === 'pend'){ responderAI('aberto') } else if(a === 'sem'){ fecharAI(); trocarAba('pedidos') } });
+  $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(b && ACOES_AI[b.dataset.ai]) ACOES_AI[b.dataset.ai]() });
+  $('ai-resp').addEventListener('click', e => { if(e.target.closest('.ai-resp-x')){ $('ai-resp').hidden = true; try{ speechSynthesis.cancel() }catch{} } });
+  $('aic-mordomo').onclick = () => { const vs = vozesPt(), v = vs.find(x => VOZ_MASC.test(x.name) && /natural|online|neural/i.test(x.name)) || vs.find(x => VOZ_MASC.test(x.name));
+    if(v) $('aic-voz').value = v.name; $('aic-tom').value = 0.7; $('aic-vel').value = 0.92; $('aic-tom').oninput();
+    salvarCfg(); falar(`Às suas ordens, ${nomeUser()}.${v ? '' : ' Este navegador não tem voz masculina em português. No Microsoft Edge, a voz Antonio fica bem melhor.'}`) };
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SR){ $('ai-mic').hidden = true } else $('ai-mic').onclick = () => {
     if(AI.rec){ AI.rec.abort(); return }
@@ -2490,7 +2650,9 @@ const NOMES_LISTA = {cli:null, vend:null};
 const nomeCliLista = p => { try{ return cap(trim(get(NOMES_LISTA.cli?.(p.cliente, p.loja), 'A1_NOME'))) }catch{ return '' } };
 const nomeVendLista = c => { if(!trim(c)) return ''; try{ return cap(trim(get(NOMES_LISTA.vend?.(c), CONFIG.nomeVendedor)).replace(/^[A-Z]\d+\s*-\s*/, '')) }catch{ return '' } };
 function atualizaChipCliente(){
-  const ch = $('cli-chip'); if(!TERMO_SRV){ ch.hidden = true; ch.innerHTML = ''; return }
+  const ch = $('cli-chip');
+  if(MODO_ASSIST && !TERMO_SRV){ ch.hidden = false; ch.innerHTML = `Do assistente: ${ROT_ASSIST[MODO_ASSIST]} · últimos 180 dias <button type="button" id="cli-x" title="Voltar para o filtro normal" aria-label="Voltar para o filtro normal">×</button>`; return }
+  if(!TERMO_SRV){ ch.hidden = true; ch.innerHTML = ''; return }
   ch.hidden = false; ch.innerHTML = `Buscado no Protheus: ${esc(TERMO_SRV)} · todas as datas e situações <button type="button" id="cli-x" title="Voltar para a lista do filtro" aria-label="Voltar para a lista do filtro">×</button>`;
 }
 async function buscar(){
@@ -2503,6 +2665,7 @@ async function buscar(){
       'C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`,
       `C6_TES IN (${tesList.map(q).join(',')})`,
       ...(TERMO_SRV ? [`(C5_NUM=${q(TERMO_SRV.padStart(6, '0'))} OR C5_CLIENTE=${q(TERMO_SRV.padStart(6, '0'))} OR C5_CLIENTE=${q(TERMO_SRV)})`]
+        : MODO_ASSIST ? [`C5_EMISSAO>=${q(ymd(new Date(Date.now() - 180 * 864e5)))}`, MODO_ASSIST === 'atr' ? "C5_NOTA=' ' AND C6_QTDVEN>C6_QTDENT AND C6_BLQ<>'R'" : STATUS_WHERE[MODO_ASSIST]]
         : [de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`, STATUS_WHERE[st]]),
       "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
     ].filter(Boolean).join(' AND ');
@@ -2554,7 +2717,7 @@ function renderLista(){
   $('st-pend').textContent = pedidos.length - imp;
   $('st-imp').textContent = imp;
   const nAtr = pedidos.filter(atrasado).length;
-  if(SO_ATR && !nAtr) SO_ATR = false;
+  if(SO_ATR && !nAtr && !MODO_ASSIST) SO_ATR = false;
   $('st-atr-n').textContent = nAtr; $('st-atr').classList.toggle('tem', nAtr > 0); $('st-atr').classList.toggle('on', SO_ATR);
   $('btn-atr').hidden = !nAtr; $('btn-atr').classList.toggle('on', SO_ATR);
   $('btn-atr').textContent = SO_ATR ? `Mostrando ${nAtr} atrasado(s) · ver todos` : `${nAtr} atrasado(s) +${PRAZO_DIAS} dias`;
@@ -2963,7 +3126,7 @@ async function gerar(lista, imprimir, reprocessar = false){
     if(vis.length === 1) return gerar([vis[0].p], false);
     if(!vis.length) buscarNoProtheus(t);
   });
-  $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ TERMO_SRV = ''; $('f-busca').value = ''; atualizaChipCliente(); buscar() } });
+  $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ TERMO_SRV = ''; MODO_ASSIST = ''; SO_ATR = false; $('f-busca').value = ''; atualizaChipCliente(); buscar() } });
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
   $('btn-print-novos').onclick = () => {
@@ -2991,8 +3154,8 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('seg-status').addEventListener('click', e => {
     const b = e.target.closest('button[data-v]'); if(!b) return;
     $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    if($('f-status').value === b.dataset.v && pedidos.length) return;
-    $('f-status').value = b.dataset.v;
+    if($('f-status').value === b.dataset.v && pedidos.length && !MODO_ASSIST) return;
+    $('f-status').value = b.dataset.v; MODO_ASSIST = ''; SO_ATR = false;
     buscar(); // já atualiza a lista ao trocar a situação
   });
   ['f-de', 'f-ate'].forEach(id => $(id).addEventListener('change', () => carregarTiposPeriodo()));
@@ -3022,7 +3185,7 @@ async function gerar(lista, imprimir, reprocessar = false){
     const chkTd = e.target.closest('.c-chk'); if(chkTd){ chkTd.querySelector('input.chk')?.click(); return }
     const tr = e.target.closest('tr[data-row]'); if(tr && !getSelection().toString()) gerar([pedidos[+tr.dataset.row]], false);
   });
-  iniciarTemas(); iniciarTipDash(); iniciarTVControles(); iniciarAI();
+  iniciarTemas(); iniciarTipDash(); iniciarTVControles(); iniciarAI(); iniciarTabela();
   $('btn-notif').onclick = abrirNotif; $('aj-notif').onclick = abrirNotif;
   document.body.dataset.tab = 'pedidos';
   document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
