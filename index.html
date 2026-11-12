@@ -987,6 +987,7 @@ const CONFIG = {
     toleranciaGramatura: 7,        // % em torno da gramatura ideal do grupo (SBM.BM_GRAMTIN)
     quantidade: 3,                 // quantos endereços aprovados imprimir
     niveisBaixos: ['1', '2', '3'], // último dígito do endereço = nível; estes vêm primeiro (sem escada)
+    enderecosAceitos: ['REC'],     // endereços sem número no final que também saem na folha (os demais, ex.: CQSUJO, ficam de fora)
     // Malhas com defeito da planilha da equipe (a mesma das Pastas do NOVA). Sem a chave, ignora defeitos.
     defeitos: {
       url: 'https://script.google.com/macros/s/AKfycbyHBouPxpAfFQeOYGLMdvaqpvRF7XhZSJxCqeY13T_zXFauD8SS_DCGdPQt0hQpfw/exec',
@@ -1078,6 +1079,12 @@ async function gqAll(tables, fields, where){
   let page = 1, out = [], body;
   do{ body = await gq(tables, fields, where, page++); out = out.concat(body.items || []) }while(body.hasNext && page < 200);
   return out;
+}
+/* O Protheus às vezes responde "sem itens" quando está ocupado. Resposta vazia é lida de novo (até 2x) antes de acreditar. */
+async function gqConferido(tables, base, extras, where, tentativas = 2){
+  let rows = await gqSafe(tables, base, extras, where);
+  for(let t = 1; t <= tentativas && !rows.length; t++){ await dormir(900 * t); rows = await gqSafe(tables, base, extras, where) }
+  return rows;
 }
 /* Tenta com os campos extras; se o Protheus recusar (campo inexistente), refaz só com os campos padrão. */
 const avisos = new Set();
@@ -1297,7 +1304,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel5', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel5', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1310,11 +1317,11 @@ async function carregarPainel(forcar = false){
     const qa = r => { const o = get(r, campoOri); return Math.ceil(Math.max(0, num(o === undefined || o === null || o === '' ? r.c6_qtdven : o))) };
     const listaMeses = Array.from({length:12}, (_, i) => { const d = new Date(hoje.getFullYear(), hoje.getMonth() - 11 + i, 1); return ymd(d).slice(0, 6) });
     // 12 consultas menores (uma por mês) em vez de uma enorme: menos páginas, resultado mais confiável
-    const porMes = await Promise.all(listaMeses.map(mes => gqSafe('SC5,SC6',
+    const porMes = await Promise.all(listaMeses.map(mes => gqConferido('SC5,SC6',
       ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_VEND2','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT','C6_BLQ'], extra,
       [...base, `C5_EMISSAO BETWEEN ${q(mes + '01')} AND ${q(mes + '31')}`].join(' AND '))));
     // pendentes (não faturados): consulta própria e pequena, sem limite de data
-    let pend = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
+    let pend = await gqConferido('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
       [...base, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"].join(' AND '));
     const tipoDe = r => (opcao(CONFIG.campos.tpAmostra, get(r, CONFIG.campos.tpAmostra)) || 'NÃO INFORMADO').toUpperCase();
     // Tags e Desenvolvimento de cor ficam fora de todos os painéis (dashboard, letreiro e cartão de tipos)
@@ -1373,6 +1380,12 @@ async function carregarPainel(forcar = false){
         ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
       cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
     };
+    // Tudo zerado = o Protheus não respondeu direito: não grava (para não ficar 10 min zerado) e mantém o último painel bom
+    if(!porMes.some(r => r.length)){
+      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel5', true) || 'null') }catch{}
+      if(velho && velho.meses?.some(m => m.qtd)){ PAINEL = velho; return velho }
+      throw new Error('o Protheus não devolveu dados agora. Tente atualizar em alguns segundos.');
+    }
     try{ store.set('pv-painel5', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
@@ -1425,7 +1438,7 @@ async function carregarTiposPeriodo(forcar = false){
     if(de) w.push(`C5_EMISSAO>=${q(isoToProtheus(de))}`);
     if(ate) w.push(`C5_EMISSAO<=${q(isoToProtheus(ate))}`);
     const extra = [campoTp, campoOri].filter(c => /^C6_/i.test(c || ''));
-    const rows = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra, w.join(' AND '));
+    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra, w.join(' AND '));
     if(seq !== tiposSeq) return TIPOS_PER;
     const qa = r => { const o = get(r, campoOri); return Math.ceil(Math.max(0, num(o === undefined || o === null || o === '' ? r.c6_qtdven : o))) };
     const tipoDe = r => (opcao(campoTp, get(r, campoTp)) || 'NÃO INFORMADO').toUpperCase();
@@ -1497,10 +1510,16 @@ function iniciarLetreiro(){
   const tr = $('tk-track'); if(!tr || tr.dataset.on) return;
   tr.dataset.on = '1'; tr.addEventListener('animationend', proximaTela); proximaTela();
 }
+let painelRetry = 0;
 async function atualizarPainel(forcar = false){
   const tinha = !!PAINEL;
   carregarTiposPeriodo(forcar);
-  try{ await carregarPainel(forcar) }catch(e){ console.warn('painel', e); if(e.auth) return; if(!PAINEL) $('dsh-quando') && ($('dsh-quando').textContent = 'Não foi possível carregar: ' + e.message) }
+  try{ await carregarPainel(forcar); painelRetry = 0 }catch(e){
+    console.warn('painel', e); if(e.auth) return;
+    if(!PAINEL) $('dsh-quando') && ($('dsh-quando').textContent = 'Não foi possível carregar: ' + e.message);
+    // sem painel nenhum: tenta de novo sozinho (15s, 30s, 45s) em vez de esperar os 10 minutos
+    if(!PAINEL && painelRetry < 3){ painelRetry++; setTimeout(() => { if(document.body.classList.contains('logado')) atualizarPainel(true) }, 15000 * painelRetry) }
+  }
   renderTipos(); renderDash();
   if(!tinha && PAINEL){ telaAtual = 0; proximaTela() }
 }
@@ -1781,7 +1800,7 @@ async function buscar(){
         : [de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`, STATUS_WHERE[st]]),
       "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
     ].filter(Boolean).join(' AND ');
-    const rows = await gqSafe('SC5,SC6',
+    const rows = await gqConferido('SC5,SC6',
       ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
       [CONFIG.campos.tpAmostra, CONFIG.campos.obs2].filter(c => /^C[56]_/i.test(c || '')), w);
     if(seq !== buscaSeq) return;
@@ -2120,7 +2139,7 @@ async function enderecarItens(d){
   }));
 }
 const fmtN = (v, c=2) => num(v).toLocaleString('pt-BR', {minimumFractionDigits:c, maximumFractionDigits:c});
-// Sempre até 3 endereços (só os que terminam em número, ex.: ignora CQSUJO), na ordem do NOVA:
+// Sempre até 3 endereços (os que terminam em número + REC; ignora CQSUJO etc.), na ordem do NOVA:
 // 1º aprovados p/ amostra (gramatura no padrão), com nível baixo (final 1, 2, 3) primeiro;
 // se não completar 3, completa com os demais rolos sem defeito: local prioritário → gramatura mais perto do ideal → ordem do NOVA (menor CMC → entrada).
 function textoEnderecos(e){
@@ -2128,7 +2147,8 @@ function textoEnderecos(e){
   if(e.erro && !e.lista) return 'ERRO AO CONSULTAR';
   const E = CONFIG.enderecamento;
   const fim = x => trim(x.r.z5_enderec).slice(-1), baixo = x => Number(E.niveisBaixos.includes(fim(x)));
-  const validos = e.lista.map((x, i) => ({x, i})).filter(({x}) => /\d/.test(fim(x)));
+  const aceito = x => { const ad = trim(x.r.z5_enderec).toUpperCase(); return /\d$/.test(ad) || (E.enderecosAceitos || []).some(p => ad.startsWith(p)) };
+  const validos = e.lista.map((x, i) => ({x, i})).filter(({x}) => aceito(x));
   const ok = validos.filter(({x}) => x.aprovado).sort((a, b) => baixo(b.x) - baixo(a.x) || a.i - b.i);
   const dist = x => { const g = num(x.r.z5_gramatu), id = num(x.ideal); return id > 0 && g > 0 ? Math.abs(g - id) / id : Infinity };
   const resto = validos.filter(({x}) => !x.aprovado && !x.defeito).sort((a, b) => b.x.loc - a.x.loc || dist(a.x) - dist(b.x) || a.i - b.i);

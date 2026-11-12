@@ -74,4 +74,4 @@ Se um dia o Protheus deixar de aceitar chamadas direto do navegador (CORS), baix
 Envie de novo o `index.html` alterado (**Add file → Upload files**). O GitHub Pages publica em 1–2 minutos.
 
 ### Endereços dos rolos
-Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços, na ordem do NOVA: primeiro os aprovados pela gramatura (nível baixo primeiro); se não completar 3, entram os demais rolos sem defeito, pela gramatura mais perto do ideal e depois menor CMC. Sem rolo em estoque aparece "SEM ROLO EM ESTOQUE".
+Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços, na ordem do NOVA: primeiro os aprovados pela gramatura (nível baixo primeiro); se não completar 3, entram os demais rolos sem defeito, pela gramatura mais perto do ideal e depois menor CMC. Rolos em REC também entram como endereço (CQSUJO e outros sem número continuam fora). Sem rolo em estoque aparece "SEM ROLO EM ESTOQUE".
