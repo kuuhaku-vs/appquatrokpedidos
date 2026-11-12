@@ -290,7 +290,58 @@ body:not(.logado) .app-shell{visibility:hidden}
 @media(max-width:600px){.ticker{top:auto;position:relative;height:30px}.tk-tag{padding:0 10px 0 14px}.tk-tag b{display:none}.tk-track{font-size:14px}}
 
 /* ======================= TIPOS DE AMOSTRA EM ABERTO ======================= */
-.stats{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.6fr)}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.6fr)}
+.stat.atr{cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.stat.atr:hover{border-color:color-mix(in srgb,var(--st-fat) 60%,transparent)}
+.stat.atr.tem strong{color:var(--st-fat)}
+.stat.atr.on{border-color:var(--st-fat);background:color-mix(in srgb,var(--st-fat) 10%,var(--panel))}
+table.list .dias{display:block;margin-top:2px;font-size:11px;color:var(--dim);font-weight:500}
+table.list .dias.quase{color:color-mix(in srgb,var(--st-lib) 85%,var(--muted))}
+table.list .dias.atr{color:var(--st-fat);font-weight:700}
+table.list .tag-novo{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;background:var(--lime);color:var(--ink);font-size:9.5px;font-weight:800;letter-spacing:.5px;vertical-align:2px}
+.badge.b-sem{color:var(--st-fat);border-color:color-mix(in srgb,var(--st-fat) 50%,transparent);background:color-mix(in srgb,var(--st-fat) 8%,transparent)}
+.tg-chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;border:1px solid var(--line-2);background:none;color:var(--text);font:600 12px var(--sans, inherit);cursor:pointer}
+.tg-chip[hidden]{display:none}
+.tg-chip.atr{border-color:color-mix(in srgb,var(--st-fat) 50%,transparent);color:var(--st-fat)}
+.tg-chip.atr.on{background:var(--st-fat);color:#101010;border-color:var(--st-fat)}
+.tg-chip.novo{background:var(--lime);border-color:var(--lime);color:var(--ink);animation:pulso 2s ease-in-out infinite}
+@keyframes pulso{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--lime) 25%,transparent)}}
+/* dashboard: deltas, comparação e tempo até faturar */
+.dk .dl{display:inline-block;margin-left:6px;font-style:normal;font-size:11px;font-weight:700}
+.dl.up{color:var(--st-ab)}.dl.dn{color:var(--st-fat)}.dl.neu{color:var(--muted)}
+.dk.hi .dl{color:color-mix(in srgb,var(--ink) 75%,transparent)}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th{text-align:right;color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:0 0 8px;border-bottom:1px solid var(--line)}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp td{padding:9px 0;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.cmp tr:last-child td{border-bottom:0}
+.cmp td b{font-weight:700}
+.cmp .ant{color:var(--muted)}
+.cmp .dl{font-weight:700;margin:0}
+.cmp-nota,.lead-nota{margin:10px 0 0;color:var(--dim);font-size:11.5px}
+.lead-top{display:flex;align-items:flex-end;gap:22px;margin-bottom:14px;flex-wrap:wrap}
+.lead-top strong{font:700 40px/1 var(--display);letter-spacing:-1px}
+.lead-top strong small{font-size:15px;font-weight:600;color:var(--muted);margin-left:4px;letter-spacing:0}
+.lead-top .lbl{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.lead-prazo{flex:1;min-width:160px}
+.lead-prazo .barra{height:8px;border-radius:999px;background:color-mix(in srgb,var(--st-fat) 35%,var(--panel-2));overflow:hidden}
+.lead-prazo .barra i{display:block;height:100%;background:var(--st-ab);border-radius:999px}
+.lead-prazo b{font:700 15px var(--display)}
+.lead-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.lead-cols{grid-template-columns:1fr}}
+.lead-cols table{width:100%;border-collapse:collapse;font-size:12.5px}
+.lead-cols th{text-align:right;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid var(--line)}
+.lead-cols th:first-child,.lead-cols td:first-child{text-align:left}
+.lead-cols td{padding:7px 0;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lead-cols td:first-child{white-space:normal;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.lead-cols tr:last-child td{border-bottom:0}
+.lead-cols th + th,.lead-cols td + td{padding-left:10px}
+.lead-cols table{table-layout:fixed}
+.lead-cols th{white-space:nowrap}
+.lead-cols th:nth-child(2){width:42px}.lead-cols th:nth-child(3){width:78px}.lead-cols th:nth-child(4){width:74px}
+.lead-cols td:first-child{white-space:nowrap!important;max-width:none}
+.cmp th + th,.cmp td + td{padding-left:12px}
+.lead-cols .lento{color:var(--st-fat);font-weight:700}
 .stat.tipos{position:relative;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .15s}
 .stat.tipos:hover{border-color:var(--lime-t)}
 .stat.tipos .q{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:700 12px var(--display);color:var(--muted)}
@@ -847,6 +898,7 @@ table.res .r{text-align:right}
   <div class="stat"><span>Pedidos</span><strong id="st-total">—</strong></div>
   <div class="stat hi"><span>A imprimir</span><strong id="st-pend">—</strong></div>
   <div class="stat"><span>Já impressos</span><strong id="st-imp">—</strong></div>
+  <button class="stat atr" id="st-atr" type="button" title="Mostrar só os pedidos atrasados (mais de 7 dias sem faturar)"><span>Atrasados · +7 dias</span><strong id="st-atr-n">—</strong></button>
   <button class="stat tipos" id="st-tipos" type="button" title="Ver tabela de amostras em aberto por tipo">
    <span>Amostras em aberto por tipo</span><em class="tp-per" id="tp-per"></em><strong id="tp-total">—</strong>
    <div class="tp-bar" id="tp-bar"></div><div class="tp-leg" id="tp-leg"></div><i class="q" style="font-style:normal">?</i>
@@ -863,8 +915,11 @@ table.res .r{text-align:right}
    <h3>Lista</h3>
    <label class="busca" title="Digite o nº do pedido, o código ou nome do cliente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="f-busca" name="pesquisa-pedido-cliente" type="search" placeholder="Pedido ou cliente…" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
    <span class="count" id="count">—</span><span class="cli-chip" id="cli-chip" hidden></span>
+   <button class="tg-chip atr" id="btn-atr" type="button" hidden></button>
+   <button class="tg-chip novo" id="novo-chip" type="button" hidden></button>
    <div class="right">
     <label class="switch"><input type="checkbox" id="f-ocultar"> Ocultar já impressos</label>
+    <button class="btn sec" id="btn-print-novos" disabled title="Imprime de uma vez todos os pedidos da lista que ainda não foram impressos">Imprimir não impressos</button>
     <button class="btn sec" id="btn-preview" disabled>Visualizar</button>
     <button class="btn" id="btn-print" disabled>Imprimir selecionados</button>
    </div>
@@ -891,6 +946,8 @@ table.res .r{text-align:right}
    <div class="dsh-card g4"><div class="ch"><h3>Tipos de amostra</h3><small class="dsh-rot"></small></div><div id="dsh-donut"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Top 10 mais solicitados</h3><small class="dsh-rot"></small></div><div id="dsh-top"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Quem mais solicita</h3><small class="dsh-rot"></small></div><div id="dsh-vend"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Comparação com o mês anterior</h3><small id="cmp-rot"></small></div><div id="dsh-cmp"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Tempo até faturar</h3><small class="dsh-rot"></small></div><div id="dsh-lead"></div></div>
    <div class="dsh-card g6 g-centro"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
   </div>
  </section>
@@ -1115,6 +1172,8 @@ const extrasDe = prefix => Object.values(CONFIG.campos).filter(c => c && c.toUpp
 const lookupVend = cods => lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor], extras:extrasDe('A3_')}, cods);
 
 /* ============================ lista de pedidos ============================ */
+const PRAZO_DIAS = 7;            // prazo da equipe: pedido não faturado há mais que isto = atrasado (dias corridos)
+const NOVOS_MIN = 30;            // de quanto em quanto tempo procura pedidos novos em aberto
 const STATUS_WHERE = {
   aberto:   "C5_LIBEROK=' ' AND C5_NOTA=' ' AND C6_QTDVEN>C6_QTDENT AND C6_BLQ<>'R'",
   liberado: "C5_LIBEROK<>' ' AND C5_NOTA=' ' AND C6_QTDVEN>C6_QTDENT AND C6_BLQ<>'R'",
@@ -1191,7 +1250,7 @@ function salvarSessao(manter){
 }
 function mostrarApp(){
   document.body.classList.add('logado');
-  iniciarLetreiro(); atualizarPainel();
+  iniciarLetreiro(); atualizarPainel(); checarNovos();
   const u = SESSAO.user;
   $('user-name').textContent = u; $('user-ini').textContent = (u.replace(/[^a-z0-9]/gi, '')[0] || '?');
 }
@@ -1279,6 +1338,7 @@ const fmtInt = n => Math.round(num(n)).toLocaleString('pt-BR');
 const cap = s => String(s || '').toLowerCase().replace(/(^|[\s.\-/])\S/g, c => c.toUpperCase()).replace(/\b(De|Da|Do|Dos|Das|E)\b/g, w => w.toLowerCase());
 const nomeMes = m => `${MESES[+m.slice(4, 6) - 1]}/${m.slice(2, 4)}`;
 const mesExt = m => `${MESES_EXT[+m.slice(4, 6) - 1]} de ${m.slice(0, 4)}`;
+const diasEntre = (a, b) => Math.round((Date.UTC(+b.slice(0, 4), +b.slice(4, 6) - 1, +b.slice(6, 8)) - Date.UTC(+a.slice(0, 4), +a.slice(4, 6) - 1, +a.slice(6, 8))) / 864e5);
 const ymd = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
 function diasUteis(mes, ateDia){
   const y = +mes.slice(0, 4), m = +mes.slice(4, 6) - 1, ult = new Date(y, m + 1, 0).getDate();
@@ -1304,7 +1364,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel5', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel6', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1313,12 +1373,13 @@ async function carregarPainel(forcar = false){
     const campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
     if(campoTp) base.push(`${campoTp} IN (${CONFIG.painel.tiposAmostra.map(q).join(',')})`);
     const extra = [campoTp, campoOri].filter(c => /^C6_/i.test(c || ''));
+    const extraMes = [...extra, 'C6_DATFAT']; // data de faturamento do item → tempo até faturar
     // quantidade de amostras do item: original arredondada para cima (regra do Consolidado); sem o campo, usa C6_QTDVEN
     const qa = r => { const o = get(r, campoOri); return Math.ceil(Math.max(0, num(o === undefined || o === null || o === '' ? r.c6_qtdven : o))) };
     const listaMeses = Array.from({length:12}, (_, i) => { const d = new Date(hoje.getFullYear(), hoje.getMonth() - 11 + i, 1); return ymd(d).slice(0, 6) });
     // 12 consultas menores (uma por mês) em vez de uma enorme: menos páginas, resultado mais confiável
     const porMes = await Promise.all(listaMeses.map(mes => gqConferido('SC5,SC6',
-      ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_VEND2','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT','C6_BLQ'], extra,
+      ['C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_VEND1','C5_VEND2','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT','C6_BLQ'], extraMes,
       [...base, `C5_EMISSAO BETWEEN ${q(mes + '01')} AND ${q(mes + '31')}`].join(' AND '))));
     // pendentes (não faturados): consulta própria e pequena, sem limite de data
     let pend = await gqConferido('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra,
@@ -1330,7 +1391,7 @@ async function carregarPainel(forcar = false){
     pend = pend.filter(contaNoPainel);
 
     const meses = listaMeses.map((mes, i) => {
-      const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}};
+      const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}, pd:{}, lt:{n:0, s:0, ok:0, t:{}, v:{}}};
       const peds = new Map(), clis = new Set(), vistosPT = new Set();
       porMes[i].forEach(r => {
         const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k); // ignora linhas repetidas entre páginas
@@ -1340,12 +1401,26 @@ async function carregarPainel(forcar = false){
         const dsc = trim(r.c6_descri).toUpperCase().replace(/\s+/g, ' '), pc = dsc || trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0, trim(r.c6_produto), {}, 0]); pr[1] += am; if(!vistosPT.has(pc + '||' + r.c5_num)){ vistosPT.add(pc + '||' + r.c5_num); pr[4]++ } // agrupado pela descrição, como no Consolidado
         const prt = pr[3][tp] || (pr[3][tp] = {p:0, q:0}); prt.q += am; if(!vistosPT.has(pc + '|' + tp + '|' + r.c5_num)){ vistosPT.add(pc + '|' + tp + '|' + r.c5_num); prt.p++ }
         const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + am;
-        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0, tq:{}};
-        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; o.tq[tp] = (o.tq[tp] || 0) + am; peds.set(r.c5_num, o);
+        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0, tq:{}, em, cli:trim(r.c5_cliente), df:''};
+        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; o.tq[tp] = (o.tq[tp] || 0) + am;
+        const df = trim(get(r, 'C6_DATFAT') || '').replace(/-/g, ''); if(/^\d{8}$/.test(df) && df > o.df) o.df = df;
+        peds.set(r.c5_num, o);
       });
       peds.forEach(o => {
         M.ped++;
         if(o.nota) M.fat++; else if(o.aberto){ if(o.lib) M.lib++; else M.ab++ }
+        // por dia de emissão (para comparar com o mês anterior "até o mesmo dia")
+        const pdd = M.pd[o.em.slice(6, 8)] || (M.pd[o.em.slice(6, 8)] = {ped:0, fat:0, ab:0, lib:0, cli:[]}); pdd.ped++;
+        if(o.nota) pdd.fat++; else if(o.aberto){ if(o.lib) pdd.lib++; else pdd.ab++ } if(o.cli && !pdd.cli.includes(o.cli)) pdd.cli.push(o.cli);
+        // tempo até faturar: dias corridos da emissão até a última data de faturamento dos itens
+        if(o.nota && o.df && /^\d{8}$/.test(o.em)){
+          const d = diasEntre(o.em, o.df);
+          if(d >= 0 && d < 400){
+            const add = x => { x.n++; x.s += d; if(d <= PRAZO_DIAS) x.ok++ };
+            add(M.lt); Object.keys(o.tq).forEach(t => add(M.lt.t[t] || (M.lt.t[t] = {n:0, s:0, ok:0})));
+            const vk = o.v2 || o.v1; if(vk) add(M.lt.v[vk] || (M.lt.v[vk] = {n:0, s:0, ok:0}));
+          }
+        }
         const vk = o.v2 || o.v1; if(vk){ const v = M.vend[vk] || (M.vend[vk] = {p:0, q:0, v1:o.v1, t:{}}); v.p++; v.q += o.q;
           Object.entries(o.tq).forEach(([t, q]) => { const x = v.t[t] || (v.t[t] = {p:0, q:0}); x.p++; x.q += q }) }
       });
@@ -1382,11 +1457,11 @@ async function carregarPainel(forcar = false){
     };
     // Tudo zerado = o Protheus não respondeu direito: não grava (para não ficar 10 min zerado) e mantém o último painel bom
     if(!porMes.some(r => r.length)){
-      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel5', true) || 'null') }catch{}
+      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel6', true) || 'null') }catch{}
       if(velho && velho.meses?.some(m => m.qtd)){ PAINEL = velho; return velho }
       throw new Error('o Protheus não devolveu dados agora. Tente atualizar em alguns segundos.');
     }
-    try{ store.set('pv-painel5', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel6', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
@@ -1400,8 +1475,10 @@ function juntarVend(lista){
 function visao(periodo){
   const P = PAINEL; if(!P) return null;
   const ms = periodo === 'ano' ? P.meses.filter(m => m.mes.startsWith(P.ano)) : P.meses.filter(m => m.mes === periodo);
-  const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms};
+  const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms, lt:{n:0, s:0, ok:0, t:{}, v:{}}};
+  const somaLt = (a, b) => { a.n += b.n; a.s += b.s; a.ok += b.ok };
   ms.forEach(m => {
+    if(m.lt){ somaLt(V.lt, m.lt); [['t', 't'], ['v', 'v']].forEach(([k]) => Object.entries(m.lt[k] || {}).forEach(([c, x]) => somaLt(V.lt[k][c] || (V.lt[k][c] = {n:0, s:0, ok:0}), x))) }
     V.qtd += m.qtd; V.env += m.env; V.ped += m.ped; V.fat += m.fat; V.ab += m.ab; V.lib += m.lib; m.cli.forEach(c => V.cli.add(c));
     Object.entries(m.tipos).forEach(([t, q]) => { if(!TIPOS_FORA_DASH.includes(t)) V.tipos[t] = (V.tipos[t] || 0) + q });
     Object.entries(m.prod).forEach(([c, [d, q, cod, ts, np]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0, cod, {}, 0]); o[1] += q; o[4] += np || 0;
@@ -1668,9 +1745,10 @@ function renderDash(){
   document.querySelectorAll('.dsh-rot').forEach(el => el.textContent = rot);
   $('dsh-per-mes').textContent = nomeMes(DSH_MES);
   // KPIs: três do mês escolhido + três do ano
-  const k = (lbl, v, sub, hi) => `<div class="dk${hi ? ' hi' : ''}"><span>${lbl}</span><strong>${fmtInt(v)}</strong><small>${sub}</small></div>`;
-  const mn = nomeMes(DSH_MES);
-  $('dsh-kpis').innerHTML = k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês') + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês')
+  const C = comparacaoMes(DSH_MES);
+  const k = (lbl, v, sub, hi, dl = '') => `<div class="dk${hi ? ' hi' : ''}"><span>${lbl}</span><strong>${fmtInt(v)}</strong><small>${sub}${dl}</small></div>`;
+  const mn = nomeMes(DSH_MES), dlk = (a, b, bom) => C ? ' ' + delta(a, b, bom) : '';
+  $('dsh-kpis').innerHTML = k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true, dlk(C?.at.ab, C?.an.ab, 0)) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês', false, dlk(C?.at.lib, C?.an.lib, 0)) + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês', false, dlk(C?.at.fat, C?.an.fat, 1))
     + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade original dos itens') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
   // barras mês a mês (clicáveis)
   const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd));
@@ -1691,8 +1769,54 @@ function renderDash(){
   DSH_TIP.vend = tv;
   $('dsh-vend').innerHTML = tv.length ? `<div class="rk rk-h c2"><span></span><span>Vendedora</span><span class="n">Pedidos</span><span class="n">Amostras</span></div><div class="rk-list">`
     + tv.map(([c, v], i) => { const r = rotuloVend(c, v); return `<div class="rk c2" data-tip="vend:${i}"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(r.n)}</b><small>${esc(r.cod)}${r.setor ? ' · <span class="chip">' + esc(r.setor) + '</span>' : ''}</small><i style="width:${100 * v.p / vmax}%"></i></div><span class="num">${fmtInt(v.p)}</span><span class="num sec">${fmtInt(v.q)}</span></div>` }).join('') + '</div>' + dica : '<p class="vazio">Sem dados.</p>';
+  // comparação com o mês anterior
+  $('cmp-rot').textContent = C ? `${nomeMes(DSH_MES)} × ${nomeMes(C.mesAnt)}` : '';
+  $('dsh-cmp').innerHTML = !C ? '<p class="vazio">Sem mês anterior para comparar.</p>' : `<table class="cmp"><thead><tr><th></th><th>${nomeMes(DSH_MES)}</th><th>${nomeMes(C.mesAnt)}${C.parcial ? ' *' : ''}</th><th>Variação</th></tr></thead><tbody>
+    ${[['Pedidos', 'ped', 1], ['Amostras', 'qtd', 1], ['Clientes', 'cli', 1], ['Em aberto', 'ab', 0], ['Liberados', 'lib', 0], ['Faturados', 'fat', 1]].map(([l, c, bom]) => `<tr><td>${l}</td><td><b>${fmtInt(C.at[c])}</b></td><td class="ant">${fmtInt(C.an[c])}</td><td>${delta(C.at[c], C.an[c], bom)}</td></tr>`).join('')}
+    <tr><td>Tempo médio até faturar</td><td><b>${C.at.lt != null ? fmtDias(C.at.lt) : '—'}</b></td><td class="ant">${C.an.lt != null ? fmtDias(C.an.lt) : '—'}</td><td>${C.at.lt != null && C.an.lt != null ? delta(C.at.lt, C.an.lt, -1) : ''}</td></tr>
+    </tbody></table><p class="cmp-nota">${C.parcial ? `* ${nomeMes(C.mesAnt)} contado só até o dia ${C.dia}, para comparar o mesmo período. ` : ''}Situações (em aberto, liberados, faturados) são como estão hoje no Protheus.</p>`;
+  // tempo até faturar
+  $('dsh-lead').innerHTML = htmlLead(V);
   // destaques
   $('dsh-dest').innerHTML = destaques(V, per).map(([a, b]) => `<div class="drow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('');
+}
+
+/* ---------- comparação com o mês anterior + tempo até faturar ---------- */
+const fmtDias = d => `${d.toLocaleString('pt-BR', {maximumFractionDigits:1})} ${Math.round(d * 10) === 10 ? 'dia' : 'dias'}`;
+// bom: 1 = subir é bom (verde), -1 = descer é bom, 0 = neutro
+function delta(a, b, bom){
+  if(!b){ return a ? '<em class="dl neu">novo</em>' : '<em class="dl neu">—</em>' }
+  const v = Math.round(100 * (a - b) / b); if(!v) return '<em class="dl neu">= 0%</em>';
+  const cls = !bom ? 'neu' : (v > 0) === (bom > 0) ? 'up' : 'dn';
+  return `<em class="dl ${cls}">${v > 0 ? '▲' : '▼'} ${Math.abs(v)}%</em>`;
+}
+function comparacaoMes(mes){
+  const P = PAINEL, i = P.meses.findIndex(m => m.mes === mes), at = P.meses[i], an = P.meses[i - 1]; if(!at || !an) return null;
+  const parcial = mes === P.mesAtual, dia = new Date().getDate();
+  const resumo = (m, ate) => {
+    const pd = Object.entries(m.pd || {}).filter(([d]) => !ate || +d <= ate).map(x => x[1]), cli = new Set();
+    pd.forEach(x => x.cli.forEach(c => cli.add(c)));
+    const r = {ped:0, fat:0, ab:0, lib:0, cli:cli.size, qtd:Object.entries(m.dias).filter(([d]) => !ate || +d <= ate).reduce((s, [, v]) => s + v, 0)};
+    pd.forEach(x => { r.ped += x.ped; r.fat += x.fat; r.ab += x.ab; r.lib += x.lib });
+    r.qtd = Math.round(r.qtd); r.lt = m.lt?.n ? m.lt.s / m.lt.n : null;
+    if(!m.pd){ Object.assign(r, {ped:m.ped, fat:m.fat, ab:m.ab, lib:m.lib, cli:m.cli.length}) }
+    return r;
+  };
+  return {at:resumo(at, 0), an:resumo(an, parcial ? dia : 0), mesAnt:an.mes, parcial, dia};
+}
+function htmlLead(V){
+  const L = V.lt;
+  if(!L || !L.n) return '<p class="vazio">Nenhum pedido faturado no período (ou o Protheus não informou a data de faturamento, C6_DATFAT).</p>';
+  const media = L.s / L.n, pct = Math.round(100 * L.ok / L.n), med = x => x.s / x.n, cores = coresTipos();
+  const tipos = Object.entries(L.t).filter(([t]) => !TIPOS_FORA_DASH.includes(t)).sort((a, b) => b[1].n - a[1].n);
+  const vends = Object.entries(L.v).sort((a, b) => b[1].n - a[1].n).slice(0, 6);
+  const lin = (nome, x) => `<tr><td title="${esc(nome)}">${nome}</td><td>${fmtInt(x.n)}</td><td class="${med(x) > PRAZO_DIAS ? 'lento' : ''}">${fmtDias(med(x))}</td><td>${Math.round(100 * x.ok / x.n)}%</td></tr>`;
+  const cab = c => `<thead><tr><th>${c}</th><th>Ped.</th><th>Média</th><th>No prazo</th></tr></thead>`;
+  return `<div class="lead-top"><div><span class="lbl">Média da emissão ao faturamento</span><strong>${media.toLocaleString('pt-BR', {maximumFractionDigits:1})}<small>dias</small></strong></div>
+    <div class="lead-prazo"><span class="lbl">Dentro do prazo de ${PRAZO_DIAS} dias</span><div class="barra"><i style="width:${pct}%"></i></div><b>${pct}%</b> <small style="color:var(--muted)">· ${fmtInt(L.ok)} de ${fmtInt(L.n)} pedidos</small></div></div>
+    <div class="lead-cols"><table>${cab('Tipo')}<tbody>${tipos.map(([t, x]) => lin(`<span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}`, x)).join('')}</tbody></table>
+    <table>${cab('Vendedora')}<tbody>${vends.map(([c, x]) => lin(esc(rotuloVend(c, PAINEL.meses.map(m => m.vend[c]).find(Boolean)).n), x)).join('')}</tbody></table></div>
+    <p class="lead-nota">Pedidos faturados, emitidos no período · dias corridos · em vermelho, média acima de ${PRAZO_DIAS} dias.</p>`;
 }
 
 /* ---------- tooltip "por tipo" dos rankings do dashboard ---------- */
@@ -1778,7 +1902,61 @@ function recolorirLogo(){
   img.src = 'icons/icon-192.png';
 }
 
-let pedidos = [], buscaSeq = 0, TERMO_SRV = '';
+let pedidos = [], buscaSeq = 0, TERMO_SRV = '', SO_ATR = false;
+const hojeYmd = () => ymd(new Date());
+const diasParado = p => { const x = parts(p.emissao); return x ? diasEntre(x.y + x.m + x.d, hojeYmd()) : 0 };
+const atrasado = p => p.status[0] !== 'faturado' && diasParado(p) > PRAZO_DIAS;
+function htmlDias(p){
+  if(p.status[0] === 'faturado') return '';
+  const d = diasParado(p), cls = d > PRAZO_DIAS ? 'atr' : d >= PRAZO_DIAS - 2 ? 'quase' : '';
+  const txt = d <= 0 ? 'hoje' : d === 1 ? 'há 1 dia' : `há ${d} dias`;
+  return `<small class="dias ${cls}" title="Prazo: ${PRAZO_DIAS} dias">${txt}${cls === 'atr' ? ' · atrasado' : ''}</small>`;
+}
+// estoque dos itens que precisam de endereço (pilotagem etc.): prod → 'ok' | 'sem' | 'erro'
+const ESTOQUE = new Map();
+const semEstoque = p => [...(p.prodEnd || [])].filter(c => ESTOQUE.get(c) === 'sem');
+async function checarEstoque(seq){
+  const alvo = pedidos.filter(p => p.status[0] !== 'faturado' && p.prodEnd?.size);
+  const prods = [...new Set(alvo.flatMap(p => [...p.prodEnd]))].filter(c => !ESTOQUE.has(c)).slice(0, 120);
+  if(!prods.length) return;
+  await pool(prods, 3, async c => {
+    for(let t = 0; t < 2; t++){
+      if(t){ await dormir(900); rolosCache.delete(c) }
+      try{
+        const rolos = await rolosDoProduto(c);
+        const r = textoEnderecos({lista:classificarRolos(rolos, null, new Map())});
+        ESTOQUE.set(c, r === 'SEM ROLO EM ESTOQUE' ? 'sem' : 'ok'); if(rolos.length) break;
+      }catch(e){ if(e.auth) throw e; ESTOQUE.set(c, 'erro') }
+    }
+  });
+  if(seq === buscaSeq) renderLista();
+}
+// pedidos novos: a cada 30 min procura pedidos em aberto que ainda não apareceram neste aparelho
+const NOVOS = {conhecidos:null, novos:new Set(), destacar:new Set(), titulo:document.title};
+function salvarConhecidos(){ try{ store.set('pv-conhecidos', JSON.stringify([...NOVOS.conhecidos].slice(-4000))) }catch{} }
+function conhecer(nums){
+  if(!NOVOS.conhecidos){ try{ NOVOS.conhecidos = new Set(JSON.parse(store.get('pv-conhecidos') || 'null') || []) }catch{ NOVOS.conhecidos = new Set() } }
+  let mudou = false; nums.forEach(n => { if(!NOVOS.conhecidos.has(n)){ NOVOS.conhecidos.add(n); mudou = true } }); if(mudou) salvarConhecidos();
+}
+function atualizaNovos(){
+  const n = NOVOS.novos.size, ch = $('novo-chip');
+  ch.hidden = !n; ch.textContent = n === 1 ? '1 pedido novo · ver' : `${n} pedidos novos · ver`;
+  document.title = (n ? `(${n}) ` : '') + NOVOS.titulo;
+}
+function bip(){ try{ const A = new (window.AudioContext || window.webkitAudioContext)(); [660, 880].forEach((f, i) => { const o = A.createOscillator(), g = A.createGain(); o.frequency.value = f; g.gain.setValueAtTime(.0001, A.currentTime + i * .16); g.gain.exponentialRampToValueAtTime(.12, A.currentTime + i * .16 + .02); g.gain.exponentialRampToValueAtTime(.0001, A.currentTime + i * .16 + .15); o.connect(g).connect(A.destination); o.start(A.currentTime + i * .16); o.stop(A.currentTime + i * .16 + .16) }) }catch{} }
+async function checarNovos(){
+  if(!document.body.classList.contains('logado')) return;
+  try{
+    const desde = ymd(new Date(Date.now() - 60 * 864e5)); // últimos 60 dias
+    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
+      `C5_EMISSAO>=${q(desde)}`, STATUS_WHERE.aberto, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
+    const nums = [...new Set((await gqSafe('SC5,SC6', ['C5_NUM'], [], w)).map(r => trim(r.c5_num)))];
+    const primeira = !NOVOS.conhecidos && !store.get('pv-conhecidos');
+    conhecer([]); const novos = primeira ? [] : nums.filter(n => !NOVOS.conhecidos.has(n));
+    conhecer(nums); novos.forEach(n => NOVOS.novos.add(n));
+    atualizaNovos(); if(novos.length) bip();
+  }catch(e){ console.warn('novos', e) }
+}
 const ICONE_IMPRESSO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h9l3 3v3"/><rect x="2.5" y="9" width="19" height="8" rx="2"/><path d="M6 14h9v7H6z"/><circle cx="19" cy="18.5" r="4.2" fill="currentColor" stroke="var(--panel)" stroke-width="1.5"/><path d="m17.2 18.6 1.3 1.3 2.4-2.6" stroke="var(--ink)" stroke-width="1.6"/></svg>`;
 const NOMES_LISTA = {cli:null, vend:null};
 const nomeCliLista = p => { try{ return cap(trim(get(NOMES_LISTA.cli?.(p.cliente, p.loja), 'A1_NOME'))) }catch{ return '' } };
@@ -1801,22 +1979,24 @@ async function buscar(){
       "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
     ].filter(Boolean).join(' AND ');
     const rows = await gqConferido('SC5,SC6',
-      ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
+      ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM','C6_PRODUTO'],
       [CONFIG.campos.tpAmostra, CONFIG.campos.obs2].filter(c => /^C[56]_/i.test(c || '')), w);
     if(seq !== buscaSeq) return;
     const map = new Map();
     rows.forEach(r => {
       const k = r.c5_filial + ':' + r.c5_num;
       const o = map.get(k) || {filial:r.c5_filial, num:r.c5_num, emissao:r.c5_emissao, cliente:r.c5_cliente, loja:r.c5_lojacli,
-        vend:r.c5_vend1, vend2:trim(r.c5_vend2), nota:trim(r.c5_nota), obs:trim(r.c5_obssep), status:statusDe(r), itens:0, enderecar:new Set()};
+        vend:r.c5_vend1, vend2:trim(r.c5_vend2), nota:trim(r.c5_nota), obs:trim(r.c5_obssep), status:statusDe(r), itens:0, enderecar:new Set(), prodEnd:new Set()};
       o.itens++;
       const mot = motivoEndereco(get(r, CONFIG.campos.tpAmostra), r.c5_obssep + ' ' + (get(r, CONFIG.campos.obs2) || ''));
-      if(mot) o.enderecar.add(mot);
+      if(mot){ o.enderecar.add(mot); if(trim(r.c6_produto)) o.prodEnd.add(trim(r.c6_produto).toUpperCase()) }
       map.set(k, o);
     });
     pedidos = [...map.values()].sort((a,b) => String(b.emissao).localeCompare(String(a.emissao)) || String(b.num).localeCompare(String(a.num)));
     try{ await IMP.carregar() }catch(e){ avisos.add('Impressos: ' + e.message) }
     marcados.clear(); renderLista(); atualizaChipCliente();
+    conhecer(pedidos.filter(p => p.status[0] === 'aberto').map(p => trim(p.num)));
+    checarEstoque(seq).catch(e => console.warn('estoque', e));
     // nomes de clientes e vendedores: carregam depois, sem atrasar a lista
     Promise.allSettled([
       carregarClientes(pedidos.map(p => p.cliente)).then(f => NOMES_LISTA.cli = f),
@@ -1835,13 +2015,23 @@ function bateBusca(p, t){
   if(/^\d+$/.test(t)) return p.num.includes(t) || trim(p.cliente).includes(t) || trim(p.nota).includes(t);
   return [p.num, p.cliente, nomeCliLista(p), p.vend2, nomeVendLista(p.vend2), p.nota, p.obs].some(x => semAcento(x).includes(t));
 }
-const visiveis = () => { const t = termoBusca(); return pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)) && bateBusca(p, t)) };
+const visiveis = () => {
+  const t = termoBusca(), v = pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)) && bateBusca(p, t) && (!SO_ATR || atrasado(p)));
+  return SO_ATR ? v.sort((a, b) => diasParado(b.p) - diasParado(a.p)) : v; // atrasados: mais antigos primeiro
+};
 function renderLista(){
   const tb = $('tbl').querySelector('tbody');
   const imp = pedidos.filter(p => IMP.get(p)).length;
   $('st-total').textContent = pedidos.length;
   $('st-pend').textContent = pedidos.length - imp;
   $('st-imp').textContent = imp;
+  const nAtr = pedidos.filter(atrasado).length;
+  if(SO_ATR && !nAtr) SO_ATR = false;
+  $('st-atr-n').textContent = nAtr; $('st-atr').classList.toggle('tem', nAtr > 0); $('st-atr').classList.toggle('on', SO_ATR);
+  $('btn-atr').hidden = !nAtr; $('btn-atr').classList.toggle('on', SO_ATR);
+  $('btn-atr').textContent = SO_ATR ? `Mostrando ${nAtr} atrasado(s) · ver todos` : `${nAtr} atrasado(s) +${PRAZO_DIAS} dias`;
+  const naoImp = visiveis().filter(({p}) => !IMP.get(p)).length;
+  $('btn-print-novos').disabled = !naoImp; $('btn-print-novos').textContent = naoImp ? `Imprimir não impressos (${naoImp})` : 'Imprimir não impressos';
   const vis = visiveis();
   $('count').textContent = `${vis.length} de ${pedidos.length} pedido(s) · ${vis.reduce((s, {p}) => s + p.itens, 0)} item(ns)`;
   if(!vis.length){
@@ -1854,13 +2044,13 @@ function renderLista(){
     const impTit = im ? `Impresso ${quando(im.data)}${im.usuario ? ' por ' + im.usuario : ''} · clique para desfazer` : '';
     return `<tr class="st-${p.status[0]}${im ? ' impresso' : ''}${marcados.has(k) ? ' sel' : ''}" data-row="${i}" title="${esc(p.status[1])} · clique para abrir o pedido">
     <td class="c-chk"><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
-    <td class="c-num"><b>${esc(p.num)}</b><span class="sit">${esc(p.status[1])}</span></td>
-    <td class="c-meta">${esc(dLonga(p.emissao))} · ${esc(nc || 'cliente ' + p.cliente)}${p.nota ? ' · NF ' + esc(p.nota) : ''} · ${esc(nv || p.vend2 || '')} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
-    <td class="c-em">${esc(dLonga(p.emissao))}</td>
+    <td class="c-num"><b>${esc(p.num)}</b>${NOVOS.destacar.has(trim(p.num)) ? '<span class="tag-novo">NOVO</span>' : ''}<span class="sit">${esc(p.status[1])}</span></td>
+    <td class="c-meta">${htmlDias(p).replace('class="dias', 'style="display:inline;margin-right:4px" class="dias')}${esc(dLonga(p.emissao))} · ${esc(nc || 'cliente ' + p.cliente)}${p.nota ? ' · NF ' + esc(p.nota) : ''} · ${esc(nv || p.vend2 || '')} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
+    <td class="c-em">${esc(dLonga(p.emissao))}${htmlDias(p)}</td>
     <td class="c-cli"><b>${esc(p.cliente)}-${esc(p.loja || '')}</b>${p.nota ? `<em class="nf" style="font-style:normal">NF ${esc(p.nota)}</em>` : ''}${nc ? `<span title="${esc(nc)}">${esc(nc)}</span>` : ''}</td>
     <td class="c-vend"><b>${esc(p.vend2 || '—')}</b>${nv ? `<span title="${esc(nv)}">${esc(nv)}</span>` : ''}</td>
     <td class="num c-itens">${p.itens}</td>
-    <td class="obs">${esc(p.obs)}${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join('')}</td>
+    <td class="obs">${esc(p.obs)}${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join('')}${(() => { const s = semEstoque(p); return s.length ? `<span class="badge b-sem" title="Sem rolo em estoque (arm. ${CONFIG.enderecamento.armazens.join('/')}): ${esc(s.join(', '))}">⚠ sem estoque</span>` : '' })()}</td>
     <td class="c-imp">${im ? `<button type="button" class="imp-ic" data-undo="${i}" title="${esc(impTit)}" aria-label="${esc(impTit)}">${ICONE_IMPRESSO}</button>` : ''}</td></tr>`;
   }).join('');
   const livres = vis.filter(({p}) => !IMP.get(p));
@@ -2248,6 +2438,19 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ TERMO_SRV = ''; $('f-busca').value = ''; atualizaChipCliente(); buscar() } });
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
+  $('btn-print-novos').onclick = () => {
+    const lista = visiveis().filter(({p}) => !IMP.get(p)).map(({p}) => p); if(!lista.length) return;
+    if(lista.length > 20 && !confirm(`Imprimir ${lista.length} pedidos de uma vez?`)) return;
+    lista.forEach(p => marcados.add(chave(p.filial, p.num))); renderLista(); gerar(lista, true);
+  };
+  const alternaAtr = () => { SO_ATR = !SO_ATR; renderLista() };
+  $('st-atr').onclick = alternaAtr; $('btn-atr').onclick = alternaAtr;
+  $('novo-chip').onclick = () => {
+    NOVOS.novos.forEach(n => NOVOS.destacar.add(n)); NOVOS.novos.clear(); atualizaNovos();
+    TERMO_SRV = ''; $('f-busca').value = ''; SO_ATR = false; trocarAba('pedidos');
+    $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'aberto'))); $('f-status').value = 'aberto';
+    buscar();
+  };
   $('btn-print-now').onclick = () => window.print();
   $('btn-close-preview').onclick = () => { document.body.classList.remove('preview', 'giro'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn'; $('print-confirm').classList.remove('on') };
   window.addEventListener('afterprint', () => setTimeout(perguntarSeImprimiu, 200));
@@ -2329,6 +2532,7 @@ async function gerar(lista, imprimir, reprocessar = false){
   document.addEventListener('keydown', e => { if(e.key === 'Escape') $('tp-pop').classList.remove('on') });
   window.addEventListener('resize', () => $('tp-pop').classList.remove('on'));
   setInterval(() => { if(document.body.classList.contains('logado')) atualizarPainel(true) }, 10 * 60e3);
+  setInterval(checarNovos, NOVOS_MIN * 60e3);
   iniciarLogin();
 })();
 </script>

@@ -75,3 +75,10 @@ Envie de novo o `index.html` alterado (**Add file → Upload files**). O GitHub 
 
 ### Endereços dos rolos
 Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços, na ordem do NOVA: primeiro os aprovados pela gramatura (nível baixo primeiro); se não completar 3, entram os demais rolos sem defeito, pela gramatura mais perto do ideal e depois menor CMC. Rolos em REC também entram como endereço (CQSUJO e outros sem número continuam fora). Sem rolo em estoque aparece "SEM ROLO EM ESTOQUE".
+
+### Acompanhamento
+- **Pedidos novos:** a cada 30 minutos o site procura pedidos em aberto que ainda não apareceram neste aparelho. Aparece o aviso "N pedidos novos · ver" (e o número na aba do navegador, com um bip). Ao clicar, a lista mostra os em aberto com a etiqueta **NOVO**.
+- **Atrasados:** prazo de 7 dias corridos. Pedidos não faturados mostram "há N dias" embaixo da emissão (amarelo perto do prazo, vermelho quando atrasado). O cartão **Atrasados** (ou o botão na Lista) mostra só os atrasados, mais antigos primeiro.
+- **Imprimir não impressos:** imprime de uma vez todos os pedidos da lista que ainda não foram impressos.
+- **Sem estoque:** nos pedidos com pilotagem, a lista avisa **⚠ sem estoque** quando o item não tem rolo nos armazéns 01/93.
+- **Dashboard:** comparação com o mês anterior (mês em andamento comparado até o mesmo dia) e **tempo até faturar** (média de dias da emissão ao faturamento, % dentro do prazo, por tipo e por vendedora).
