@@ -44,10 +44,10 @@ header.app{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:
 .icon-btn .dot.on{background:var(--lime);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime) 18%,transparent)}
 
 main{max-width:1480px;margin:0 auto;padding:26px 28px 60px}
-.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:20px;flex-wrap:wrap}
-.hero h2{margin:0;font:700 34px/1 var(--display);letter-spacing:-1px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:14px;flex-wrap:wrap}
+.hero h2{margin:0;font:700 28px/1 var(--display);letter-spacing:-1px}
 .hero h2 em{font-style:normal;color:var(--lime-t)}
-.hero p{margin:8px 0 0;color:var(--muted);font-size:13.5px}
+.hero p{margin:6px 0 0;color:var(--muted);font-size:13px}
 
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
 .card + .card{margin-top:16px}
@@ -85,10 +85,10 @@ html[data-modo="escuro"] .field input::-webkit-calendar-picker-indicator{filter:
 #msg.info{display:block;background:var(--panel);border-color:var(--line-2);color:var(--muted)}
 
 /* números */
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px}
 .stat span{display:block;font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
-.stat strong{display:block;margin-top:6px;font:700 32px/1 var(--display);letter-spacing:-1px}
+.stat strong{display:block;margin-top:5px;font:700 26px/1 var(--display);letter-spacing:-1px}
 .stat.hi{background:var(--lime);border-color:var(--lime-t);color:var(--ink)}
 .stat.hi span{color:color-mix(in srgb,var(--ink) 65%,transparent)}
 
@@ -148,6 +148,11 @@ table.list .c-imp{width:52px;text-align:center}
 .imp-ic{display:inline-grid;place-items:center;width:34px;height:30px;border-radius:9px;border:0;background:none;cursor:pointer;color:var(--lime-t);padding:0}
 .imp-ic svg{width:24px;height:24px}
 .imp-ic:hover{background:var(--panel-2)}
+.busca{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;border:1px solid var(--line-2);border-radius:11px;background:var(--panel-2);width:260px;color:var(--muted);transition:border-color .15s;cursor:text}
+.busca:focus-within{border-color:var(--lime-t)}
+.busca svg{width:16px;height:16px;flex:none}
+.busca input{flex:1;min-width:0;height:100%;border:0!important;background:none!important;padding:0!important;color:var(--text);font:inherit;font-size:13.5px;outline:none;box-shadow:none!important}
+@media(max-width:700px){.busca{width:100%;order:5}}
 .cli-chip{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:3px 4px 3px 10px;border-radius:999px;border:1px solid var(--lime-t);color:var(--text);font-size:12px;font-weight:600}
 .cli-chip[hidden]{display:none}
 .cli-chip button{width:20px;height:20px;border-radius:50%;border:0;background:var(--panel-2);color:var(--muted);cursor:pointer;font-size:13px;line-height:1}
@@ -290,13 +295,16 @@ body:not(.logado) .app-shell{visibility:hidden}
 .stat.tipos:hover{border-color:var(--lime-t)}
 .stat.tipos .q{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font:700 12px var(--display);color:var(--muted)}
 .stat.tipos:hover .q{border-color:var(--lime-t);color:var(--lime-t)}
-.tp-bar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin:14px 0 9px;background:var(--panel-2)}
+.tp-bar{display:flex;height:8px;border-radius:999px;overflow:hidden;margin:9px 0 7px;background:var(--panel-2)}
 .tp-bar i{display:block;height:100%}
 .tp-leg{display:flex;flex-wrap:nowrap;overflow:hidden;gap:4px 14px;font-size:11.5px;color:var(--muted);white-space:nowrap}
 .stat.tipos .tp-leg span{display:inline;margin:0;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
 .stat.tipos .tp-leg .tp-dot{display:inline-block}
 .tp-leg b{color:var(--text);font-weight:700;margin-left:3px}
-.stat.tipos .tp-per{display:block;margin-top:3px;font-style:normal;font-size:11.5px;color:var(--dim)}
+.stat.tipos{display:flex;flex-wrap:wrap;align-items:baseline;align-content:flex-start;column-gap:10px}
+.stat.tipos > span,.stat.tipos .tp-bar,.stat.tipos .tp-leg{width:100%}
+.stat.tipos strong{order:1}.stat.tipos .tp-per{order:2}.stat.tipos .tp-bar{order:3}.stat.tipos .tp-leg{order:4}
+.stat.tipos .tp-per{display:inline;margin:0;font-style:normal;font-size:11.5px;color:var(--dim)}
 .tp-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:0}
 .tp-pop{position:fixed;z-index:40;width:min(420px,calc(100vw - 32px));background:var(--panel);border:1px solid var(--line-2);border-radius:16px;padding:18px;box-shadow:0 24px 60px rgba(0,0,0,.6);display:none}
 .tp-pop.on{display:block;animation:pop-in .18s ease-out}
@@ -808,10 +816,6 @@ table.res .r{text-align:right}
 <main>
  <div class="hero tab-pedidos">
   <div><h2>Pedidos de <em>amostra</em></h2><p>Busque, confira o que já foi impresso e mande para a impressora no layout do Foto Atual.</p></div>
-  <div class="quick">
-   <div class="field"><div class="seg seg-mini" id="seg-busca" aria-label="Pesquisar por"><button type="button" data-m="pedido" aria-pressed="true">Pedido avulso</button><button type="button" data-m="cliente" aria-pressed="false">Cliente</button></div><input id="f-pedido" name="numero-pedido-avulso" type="search" placeholder="nº do pedido, ex.: 567858" inputmode="numeric" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></div>
-   <button class="btn sec" id="btn-um">Visualizar</button>
-  </div>
  </div>
 
  <section class="card tab-pedidos">
@@ -856,7 +860,9 @@ table.res .r{text-align:right}
 
  <section class="card tab-pedidos">
   <div class="toolbar">
-   <h3>Lista</h3><span class="count" id="count">—</span><span class="cli-chip" id="cli-chip" hidden></span>
+   <h3>Lista</h3>
+   <label class="busca" title="Digite o nº do pedido, o código ou nome do cliente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="f-busca" name="pesquisa-pedido-cliente" type="search" placeholder="Pedido ou cliente…" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
+   <span class="count" id="count">—</span><span class="cli-chip" id="cli-chip" hidden></span>
    <div class="right">
     <label class="switch"><input type="checkbox" id="f-ocultar"> Ocultar já impressos</label>
     <button class="btn sec" id="btn-preview" disabled>Visualizar</button>
@@ -1098,6 +1104,8 @@ function opcao(campo, valor){
   return par ? trim(par.slice(1).join('=')) : v;
 }
 const extrasDe = prefix => Object.values(CONFIG.campos).filter(c => c && c.toUpperCase().startsWith(prefix));
+// Vendedores sempre com os mesmos campos (nome + centro de custo), para o cache nunca guardar um cadastro "incompleto"
+const lookupVend = cods => lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor], extras:extrasDe('A3_')}, cods);
 
 /* ============================ lista de pedidos ============================ */
 const STATUS_WHERE = {
@@ -1357,7 +1365,7 @@ async function carregarPainel(forcar = false){
     const cliMes = {}; porMes[porMes.length - 1].forEach(r => { const c = trim(r.c5_cliente); cliMes[c] = (cliMes[c] || 0) + qa(r) });
     top(cliAno, 10, v => v).concat(top(cliMes, 10, v => v)).forEach(c => cliCods.add(c));
     const nomesV = {}, nomesC = {};
-    try{ const v = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, [...vendCods].filter(Boolean)); vendCods.forEach(c => { const n = trim(get(v(c), CONFIG.nomeVendedor)); if(n) nomesV[c] = n }) }catch(e){ if(e.auth) throw e }
+    try{ const v = await lookupVend([...vendCods].filter(Boolean)); vendCods.forEach(c => { const n = trim(get(v(c), CONFIG.nomeVendedor)); if(n) nomesV[c] = n }) }catch(e){ if(e.auth) throw e }
     const dados = {
       ts:Date.now(), mesAtual, ano:anoAtual, meses, antAteHoje:Math.round(antAteHoje),
       hoje:{ped:new Set(hojeRows.map(r => r.c5_num)).size, qtd:Math.round(hojeRows.reduce((s, r) => s + qa(r), 0))},
@@ -1412,7 +1420,7 @@ async function carregarTiposPeriodo(forcar = false){
   try{
     const tes = `C6_TES IN (${CONFIG.painel.tes.map(q).join(',')})`, campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
     const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, tes, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '",
-      "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"];
+      "C5_NOTA=' '", "C5_LIBEROK=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"];
     if(campoTp) w.push(`${campoTp} IN (${CONFIG.painel.tiposAmostra.map(q).join(',')})`);
     if(de) w.push(`C5_EMISSAO>=${q(isoToProtheus(de))}`);
     if(ate) w.push(`C5_EMISSAO<=${q(isoToProtheus(ate))}`);
@@ -1446,7 +1454,7 @@ function renderTipos(){
   $('tp-body').innerHTML = lista.length ? lista.map(t => `<tr><td><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<span class="mini" style="width:${100 * t.qtd / max}%;background:${corTipo(t.tipo)}"></span></td><td class="n">${fmtInt(t.ped)}</td><td class="n">${fmtInt(t.qtd)}</td></tr>`).join('')
     : '<tr><td colspan="3" style="color:var(--muted)">Nenhuma amostra pendente.</td></tr>';
   $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(D.ped)}</td><td class="n">${fmtInt(total)}</td></tr>`;
-  $('tp-quando').textContent = `Em aberto + liberados (ainda não faturados) · ${textoPeriodo(D.de, D.ate)} · atualizado às ${new Date(D.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`;
+  $('tp-quando').textContent = `Somente em aberto (não liberados e não faturados) · ${textoPeriodo(D.de, D.ate)} · atualizado às ${new Date(D.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`;
 }
 function abrirTipos(){
   const pop = $('tp-pop'), r = $('st-tipos').getBoundingClientRect();
@@ -1751,15 +1759,14 @@ function recolorirLogo(){
   img.src = 'icons/icon-192.png';
 }
 
-let pedidos = [], buscaSeq = 0, CLI_FILTRO = '';
+let pedidos = [], buscaSeq = 0, TERMO_SRV = '';
 const ICONE_IMPRESSO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h9l3 3v3"/><rect x="2.5" y="9" width="19" height="8" rx="2"/><path d="M6 14h9v7H6z"/><circle cx="19" cy="18.5" r="4.2" fill="currentColor" stroke="var(--panel)" stroke-width="1.5"/><path d="m17.2 18.6 1.3 1.3 2.4-2.6" stroke="var(--ink)" stroke-width="1.6"/></svg>`;
 const NOMES_LISTA = {cli:null, vend:null};
 const nomeCliLista = p => { try{ return cap(trim(get(NOMES_LISTA.cli?.(p.cliente, p.loja), 'A1_NOME'))) }catch{ return '' } };
 const nomeVendLista = c => { if(!trim(c)) return ''; try{ return cap(trim(get(NOMES_LISTA.vend?.(c), CONFIG.nomeVendedor)).replace(/^[A-Z]\d+\s*-\s*/, '')) }catch{ return '' } };
 function atualizaChipCliente(){
-  const ch = $('cli-chip'); if(!CLI_FILTRO){ ch.hidden = true; ch.innerHTML = ''; return }
-  const p = pedidos.find(x => trim(x.cliente) === CLI_FILTRO), nome = p ? nomeCliLista(p) : '';
-  ch.hidden = false; ch.innerHTML = `Cliente ${esc(CLI_FILTRO)}${nome ? ' · ' + esc(nome) : ''} <button type="button" id="cli-x" title="Tirar o filtro de cliente" aria-label="Tirar o filtro de cliente">×</button>`;
+  const ch = $('cli-chip'); if(!TERMO_SRV){ ch.hidden = true; ch.innerHTML = ''; return }
+  ch.hidden = false; ch.innerHTML = `Buscado no Protheus: ${esc(TERMO_SRV)} · todas as datas e situações <button type="button" id="cli-x" title="Voltar para a lista do filtro" aria-label="Voltar para a lista do filtro">×</button>`;
 }
 async function buscar(){
   const btn = $('btn-buscar'), seq = ++buscaSeq; btn.disabled = true; msg('Consultando o Protheus…');
@@ -1770,8 +1777,9 @@ async function buscar(){
     const w = [
       'C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`,
       `C6_TES IN (${tesList.map(q).join(',')})`,
-      de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`, CLI_FILTRO && `C5_CLIENTE=${q(CLI_FILTRO)}`,
-      STATUS_WHERE[st], "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
+      ...(TERMO_SRV ? [`(C5_NUM=${q(TERMO_SRV.padStart(6, '0'))} OR C5_CLIENTE=${q(TERMO_SRV.padStart(6, '0'))} OR C5_CLIENTE=${q(TERMO_SRV)})`]
+        : [de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`, STATUS_WHERE[st]]),
+      "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
     ].filter(Boolean).join(' AND ');
     const rows = await gqSafe('SC5,SC6',
       ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
@@ -1793,7 +1801,7 @@ async function buscar(){
     // nomes de clientes e vendedores: carregam depois, sem atrasar a lista
     Promise.allSettled([
       carregarClientes(pedidos.map(p => p.cliente)).then(f => NOMES_LISTA.cli = f),
-      lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, pedidos.map(p => p.vend2).filter(Boolean)).then(f => NOMES_LISTA.vend = f)
+      lookupVend(pedidos.map(p => p.vend2).filter(Boolean)).then(f => NOMES_LISTA.vend = f)
     ]).then(() => { if(seq === buscaSeq){ renderLista(); atualizaChipCliente() } });
     if(avisos.size){ msg([...avisos].join(' • '), 'err'); avisos.clear(); btn.disabled = false; return }
     if(!pedidos.length) console.log('Consulta sem resultado. WHERE enviado:', w);
@@ -1802,7 +1810,13 @@ async function buscar(){
   finally{ if(seq === buscaSeq) btn.disabled = false }
 }
 const marcados = new Set();
-const visiveis = () => pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)));
+const termoBusca = () => semAcento(trim($('f-busca')?.value || ''));
+function bateBusca(p, t){
+  if(!t) return true;
+  if(/^\d+$/.test(t)) return p.num.includes(t) || trim(p.cliente).includes(t) || trim(p.nota).includes(t);
+  return [p.num, p.cliente, nomeCliLista(p), p.vend2, nomeVendLista(p.vend2), p.nota, p.obs].some(x => semAcento(x).includes(t));
+}
+const visiveis = () => { const t = termoBusca(); return pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)) && bateBusca(p, t)) };
 function renderLista(){
   const tb = $('tbl').querySelector('tbody');
   const imp = pedidos.filter(p => IMP.get(p)).length;
@@ -1812,7 +1826,8 @@ function renderLista(){
   const vis = visiveis();
   $('count').textContent = `${vis.length} de ${pedidos.length} pedido(s) · ${vis.reduce((s, {p}) => s + p.itens, 0)} item(ns)`;
   if(!vis.length){
-    tb.innerHTML = `<tr><td colspan="8" class="empty">${pedidos.length ? 'Todos os pedidos desta busca já foram impressos.' : 'Nenhum pedido.'}</td></tr>`;
+    const t = termoBusca();
+    tb.innerHTML = `<tr><td colspan="8" class="empty">${t ? (/^\d{3,}$/.test(t) && TERMO_SRV !== t ? `Nada com “${esc(t)}” nesta lista · procurando no Protheus…` : `Nada encontrado com “${esc(t)}”.`) : pedidos.length ? 'Todos os pedidos desta busca já foram impressos.' : 'Nenhum pedido.'}</td></tr>`;
     atualizaBotoes(); return;
   }
   tb.innerHTML = vis.map(({p, i}) => {
@@ -1913,7 +1928,7 @@ async function carregarLote(lista, progresso){
   const cabsOk = [...cabs.values()], todosItens = [...itensPor.values()].flat();
   const [cli, vend, cond, prod] = await Promise.all([
     carregarClientes(cabsOk.map(c => c.c5_cliente)),
-    lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor], extras:extrasDe('A3_')}, cabsOk.flatMap(c => [c.c5_vend1, c.c5_vend2])),
+    lookupVend(cabsOk.flatMap(c => [c.c5_vend1, c.c5_vend2])),
     lookup(cache.se4, 'SE4', 'E4_CODIGO', {base:['E4_DESCRI']}, cabsOk.map(c => c.c5_condpag)),
     lookup(cache.sb1, 'SB1', 'B1_COD', {base:['B1_GRUPO'], extras:extrasDe('B1_')}, todosItens.map(i => i.c6_produto))
   ]);
@@ -1921,9 +1936,30 @@ async function carregarLote(lista, progresso){
   const ccCampo = String(CONFIG.campos.centroCusto || '').toUpperCase();
   const ccDe = (cab, itens) => trim(ccCampo.startsWith('C6_') ? (itens.map(i => trim(get(i, ccCampo))).find(Boolean) || '')
     : ccCampo.startsWith('A3_') ? ccDoVendedor(cab, vend, ccCampo) : get(cab, ccCampo));
+  // Conferência do centro de custo (mesma tratativa dos itens): se veio vazio, lê o cadastro de novo, sem cache
+  const semCC = () => cabsOk.filter(c => !ccDe(c, itensPor.get(chave(c.c5_filial, c.c5_num)) || []));
+  if(ccCampo.startsWith('A3_')){
+    for(let t = 0; t < 3 && semCC().length; t++){
+      if(t) await dormir(1000 * t);
+      const cods = [...new Set(semCC().flatMap(c => [trim(c.c5_vend1), trim(c.c5_vend2)]).filter(Boolean))];
+      if(!cods.length) break;
+      try{
+        const rows = await gqSafe('SA3', ['A3_COD', CONFIG.nomeVendedor], extrasDe('A3_'), `A3_COD IN (${cods.map(q).join(',')}) AND D_E_L_E_T_=' '`);
+        rows.forEach(r => cache.sa3.set(trim(r.a3_cod), r));
+      }catch(e){ if(e.auth) throw e }
+    }
+  }
+  const ccsDe = () => cabsOk.map(c => ccDe(c, itensPor.get(chave(c.c5_filial, c.c5_num)) || [])).filter(Boolean);
   let ctt = () => null;
-  try{ ctt = await lookup(cache.ctt, 'CTT', 'CTT_CUSTO', {base:['CTT_DESC01']}, cabsOk.map(c => ccDe(c, itensPor.get(chave(c.c5_filial, c.c5_num)) || []))) }
-  catch(e){ if(e.auth) throw e }
+  for(let t = 0; t < 3; t++){
+    if(t) await dormir(1000 * t);
+    try{
+      ctt = await lookup(cache.ctt, 'CTT', 'CTT_CUSTO', {base:['CTT_DESC01']}, ccsDe());
+      const faltaDesc = [...new Set(ccsDe().filter(cc => !trim(ctt(cc)?.ctt_desc01)))];
+      if(!faltaDesc.length) break;
+      faltaDesc.forEach(cc => cache.ctt.delete(cc)); // tenta de novo só os que vieram sem descrição
+    }catch(e){ if(e.auth) throw e }
+  }
 
   // Monta cada pedido e procura os endereços dos rolos (pilotagem / bandeira)
   let n = 0;
@@ -2058,7 +2094,7 @@ function classificarRolos(rolos, gramIdeal, defeitos){
     const g = num(r.z5_gramatu), ideal = num(gramIdeal), tol = E.toleranciaGramatura / 100;
     const aprovado = !defeito && ideal > 0 && g > 0 && g >= ideal * (1 - tol) - 1e-9 && g <= ideal * (1 + tol) + 1e-9;
     const cmc = trim(r.z5_cmc) === '' ? null : num(r.z5_cmc);
-    return {r, loc, defeito, aprovado, cmc, ent: trim(r.z5_dtent).replace(/-/g, '')};
+    return {r, loc, defeito, aprovado, cmc, ideal, ent: trim(r.z5_dtent).replace(/-/g, '')};
   };
   // Ordem do NOVA: defeito por último → local prioritário (arm. 93 / AM01 / AM02) → aprovado p/ amostra → menor CMC → entrada mais recente
   return rolos.map(info).sort((a, b) => (a.defeito ? 1 : 0) - (b.defeito ? 1 : 0) || b.loc - a.loc || Number(b.aprovado) - Number(a.aprovado)
@@ -2071,25 +2107,34 @@ async function enderecarItens(d){
   if(!alvo.length) return;
   const defeitos = await carregarDefeitos();
   await Promise.all(alvo.map(async ({i, motivo}) => {
-    try{
-      const rolos = await rolosDoProduto(i.c6_produto);
-      const ideal = grp(prod(i.c6_produto)?.b1_grupo)?.bm_gramtin;
-      i._end = {motivo, lista:classificarRolos(rolos, ideal, defeitos)};
-    }catch(e){ if(/401|conectar/.test(e.message)) throw e; i._end = {motivo, erro:e.message} }
+    // até 3 tentativas, como nos itens: o Protheus às vezes devolve vazio/erro na 1ª leitura
+    for(let t = 0; t < 3; t++){
+      if(t){ await dormir(800 * t); rolosCache.delete(trim(i.c6_produto).toUpperCase()) }
+      try{
+        const rolos = await rolosDoProduto(i.c6_produto);
+        const ideal = grp(prod(i.c6_produto)?.b1_grupo)?.bm_gramtin;
+        i._end = {motivo, lista:classificarRolos(rolos, ideal, defeitos)};
+        if(rolos.length) break;
+      }catch(e){ if(/401|conectar/.test(e.message)) throw e; i._end = {motivo, erro:e.message} }
+    }
   }));
 }
 const fmtN = (v, c=2) => num(v).toLocaleString('pt-BR', {minimumFractionDigits:c, maximumFractionDigits:c});
-// Até 3 endereços aprovados p/ amostra, só endereços que terminam em número (ex.: ignora CQSUJO),
-// nível baixo (final 1, 2, 3) primeiro e, dentro de cada faixa, a ordem do NOVA (local prioritário → CMC → entrada).
+// Sempre até 3 endereços (só os que terminam em número, ex.: ignora CQSUJO), na ordem do NOVA:
+// 1º aprovados p/ amostra (gramatura no padrão), com nível baixo (final 1, 2, 3) primeiro;
+// se não completar 3, completa com os demais rolos sem defeito: local prioritário → gramatura mais perto do ideal → ordem do NOVA (menor CMC → entrada).
 function textoEnderecos(e){
-  if(!e || e.erro) return '';
+  if(!e) return '';
+  if(e.erro && !e.lista) return 'ERRO AO CONSULTAR';
   const E = CONFIG.enderecamento;
-  const fim = x => trim(x.r.z5_enderec).slice(-1);
-  const ok = e.lista.map((x, i) => ({x, i})).filter(({x}) => x.aprovado && /\d/.test(fim(x)))
-    .sort((a, b) => Number(E.niveisBaixos.includes(fim(b.x))) - Number(E.niveisBaixos.includes(fim(a.x))) || a.i - b.i);
+  const fim = x => trim(x.r.z5_enderec).slice(-1), baixo = x => Number(E.niveisBaixos.includes(fim(x)));
+  const validos = e.lista.map((x, i) => ({x, i})).filter(({x}) => /\d/.test(fim(x)));
+  const ok = validos.filter(({x}) => x.aprovado).sort((a, b) => baixo(b.x) - baixo(a.x) || a.i - b.i);
+  const dist = x => { const g = num(x.r.z5_gramatu), id = num(x.ideal); return id > 0 && g > 0 ? Math.abs(g - id) / id : Infinity };
+  const resto = validos.filter(({x}) => !x.aprovado && !x.defeito).sort((a, b) => b.x.loc - a.x.loc || dist(a.x) - dist(b.x) || a.i - b.i);
   const ends = [];
-  for(const {x} of ok){ const ad = trim(x.r.z5_enderec); if(!ends.includes(ad)) ends.push(ad); if(ends.length >= E.quantidade) break }
-  return ends.join(' - ');
+  for(const {x} of [...ok, ...resto]){ const ad = trim(x.r.z5_enderec); if(!ends.includes(ad)) ends.push(ad); if(ends.length >= E.quantidade) break }
+  return ends.length ? ends.join(' - ') : 'SEM ROLO EM ESTOQUE';
 }
 
 async function pool(list, n, fn){
@@ -2129,7 +2174,7 @@ function perguntarSeImprimiu(){
 async function gerar(lista, imprimir, reprocessar = false){
   if(!lista.length) return;
   avisos.clear(); rolosCache.clear(); defeitosP = null;
-  const btns = [$('btn-preview'), $('btn-print'), $('btn-um')]; btns.forEach(b => b.disabled = true);
+  const btns = [$('btn-preview'), $('btn-print')]; btns.forEach(b => b.disabled = true);
   const retry = $('btn-retry'); if(retry){ retry.disabled = true; retry.textContent = 'Carregando…' }
   try{
     msg(`Carregando ${lista.length} pedido(s)…`);
@@ -2165,20 +2210,22 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('f-de').value = `${y}-01-01`; $('f-ate').value = `${y}-12-31`;
 
   $('btn-buscar').onclick = buscar;
-  let modoBusca = 'pedido';
-  $('seg-busca').addEventListener('click', e => {
-    const b = e.target.closest('button[data-m]'); if(!b) return; modoBusca = b.dataset.m;
-    $('seg-busca').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    $('f-pedido').placeholder = modoBusca === 'cliente' ? 'código do cliente, ex.: 012345' : 'nº do pedido, ex.: 567858';
-    $('btn-um').textContent = modoBusca === 'cliente' ? 'Buscar' : 'Visualizar'; $('f-pedido').focus();
+  // Pesquisa única: filtra a lista enquanto digita; se for número e não estiver na lista, procura no Protheus (pedido ou cliente)
+  let tBusca = 0;
+  const buscarNoProtheus = t => { if(!/^\d{3,}$/.test(t) || TERMO_SRV === t) return; TERMO_SRV = t; buscar() };
+  $('f-busca').addEventListener('input', () => {
+    clearTimeout(tBusca); renderLista();
+    const t = termoBusca();
+    if(!t && TERMO_SRV){ TERMO_SRV = ''; atualizaChipCliente(); return buscar() }
+    if(!visiveis().length) tBusca = setTimeout(() => buscarNoProtheus(t), 700);
   });
-  $('btn-um').onclick = () => {
-    const v = trim($('f-pedido').value);
-    if(modoBusca === 'cliente'){ if(!v) return; CLI_FILTRO = /^\d+$/.test(v) ? v.padStart(6, '0') : v.toUpperCase(); trocarAba('pedidos'); return buscar() }
-    const n = v.replace(/\D/g, '').padStart(6, '0'); if(n !== '000000') gerar([{filial:CONFIG.filial, num:n}], false);
-  };
-  $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ CLI_FILTRO = ''; atualizaChipCliente(); buscar() } });
-  $('f-pedido').onkeydown = e => { if(e.key === 'Enter') $('btn-um').click() };
+  $('f-busca').addEventListener('keydown', e => {
+    if(e.key !== 'Enter') return; clearTimeout(tBusca);
+    const vis = visiveis(), t = termoBusca();
+    if(vis.length === 1) return gerar([vis[0].p], false);
+    if(!vis.length) buscarNoProtheus(t);
+  });
+  $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ TERMO_SRV = ''; $('f-busca').value = ''; atualizaChipCliente(); buscar() } });
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
   $('btn-print-now').onclick = () => window.print();

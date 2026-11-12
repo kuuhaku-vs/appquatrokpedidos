@@ -6,10 +6,10 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 
 ## Como usar
 1. Abra o link e entre com seu **usuário e senha do Protheus**. Com **Manter conectado** marcado, o site lembra o acesso neste navegador até você clicar em **Sair** (não marque em computador compartilhado). Desmarcado, o acesso vale só enquanto a aba estiver aberta.
-2. Escolha o período de **Emissão** e clique em **Buscar pedidos**. Ao clicar numa **Situação** (Em aberto, Liberados, Faturados ou Todos) a lista já é atualizada. O cartão **Amostras em aberto por tipo** segue o mesmo período de emissão. A busca considera as TES de amostra 811, 816, 817 e 827.
+2. Escolha o período de **Emissão** e clique em **Buscar pedidos**. Ao clicar numa **Situação** (Em aberto, Liberados, Faturados ou Todos) a lista já é atualizada. O cartão **Amostras em aberto por tipo** segue o mesmo período de emissão e conta somente os pedidos em aberto (não liberados e não faturados). A busca considera as TES de amostra 811, 816, 817 e 827.
 3. Clique em qualquer linha da lista para abrir o pedido. A lista mostra Pedido (com a situação: verde = em aberto, amarelo = liberado, vermelho = faturado), Emissão, Cliente + nome (e NF quando faturado), Vendedor 2 + nome, Itens, Obs. Separação e o ícone de impressora quando o pedido já foi impresso (clique no ícone para desfazer).
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
-4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**. Em **Cliente**, digite o código do cliente e clique em **Buscar** para listar só os pedidos dele (o × no filtro ao lado de Lista tira o filtro).
+4. Use a caixa **Pedido ou cliente…** ao lado de Lista: a lista é filtrada enquanto você digita (nº do pedido, código ou nome do cliente, vendedor, NF). Se o número não estiver na lista, o site procura no Protheus como pedido ou como cliente (todas as datas e situações). Enter com um só resultado abre o pedido.
 
 ## Aplicativo no celular
 O site funciona como aplicativo (lista em cartões e botões de imprimir fixos embaixo):
@@ -72,3 +72,6 @@ Se um dia o Protheus deixar de aceitar chamadas direto do navegador (CORS), baix
 
 ## Atualizar
 Envie de novo o `index.html` alterado (**Add file → Upload files**). O GitHub Pages publica em 1–2 minutos.
+
+### Endereços dos rolos
+Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços, na ordem do NOVA: primeiro os aprovados pela gramatura (nível baixo primeiro); se não completar 3, entram os demais rolos sem defeito, pela gramatura mais perto do ideal e depois menor CMC. Sem rolo em estoque aparece "SEM ROLO EM ESTOQUE".
