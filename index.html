@@ -429,6 +429,23 @@ button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
 .ai-resp{margin:0 16px 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--lime) 12%,var(--panel-2));font-size:13px;line-height:1.45}
 .ai-perg{display:flex;gap:4px;align-items:center;padding:8px 10px 6px 14px;border-top:1px solid var(--line)}
 .ai-perg input{flex:1;min-width:0;height:36px;border:0!important;background:none!important;color:var(--text);font:inherit;font-size:13.5px;outline:none;box-shadow:none!important;padding:0!important}
+.ai-conf{max-height:58vh;overflow:auto;flex:none;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;background:var(--panel-2)}
+.ai-conf[hidden]{display:none}
+.ai-conf label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+.ai-conf label small{font-weight:500;text-transform:none;color:var(--dim)}
+.ai-conf input[type=text],.ai-conf input[type=time],.ai-conf select{height:36px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel);color:var(--text);padding:0 10px;font:500 13px var(--font);text-transform:none;letter-spacing:0}
+.ai-conf input[type=range]{accent-color:var(--lime)}
+.aic-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ai-conf .aic-ck{flex-direction:row;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:12.5px;font-weight:500;color:var(--text)}
+.aic-nota{margin:0;font-size:11.5px;color:var(--dim)}
+.aic-acts{display:flex;gap:8px;justify-content:flex-end}
+.ai-tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+.ai-tab th{text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);padding:0 0 5px;border-bottom:1px solid var(--line-2)}
+.ai-tab td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ai-tab td:nth-child(2){text-align:right;font-weight:700;padding:6px 10px;white-space:nowrap}
+.ai-tab td:nth-child(3){color:var(--muted);font-size:11.5px}
+.ai-tab td small{display:block;color:var(--dim);font-size:10.5px}
+.ai-resp{max-height:260px;overflow:auto}
 .ai-op{display:flex;align-items:center;gap:8px;padding:0 16px 12px;color:var(--dim);font-size:11.5px}
 @media(max-width:700px){.ai-orb{bottom:84px;right:14px;width:48px;height:48px}.ai-pan{right:12px;bottom:142px;max-height:calc(100vh - 200px)}}
 @media print{.ai-orb,.ai-pan,.tv{display:none!important}}
@@ -1145,7 +1162,17 @@ table.res .r{text-align:right}
 <button class="ai-orb" id="ai-orb" type="button" title="Assistente: programação do dia e novidades" aria-label="Abrir o assistente"><i></i><i></i><i></i></button>
 <div class="ai-pan" id="ai-pan" role="dialog" aria-label="Assistente" hidden>
  <div class="ai-head"><span class="ai-mini"><i></i></span><div><b id="ai-nome">Assistente</b><small id="ai-data"></small></div>
-  <button type="button" class="ai-ic" id="ai-falar" title="Ouvir o resumo">🔊</button><button type="button" class="ai-ic" id="ai-x" title="Fechar">✕</button></div>
+  <button type="button" class="ai-ic" id="ai-falar" title="Ouvir o resumo">🔊</button><button type="button" class="ai-ic" id="ai-cfg" title="Nome, voz e avisos">⚙</button><button type="button" class="ai-ic" id="ai-x" title="Fechar">✕</button></div>
+ <form class="ai-conf" id="ai-conf" hidden>
+  <label>Nome do assistente<input id="aic-nome" type="text" maxlength="20" placeholder="Assistente"></label>
+  <label>Como ele te chama<input id="aic-apelido" type="text" maxlength="20" placeholder="ex.: Kaue"></label>
+  <label>Voz<select id="aic-voz"></select></label>
+  <div class="aic-2"><label>Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label>Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
+  <label class="aic-ck"><input type="checkbox" id="aic-avisa"> Avisar (falando) quando chegar pedido novo, com os tipos e as pilotagens</label>
+  <div class="aic-2"><label>Horário de uso · início<input id="aic-ini" type="time"></label><label>fim<input id="aic-fim" type="time"></label></div>
+  <p class="aic-nota">Avisos de pedido novo só de segunda a sexta, dentro deste horário, com o site aberto no computador.</p>
+  <div class="aic-acts"><button type="button" class="btn sec" id="aic-testar">Testar voz</button><button type="submit" class="btn">Salvar</button></div>
+ </form>
  <div class="ai-corpo" id="ai-corpo"></div>
  <div class="ai-resp" id="ai-resp" hidden></div>
  <form class="ai-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte: atrasados, novos, pedido 500123…"><button type="button" class="ai-ic" id="ai-mic" title="Falar">🎤</button><button class="ai-ic" type="submit" title="Enviar">➤</button></form>
@@ -2042,13 +2069,30 @@ async function carregarFila(forcar = false){
     const desde = ymd(new Date(Date.now() - 180 * 864e5));
     const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
       `C5_EMISSAO>=${q(desde)}`, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'", "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
-    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_LIBEROK','C5_CLIENTE','C5_LOJACLI','C5_VEND2','C6_ITEM'], [], w);
-    const map = new Map();
-    rows.forEach(r => { const n = trim(r.c5_num), o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0}; o.itens++; map.set(n, o) });
+    const campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
+    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_LIBEROK','C5_CLIENTE','C5_LOJACLI','C5_VEND2','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT'],
+      [campoTp, campoOri].filter(c => /^C6_/i.test(c || '')), w);
+    const map = new Map(), vistos = new Set();
+    rows.forEach(r => {
+      const n = trim(r.c5_num), k = n + '|' + trim(r.c6_item); if(vistos.has(k)) return; vistos.add(k);
+      const o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0, tipos:{}, pilot:[]};
+      o.itens++;
+      // quantidade de amostras pendente do item (mesma regra do cartão de tipos)
+      const ori = get(r, campoOri), qa = Math.ceil(Math.max(0, num(ori === undefined || ori === null || ori === '' ? r.c6_qtdven : ori)));
+      const qv = num(r.c6_qtdven), qtd = Math.max(1, Math.ceil(qa * (qv > 0 ? (qv - num(r.c6_qtdent)) / qv : 1)));
+      const cod = trim(get(r, campoTp)), tipo = (opcao(campoTp, cod) || 'NÃO INFORMADO').toUpperCase();
+      if(!TIPOS_FORA_DASH.includes(tipo)) o.tipos[tipo] = (o.tipos[tipo] || 0) + qtd;
+      if(CONFIG.enderecamento.sempre.includes(cod)) o.pilot.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd});
+      map.set(n, o);
+    });
     const peds = [...map.values()].map(p => ({...p, dias:diasParado(p)}));
     let nomeCli = () => null; try{ nomeCli = await carregarClientes(peds.filter(p => p.dias > PRAZO_DIAS - 2).map(p => p.cliente)) }catch(e){ if(e.auth) throw e }
     peds.forEach(p => { p.nomeCli = cap(trim(get(nomeCli(p.cliente, p.loja), 'A1_NOME'))) });
-    FILA = {ts:Date.now(), peds, ab:peds.filter(p => !p.lib).length, lib:peds.filter(p => p.lib).length,
+    const abertos = peds.filter(p => !p.lib), tiposAb = {}, pilotMap = new Map();
+    abertos.forEach(p => { Object.entries(p.tipos).forEach(([t, q]) => tiposAb[t] = (tiposAb[t] || 0) + q);
+      p.pilot.forEach(i => { const k = i.desc.toUpperCase() || i.prod, x = pilotMap.get(k) || {desc:i.desc || i.prod, prod:i.prod, qtd:0, peds:[]}; x.qtd += i.qtd; if(!x.peds.includes(p.num)) x.peds.push(p.num); pilotMap.set(k, x) }) });
+    FILA = {ts:Date.now(), peds, ab:abertos.length, lib:peds.filter(p => p.lib).length,
+      tiposAb:Object.entries(tiposAb).sort((a, b) => b[1] - a[1]), pilot:[...pilotMap.values()].sort((a, b) => b.qtd - a.qtd),
       atr:peds.filter(p => p.dias > PRAZO_DIAS).sort((a, b) => b.dias - a.dias),
       hoje:peds.filter(p => p.dias === PRAZO_DIAS), amanha:peds.filter(p => p.dias === PRAZO_DIAS - 1)};
     return FILA;
@@ -2145,11 +2189,26 @@ async function notificarLocal(titulo, corpo){
   try{ const reg = await navigator.serviceWorker?.getRegistration(); if(reg){ await reg.showNotification(titulo, op); return } }catch{}
   try{ const n = new Notification(titulo, op); n.onclick = () => { window.focus(); $('novo-chip').click(); n.close() } }catch{}
 }
+function descreverNovos(nums){
+  const F = FILA, peds = nums.map(n => F?.peds.find(p => p.num === n) || {num:n, tipos:{}, pilot:[]});
+  const tipos = {}; peds.forEach(p => Object.entries(p.tipos).forEach(([t, q]) => tipos[t] = (tipos[t] || 0) + q));
+  const lt = Object.entries(tipos).sort((a, b) => b[1] - a[1]), pil = peds.flatMap(p => p.pilot.map(i => ({...i, num:p.num})));
+  const linhaTipos = lt.map(([t, q]) => `${cap(t)} ${q}`).join(' · ');
+  const linhaPil = pil.map(i => `${i.desc || i.prod} (${i.qtd})`).join(', ');
+  return {peds, lt, pil, texto:[`Pedidos: ${nums.slice(0, 8).join(', ')}${nums.length > 8 ? '…' : ''}`, linhaTipos && `Tipos: ${linhaTipos}`, linhaPil && `Pilotagens: ${linhaPil}`].filter(Boolean).join('\n'),
+    fala:`${nums.length === 1 ? 'Chegou um pedido novo' : `Chegaram ${nums.length} pedidos novos`}${lt.length ? ': ' + lt.map(([t, q]) => `${pl(q, 'amostra', 'amostras')} de ${cap(t).toLowerCase()}`).join(', ') : ''}.${pil.length ? ` Pilotagens: ${pil.slice(0, 5).map(i => `${(i.desc || i.prod).toLowerCase()}, ${pl(i.qtd, 'peça', 'peças')}`).join('; ')}.` : ''}`};
+}
 async function avisarNovos(nums){
-  const titulo = nums.length === 1 ? 'Pedido novo de amostra' : `${nums.length} pedidos novos de amostra`;
-  const corpo = `Em aberto: ${nums.slice(0, 8).join(', ')}${nums.length > 8 ? '…' : ''}`;
-  notificarLocal(titulo, corpo);
-  if(store.get('pv-ntfy-envia') === '1') enviarCelular(titulo, corpo).catch(e => console.warn('ntfy', e));
+  if(!dentroHorario()) return;
+  try{ await carregarFila(true) }catch{}
+  const D = descreverNovos(nums), titulo = nums.length === 1 ? 'Pedido novo de amostra' : `${nums.length} pedidos novos de amostra`;
+  notificarLocal(titulo, D.texto);
+  if(store.get('pv-ntfy-envia') === '1') enviarCelular(titulo + (D.pil.length ? ' · tem pilotagem' : ''), D.texto).catch(e => console.warn('ntfy', e));
+  if(aiCfg().avisa && !TV.on){
+    if(!AI.aberto) abrirAI(false);
+    $('ai-resp').hidden = false; $('ai-resp').innerHTML = `<b>${esc(titulo)}</b><br>${esc(D.texto).replace(/\n/g, '<br>')}`;
+    falar(`${nomeUser()}, ${D.fala[0].toLowerCase() + D.fala.slice(1)}`);
+  }
 }
 function abrirNotif(){
   $('user-pop').classList.remove('on');
@@ -2168,13 +2227,28 @@ function abrirNotif(){
 }
 
 /* ============================ assistente ============================ */
-const AI = {nome:'Assistente', aberto:false, ultimo:'', rec:null};
+const AI = {aberto:false, ultimo:'', rec:null};
+const aiCfg = () => ({nome:store.get('pv-ai-nome') || 'Assistente', apelido:store.get('pv-ai-apelido') || '', voz:store.get('pv-ai-voz') || '',
+  tom:+(store.get('pv-ai-tom') || 0.85), vel:+(store.get('pv-ai-vel') || 0.97), avisa:store.get('pv-ai-avisa') !== '0'});
+// horário de uso do site: avisos de pedido novo só dentro dele
+const horario = () => ({ini:store.get('pv-hor-ini') || '07:30', fim:store.get('pv-hor-fim') || '17:18', dias:store.get('pv-hor-dias') || '12345'});
+function dentroHorario(d = new Date()){
+  const H = horario(), hm = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  return H.dias.includes(String(d.getDay())) && hm >= H.ini && hm <= H.fim;
+}
+// vozes pt-BR: prefere masculina, grave e "natural" (Edge: Antonio; Windows: Daniel)
+function vozesPt(){ try{ return speechSynthesis.getVoices().filter(v => /^pt(-|_)BR/i.test(v.lang) || /portugu.*bra/i.test(v.name)) }catch{ return [] } }
+const VOZ_MASC = /antonio|daniel|donato|fabio|humberto|julio|nicolau|valerio|thiago|ricardo|macerio|male|masculin/i;
+function escolherVoz(){
+  const vs = vozesPt(), c = aiCfg(); if(c.voz){ const v = vs.find(x => x.name === c.voz); if(v) return v }
+  return vs.find(v => VOZ_MASC.test(v.name) && /natural|online|neural/i.test(v.name)) || vs.find(v => VOZ_MASC.test(v.name)) || vs.find(v => /google/i.test(v.name)) || vs[0] || null;
+}
 const saud = () => { const h = new Date().getHours(); return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite' };
-const nomeUser = () => cap(String(SESSAO.user || '').split(/[.\s_]/)[0]);
+const nomeUser = () => aiCfg().apelido || cap(String(SESSAO.user || '').split(/[.\s_]/)[0]);
 function falar(txt){
   try{
-    speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = 1.04;
-    const v = speechSynthesis.getVoices().filter(x => /pt(-|_)BR/i.test(x.lang)); u.voice = v.find(x => /google|natural|online/i.test(x.name)) || v[0] || null;
+    speechSynthesis.cancel(); const c = aiCfg(), u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = c.vel; u.pitch = c.tom;
+    u.voice = escolherVoz();
     u.onstart = () => $('ai-orb').classList.add('fala'); u.onend = u.onerror = () => $('ai-orb').classList.remove('fala');
     speechSynthesis.speak(u);
   }catch{}
@@ -2197,6 +2271,11 @@ function resumoAI(){
     if(F.hoje.length){ itens.push(['prog', '', '📌', `<b>${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje</b> (${PRAZO_DIAS}º dia): ${F.hoje.slice(0, 5).map(p => p.num).join(', ')}.`, 'hoje']); fala.push(`${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje.`) }
     if(F.amanha.length){ itens.push(['prog', '', '🗓️', `<b>${pl(F.amanha.length, 'vence', 'vencem')} amanhã.</b>`, 'amanha']); fala.push(`${pl(F.amanha.length, 'vence', 'vencem')} amanhã.`) }
     itens.push(['prog', '', '📦', `<b>${fmtInt(F.ab)}</b> em aberto e <b>${fmtInt(F.lib)}</b> liberados aguardando faturamento.`, 'pend']);
+    if(F.tiposAb.length){ itens.push(['tipo', '', '🧵', `Em aberto por tipo: ${F.tiposAb.map(([t, q]) => `<b>${esc(cap(t))}</b> ${fmtInt(q)}`).join(' · ')}.`, 'tipos']);
+      fala.push(`Amostras em aberto: ${F.tiposAb.slice(0, 4).map(([t, q]) => `${fmtInt(q)} de ${cap(t).toLowerCase()}`).join(', ')}.`) }
+    if(F.pilot.length){ const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
+      itens.push(['tipo', '', '✂️', `<b>${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}</b> para separar (${pl(tot, 'peça', 'peças')}) · <u>ver a lista</u>`, 'pilot']);
+      fala.push(`Pilotagens para separar: ${pl(F.pilot.length, 'item', 'itens')}, somando ${pl(tot, 'peça', 'peças')}.`) }
     fala.push(`Na fila: ${fmtInt(F.ab)} em aberto e ${fmtInt(F.lib)} liberados.`);
     const sem = pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length).length;
     if(sem){ itens.push(['prog', 'red', '⚠️', `<b>${pl(sem, 'pedido', 'pedidos')} de pilotagem sem estoque</b> na lista atual.`, 'sem']); fala.push(`${pl(sem, 'pedido de pilotagem está', 'pedidos de pilotagem estão')} sem estoque.`) }
@@ -2215,9 +2294,9 @@ function resumoAI(){
 }
 function renderAI(){
   const R = resumoAI();
-  $('ai-nome').textContent = AI.nome; $('ai-data').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+  $('ai-nome').textContent = aiCfg().nome; $('ai-data').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
   const sec = (k, t) => { const l = R.itens.filter(x => x[0] === k); return l.length ? `<div class="ai-sec"><h5>${t}</h5>${l.map(([, cls, ic, h, acao]) => acao ? `<button type="button" class="ai-it ${cls}" data-ai="${acao}"><span class="ic">${ic}</span><span>${h}</span></button>` : `<div class="ai-it ${cls}"><span class="ic">${ic}</span><span>${h}</span></div>`).join('')}</div>` : '' };
-  $('ai-corpo').innerHTML = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p>${sec('prog', 'Programação do dia')}${sec('novo', 'O que teve de novo')}${sec('mes', 'Números do mês')}`;
+  $('ai-corpo').innerHTML = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p>${sec('prog', 'Programação do dia')}${sec('tipo', 'Amostras para separar')}${sec('novo', 'O que teve de novo')}${sec('mes', 'Números do mês')}`;
   const n = FILA ? FILA.atr.length + novidadesAI().length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
   return R;
 }
@@ -2236,6 +2315,14 @@ function responderAI(txt){
   if(/modo tv|televis|\btv\b/.test(t)) return r('Ligando o Modo TV…', 'Ligando o modo TV.', () => { fecharAI(); iniciarTV() });
   if(/dashboard|painel|grafico/.test(t)) return r('Abrindo o dashboard…', 'Abrindo o dashboard.', () => { fecharAI(); trocarAba('dash') });
   if(!F) return r('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
+  if(/pilot/.test(t)){
+    if(!F.pilot.length) return r('Nenhuma pilotagem em aberto agora. ✓');
+    const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
+    return r(`<b>${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}</b> em aberto · ${pl(tot, 'peça', 'peças')}:<table class="ai-tab"><thead><tr><th>Item</th><th>Qtd</th><th>Pedidos</th></tr></thead><tbody>${F.pilot.slice(0, 25).map(x => `<tr><td>${esc(x.desc)}<small>${esc(x.prod)}</small></td><td>${fmtInt(x.qtd)}</td><td>${x.peds.slice(0, 4).join(', ')}${x.peds.length > 4 ? '…' : ''}</td></tr>`).join('')}</tbody></table>${F.pilot.length > 25 ? `<small>e mais ${F.pilot.length - 25} itens</small>` : ''}`,
+      `Há ${pl(F.pilot.length, 'item de pilotagem', 'itens de pilotagem')}, somando ${pl(tot, 'peça', 'peças')}. ${F.pilot.slice(0, 5).map(x => `${x.desc.toLowerCase()}, ${pl(x.qtd, 'peça', 'peças')}`).join('; ')}${F.pilot.length > 5 ? '; e outros.' : '.'}`);
+  }
+  if(/tipo/.test(t)) return r(F.tiposAb.length ? `Amostras em aberto por tipo: ${F.tiposAb.map(([tp, q]) => `<b>${esc(cap(tp))}</b> ${fmtInt(q)}`).join(' · ')}.` : 'Nenhuma amostra em aberto.',
+    F.tiposAb.length ? `Em aberto: ${F.tiposAb.map(([tp, q]) => `${fmtInt(q)} de ${cap(tp).toLowerCase()}`).join(', ')}.` : 'Nenhuma amostra em aberto.');
   if(/atras/.test(t)) return r(F.atr.length ? `<b>${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}</b>. Mais antigos: ${F.atr.slice(0, 5).map(p => `${p.num} (${p.dias} dias)`).join(', ')}.` : 'Nenhum pedido atrasado. 👏',
     F.atr.length ? `${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}. O mais antigo está há ${F.atr[0].dias} dias.` : 'Nenhum pedido atrasado.', F.atr.length ? () => { fecharAI(); abrirAtrasadosNaLista() } : null);
   if(/novo|novidade|chegou|chegaram/.test(t)){ const n = novidadesAI(); return r(n.length ? `<b>${pl(n.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita: ${n.slice(0, 8).map(p => p.num).join(', ')}.` : 'Nenhum pedido novo desde a sua última visita.') }
@@ -2247,7 +2334,7 @@ function responderAI(txt){
   if(/ontem/.test(t)){ const O = ontemResumo(); if(O) return r(`${c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`) }
   if(/mes|amostra/.test(t) && P){ const M = visao(P.mesAtual); return r(`Em ${nomeMes(P.mesAtual)}: <b>${fmtInt(M.qtd)} amostras</b> em ${pl(M.ped, 'pedido', 'pedidos')}.`) }
   if(/resumo|programa|bom dia|boa tarde|boa noite|status|como esta|novidades do dia/.test(t)){ const R = renderAI(); return r('Aqui está o resumo do dia.', R.fala) }
-  return r('Ainda não sei responder isso. Tente: <b>resumo</b>, <b>atrasados</b>, <b>novos</b>, <b>vencem hoje</b>, <b>liberados</b>, <b>tempo até faturar</b>, <b>pedido 500123</b> ou <b>modo TV</b>.', 'Ainda não sei responder isso. Tente perguntar por atrasados, novos ou o resumo do dia.');
+  return r('Ainda não sei responder isso. Tente: <b>resumo</b>, <b>pilotagens</b>, <b>tipos</b>, <b>atrasados</b>, <b>novos</b>, <b>vencem hoje</b>, <b>liberados</b>, <b>tempo até faturar</b>, <b>pedido 500123</b> ou <b>modo TV</b>.', 'Ainda não sei responder isso. Tente perguntar por atrasados, novos ou o resumo do dia.');
 }
 function abrirAtrasadosNaLista(){
   trocarAba('pedidos'); TERMO_SRV = ''; $('f-busca').value = '';
@@ -2259,11 +2346,23 @@ function iniciarAI(){
   $('ai-x').onclick = fecharAI;
   $('ai-falar').onclick = () => { if(speechSynthesis.speaking){ speechSynthesis.cancel(); return } falar(AI.ultimo || renderAI().fala) };
   $('ai-auto').checked = store.get('pv-ai-auto') === '1';
+  const encherVozes = () => { const vs = vozesPt(), atual = aiCfg().voz;
+    $('aic-voz').innerHTML = `<option value="">Automática (masculina, se houver)</option>` + vs.map(v => `<option value="${esc(v.name)}"${v.name === atual ? ' selected' : ''}>${esc(v.name.replace(/\s*-\s*Portuguese.*$/i, '').replace(/^Microsoft\s+/i, ''))}${VOZ_MASC.test(v.name) ? ' · masculina' : ''}</option>`).join('') };
+  const rotulos = () => { $('aic-tom-v').textContent = (+$('aic-tom').value).toFixed(2); $('aic-vel-v').textContent = (+$('aic-vel').value).toFixed(2) + 'x' };
+  $('ai-cfg').onclick = () => { const f = $('ai-conf'); f.hidden = !f.hidden; if(f.hidden) return; const c = aiCfg(), H = horario();
+    $('aic-nome').value = store.get('pv-ai-nome') || ''; $('aic-apelido').value = c.apelido; $('aic-tom').value = c.tom; $('aic-vel').value = c.vel; $('aic-avisa').checked = c.avisa;
+    $('aic-ini').value = H.ini; $('aic-fim').value = H.fim; encherVozes(); rotulos() };
+  $('aic-tom').oninput = $('aic-vel').oninput = rotulos;
+  const salvarCfg = () => { store.set('pv-ai-nome', trim($('aic-nome').value)); store.set('pv-ai-apelido', trim($('aic-apelido').value)); store.set('pv-ai-voz', $('aic-voz').value);
+    store.set('pv-ai-tom', $('aic-tom').value); store.set('pv-ai-vel', $('aic-vel').value); store.set('pv-ai-avisa', $('aic-avisa').checked ? '1' : '0');
+    if($('aic-ini').value) store.set('pv-hor-ini', $('aic-ini').value); if($('aic-fim').value) store.set('pv-hor-fim', $('aic-fim').value) };
+  $('aic-testar').onclick = () => { salvarCfg(); falar(`Olá, ${nomeUser()}. Eu sou ${aiCfg().nome === 'Assistente' ? 'o seu assistente' : 'o ' + aiCfg().nome}. Pronto para começar o dia.`) };
+  $('ai-conf').onsubmit = e => { e.preventDefault(); salvarCfg(); $('ai-conf').hidden = true; renderAI(); falar(`Configurações salvas, ${nomeUser()}.`) };
   $('ai-auto').onchange = e => store.set('pv-ai-auto', e.target.checked ? '1' : '0');
   $('ai-perg').onsubmit = e => { e.preventDefault(); const v = trim($('ai-txt').value); if(v){ responderAI(v); $('ai-txt').value = '' } };
   $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(!b) return; const a = b.dataset.ai;
     if(a === 'atr'){ fecharAI(); abrirAtrasadosNaLista() } else if(a === 'dash'){ fecharAI(); trocarAba('dash') }
-    else if(a === 'novos'){ responderAI('novos') } else if(a === 'hoje' || a === 'amanha'){ responderAI('vencem') } else if(a === 'pend'){ responderAI('aberto') } else if(a === 'sem'){ fecharAI(); trocarAba('pedidos') } });
+    else if(a === 'novos'){ responderAI('novos') } else if(a === 'pilot'){ responderAI('pilotagens') } else if(a === 'tipos'){ responderAI('tipos') } else if(a === 'hoje' || a === 'amanha'){ responderAI('vencem') } else if(a === 'pend'){ responderAI('aberto') } else if(a === 'sem'){ fecharAI(); trocarAba('pedidos') } });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SR){ $('ai-mic').hidden = true } else $('ai-mic').onclick = () => {
     if(AI.rec){ AI.rec.abort(); return }
@@ -2273,7 +2372,7 @@ function iniciarAI(){
     rec.onend = rec.onerror = () => { AI.rec = null; $('ai-mic').classList.remove('on'); $('ai-txt').placeholder = 'Pergunte: atrasados, novos, pedido 500123…' };
     try{ speechSynthesis.cancel(); rec.start() }catch{ rec.onend() }
   };
-  try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices() }catch{}
+  try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); if(!$('ai-conf').hidden) encherVozes() } }catch{}
 }
 // 1x por dia, depois do login: abre o assistente sozinho (e fala, se a opção estiver ligada)
 async function assistenteDoDia(){
@@ -2373,7 +2472,7 @@ function atualizaNovos(){
 }
 function bip(){ try{ const A = new (window.AudioContext || window.webkitAudioContext)(); [660, 880].forEach((f, i) => { const o = A.createOscillator(), g = A.createGain(); o.frequency.value = f; g.gain.setValueAtTime(.0001, A.currentTime + i * .16); g.gain.exponentialRampToValueAtTime(.12, A.currentTime + i * .16 + .02); g.gain.exponentialRampToValueAtTime(.0001, A.currentTime + i * .16 + .15); o.connect(g).connect(A.destination); o.start(A.currentTime + i * .16); o.stop(A.currentTime + i * .16 + .16) }) }catch{} }
 async function checarNovos(){
-  if(!document.body.classList.contains('logado')) return;
+  if(!document.body.classList.contains('logado') || !dentroHorario()) return; // fora do horário (07:30–17:18, seg–sex) não procura
   try{
     const desde = ymd(new Date(Date.now() - 60 * 864e5)); // últimos 60 dias
     const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,

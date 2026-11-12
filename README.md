@@ -93,3 +93,7 @@ Menu do usuário → **Notificações de pedidos novos** (ou Ajustes, no celular
 
 ### Assistente
 Bolinha no canto da tela: programação do dia (atrasados, o que vence hoje e amanhã, fila em aberto/liberados, sem estoque), o que teve de novo desde a última visita, como foi ontem e os números do mês. Abre sozinho 1x por dia. 🔊 lê o resumo em voz alta; 🎤 aceita perguntas por voz (Chrome/Edge): "atrasados", "novos", "vencem hoje", "liberados", "tempo até faturar", "pedido 500123", "modo TV", "dashboard", "resumo".
+- **Configurações do assistente (⚙):** nome do assistente, como ele te chama, voz (prefere masculina e grave; no Microsoft Edge aparece a voz "Antonio", mais natural), tom e velocidade.
+- **Tipos e pilotagens:** o resumo mostra as amostras em aberto por tipo e a lista de pilotagens para separar (item, quantidade e pedidos). Pergunte "pilotagens" ou "tipos".
+- **Aviso falado de pedido novo:** quando chega pedido novo, ele avisa pelo nome, dizendo os tipos e, se tiver pilotagem, os itens e as quantidades.
+- **Horário de uso:** os avisos de pedido novo só acontecem de segunda a sexta, das 07:30 às 17:18 (ajustável no ⚙), com o site aberto no computador.
