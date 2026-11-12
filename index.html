@@ -306,6 +306,132 @@ table.list .tag-novo{display:inline-block;margin-left:6px;padding:0 6px;border-r
 .tg-chip.atr.on{background:var(--st-fat);color:#101010;border-color:var(--st-fat)}
 .tg-chip.novo{background:var(--lime);border-color:var(--lime);color:var(--ink);animation:pulso 2s ease-in-out infinite}
 @keyframes pulso{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--lime) 25%,transparent)}}
+/* tempo até faturar (versão limpa) */
+.ld-kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.ld-kpis > div{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.ld-kpis span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.ld-kpis strong{display:block;margin-top:7px;font:700 30px/1 var(--display);letter-spacing:-.5px}
+.ld-kpis strong small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:3px}
+.ld-kpis strong.ok{color:var(--st-ab)}.ld-kpis strong.ruim{color:var(--st-fat)}
+.ld-kpis > div > small{display:block;margin-top:6px;color:var(--dim);font-size:11.5px}
+.ld-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.ld-leg{display:flex;align-items:center;gap:6px;color:var(--dim);font-size:11.5px}
+.ld-leg u{display:inline-block;height:12px;border-left:2px dashed var(--muted)}
+.ld-row{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.3fr) 72px;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ld-row:last-child{border-bottom:0}
+.ld-nome{min-width:0}
+.ld-nome > span{display:block;font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld-nome small{display:block;margin-top:2px;color:var(--dim);font-size:11px}
+.ld-bar{position:relative;height:8px;border-radius:999px;background:var(--panel-2)}
+.ld-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:color-mix(in srgb,var(--st-ab) 80%,transparent)}
+.ld-bar i.lento{background:color-mix(in srgb,var(--st-fat) 80%,transparent)}
+.ld-bar u{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed color-mix(in srgb,var(--muted) 70%,transparent)}
+.ld-val{text-align:right;font:700 13.5px var(--display);font-variant-numeric:tabular-nums}
+.ld-val.lento{color:var(--st-fat)}
+.ld-nota{margin:12px 0 0;color:var(--dim);font-size:11.5px}
+@media(max-width:700px){.ld-row{grid-template-columns:minmax(0,1fr) 64px;gap:6px 12px}.ld-bar{grid-column:1/-1;grid-row:2}}
+/* notificações */
+.nt-bloco{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.nt-bloco h4{margin:0 0 6px;font:700 14px var(--display)}
+.nt-bloco p{margin:0 0 10px;color:var(--muted);font-size:13px}
+.nt-linha{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nt-linha .st{font-size:12.5px;color:var(--muted)}
+.nt-passos{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.6}
+.nt-passos b{color:var(--text)}
+.nt-topico{display:flex;gap:8px;align-items:center;margin:6px 0 4px}
+.nt-topico code{flex:1;min-width:0;padding:8px 12px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line-2);color:var(--lime-t);font:600 13px ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nt-envia{display:flex;align-items:flex-start;gap:10px;margin:4px 0 12px}
+.nt-envia span{display:block}.nt-envia small{display:block;color:var(--dim);font-size:12px;margin-top:2px;font-weight:400}
+/* modo TV */
+.tv{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;padding:2.2vw 2.8vw 1.6vw;color:var(--text)}
+.tv[hidden]{display:none}
+.tv-top{display:flex;align-items:baseline;gap:18px}
+.tv-tit{font:700 2.6vw/1 var(--display);letter-spacing:-.5px}
+.tv-rel{margin-left:auto;font:600 1.6vw var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.tv-x{background:none;border:1px solid var(--line-2);color:var(--muted);border-radius:10px;padding:6px 12px;font:600 13px var(--font);cursor:pointer;opacity:.35;transition:opacity .2s}
+.tv:hover .tv-x{opacity:1}
+.tv-palco{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:2vw 0;animation:tv-in .5s ease-out}
+@keyframes tv-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.tv-pe{display:flex;align-items:center;gap:20px}
+.tv-dots{display:flex;gap:8px}
+.tv-dots button{width:10px;height:10px;border-radius:50%;border:0;background:var(--line-2);cursor:pointer;padding:0}
+.tv-dots button.on{background:var(--lime-t);width:28px;border-radius:6px}
+.tv-prog{flex:1;height:3px;border-radius:2px;background:var(--panel-2);overflow:hidden}
+.tv-prog i{display:block;height:100%;width:0;background:var(--lime-t)}
+.tv-big{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.4vw}
+.tv-big > div{background:var(--panel);border:1px solid var(--line);border-radius:1.4vw;padding:2vw 2vw 1.7vw}
+.tv-big span{display:block;font:600 1.15vw var(--font);letter-spacing:.1vw;text-transform:uppercase;color:var(--muted)}
+.tv-big strong{display:block;margin-top:1vw;font:700 7vw/1 var(--display);letter-spacing:-.3vw}
+.tv-big small{display:block;margin-top:.8vw;font-size:1.2vw;color:var(--dim)}
+.tv-big .hi{background:var(--lime);border-color:var(--lime);color:var(--ink)}.tv-big .hi span,.tv-big .hi small{color:color-mix(in srgb,var(--ink) 65%,transparent)}
+.tv-big .red strong{color:var(--st-fat)}.tv-big .grn strong{color:var(--st-ab)}.tv-big .yel strong{color:var(--st-lib)}
+.tv-linha{margin-top:2vw;font:500 1.7vw var(--font);color:var(--muted);text-align:center}
+.tv-linha b{color:var(--text)}
+.tv-lista{display:flex;flex-direction:column;gap:.7vw}
+.tv-lista > div{display:grid;grid-template-columns:9vw minmax(0,1fr) minmax(0,.8fr) 12vw;align-items:center;gap:1.5vw;background:var(--panel);border:1px solid var(--line);border-left:.4vw solid var(--st-fat);border-radius:1vw;padding:1vw 1.6vw;font-size:1.6vw}
+.tv-lista b{font:700 2vw var(--display)}
+.tv-lista span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.tv-lista em{font:700 2.2vw var(--display);font-style:normal;color:var(--st-fat);text-align:right}
+.tv-vazio{text-align:center;font:700 4vw var(--display);color:var(--st-ab)}
+.tv-vazio small{display:block;font:500 1.6vw var(--font);color:var(--muted);margin-top:1vw}
+.tv-mes{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:3vw;align-items:end}
+.tv-mes .num{font:700 9vw/1 var(--display);letter-spacing:-.4vw}
+.tv-mes .lbl{font:600 1.3vw var(--font);text-transform:uppercase;letter-spacing:.1vw;color:var(--muted)}
+.tv-mes .cmp{font:600 1.8vw var(--font);margin-top:1vw;color:var(--muted)}
+.tv-mes .cmp .dl{font-size:2vw;margin:0}
+.tv-bars{display:flex;align-items:flex-end;gap:1vw;height:26vw}
+.tv-bars div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.tv-bars i{display:block;width:100%;border-radius:.6vw .6vw .2vw .2vw;background:color-mix(in srgb,var(--lime-t) 30%,var(--panel-2))}
+.tv-bars .cur i{background:var(--lime-t)}
+.tv-bars b{font-size:1.1vw;color:var(--muted);margin-bottom:.4vw}.tv-bars span{font-size:1.1vw;color:var(--dim);margin-top:.5vw;font-weight:600}
+.tv-tipos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:4vw;align-items:center}
+.tv-tipos svg.donut{width:100%!important;height:auto!important;max-width:60vh!important;max-height:60vh;justify-self:center}
+.tv-tipos .lg > div{display:grid;grid-template-columns:1.6vw minmax(0,1fr) auto 5vw;align-items:center;gap:1vw;padding:1vw 0;border-bottom:1px solid var(--line);font-size:1.9vw}
+.tv-tipos .lg i{width:1.3vw;height:1.3vw;border-radius:.3vw}
+.tv-tipos .lg b{font:700 2.2vw var(--display)}.tv-tipos .lg small{color:var(--muted);text-align:right;font-size:1.5vw}
+.tv-rank{display:grid;grid-template-columns:1fr 1fr;gap:3vw}
+.tv-rank h4{margin:0 0 1vw;font:600 1.3vw var(--font);letter-spacing:.1vw;text-transform:uppercase;color:var(--muted)}
+.tv-rank > div > div{display:grid;grid-template-columns:3vw minmax(0,1fr) auto;align-items:center;gap:1vw;padding:.9vw 0;border-bottom:1px solid var(--line);font-size:1.7vw}
+.tv-rank .p{width:2.4vw;height:2.4vw;border-radius:.6vw;display:grid;place-items:center;background:var(--panel-2);font:700 1.2vw var(--display)}
+.tv-rank > div > div:nth-child(-n+4) .p{background:var(--lime);color:var(--ink)}
+.tv-rank span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tv-rank b{font:700 2vw var(--display)}
+.tv-lead{font-size:1.5vw}
+.tv-lead .ld-kpis strong{font-size:5vw}.tv-lead .ld-kpis span{font-size:1.1vw}.tv-lead .ld-kpis > div{padding:1.5vw 1.8vw}.tv-lead .ld-kpis > div > small{font-size:1.1vw}
+.tv-lead .ld-row{padding:1vw 0;gap:2vw;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) 11vw}.tv-lead .ld-kpis strong small{font-size:1.6vw}.tv-lead .tp-dot{width:1vw;height:1vw}.tv-lead .ld-nome span{font-size:1.7vw}.tv-lead .ld-nome small{font-size:1.1vw}.tv-lead .ld-val{font-size:1.9vw}.tv-lead .ld-bar{height:1vw}
+.tv-lead .ld-head,.tv-lead .ld-nota{display:none}
+@media(max-width:800px){.tv-big{grid-template-columns:1fr 1fr}.tv-big strong{font-size:12vw}.tv-big span{font-size:2.6vw}.tv-tit{font-size:5vw}.tv-rel{font-size:3vw}}
+/* assistente */
+.ai-orb{position:fixed;right:22px;bottom:22px;z-index:60;width:54px;height:54px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#fff 0,color-mix(in srgb,var(--lime) 85%,#fff) 18%,var(--lime) 45%,color-mix(in srgb,var(--lime) 40%,#000) 100%);box-shadow:0 0 0 4px color-mix(in srgb,var(--lime) 18%,transparent),0 10px 30px color-mix(in srgb,var(--lime) 35%,transparent);display:none}
+body.logado:not(.preview) .ai-orb{display:block}
+.ai-orb i{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--lime) 55%,transparent);animation:ai-anel 3s ease-out infinite;pointer-events:none}
+.ai-orb i:nth-child(2){animation-delay:1s}.ai-orb i:nth-child(3){animation-delay:2s}
+@keyframes ai-anel{from{transform:scale(.85);opacity:.9}to{transform:scale(1.55);opacity:0}}
+.ai-orb.tem::after{content:attr(data-n);position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--st-fat);color:#fff;font:700 11px/20px var(--font)}
+.ai-orb.fala i{animation-duration:1.1s}
+.ai-pan{position:fixed;right:22px;bottom:88px;z-index:61;width:min(400px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 120px));display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-2);border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.6);overflow:hidden;animation:pop-in .2s ease-out}
+.ai-pan[hidden]{display:none}
+.ai-head{display:flex;align-items:center;gap:12px;padding:14px 14px 12px 16px;border-bottom:1px solid var(--line)}
+.ai-head div{flex:1;min-width:0}.ai-head b{font:700 15px var(--display)}.ai-head small{display:block;color:var(--muted);font-size:12px}
+.ai-mini{position:relative;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--lime) 50%,color-mix(in srgb,var(--lime) 40%,#000));flex:none}
+.ai-ic{width:34px;height:34px;border-radius:10px;border:0;background:none;color:var(--muted);cursor:pointer;font-size:15px;flex:none}
+.ai-ic:hover{background:var(--panel-2);color:var(--text)}
+.ai-ic.on{background:var(--st-fat);color:#fff}
+.ai-corpo{flex:1;overflow:auto;padding:14px 16px 6px}
+.ai-ola{font:700 19px/1.25 var(--display);margin:0 0 12px}
+.ai-sec{margin:0 0 14px}
+.ai-sec h5{margin:0 0 6px;font-size:10.5px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.ai-it{display:flex;gap:10px;align-items:flex-start;width:100%;padding:9px 10px;margin:0 0 4px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);color:var(--text);font:400 13px/1.4 var(--font);text-align:left}
+button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
+.ai-it .ic{flex:none;width:22px;text-align:center}
+.ai-it b{font-weight:700}.ai-it.red{border-color:color-mix(in srgb,var(--st-fat) 45%,transparent)}.ai-it.red b{color:var(--st-fat)}
+.ai-it.ok b{color:var(--st-ab)}
+.ai-resp{margin:0 16px 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--lime) 12%,var(--panel-2));font-size:13px;line-height:1.45}
+.ai-perg{display:flex;gap:4px;align-items:center;padding:8px 10px 6px 14px;border-top:1px solid var(--line)}
+.ai-perg input{flex:1;min-width:0;height:36px;border:0!important;background:none!important;color:var(--text);font:inherit;font-size:13.5px;outline:none;box-shadow:none!important;padding:0!important}
+.ai-op{display:flex;align-items:center;gap:8px;padding:0 16px 12px;color:var(--dim);font-size:11.5px}
+@media(max-width:700px){.ai-orb{bottom:84px;right:14px;width:48px;height:48px}.ai-pan{right:12px;bottom:142px;max-height:calc(100vh - 200px)}}
+@media print{.ai-orb,.ai-pan,.tv{display:none!important}}
 /* dashboard: deltas, comparação e tempo até faturar */
 .dk .dl{display:inline-block;margin-left:6px;font-style:normal;font-size:11px;font-weight:700}
 .dl.up{color:var(--st-ab)}.dl.dn{color:var(--st-fat)}.dl.neu{color:var(--muted)}
@@ -853,6 +979,7 @@ table.res .r{text-align:right}
   <div class="up-sec">Tema</div>
   <div class="modo-seg"><button type="button" class="modo-op" data-modo="escuro">☾ Escuro</button><button type="button" class="modo-op" data-modo="claro">☀ Claro</button></div>
   <div class="temas-grid"></div>
+  <button class="up-row" id="btn-notif" type="button">🔔 Notificações de pedidos novos</button>
   <button class="up-row" id="btn-instalar" type="button">⤓ Instalar app</button>
   <button class="up-row sair" id="btn-sair" type="button">⇥ Sair</button>
  </div>
@@ -937,6 +1064,7 @@ table.res .r{text-align:right}
    <div><h2>Dashboard</h2><p id="dsh-quando">Carregando…</p></div>
    <div class="dsh-ctl">
     <div class="seg" id="dsh-per"><button type="button" data-per="mes" aria-pressed="true">Mensal · <span id="dsh-per-mes">—</span></button><button type="button" data-per="ano" aria-pressed="false">Anual</button></div>
+    <button class="btn sec" id="btn-tv" type="button" title="Tela cheia que passa sozinha entre os painéis (para a TV do setor)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Modo TV</button>
     <button class="icon-btn" id="dsh-refresh" type="button" title="Atualizar dados">↻</button>
    </div>
   </div>
@@ -963,6 +1091,7 @@ table.res .r{text-align:right}
   <div class="dsh-card"><h3>Pedidos impressos</h3><p class="sub">Digite o código do grupo para todos verem os mesmos impressos.</p>
    <div class="aj-row"><input id="aj-chave" class="oculto" type="text" name="codigo-grupo" autocomplete="off" spellcheck="false" placeholder="Código do grupo"><button class="btn" id="aj-salvar" type="button">Salvar</button></div><p class="sub" id="aj-st"></p>
   </div>
+  <div class="dsh-card"><h3>Notificações</h3><p class="sub">Aviso no celular e no computador quando descer pedido novo.</p><button class="btn sec" id="aj-notif" type="button" style="width:100%">Configurar notificações</button></div>
   <div class="dsh-card"><h3>Aplicativo</h3><p class="sub">Instale para abrir direto da tela inicial, em tela cheia.</p><button class="btn sec" id="aj-instalar" type="button" style="width:100%">Instalar app</button></div>
  </section>
 </main>
@@ -983,6 +1112,45 @@ table.res .r{text-align:right}
  </form>
 </dialog>
 
+
+<dialog id="dlg-notif">
+ <form class="dlg" method="dialog">
+  <h3>Notificações de pedidos novos</h3>
+  <div class="nt-bloco">
+   <h4>Neste aparelho</h4>
+   <p>Aviso do sistema (canto da tela) quando chegar pedido novo em aberto, enquanto o site estiver aberto, mesmo em outra aba.</p>
+   <div class="nt-linha"><button class="btn sec" id="nt-perm" type="button">Ativar avisos neste aparelho</button><span class="st" id="nt-perm-st"></span></div>
+  </div>
+  <div class="nt-bloco">
+   <h4>No celular, com o site fechado</h4>
+   <ol class="nt-passos">
+    <li>Instale o app gratuito <b>ntfy</b> no celular (Play Store ou App Store).</li>
+    <li>No app, toque em <b>+</b> e assine este canal (é o mesmo para toda a equipe do código do grupo):
+     <div class="nt-topico"><code id="nt-topico">…</code><button class="btn sec" id="nt-copiar" type="button">Copiar</button></div></li>
+    <li>Pronto. Quando descer pedido novo, o celular avisa.</li>
+   </ol>
+   <label class="switch nt-envia"><input type="checkbox" id="nt-envia"> <span><b>Este computador envia os avisos para os celulares</b><small>Ligue em <u>um só</u> computador que fica sempre com o site aberto (ex.: a TV da separação). Ele confere a cada 30 min e avisa o canal.</small></span></label>
+   <div class="nt-linha"><button class="btn sec" id="nt-teste" type="button">Enviar teste para o celular</button><span class="st" id="nt-st"></span></div>
+  </div>
+  <div class="acts"><button class="btn" value="cancel">Fechar</button></div>
+ </form>
+</dialog>
+
+<div class="tv" id="tv" hidden>
+ <div class="tv-top"><span class="tv-tit" id="tv-tit"></span><span class="tv-rel" id="tv-rel"></span><button type="button" class="tv-x" id="tv-x" title="Sair do Modo TV (Esc)">Sair ✕</button></div>
+ <div class="tv-palco" id="tv-palco"></div>
+ <div class="tv-pe"><div class="tv-dots" id="tv-dots"></div><div class="tv-prog"><i id="tv-prog"></i></div></div>
+</div>
+
+<button class="ai-orb" id="ai-orb" type="button" title="Assistente: programação do dia e novidades" aria-label="Abrir o assistente"><i></i><i></i><i></i></button>
+<div class="ai-pan" id="ai-pan" role="dialog" aria-label="Assistente" hidden>
+ <div class="ai-head"><span class="ai-mini"><i></i></span><div><b id="ai-nome">Assistente</b><small id="ai-data"></small></div>
+  <button type="button" class="ai-ic" id="ai-falar" title="Ouvir o resumo">🔊</button><button type="button" class="ai-ic" id="ai-x" title="Fechar">✕</button></div>
+ <div class="ai-corpo" id="ai-corpo"></div>
+ <div class="ai-resp" id="ai-resp" hidden></div>
+ <form class="ai-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte: atrasados, novos, pedido 500123…"><button type="button" class="ai-ic" id="ai-mic" title="Falar">🎤</button><button class="ai-ic" type="submit" title="Enviar">➤</button></form>
+ <label class="ai-op"><input type="checkbox" id="ai-auto"> Falar o resumo ao abrir o site (1x por dia)</label>
+</div>
 
 <div class="dsh-tip" id="dsh-tip" role="tooltip"></div>
 <div class="print-confirm" id="print-confirm"></div>
@@ -1251,6 +1419,7 @@ function salvarSessao(manter){
 function mostrarApp(){
   document.body.classList.add('logado');
   iniciarLetreiro(); atualizarPainel(); checarNovos();
+  if(new URLSearchParams(location.search).has('tv')) setTimeout(iniciarTV, 300); else setTimeout(assistenteDoDia, 1500);
   const u = SESSAO.user;
   $('user-name').textContent = u; $('user-ini').textContent = (u.replace(/[^a-z0-9]/gi, '')[0] || '?');
 }
@@ -1364,7 +1533,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel6', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel7', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3 && c.meses?.some(m => m.qtd)){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1390,6 +1559,7 @@ async function carregarPainel(forcar = false){
     porMes.forEach((rows, i) => { porMes[i] = rows.filter(contaNoPainel) });
     pend = pend.filter(contaNoPainel);
 
+    const fatDia = {}; // pedidos faturados por data de faturamento (para o "ontem" do assistente)
     const meses = listaMeses.map((mes, i) => {
       const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}, pd:{}, lt:{n:0, s:0, ok:0, t:{}, v:{}}};
       const peds = new Map(), clis = new Set(), vistosPT = new Set();
@@ -1413,6 +1583,7 @@ async function carregarPainel(forcar = false){
         const pdd = M.pd[o.em.slice(6, 8)] || (M.pd[o.em.slice(6, 8)] = {ped:0, fat:0, ab:0, lib:0, cli:[]}); pdd.ped++;
         if(o.nota) pdd.fat++; else if(o.aberto){ if(o.lib) pdd.lib++; else pdd.ab++ } if(o.cli && !pdd.cli.includes(o.cli)) pdd.cli.push(o.cli);
         // tempo até faturar: dias corridos da emissão até a última data de faturamento dos itens
+        if(o.nota && o.df) fatDia[o.df] = (fatDia[o.df] || 0) + 1;
         if(o.nota && o.df && /^\d{8}$/.test(o.em)){
           const d = diasEntre(o.em, o.df);
           if(d >= 0 && d < 400){
@@ -1453,15 +1624,16 @@ async function carregarPainel(forcar = false){
       hoje:{ped:new Set(hojeRows.map(r => r.c5_num)).size, qtd:Math.round(hojeRows.reduce((s, r) => s + qa(r), 0))},
       pend:{tipos:[...pt].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd), ped:pp.size,
         ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
-      cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
+      cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC,
+      fatDia:Object.fromEntries(Object.entries(fatDia).filter(([d]) => d >= ymd(new Date(Date.now() - 45 * 864e5))))
     };
     // Tudo zerado = o Protheus não respondeu direito: não grava (para não ficar 10 min zerado) e mantém o último painel bom
     if(!porMes.some(r => r.length)){
-      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel6', true) || 'null') }catch{}
+      let velho = PAINEL; try{ velho = velho || JSON.parse(store.get('pv-painel7', true) || 'null') }catch{}
       if(velho && velho.meses?.some(m => m.qtd)){ PAINEL = velho; return velho }
       throw new Error('o Protheus não devolveu dados agora. Tente atualizar em alguns segundos.');
     }
-    try{ store.set('pv-painel6', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel7', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
@@ -1804,19 +1976,24 @@ function comparacaoMes(mes){
   };
   return {at:resumo(at, 0), an:resumo(an, parcial ? dia : 0), mesAnt:an.mes, parcial, dia};
 }
-function htmlLead(V){
+let LEAD_MODO = 't';
+function htmlLead(V, modo = LEAD_MODO, maxLinhas = 8){
   const L = V.lt;
   if(!L || !L.n) return '<p class="vazio">Nenhum pedido faturado no período (ou o Protheus não informou a data de faturamento, C6_DATFAT).</p>';
   const media = L.s / L.n, pct = Math.round(100 * L.ok / L.n), med = x => x.s / x.n, cores = coresTipos();
-  const tipos = Object.entries(L.t).filter(([t]) => !TIPOS_FORA_DASH.includes(t)).sort((a, b) => b[1].n - a[1].n);
-  const vends = Object.entries(L.v).sort((a, b) => b[1].n - a[1].n).slice(0, 6);
-  const lin = (nome, x) => `<tr><td title="${esc(nome)}">${nome}</td><td>${fmtInt(x.n)}</td><td class="${med(x) > PRAZO_DIAS ? 'lento' : ''}">${fmtDias(med(x))}</td><td>${Math.round(100 * x.ok / x.n)}%</td></tr>`;
-  const cab = c => `<thead><tr><th>${c}</th><th>Ped.</th><th>Média</th><th>No prazo</th></tr></thead>`;
-  return `<div class="lead-top"><div><span class="lbl">Média da emissão ao faturamento</span><strong>${media.toLocaleString('pt-BR', {maximumFractionDigits:1})}<small>dias</small></strong></div>
-    <div class="lead-prazo"><span class="lbl">Dentro do prazo de ${PRAZO_DIAS} dias</span><div class="barra"><i style="width:${pct}%"></i></div><b>${pct}%</b> <small style="color:var(--muted)">· ${fmtInt(L.ok)} de ${fmtInt(L.n)} pedidos</small></div></div>
-    <div class="lead-cols"><table>${cab('Tipo')}<tbody>${tipos.map(([t, x]) => lin(`<span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}`, x)).join('')}</tbody></table>
-    <table>${cab('Vendedora')}<tbody>${vends.map(([c, x]) => lin(esc(rotuloVend(c, PAINEL.meses.map(m => m.vend[c]).find(Boolean)).n), x)).join('')}</tbody></table></div>
-    <p class="lead-nota">Pedidos faturados, emitidos no período · dias corridos · em vermelho, média acima de ${PRAZO_DIAS} dias.</p>`;
+  const linhas = modo === 't'
+    ? Object.entries(L.t).filter(([t]) => !TIPOS_FORA_DASH.includes(t)).sort((a, b) => b[1].n - a[1].n).map(([t, x]) => ({nome:cap(t), cor:cores(t), x}))
+    : Object.entries(L.v).sort((a, b) => b[1].n - a[1].n).slice(0, maxLinhas).map(([c, x]) => ({nome:rotuloVend(c, PAINEL.meses.map(m => m.vend[c]).find(Boolean)).n, x}));
+  const escala = Math.max(PRAZO_DIAS * 1.5, ...linhas.map(l => med(l.x))) * 1.05, mk = 100 * PRAZO_DIAS / escala;
+  return `<div class="ld-kpis">
+      <div><span>Média até faturar</span><strong>${media.toLocaleString('pt-BR', {maximumFractionDigits:1})}<small>dias</small></strong><small>da emissão ao faturamento</small></div>
+      <div><span>Dentro do prazo</span><strong class="${pct >= 80 ? 'ok' : pct < 50 ? 'ruim' : ''}">${pct}%</strong><small>${fmtInt(L.ok)} de ${fmtInt(L.n)} pedidos em até ${PRAZO_DIAS} dias</small></div>
+    </div>
+    <div class="ld-head"><div class="seg seg-mini"><button type="button" data-ld="t" aria-pressed="${modo === 't'}">Por tipo</button><button type="button" data-ld="v" aria-pressed="${modo === 'v'}">Por vendedora</button></div><span class="ld-leg"><u></u> prazo de ${PRAZO_DIAS} dias</span></div>
+    <div class="ld-rows">${linhas.map(({nome, cor, x}) => { const m = med(x), lento = m > PRAZO_DIAS ? ' lento' : '';
+      return `<div class="ld-row"><div class="ld-nome"><span title="${esc(nome)}">${cor ? `<span class="tp-dot" style="background:${cor}"></span>` : ''}${esc(nome)}</span><small>${fmtInt(x.n)} pedido${x.n === 1 ? '' : 's'} · ${Math.round(100 * x.ok / x.n)}% no prazo</small></div>
+        <div class="ld-bar"><i class="${lento.trim()}" style="width:${Math.min(100, 100 * m / escala)}%"></i><u style="left:${mk}%"></u></div><b class="ld-val${lento}">${fmtDias(m)}</b></div>` }).join('')}</div>
+    <p class="ld-nota">Pedidos faturados, emitidos no período · dias corridos.</p>`;
 }
 
 /* ---------- tooltip "por tipo" dos rankings do dashboard ---------- */
@@ -1853,6 +2030,257 @@ function iniciarTipDash(){
   document.addEventListener('click', () => { if(fixo) esconder() });
   addEventListener('scroll', () => { if(atual) esconder() }, {passive:true, capture:true});
   document.addEventListener('keydown', e => { if(e.key === 'Escape') esconder() });
+}
+
+
+/* ============== fila de pendentes (Modo TV e assistente) ============== */
+let FILA = null, filaP = null;
+async function carregarFila(forcar = false){
+  if(!forcar && FILA && Date.now() - FILA.ts < 5 * 60e3) return FILA;
+  if(filaP) return filaP;
+  filaP = (async () => {
+    const desde = ymd(new Date(Date.now() - 180 * 864e5));
+    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
+      `C5_EMISSAO>=${q(desde)}`, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'", "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
+    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_LIBEROK','C5_CLIENTE','C5_LOJACLI','C5_VEND2','C6_ITEM'], [], w);
+    const map = new Map();
+    rows.forEach(r => { const n = trim(r.c5_num), o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0}; o.itens++; map.set(n, o) });
+    const peds = [...map.values()].map(p => ({...p, dias:diasParado(p)}));
+    let nomeCli = () => null; try{ nomeCli = await carregarClientes(peds.filter(p => p.dias > PRAZO_DIAS - 2).map(p => p.cliente)) }catch(e){ if(e.auth) throw e }
+    peds.forEach(p => { p.nomeCli = cap(trim(get(nomeCli(p.cliente, p.loja), 'A1_NOME'))) });
+    FILA = {ts:Date.now(), peds, ab:peds.filter(p => !p.lib).length, lib:peds.filter(p => p.lib).length,
+      atr:peds.filter(p => p.dias > PRAZO_DIAS).sort((a, b) => b.dias - a.dias),
+      hoje:peds.filter(p => p.dias === PRAZO_DIAS), amanha:peds.filter(p => p.dias === PRAZO_DIAS - 1)};
+    return FILA;
+  })();
+  try{ return await filaP }finally{ filaP = null }
+}
+const c1 = t => t ? t[0].toUpperCase() + t.slice(1) : t;
+const pl = (n, um, varios) => `${fmtInt(n)} ${n === 1 ? um : varios}`;
+function ontemResumo(){
+  const P = PAINEL; if(!P) return null;
+  const d = new Date(); d.setDate(d.getDate() - 1); if(d.getDay() === 0) d.setDate(d.getDate() - 2); // segunda: olha sexta
+  const o = ymd(d), m = P.meses.find(x => x.mes === o.slice(0, 6)), dd = o.slice(6, 8);
+  return {data:d, ped:m?.pd?.[dd]?.ped || 0, qtd:Math.round(m?.dias?.[dd] || 0), fat:P.fatDia?.[o] || 0};
+}
+
+/* ============================ Modo TV ============================ */
+const TV = {on:false, i:0, timer:0, relogio:0, fila:0, lock:null, SEG:15000};
+function tvTelas(){
+  const P = PAINEL, F = FILA, t = [];
+  if(F) t.push(['Agora', () => {
+    const h = P?.hoje || {ped:0, qtd:0};
+    return `<div class="tv-big"><div class="hi"><span>Em aberto</span><strong>${fmtInt(F.ab)}</strong><small>pedidos aguardando liberação</small></div>
+      <div class="yel"><span>Liberados</span><strong>${fmtInt(F.lib)}</strong><small>aguardando faturamento</small></div>
+      <div class="${F.atr.length ? 'red' : 'grn'}"><span>Atrasados · +${PRAZO_DIAS} dias</span><strong>${fmtInt(F.atr.length)}</strong><small>${F.atr[0] ? `mais antigo: há ${F.atr[0].dias} dias` : 'tudo dentro do prazo'}</small></div>
+      <div><span>Chegaram hoje</span><strong>${fmtInt(h.ped)}</strong><small>${pl(h.qtd, 'amostra', 'amostras')}</small></div></div>
+      <p class="tv-linha">Vencem hoje: <b>${fmtInt(F.hoje.length)}</b> &nbsp;·&nbsp; vencem amanhã: <b>${fmtInt(F.amanha.length)}</b></p>` }]);
+  if(F) t.push(['Atrasados', () => F.atr.length ? `<div class="tv-lista">${F.atr.slice(0, 7).map(p => `<div><b>${esc(p.num)}</b><span>${esc(p.nomeCli || 'Cliente ' + p.cliente)}</span><span>${esc(nomeVendLista(p.vend2) || p.vend2)} · ${p.lib ? 'liberado' : 'em aberto'}</span><em>há ${p.dias} dias</em></div>`).join('')}</div>${F.atr.length > 7 ? `<p class="tv-linha">e mais <b>${F.atr.length - 7}</b> atrasado(s)</p>` : ''}`
+    : `<div class="tv-vazio">✓ Nenhum pedido atrasado<small>Todos os pedidos estão dentro do prazo de ${PRAZO_DIAS} dias</small></div>`]);
+  if(P){
+    const M = visao(P.mesAtual), C = comparacaoMes(P.mesAtual), mx = Math.max(1, ...P.meses.map(m => m.qtd));
+    t.push([`Amostras · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-mes"><div><div class="lbl">Amostras no mês</div><div class="num">${fmtInt(M.qtd)}</div>
+      <div class="cmp">${pl(M.ped, 'pedido', 'pedidos')}${C ? ` · ${delta(C.at.qtd, C.an.qtd, 1)} vs ${nomeMes(C.mesAnt)}` : ''}</div></div>
+      <div class="tv-bars">${P.meses.map(m => `<div class="${m.mes === P.mesAtual ? 'cur' : ''}"><b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(2, 100 * m.qtd / mx)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></div>`).join('')}</div></div>`]);
+    const tps = Object.entries(M.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
+    if(tps.length) t.push([`Tipos de amostra · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-tipos">${donut(tps, M.qtdTipos)}<div class="lg">${tps.map(([tp, q]) => `<div><i style="background:${cores(tp)}"></i><span>${esc(cap(tp))}</span><b>${fmtInt(q)}</b><small>${Math.round(100 * q / M.qtdTipos)}%</small></div>`).join('')}</div></div>`]);
+    const top = Object.entries(M.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 6), vend = Object.entries(M.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 6);
+    t.push([`Ranking · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-rank"><div><h4>Mais solicitados</h4>${top.map(([c, [d, q]], i) => `<div><span class="p">${i + 1}</span><span>${esc(d || c)}</span><b>${fmtInt(q)}</b></div>`).join('')}</div>
+      <div><h4>Quem mais solicita · pedidos</h4>${vend.map(([c, v], i) => `<div><span class="p">${i + 1}</span><span>${esc(rotuloVend(c, v).n)}</span><b>${fmtInt(v.p)}</b></div>`).join('')}</div></div>`]);
+    if(M.lt?.n) t.push([`Tempo até faturar · ${nomeMes(P.mesAtual)}`, () => `<div class="tv-lead">${htmlLead(M, 't')}</div>`]);
+  }
+  if(!t.length) t.push(['Carregando…', () => '<div class="tv-vazio" style="color:var(--muted)">Carregando dados do Protheus…</div>']);
+  return t;
+}
+function tvMostrar(i){
+  const telas = tvTelas(); TV.i = ((i % telas.length) + telas.length) % telas.length;
+  const [tit, fn] = telas[TV.i];
+  $('tv-tit').textContent = tit;
+  const palco = $('tv-palco'); palco.style.animation = 'none'; palco.innerHTML = fn(); void palco.offsetWidth; palco.style.animation = '';
+  $('tv-dots').innerHTML = telas.map((_, k) => `<button type="button" class="${k === TV.i ? 'on' : ''}" data-k="${k}" aria-label="Tela ${k + 1}"></button>`).join('');
+  const pr = $('tv-prog'); pr.style.transition = 'none'; pr.style.width = '0'; void pr.offsetWidth; pr.style.transition = `width ${TV.SEG}ms linear`; pr.style.width = '100%';
+  clearTimeout(TV.timer); TV.timer = setTimeout(() => tvMostrar(TV.i + 1), TV.SEG);
+}
+async function iniciarTV(){
+  if(TV.on) return; TV.on = true; document.body.classList.add('modo-tv'); $('tv').hidden = false;
+  try{ await document.documentElement.requestFullscreen?.() }catch{}
+  try{ TV.lock = await navigator.wakeLock?.request('screen') }catch{}
+  const rel = () => { $('tv-rel').textContent = new Date().toLocaleString('pt-BR', {weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) }; rel();
+  TV.relogio = setInterval(rel, 15000);
+  tvMostrar(0);
+  const atualiza = () => carregarFila(true).catch(e => console.warn('fila', e));
+  atualiza().then(() => TV.on && tvMostrar(TV.i)); if(!PAINEL) atualizarPainel();
+  TV.fila = setInterval(atualiza, 5 * 60e3);
+}
+function sairTV(){
+  if(!TV.on) return; TV.on = false; $('tv').hidden = true; document.body.classList.remove('modo-tv');
+  clearTimeout(TV.timer); clearInterval(TV.relogio); clearInterval(TV.fila);
+  try{ TV.lock?.release() }catch{} TV.lock = null;
+  if(document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+}
+function iniciarTVControles(){
+  $('btn-tv').onclick = iniciarTV; $('tv-x').onclick = sairTV;
+  $('tv-dots').addEventListener('click', e => { const b = e.target.closest('[data-k]'); if(b) tvMostrar(+b.dataset.k) });
+  document.addEventListener('keydown', e => { if(!TV.on) return; if(e.key === 'Escape') sairTV(); if(e.key === 'ArrowRight') tvMostrar(TV.i + 1); if(e.key === 'ArrowLeft') tvMostrar(TV.i - 1) });
+  document.addEventListener('visibilitychange', async () => { if(TV.on && document.visibilityState === 'visible' && !TV.lock){ try{ TV.lock = await navigator.wakeLock?.request('screen') }catch{} } });
+  $('dsh-lead').addEventListener('click', e => { const b = e.target.closest('[data-ld]'); if(!b) return; LEAD_MODO = b.dataset.ld; const per = DSH_PER === 'ano' ? 'ano' : DSH_MES; $('dsh-lead').innerHTML = htmlLead(visao(per)) });
+}
+
+/* ============================ notificações ============================ */
+async function topicoNtfy(){
+  const base = IMP.chave() || ('sem-codigo-' + (store.get('pv-ntfy-rnd') || (() => { const r = Math.random().toString(36).slice(2, 12); store.set('pv-ntfy-rnd', r); return r })()));
+  try{
+    const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('pedidos4k|' + base));
+    return 'pedidos4k-' + [...new Uint8Array(h)].slice(0, 9).map(b => b.toString(16).padStart(2, '0')).join('');
+  }catch{ return 'pedidos4k-' + base.replace(/[^a-z0-9]/gi, '').slice(0, 24).toLowerCase() }
+}
+async function enviarCelular(titulo, mensagem){
+  const topic = await topicoNtfy();
+  const r = await fetch('https://ntfy.sh/', {method:'POST', body:JSON.stringify({topic, title:titulo, message:mensagem, tags:['package'], priority:4, click:location.origin + location.pathname})});
+  if(!r.ok) throw new Error('ntfy respondeu HTTP ' + r.status);
+}
+async function notificarLocal(titulo, corpo){
+  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+  const op = {body:corpo, icon:'icons/icon-192.png', badge:'icons/icon-192.png', tag:'pedidos-novos', renotify:true};
+  try{ const reg = await navigator.serviceWorker?.getRegistration(); if(reg){ await reg.showNotification(titulo, op); return } }catch{}
+  try{ const n = new Notification(titulo, op); n.onclick = () => { window.focus(); $('novo-chip').click(); n.close() } }catch{}
+}
+async function avisarNovos(nums){
+  const titulo = nums.length === 1 ? 'Pedido novo de amostra' : `${nums.length} pedidos novos de amostra`;
+  const corpo = `Em aberto: ${nums.slice(0, 8).join(', ')}${nums.length > 8 ? '…' : ''}`;
+  notificarLocal(titulo, corpo);
+  if(store.get('pv-ntfy-envia') === '1') enviarCelular(titulo, corpo).catch(e => console.warn('ntfy', e));
+}
+function abrirNotif(){
+  $('user-pop').classList.remove('on');
+  const st = () => { const p = 'Notification' in window ? Notification.permission : 'indisponível';
+    $('nt-perm-st').textContent = p === 'granted' ? '✓ Ativado' : p === 'denied' ? 'Bloqueado no navegador (libere no cadeado ao lado do endereço)' : p === 'indisponível' ? 'Este navegador não tem avisos' : '';
+    $('nt-perm').hidden = p === 'granted' || p === 'indisponível' };
+  st(); $('nt-st').textContent = ''; $('nt-envia').checked = store.get('pv-ntfy-envia') === '1';
+  topicoNtfy().then(t => $('nt-topico').textContent = t);
+  $('nt-perm').onclick = async () => { try{ await Notification.requestPermission() }catch{} st(); if(Notification.permission === 'granted') notificarLocal('Avisos ativados', 'Você será avisado quando descer pedido novo.') };
+  $('nt-copiar').onclick = async () => { try{ await navigator.clipboard.writeText($('nt-topico').textContent); $('nt-copiar').textContent = 'Copiado ✓' }catch{ $('nt-copiar').textContent = 'Copie manualmente' } setTimeout(() => $('nt-copiar').textContent = 'Copiar', 2000) };
+  $('nt-envia').onchange = e => store.set('pv-ntfy-envia', e.target.checked ? '1' : '0');
+  $('nt-teste').onclick = async () => { $('nt-st').textContent = 'Enviando…';
+    try{ await enviarCelular('Teste do Pedidos 4K', `Tudo certo, ${SESSAO.user}! Este celular vai receber os pedidos novos.`); $('nt-st').textContent = '✓ Enviado. Chegou no celular?' }
+    catch(e){ $('nt-st').textContent = 'Não foi possível enviar: ' + e.message } };
+  $('dlg-notif').showModal();
+}
+
+/* ============================ assistente ============================ */
+const AI = {nome:'Assistente', aberto:false, ultimo:'', rec:null};
+const saud = () => { const h = new Date().getHours(); return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite' };
+const nomeUser = () => cap(String(SESSAO.user || '').split(/[.\s_]/)[0]);
+function falar(txt){
+  try{
+    speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = 1.04;
+    const v = speechSynthesis.getVoices().filter(x => /pt(-|_)BR/i.test(x.lang)); u.voice = v.find(x => /google|natural|online/i.test(x.name)) || v[0] || null;
+    u.onstart = () => $('ai-orb').classList.add('fala'); u.onend = u.onerror = () => $('ai-orb').classList.remove('fala');
+    speechSynthesis.speak(u);
+  }catch{}
+}
+function novidadesAI(){
+  if(!FILA) return [];
+  let vistos = []; try{ vistos = JSON.parse(store.get('pv-ai-vistos') || '[]') }catch{}
+  if(!vistos.length) return [];
+  const v = new Set(vistos); return FILA.peds.filter(p => !v.has(p.num));
+}
+function marcarVistoAI(){ if(FILA) store.set('pv-ai-vistos', JSON.stringify(FILA.peds.map(p => p.num).slice(-3000))) }
+function resumoAI(){
+  const F = FILA, P = PAINEL, O = ontemResumo(), itens = [], fala = [];
+  const dt = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+  fala.push(`${saud()}, ${nomeUser()}. Hoje é ${dt}.`);
+  if(F){
+    if(F.atr.length){ itens.push(['prog', 'red', '⏰', `<b>${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}</b> · o mais antigo é o ${F.atr[0].num}, há ${F.atr[0].dias} dias.`, 'atr']);
+      fala.push(`Atenção: ${pl(F.atr.length, 'pedido está atrasado', 'pedidos estão atrasados')}. O mais antigo é o ${F.atr[0].num.split('').join(' ')}, parado há ${F.atr[0].dias} dias.`) }
+    else { itens.push(['prog', 'ok', '✓', '<b>Nenhum pedido atrasado.</b> Tudo dentro do prazo.', '']); fala.push('Nenhum pedido atrasado.') }
+    if(F.hoje.length){ itens.push(['prog', '', '📌', `<b>${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje</b> (${PRAZO_DIAS}º dia): ${F.hoje.slice(0, 5).map(p => p.num).join(', ')}.`, 'hoje']); fala.push(`${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje.`) }
+    if(F.amanha.length){ itens.push(['prog', '', '🗓️', `<b>${pl(F.amanha.length, 'vence', 'vencem')} amanhã.</b>`, 'amanha']); fala.push(`${pl(F.amanha.length, 'vence', 'vencem')} amanhã.`) }
+    itens.push(['prog', '', '📦', `<b>${fmtInt(F.ab)}</b> em aberto e <b>${fmtInt(F.lib)}</b> liberados aguardando faturamento.`, 'pend']);
+    fala.push(`Na fila: ${fmtInt(F.ab)} em aberto e ${fmtInt(F.lib)} liberados.`);
+    const sem = pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length).length;
+    if(sem){ itens.push(['prog', 'red', '⚠️', `<b>${pl(sem, 'pedido', 'pedidos')} de pilotagem sem estoque</b> na lista atual.`, 'sem']); fala.push(`${pl(sem, 'pedido de pilotagem está', 'pedidos de pilotagem estão')} sem estoque.`) }
+    const nov = novidadesAI();
+    if(nov.length){ itens.push(['novo', '', '✨', `<b>${pl(nov.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita: ${nov.slice(0, 6).map(p => p.num).join(', ')}${nov.length > 6 ? '…' : ''}.`, 'novos']); fala.push(`Desde a sua última visita, ${pl(nov.length, 'chegou um pedido novo', 'chegaram pedidos novos')}.`) }
+  } else itens.push(['prog', '', '…', 'Carregando a fila do Protheus…', '']);
+  if(O && (O.ped || O.fat)){ const dia = O.data.toLocaleDateString('pt-BR', {weekday:'long'});
+    itens.push(['novo', '', '📈', `<b>${c1(dia)}:</b> ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} (${pl(O.qtd, 'amostra', 'amostras')}) e ${pl(O.fat, 'faturado', 'faturados')}.`, '']);
+    fala.push(`${c1(dia === new Date(Date.now() - 864e5).toLocaleDateString('pt-BR', {weekday:'long'}) ? 'Ontem' : dia)}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`) }
+  if(P){ const C = comparacaoMes(P.mesAtual), M = visao(P.mesAtual);
+    if(C){ const v = C.an.qtd ? Math.round(100 * (C.at.qtd - C.an.qtd) / C.an.qtd) : 0;
+      itens.push(['mes', '', '📊', `<b>${fmtInt(M.qtd)} amostras</b> no mês · ${delta(C.at.qtd, C.an.qtd, 1)} vs ${nomeMes(C.mesAnt)} até o mesmo dia.`, 'dash']);
+      fala.push(`No mês, ${fmtInt(M.qtd)} amostras, ${v === 0 ? 'igual ao' : Math.abs(v) + ' por cento ' + (v > 0 ? 'acima do' : 'abaixo do')} mês passado.`) }
+    if(M.lt?.n){ const m = M.lt.s / M.lt.n; itens.push(['mes', m > PRAZO_DIAS ? 'red' : '', '⏱️', `Tempo médio até faturar: <b>${fmtDias(m)}</b> · ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.`, 'dash']) } }
+  return {itens, fala:fala.join(' ')};
+}
+function renderAI(){
+  const R = resumoAI();
+  $('ai-nome').textContent = AI.nome; $('ai-data').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+  const sec = (k, t) => { const l = R.itens.filter(x => x[0] === k); return l.length ? `<div class="ai-sec"><h5>${t}</h5>${l.map(([, cls, ic, h, acao]) => acao ? `<button type="button" class="ai-it ${cls}" data-ai="${acao}"><span class="ic">${ic}</span><span>${h}</span></button>` : `<div class="ai-it ${cls}"><span class="ic">${ic}</span><span>${h}</span></div>`).join('')}</div>` : '' };
+  $('ai-corpo').innerHTML = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p>${sec('prog', 'Programação do dia')}${sec('novo', 'O que teve de novo')}${sec('mes', 'Números do mês')}`;
+  const n = FILA ? FILA.atr.length + novidadesAI().length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
+  return R;
+}
+async function abrirAI(falarJa = false){
+  AI.aberto = true; $('ai-pan').hidden = false; renderAI();
+  try{ await Promise.all([carregarFila(), PAINEL ? null : atualizarPainel()]) }catch(e){ console.warn('ai', e) }
+  const R = renderAI(); AI.ultimo = R.fala; if(falarJa) falar(R.fala);
+  setTimeout(marcarVistoAI, 4000);
+}
+function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; try{ speechSynthesis.cancel() }catch{} AI.rec?.abort?.() }
+function responderAI(txt){
+  const t = semAcento(txt).toLowerCase(), F = FILA, P = PAINEL;
+  const r = (h, f, acao) => { $('ai-resp').hidden = false; $('ai-resp').innerHTML = h; falar(f || h.replace(/<[^>]+>/g, '')); if(acao) setTimeout(acao, 400) };
+  let m;
+  if((m = t.match(/pedido\D*(\d{3,6})/)) || (m = t.match(/^\s*(\d{5,6})\s*$/))){ const n = m[1].padStart(6, '0'); return r(`Abrindo o pedido <b>${n}</b>…`, `Abrindo o pedido ${n.split('').join(' ')}.`, () => { fecharAI(); gerar([{filial:CONFIG.filial, num:n}], false) }) }
+  if(/modo tv|televis|\btv\b/.test(t)) return r('Ligando o Modo TV…', 'Ligando o modo TV.', () => { fecharAI(); iniciarTV() });
+  if(/dashboard|painel|grafico/.test(t)) return r('Abrindo o dashboard…', 'Abrindo o dashboard.', () => { fecharAI(); trocarAba('dash') });
+  if(!F) return r('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
+  if(/atras/.test(t)) return r(F.atr.length ? `<b>${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}</b>. Mais antigos: ${F.atr.slice(0, 5).map(p => `${p.num} (${p.dias} dias)`).join(', ')}.` : 'Nenhum pedido atrasado. 👏',
+    F.atr.length ? `${pl(F.atr.length, 'pedido atrasado', 'pedidos atrasados')}. O mais antigo está há ${F.atr[0].dias} dias.` : 'Nenhum pedido atrasado.', F.atr.length ? () => { fecharAI(); abrirAtrasadosNaLista() } : null);
+  if(/novo|novidade|chegou|chegaram/.test(t)){ const n = novidadesAI(); return r(n.length ? `<b>${pl(n.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita: ${n.slice(0, 8).map(p => p.num).join(', ')}.` : 'Nenhum pedido novo desde a sua última visita.') }
+  if(/vence|venc|prazo/.test(t)) return r(`Vencem hoje: <b>${fmtInt(F.hoje.length)}</b>${F.hoje.length ? ' (' + F.hoje.slice(0, 6).map(p => p.num).join(', ') + ')' : ''}. Vencem amanhã: <b>${fmtInt(F.amanha.length)}</b>.`);
+  if(/liberad/.test(t)) return r(`<b>${pl(F.lib, 'pedido liberado', 'pedidos liberados')}</b> aguardando faturamento.`);
+  if(/aberto|fila|pendente/.test(t)) return r(`<b>${fmtInt(F.ab)}</b> em aberto e <b>${fmtInt(F.lib)}</b> liberados.`);
+  if(/fatur|tempo|demora/.test(t) && P){ const M = visao(P.mesAtual); if(M.lt?.n) return r(`Tempo médio até faturar em ${nomeMes(P.mesAtual)}: <b>${fmtDias(M.lt.s / M.lt.n)}</b>, ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.`) }
+  if(/hoje/.test(t) && P) return r(`Hoje chegaram <b>${pl(P.hoje.ped, 'pedido', 'pedidos')}</b> com ${pl(P.hoje.qtd, 'amostra', 'amostras')}.`);
+  if(/ontem/.test(t)){ const O = ontemResumo(); if(O) return r(`${c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: ${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`) }
+  if(/mes|amostra/.test(t) && P){ const M = visao(P.mesAtual); return r(`Em ${nomeMes(P.mesAtual)}: <b>${fmtInt(M.qtd)} amostras</b> em ${pl(M.ped, 'pedido', 'pedidos')}.`) }
+  if(/resumo|programa|bom dia|boa tarde|boa noite|status|como esta|novidades do dia/.test(t)){ const R = renderAI(); return r('Aqui está o resumo do dia.', R.fala) }
+  return r('Ainda não sei responder isso. Tente: <b>resumo</b>, <b>atrasados</b>, <b>novos</b>, <b>vencem hoje</b>, <b>liberados</b>, <b>tempo até faturar</b>, <b>pedido 500123</b> ou <b>modo TV</b>.', 'Ainda não sei responder isso. Tente perguntar por atrasados, novos ou o resumo do dia.');
+}
+function abrirAtrasadosNaLista(){
+  trocarAba('pedidos'); TERMO_SRV = ''; $('f-busca').value = '';
+  $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v === 'todos'))); $('f-status').value = 'todos';
+  SO_ATR = true; buscar();
+}
+function iniciarAI(){
+  $('ai-orb').onclick = () => AI.aberto ? fecharAI() : abrirAI(false);
+  $('ai-x').onclick = fecharAI;
+  $('ai-falar').onclick = () => { if(speechSynthesis.speaking){ speechSynthesis.cancel(); return } falar(AI.ultimo || renderAI().fala) };
+  $('ai-auto').checked = store.get('pv-ai-auto') === '1';
+  $('ai-auto').onchange = e => store.set('pv-ai-auto', e.target.checked ? '1' : '0');
+  $('ai-perg').onsubmit = e => { e.preventDefault(); const v = trim($('ai-txt').value); if(v){ responderAI(v); $('ai-txt').value = '' } };
+  $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(!b) return; const a = b.dataset.ai;
+    if(a === 'atr'){ fecharAI(); abrirAtrasadosNaLista() } else if(a === 'dash'){ fecharAI(); trocarAba('dash') }
+    else if(a === 'novos'){ responderAI('novos') } else if(a === 'hoje' || a === 'amanha'){ responderAI('vencem') } else if(a === 'pend'){ responderAI('aberto') } else if(a === 'sem'){ fecharAI(); trocarAba('pedidos') } });
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ $('ai-mic').hidden = true } else $('ai-mic').onclick = () => {
+    if(AI.rec){ AI.rec.abort(); return }
+    const rec = new SR(); AI.rec = rec; rec.lang = 'pt-BR'; rec.interimResults = true; rec.maxAlternatives = 1;
+    $('ai-mic').classList.add('on'); $('ai-txt').placeholder = 'Ouvindo…';
+    rec.onresult = e => { const r = e.results[e.results.length - 1]; $('ai-txt').value = r[0].transcript; if(r.isFinal){ responderAI(r[0].transcript); $('ai-txt').value = '' } };
+    rec.onend = rec.onerror = () => { AI.rec = null; $('ai-mic').classList.remove('on'); $('ai-txt').placeholder = 'Pergunte: atrasados, novos, pedido 500123…' };
+    try{ speechSynthesis.cancel(); rec.start() }catch{ rec.onend() }
+  };
+  try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices() }catch{}
+}
+// 1x por dia, depois do login: abre o assistente sozinho (e fala, se a opção estiver ligada)
+async function assistenteDoDia(){
+  const hoje = hojeYmd(); if(store.get('pv-ai-dia') === hoje) { carregarFila().then(renderAI).catch(() => {}); return }
+  try{ await carregarFila() }catch(e){ return }
+  store.set('pv-ai-dia', hoje);
+  if(!TV.on) abrirAI(store.get('pv-ai-auto') === '1');
 }
 
 /* visualização no celular em pé: gira as folhas para ficarem na horizontal */
@@ -1954,7 +2382,8 @@ async function checarNovos(){
     const primeira = !NOVOS.conhecidos && !store.get('pv-conhecidos');
     conhecer([]); const novos = primeira ? [] : nums.filter(n => !NOVOS.conhecidos.has(n));
     conhecer(nums); novos.forEach(n => NOVOS.novos.add(n));
-    atualizaNovos(); if(novos.length) bip();
+    atualizaNovos(); if(novos.length){ bip(); avisarNovos(novos) }
+    if(AI.aberto || FILA) carregarFila(true).then(renderAI).catch(() => {});
   }catch(e){ console.warn('novos', e) }
 }
 const ICONE_IMPRESSO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h9l3 3v3"/><rect x="2.5" y="9" width="19" height="8" rx="2"/><path d="M6 14h9v7H6z"/><circle cx="19" cy="18.5" r="4.2" fill="currentColor" stroke="var(--panel)" stroke-width="1.5"/><path d="m17.2 18.6 1.3 1.3 2.4-2.6" stroke="var(--ink)" stroke-width="1.6"/></svg>`;
@@ -2494,7 +2923,8 @@ async function gerar(lista, imprimir, reprocessar = false){
     const chkTd = e.target.closest('.c-chk'); if(chkTd){ chkTd.querySelector('input.chk')?.click(); return }
     const tr = e.target.closest('tr[data-row]'); if(tr && !getSelection().toString()) gerar([pedidos[+tr.dataset.row]], false);
   });
-  iniciarTemas(); iniciarTipDash();
+  iniciarTemas(); iniciarTipDash(); iniciarTVControles(); iniciarAI();
+  $('btn-notif').onclick = abrirNotif; $('aj-notif').onclick = abrirNotif;
   document.body.dataset.tab = 'pedidos';
   document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
   $('dsh-per').addEventListener('click', e => { const b = e.target.closest('button[data-per]'); if(b){ DSH_PER = b.dataset.per; renderDash() } });

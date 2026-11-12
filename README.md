@@ -82,3 +82,14 @@ Pilotagem (e bandeira com "não alterar a cor") sai sempre com até 3 endereços
 - **Imprimir não impressos:** imprime de uma vez todos os pedidos da lista que ainda não foram impressos.
 - **Sem estoque:** nos pedidos com pilotagem, a lista avisa **⚠ sem estoque** quando o item não tem rolo nos armazéns 01/93.
 - **Dashboard:** comparação com o mês anterior (mês em andamento comparado até o mesmo dia) e **tempo até faturar** (média de dias da emissão ao faturamento, % dentro do prazo, por tipo e por vendedora).
+
+### Modo TV
+No Dashboard, botão **Modo TV**: tela cheia que passa sozinha entre 6 telas (Agora, Atrasados, Amostras do mês, Tipos, Ranking e Tempo até faturar), a cada 15 segundos, e mantém a tela ligada. Setas ← → trocam a tela, Esc sai. Para abrir direto no Modo TV, use o endereço do site com `?tv` no final (ex.: `.../appquatrokpedidos/?tv`).
+
+### Notificações
+Menu do usuário → **Notificações de pedidos novos** (ou Ajustes, no celular):
+- **Neste aparelho:** aviso do sistema quando chega pedido novo, com o site aberto.
+- **No celular, com o site fechado:** instale o app gratuito **ntfy** e assine o canal mostrado na tela (o canal vem do código do grupo, então é o mesmo para toda a equipe). Em **um** computador que fica sempre com o site aberto (ex.: a TV da separação), ligue **"Este computador envia os avisos para os celulares"**. Ele confere a cada 30 min e avisa o canal.
+
+### Assistente
+Bolinha no canto da tela: programação do dia (atrasados, o que vence hoje e amanhã, fila em aberto/liberados, sem estoque), o que teve de novo desde a última visita, como foi ontem e os números do mês. Abre sozinho 1x por dia. 🔊 lê o resumo em voz alta; 🎤 aceita perguntas por voz (Chrome/Edge): "atrasados", "novos", "vencem hoje", "liberados", "tempo até faturar", "pedido 500123", "modo TV", "dashboard", "resumo".
