@@ -1234,6 +1234,16 @@ table.res .r{text-align:right}
   <div class="aic-2"><label>Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label>Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
   <button type="button" class="btn sec" id="aic-mordomo">🎩 Estilo mordomo (voz grave e calma)</button>
   <div class="aic-az">
+   <b>Voz premium · ElevenLabs</b>
+   <small>A voz que vocês criarem no ElevenLabs (Voice Design). Tem prioridade sobre o Azure. Chave e voz ficam salvas só neste computador.</small>
+   <label>Chave da API<input id="aic-el-chave" type="password" autocomplete="off" spellcheck="false" placeholder="sk_…"></label>
+   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-carregar">Carregar minhas vozes</button></div>
+   <label>Voz<select id="aic-el-voz"><option value="">— carregue as vozes ou cole o ID abaixo —</option></select></label>
+   <label>ou ID da voz<input id="aic-el-id" type="text" autocomplete="off" spellcheck="false" placeholder="ex.: 21m00Tcm4TlvDq8ikWAM"></label>
+   <div class="aic-2"><label>Modelo<select id="aic-el-modelo"></select></label><label>Estabilidade <small id="aic-el-estab-v"></small><input id="aic-el-estab" type="range" min="0.2" max="1" step="0.05"></label></div>
+   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-teste">▶ Ouvir amostra</button><span class="aic-az-st" id="aic-el-st"></span></div>
+  </div>
+  <div class="aic-az">
    <b>Voz premium · Microsoft Azure</b>
    <small>Voz neural, bem mais natural. Cole a chave do recurso "Speech" do Azure (fica salva só neste computador). Sem chave, usa a voz do navegador.</small>
    <label>Chave<input id="aic-az-chave" type="password" autocomplete="off" spellcheck="false" placeholder="cole a Chave 1 do Azure"></label>
@@ -2434,9 +2444,28 @@ async function falarAzure(txt, cfg = azCfg()){
 }
 function pararFala(){ try{ speechSynthesis.cancel() }catch{} try{ azAudio?.pause() }catch{} $('ai-orb')?.classList.remove('fala') }
 const falando = () => { try{ return speechSynthesis.speaking || (azAudio && !azAudio.paused && !azAudio.ended) }catch{ return false } };
+// ElevenLabs: voz criada pela equipe no site do ElevenLabs (Voice Design). Chave + ID da voz ficam só neste computador.
+const elCfg = () => ({chave:store.get('pv-el-chave') || '', voz:store.get('pv-el-voz') || '', modelo:store.get('pv-el-modelo') || 'eleven_multilingual_v2', estab:+(store.get('pv-el-estab') || 0.6)});
+const EL_MODELOS = [['eleven_multilingual_v2', 'Multilingual v2 · melhor qualidade'], ['eleven_flash_v2_5', 'Flash v2.5 · mais rápido e barato']];
+async function falarEleven(txt, cfg = elCfg()){
+  const k = 'el|' + cfg.voz + '|' + cfg.modelo + '|' + cfg.estab + '|' + txt; let url = azCache.get(k);
+  if(!url){
+    const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(cfg.voz)}?output_format=mp3_44100_128`, {method:'POST',
+      headers:{'xi-api-key':cfg.chave, 'Content-Type':'application/json', 'Accept':'audio/mpeg'},
+      body:JSON.stringify({text:txt.replace(/·/g, ','), model_id:cfg.modelo, voice_settings:{stability:cfg.estab, similarity_boost:0.75, style:0, use_speaker_boost:true}})});
+    if(!r.ok) throw new Error(r.status === 401 ? 'chave inválida ou sem créditos (401)' : r.status === 404 ? 'voz não encontrada (404)' : r.status === 422 ? 'parâmetros inválidos (422)' : r.status === 429 ? 'limite de uso atingido (429)' : 'HTTP ' + r.status);
+    url = URL.createObjectURL(await r.blob()); azCache.set(k, url); if(azCache.size > 60) azCache.delete(azCache.keys().next().value);
+  }
+  pararFala(); azAudio = new Audio(url);
+  azAudio.onplay = () => $('ai-orb').classList.add('fala'); azAudio.onended = azAudio.onpause = () => $('ai-orb').classList.remove('fala');
+  await azAudio.play();
+}
+// ordem: ElevenLabs → Azure → voz do navegador (se um falhar, tenta o próximo)
 function falar(txt){
-  if(azCfg().chave){ falarAzure(txt).catch(e => { console.warn('Azure TTS', e); falarNavegador(txt) }); return }
-  falarNavegador(txt);
+  const el = elCfg(), az = azCfg();
+  const viaAzure = () => az.chave ? falarAzure(txt).catch(e => { console.warn('Azure TTS', e); falarNavegador(txt) }) : falarNavegador(txt);
+  if(el.chave && el.voz){ falarEleven(txt).catch(e => { console.warn('ElevenLabs', e); viaAzure() }); return }
+  viaAzure();
 }
 function falarNavegador(txt){
   try{
@@ -2557,6 +2586,21 @@ function iniciarAI(){
   const encherVozes = () => { const vs = vozesPt(), atual = aiCfg().voz;
     $('aic-voz').innerHTML = `<option value="">Automática (masculina, se houver)</option>` + vs.map(v => `<option value="${esc(v.name)}"${v.name === atual ? ' selected' : ''}>${esc(v.name.replace(/\s*-\s*Portuguese.*$/i, '').replace(/^Microsoft\s+/i, ''))}${VOZ_MASC.test(v.name) ? ' · masculina' : ''}</option>`).join('') };
   const rotulos = () => { $('aic-tom-v').textContent = (+$('aic-tom').value).toFixed(2); $('aic-vel-v').textContent = (+$('aic-vel').value).toFixed(2) + 'x' };
+  $('aic-el-modelo').innerHTML = EL_MODELOS.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
+  const lerEl = () => ({chave:trim($('aic-el-chave').value), voz:trim($('aic-el-id').value) || $('aic-el-voz').value, modelo:$('aic-el-modelo').value, estab:+$('aic-el-estab').value});
+  $('aic-el-estab').oninput = () => $('aic-el-estab-v').textContent = (+$('aic-el-estab').value).toFixed(2);
+  $('aic-el-voz').onchange = () => { if($('aic-el-voz').value) $('aic-el-id').value = '' };
+  $('aic-el-carregar').onclick = async () => { const ch = trim($('aic-el-chave').value); if(!ch){ $('aic-el-st').textContent = 'Cole a chave primeiro.'; return }
+    $('aic-el-st').textContent = 'Carregando vozes…';
+    try{ const r = await fetch('https://api.elevenlabs.io/v1/voices', {headers:{'xi-api-key':ch}}); if(!r.ok) throw new Error(r.status === 401 ? 'chave inválida (401)' : 'HTTP ' + r.status);
+      const vs = ((await r.json()).voices || []).sort((a, b) => (a.category === 'premade') - (b.category === 'premade') || a.name.localeCompare(b.name)), atual = elCfg().voz;
+      $('aic-el-voz').innerHTML = '<option value="">— escolha —</option>' + vs.map(v => `<option value="${esc(v.voice_id)}"${v.voice_id === atual ? ' selected' : ''}>${esc(v.name)}${v.category && v.category !== 'premade' ? ' · sua' : ''}</option>`).join('');
+      $('aic-el-st').textContent = `${vs.length} vozes carregadas. As criadas por vocês aparecem primeiro.` }
+    catch(e){ $('aic-el-st').textContent = 'Erro: ' + e.message } };
+  $('aic-el-teste').onclick = async () => { const cfg = lerEl(); if(!cfg.chave || !cfg.voz){ $('aic-el-st').textContent = 'Informe a chave e escolha a voz.'; return }
+    $('aic-el-st').textContent = 'Gerando…';
+    try{ await falarEleven(`${saud()}, ${trim($('aic-apelido').value) || nomeUser()}. Às suas ordens. Hoje temos alguns pedidos para acompanhar.`, cfg); $('aic-el-st').textContent = '✓ Funcionando. Clique em Salvar.' }
+    catch(e){ $('aic-el-st').textContent = /Failed to fetch|NetworkError|Load failed/i.test(e.message) ? 'Não conectou ao ElevenLabs (rede bloqueada?).' : 'Erro: ' + e.message } };
   $('aic-az-regiao').innerHTML = AZ_REGIOES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
   $('aic-az-voz').innerHTML = AZ_VOZES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
   const lerAz = () => ({chave:trim($('aic-az-chave').value), regiao:$('aic-az-regiao').value, voz:$('aic-az-voz').value});
@@ -2565,11 +2609,15 @@ function iniciarAI(){
     try{ await falarAzure(`${saud()}, ${trim($('aic-apelido').value) || nomeUser()}. Às suas ordens. Hoje temos alguns pedidos para acompanhar.`, cfg); $('aic-az-st').textContent = '✓ Funcionando. Clique em Salvar.' }
     catch(e){ $('aic-az-st').textContent = /Failed to fetch|NetworkError|Load failed/i.test(e.message) ? 'Não conectou ao Azure (região errada ou rede bloqueada).' : 'Erro: ' + e.message } };
   $('ai-cfg').onclick = () => { const f = $('ai-conf'); f.hidden = !f.hidden; if(f.hidden) return; const c = aiCfg(), H = horario(), A = azCfg();
+    const E = elCfg(); $('aic-el-chave').value = E.chave; $('aic-el-modelo').value = E.modelo; $('aic-el-estab').value = E.estab; $('aic-el-estab').oninput();
+    if(E.voz && ![...$('aic-el-voz').options].some(o => o.value === E.voz)) $('aic-el-id').value = E.voz; else $('aic-el-voz').value = E.voz;
+    $('aic-el-st').textContent = E.chave && E.voz ? 'Voz ElevenLabs ativa.' : '';
     $('aic-az-chave').value = A.chave; $('aic-az-regiao').value = A.regiao; $('aic-az-voz').value = A.voz; $('aic-az-st').textContent = A.chave ? 'Voz premium ativa.' : '';
     $('aic-nome').value = store.get('pv-ai-nome') || ''; $('aic-apelido').value = c.apelido; $('aic-tom').value = c.tom; $('aic-vel').value = c.vel; $('aic-avisa').checked = c.avisa;
     $('aic-ini').value = H.ini; $('aic-fim').value = H.fim; encherVozes(); rotulos() };
   $('aic-tom').oninput = $('aic-vel').oninput = rotulos;
-  const salvarCfg = () => { const A = lerAz(); store.set('pv-az-chave', A.chave); store.set('pv-az-regiao', A.regiao); store.set('pv-az-voz', A.voz);
+  const salvarCfg = () => { const E = lerEl(); store.set('pv-el-chave', E.chave); store.set('pv-el-voz', E.voz); store.set('pv-el-modelo', E.modelo); store.set('pv-el-estab', String(E.estab));
+    const A = lerAz(); store.set('pv-az-chave', A.chave); store.set('pv-az-regiao', A.regiao); store.set('pv-az-voz', A.voz);
     store.set('pv-ai-nome', trim($('aic-nome').value)); store.set('pv-ai-apelido', trim($('aic-apelido').value)); store.set('pv-ai-voz', $('aic-voz').value);
     store.set('pv-ai-tom', $('aic-tom').value); store.set('pv-ai-vel', $('aic-vel').value); store.set('pv-ai-avisa', $('aic-avisa').checked ? '1' : '0');
     if($('aic-ini').value) store.set('pv-hor-ini', $('aic-ini').value); if($('aic-fim').value) store.set('pv-hor-fim', $('aic-fim').value) };

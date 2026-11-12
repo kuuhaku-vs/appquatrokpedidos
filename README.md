@@ -115,3 +115,11 @@ A chave fica salva só no computador em que foi colada (faça o passo 5 em cada 
 
 ### Tipos em aberto → itens
 Na tabela **Tipos em aberto** (assistente), clique em um tipo para ver todos os códigos de produto, as quantidades e os pedidos daquele tipo. **‹ Voltar aos tipos** volta para a lista.
+
+### Voz premium (ElevenLabs)
+Tem prioridade sobre o Azure. Ordem usada pelo assistente: ElevenLabs → Azure → voz do navegador (se um falhar, tenta o próximo).
+1. Crie uma conta em https://elevenlabs.io.
+2. **Voices → Voice Design**: descreva uma voz original (ex.: "voz masculina madura, grave, calma e formal, tom de mordomo sofisticado, português do Brasil"), gere, ouça as opções e salve a que mais gostar na sua biblioteca.
+3. Perfil → **API Keys** → crie uma chave (com permissão de Text to Speech e leitura de vozes) e copie.
+4. No site: assistente → **⚙** → **Voz premium · ElevenLabs** → cole a chave → **Carregar minhas vozes** → escolha a voz (as suas aparecem primeiro, marcadas "sua") → **▶ Ouvir amostra** → **Salvar**.
+Modelo: **Multilingual v2** (melhor qualidade) ou **Flash v2.5** (mais rápido e gasta menos créditos). A chave fica só no computador onde foi colada.
