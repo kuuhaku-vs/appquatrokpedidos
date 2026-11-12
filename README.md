@@ -103,3 +103,15 @@ No Dashboard → **Tempo até faturar**, quando há pedidos faturados fora do pr
 
 ### Assistente (versão simples)
 Quatro cartões grandes (Atrasados, Em aberto, Liberados, Pilotagens), algumas linhas curtas e três botões. Clicar em **Atrasados / Em aberto / Liberados** filtra a lista (últimos 180 dias; o × no aviso volta ao filtro normal). **Pilotagens**, tipos, "vencem hoje" e "novos" abrem uma **tabela separada**, que fecha no ✕, no Esc ou clicando fora. As respostas do assistente também têm ✕. No ⚙, o botão **Estilo mordomo** deixa a voz grave e calma.
+
+### Voz premium (Microsoft Azure)
+O assistente pode usar uma voz neural do Azure, bem mais natural, com um estilo próprio (calmo e formal, com pausas curtas). Sem chave, ou se o Azure falhar, ele volta sozinho para a voz do navegador.
+1. Entre em https://portal.azure.com com uma conta Microsoft (crie uma, se precisar).
+2. **Criar um recurso** → procure **"Speech"** (Serviços de Fala / Azure AI Speech) → **Criar**.
+3. Escolha a assinatura, crie um grupo de recursos (ex.: `pedidos4k`), região **Brazil South**, um nome qualquer e o tipo de preço **Free F0** (gratuito; se não aparecer, o **Standard S0** cobra por caractere falado).
+4. Depois de criado, abra o recurso → **Chaves e Ponto de Extremidade** → copie a **Chave 1** e confira a **Região**.
+5. No site: bolinha do assistente → **⚙** → **Voz premium** → cole a chave, escolha a região e a voz (Antonio, Donato, Fabio, Humberto, Julio, Nicolau, Valerio ou Macerio) → **▶ Ouvir amostra** → **Salvar**.
+A chave fica salva só no computador em que foi colada (faça o passo 5 em cada computador). Não compartilhe a chave.
+
+### Tipos em aberto → itens
+Na tabela **Tipos em aberto** (assistente), clique em um tipo para ver todos os códigos de produto, as quantidades e os pedidos daquele tipo. **‹ Voltar aos tipos** volta para a lista.

@@ -438,6 +438,10 @@ button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
 .aic-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ai-conf .aic-ck{flex-direction:row;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:12.5px;font-weight:500;color:var(--text)}
 .aic-nota{margin:0;font-size:11.5px;color:var(--dim)}
+.aic-az{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line-2);border-radius:12px;background:var(--panel)}
+.aic-az > b{font:700 13px var(--display)}.aic-az > small{color:var(--dim);font-size:11.5px;line-height:1.4}
+.ai-conf input[type=password]{height:36px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel-2);color:var(--text);padding:0 10px;font:500 13px var(--font);text-transform:none;letter-spacing:0}
+.aic-az-st{font-size:12px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:500}
 .aic-acts{display:flex;gap:8px;justify-content:flex-end}
 .ai-tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
 .ai-tab th{text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);padding:0 0 5px;border-bottom:1px solid var(--line-2)}
@@ -1229,6 +1233,13 @@ table.res .r{text-align:right}
   <label>Voz<select id="aic-voz"></select></label>
   <div class="aic-2"><label>Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label>Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
   <button type="button" class="btn sec" id="aic-mordomo">🎩 Estilo mordomo (voz grave e calma)</button>
+  <div class="aic-az">
+   <b>Voz premium · Microsoft Azure</b>
+   <small>Voz neural, bem mais natural. Cole a chave do recurso "Speech" do Azure (fica salva só neste computador). Sem chave, usa a voz do navegador.</small>
+   <label>Chave<input id="aic-az-chave" type="password" autocomplete="off" spellcheck="false" placeholder="cole a Chave 1 do Azure"></label>
+   <div class="aic-2"><label>Região<select id="aic-az-regiao"></select></label><label>Voz<select id="aic-az-voz"></select></label></div>
+   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-az-teste">▶ Ouvir amostra</button><span class="aic-az-st" id="aic-az-st"></span></div>
+  </div>
   <label class="aic-ck"><input type="checkbox" id="aic-avisa"> Avisar (falando) quando chegar pedido novo, com os tipos e as pilotagens</label>
   <label class="aic-ck"><input type="checkbox" id="ai-auto"> Falar o resumo sozinho ao abrir o site (1x por dia)</label>
   <div class="aic-2"><label>Horário de uso · início<input id="aic-ini" type="time"></label><label>fim<input id="aic-fim" type="time"></label></div>
@@ -2145,24 +2156,27 @@ async function carregarFila(forcar = false){
     const map = new Map(), vistos = new Set();
     rows.forEach(r => {
       const n = trim(r.c5_num), k = n + '|' + trim(r.c6_item); if(vistos.has(k)) return; vistos.add(k);
-      const o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0, tipos:{}, pilot:[]};
+      const o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0, tipos:{}, pilot:[], lista:[]};
       o.itens++;
       // quantidade de amostras pendente do item (mesma regra do cartão de tipos)
       const ori = get(r, campoOri), qa = Math.ceil(Math.max(0, num(ori === undefined || ori === null || ori === '' ? r.c6_qtdven : ori)));
       const qv = num(r.c6_qtdven), qtd = Math.max(1, Math.ceil(qa * (qv > 0 ? (qv - num(r.c6_qtdent)) / qv : 1)));
       const cod = trim(get(r, campoTp)), tipo = (opcao(campoTp, cod) || 'NÃO INFORMADO').toUpperCase();
-      if(!TIPOS_FORA_DASH.includes(tipo)) o.tipos[tipo] = (o.tipos[tipo] || 0) + qtd;
+      if(!TIPOS_FORA_DASH.includes(tipo)){ o.tipos[tipo] = (o.tipos[tipo] || 0) + qtd; o.lista.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd, tipo}) }
       if(CONFIG.enderecamento.sempre.includes(cod)) o.pilot.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd});
       map.set(n, o);
     });
     const peds = [...map.values()].map(p => ({...p, dias:diasParado(p)}));
     let nomeCli = () => null; try{ nomeCli = await carregarClientes(peds.filter(p => p.dias > PRAZO_DIAS - 2).map(p => p.cliente)) }catch(e){ if(e.auth) throw e }
     peds.forEach(p => { p.nomeCli = cap(trim(get(nomeCli(p.cliente, p.loja), 'A1_NOME'))) });
-    const abertos = peds.filter(p => !p.lib), tiposAb = {}, pilotMap = new Map();
+    const abertos = peds.filter(p => !p.lib), tiposAb = {}, pilotMap = new Map(), porTipo = {};
+    abertos.forEach(p => p.lista.forEach(i => { const m = porTipo[i.tipo] || (porTipo[i.tipo] = new Map()), k = i.prod || i.desc, x = m.get(k) || {prod:i.prod, desc:i.desc, qtd:0, peds:[]};
+      x.qtd += i.qtd; if(!x.peds.includes(p.num)) x.peds.push(p.num); m.set(k, x) }));
     abertos.forEach(p => { Object.entries(p.tipos).forEach(([t, q]) => tiposAb[t] = (tiposAb[t] || 0) + q);
       p.pilot.forEach(i => { const k = i.desc.toUpperCase() || i.prod, x = pilotMap.get(k) || {desc:i.desc || i.prod, prod:i.prod, qtd:0, peds:[]}; x.qtd += i.qtd; if(!x.peds.includes(p.num)) x.peds.push(p.num); pilotMap.set(k, x) }) });
     FILA = {ts:Date.now(), peds, ab:abertos.length, lib:peds.filter(p => p.lib).length,
-      tiposAb:Object.entries(tiposAb).sort((a, b) => b[1] - a[1]), pilot:[...pilotMap.values()].sort((a, b) => b.qtd - a.qtd),
+      tiposAb:Object.entries(tiposAb).sort((a, b) => b[1] - a[1]),
+      porTipo:Object.fromEntries(Object.entries(porTipo).map(([t, m]) => [t, [...m.values()].sort((a, b) => b.qtd - a.qtd)])), pilot:[...pilotMap.values()].sort((a, b) => b.qtd - a.qtd),
       atr:peds.filter(p => p.dias > PRAZO_DIAS).sort((a, b) => b.dias - a.dias),
       hoje:peds.filter(p => p.dias === PRAZO_DIAS), amanha:peds.filter(p => p.dias === PRAZO_DIAS - 1)};
     return FILA;
@@ -2245,7 +2259,8 @@ function iniciarTabela(){
   const d = $('dlg-tab');
   $('tb-x').onclick = () => d.close();
   d.addEventListener('click', e => { if(e.target === d) d.close() }); // clique fora fecha
-  $('tb-corpo').addEventListener('click', e => { const tr = e.target.closest('tr[data-ped]'); if(!tr) return; d.close(); gerar([{filial:CONFIG.filial, num:tr.dataset.ped}], false) });
+  $('tb-corpo').addEventListener('click', e => { const tt = e.target.closest('tr[data-tipo]'); if(tt) return tabelaItensTipo(tt.dataset.tipo); if(e.target.closest('[data-voltar-tipos]')) return tabelaTiposAb();
+    const tr = e.target.closest('tr[data-ped]'); if(!tr) return; d.close(); gerar([{filial:CONFIG.filial, num:tr.dataset.ped}], false) });
 }
 const linhaPed = p => `<tr data-ped="${esc(p.num)}"><td><b>${esc(p.num)}</b></td><td>${esc(p.nomeCli || p.cliente)}</td><td>${esc(nomeVendLista(p.vend2) || p.vend2 || '—')}</td><td>${esc(Object.keys(p.tipos || {}).map(cap).join(', ') || '—')}</td><td>${p.lib ? 'Liberado' : 'Em aberto'}</td><td class="n${p.dias > PRAZO_DIAS ? ' red' : ''}">${p.dias} dias</td></tr>`;
 const tabelaPeds = (lista, vazio) => lista.length ? `<table class="tb-t"><thead><tr><th>Pedido</th><th>Cliente</th><th>Vendedora</th><th>Tipos</th><th>Situação</th><th class="n">Parado</th></tr></thead><tbody>${lista.map(linhaPed).join('')}</tbody></table><p class="tb-dica">Clique em uma linha para abrir o pedido.</p>` : `<p class="vazio">${vazio}</p>`;
@@ -2259,7 +2274,13 @@ function tabelaTiposAb(){
   const F = FILA; if(!F) return; const tot = F.tiposAb.reduce((s, x) => s + x[1], 0), cores = coresTipos();
   const peds = t => F.peds.filter(p => !p.lib && p.tipos[t]).length;
   abrirTabela('Em aberto por tipo de amostra', `${pl(tot, 'amostra', 'amostras')} em ${pl(F.ab, 'pedido', 'pedidos')} em aberto`,
-    `<table class="tb-t"><thead><tr><th>Tipo</th><th class="n">Pedidos</th><th class="n">Amostras</th><th class="n">%</th></tr></thead><tbody>${F.tiposAb.map(([t, q]) => `<tr><td><span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}</td><td class="n">${fmtInt(peds(t))}</td><td class="n"><b>${fmtInt(q)}</b></td><td class="n">${Math.round(100 * q / tot)}%</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td class="n">${fmtInt(F.ab)}</td><td class="n">${fmtInt(tot)}</td><td></td></tr></tfoot></table>`);
+    `<table class="tb-t"><thead><tr><th>Tipo</th><th class="n">Pedidos</th><th class="n">Amostras</th><th class="n">%</th><th></th></tr></thead><tbody>${F.tiposAb.map(([t, q]) => `<tr data-tipo="${esc(t)}" style="cursor:pointer"><td><span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}</td><td class="n">${fmtInt(peds(t))}</td><td class="n"><b>${fmtInt(q)}</b></td><td class="n">${Math.round(100 * q / tot)}%</td><td class="n" style="color:var(--muted)">ver itens ›</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td class="n">${fmtInt(F.ab)}</td><td class="n">${fmtInt(tot)}</td><td></td><td></td></tr></tfoot></table><p class="tb-dica">Clique em um tipo para ver os códigos de produto e as quantidades.</p>`);
+}
+function tabelaItensTipo(t){
+  const F = FILA, l = F?.porTipo?.[t] || [], tot = l.reduce((s, x) => s + x.qtd, 0), cor = coresTipos()(t);
+  abrirTabela(cap(t), `${pl(l.length, 'produto', 'produtos')} · ${pl(tot, 'amostra', 'amostras')} · pedidos em aberto`,
+    `<button type="button" class="btn sec" data-voltar-tipos style="margin-bottom:12px">‹ Voltar aos tipos</button>`
+    + (l.length ? `<table class="tb-t"><thead><tr><th>Código</th><th>Produto</th><th class="n">Qtd</th><th>Pedidos</th></tr></thead><tbody>${l.map(x => `<tr><td><span class="tp-dot" style="background:${cor}"></span><b>${esc(x.prod)}</b></td><td>${esc(x.desc)}</td><td class="n"><b>${fmtInt(x.qtd)}</b></td><td>${x.peds.join(', ')}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="n">${fmtInt(tot)}</td><td></td></tr></tfoot></table>` : '<p class="vazio">Nenhum item em aberto deste tipo.</p>'));
 }
 // Por que atrasou? Resumo dos pedidos faturados fora do prazo, deduzido dos dados do Protheus
 async function abrirResumoAtrasos(V, rot){
@@ -2388,9 +2409,38 @@ function escolherVoz(){
 }
 const saud = () => { const h = new Date().getHours(); return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite' };
 const nomeUser = () => aiCfg().apelido || cap(String(SESSAO.user || '').split(/[.\s_]/)[0]);
+// Voz premium: Microsoft Azure (vozes neurais). Sem chave ou se falhar, usa a voz do navegador.
+const AZ_VOZES = [['pt-BR-AntonioNeural', 'Antonio'], ['pt-BR-DonatoNeural', 'Donato'], ['pt-BR-FabioNeural', 'Fabio'], ['pt-BR-HumbertoNeural', 'Humberto'],
+  ['pt-BR-JulioNeural', 'Julio'], ['pt-BR-NicolauNeural', 'Nicolau'], ['pt-BR-ValerioNeural', 'Valerio'], ['pt-BR-MacerioMultilingualNeural', 'Macerio (multilíngue)']];
+const AZ_REGIOES = [['brazilsouth', 'Brasil (Sul)'], ['eastus', 'EUA (Leste)'], ['eastus2', 'EUA (Leste 2)'], ['westus2', 'EUA (Oeste 2)'], ['westeurope', 'Europa (Oeste)'], ['southcentralus', 'EUA (Centro-Sul)']];
+const azCfg = () => ({chave:store.get('pv-az-chave') || '', regiao:store.get('pv-az-regiao') || 'brazilsouth', voz:store.get('pv-az-voz') || 'pt-BR-AntonioNeural'});
+const azCache = new Map(); let azAudio = null;
+const escXml = t => String(t).replace(/[<>&'"]/g, c => ({'<':'&lt;', '>':'&gt;', '&':'&amp;', "'":'&apos;', '"':'&quot;'}[c]));
+async function falarAzure(txt, cfg = azCfg()){
+  const c = aiCfg(), pitch = Math.round((c.tom - 1) * 40), rate = Math.round((c.vel - 1) * 100);
+  // estilo próprio do assistente: calmo e formal, com pequenas pausas depois do cumprimento e das frases
+  const corpo = escXml(txt.replace(/·/g, ',')).replace(/([.!?])\s+/g, '$1 <break time="250ms"/> ');
+  const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="pt-BR"><voice name="${cfg.voz}"><prosody rate="${rate}%" pitch="${pitch}%">${corpo}</prosody></voice></speak>`;
+  const k = cfg.voz + '|' + pitch + '|' + rate + '|' + txt; let url = azCache.get(k);
+  if(!url){
+    const r = await fetch(`https://${cfg.regiao}.tts.speech.microsoft.com/cognitiveservices/v1`, {method:'POST',
+      headers:{'Ocp-Apim-Subscription-Key':cfg.chave, 'Content-Type':'application/ssml+xml', 'X-Microsoft-OutputFormat':'audio-24khz-48kbitrate-mono-mp3'}, body:ssml});
+    if(!r.ok) throw new Error(r.status === 401 ? 'chave inválida (401)' : r.status === 400 ? 'voz não disponível nesta região (400)' : r.status === 429 ? 'limite de uso atingido (429)' : 'HTTP ' + r.status);
+    url = URL.createObjectURL(await r.blob()); azCache.set(k, url); if(azCache.size > 60) azCache.delete(azCache.keys().next().value);
+  }
+  pararFala(); azAudio = new Audio(url);
+  azAudio.onplay = () => $('ai-orb').classList.add('fala'); azAudio.onended = azAudio.onpause = () => $('ai-orb').classList.remove('fala');
+  await azAudio.play();
+}
+function pararFala(){ try{ speechSynthesis.cancel() }catch{} try{ azAudio?.pause() }catch{} $('ai-orb')?.classList.remove('fala') }
+const falando = () => { try{ return speechSynthesis.speaking || (azAudio && !azAudio.paused && !azAudio.ended) }catch{ return false } };
 function falar(txt){
+  if(azCfg().chave){ falarAzure(txt).catch(e => { console.warn('Azure TTS', e); falarNavegador(txt) }); return }
+  falarNavegador(txt);
+}
+function falarNavegador(txt){
   try{
-    speechSynthesis.cancel(); const c = aiCfg(), u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = c.vel; u.pitch = c.tom;
+    pararFala(); const c = aiCfg(), u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = c.vel; u.pitch = c.tom;
     u.voice = escolherVoz();
     u.onstart = () => $('ai-orb').classList.add('fala'); u.onend = u.onerror = () => $('ai-orb').classList.remove('fala');
     speechSynthesis.speak(u);
@@ -2489,7 +2539,7 @@ async function abrirAI(falarJa = false){
   renderAI(); if(falarJa) falar(AI.ultimo);
   setTimeout(marcarVistoAI, 4000);
 }
-function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; $('ai-resp').hidden = true; try{ speechSynthesis.cancel() }catch{} AI.rec?.abort?.() }
+function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; $('ai-resp').hidden = true; pararFala(); AI.rec?.abort?.() }
 let MODO_ASSIST = '';
 const ROT_ASSIST = {atr:'Atrasados', aberto:'Em aberto', liberado:'Liberados'};
 function abrirListaAssist(modo){
@@ -2502,16 +2552,25 @@ const abrirAtrasadosNaLista = () => abrirListaAssist('atr');
 function iniciarAI(){
   $('ai-orb').onclick = () => AI.aberto ? fecharAI() : abrirAI(false);
   $('ai-x').onclick = fecharAI;
-  $('ai-falar').onclick = () => { if(speechSynthesis.speaking){ speechSynthesis.cancel(); return } falar(AI.ultimo || renderAI().fala) };
+  $('ai-falar').onclick = () => { if(falando()){ pararFala(); return } falar(AI.ultimo || renderAI().fala) };
   $('ai-auto').checked = store.get('pv-ai-auto') === '1';
   const encherVozes = () => { const vs = vozesPt(), atual = aiCfg().voz;
     $('aic-voz').innerHTML = `<option value="">Automática (masculina, se houver)</option>` + vs.map(v => `<option value="${esc(v.name)}"${v.name === atual ? ' selected' : ''}>${esc(v.name.replace(/\s*-\s*Portuguese.*$/i, '').replace(/^Microsoft\s+/i, ''))}${VOZ_MASC.test(v.name) ? ' · masculina' : ''}</option>`).join('') };
   const rotulos = () => { $('aic-tom-v').textContent = (+$('aic-tom').value).toFixed(2); $('aic-vel-v').textContent = (+$('aic-vel').value).toFixed(2) + 'x' };
-  $('ai-cfg').onclick = () => { const f = $('ai-conf'); f.hidden = !f.hidden; if(f.hidden) return; const c = aiCfg(), H = horario();
+  $('aic-az-regiao').innerHTML = AZ_REGIOES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
+  $('aic-az-voz').innerHTML = AZ_VOZES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
+  const lerAz = () => ({chave:trim($('aic-az-chave').value), regiao:$('aic-az-regiao').value, voz:$('aic-az-voz').value});
+  $('aic-az-teste').onclick = async () => { const cfg = lerAz(); if(!cfg.chave){ $('aic-az-st').textContent = 'Cole a chave primeiro.'; return }
+    $('aic-az-st').textContent = 'Gerando…';
+    try{ await falarAzure(`${saud()}, ${trim($('aic-apelido').value) || nomeUser()}. Às suas ordens. Hoje temos alguns pedidos para acompanhar.`, cfg); $('aic-az-st').textContent = '✓ Funcionando. Clique em Salvar.' }
+    catch(e){ $('aic-az-st').textContent = /Failed to fetch|NetworkError|Load failed/i.test(e.message) ? 'Não conectou ao Azure (região errada ou rede bloqueada).' : 'Erro: ' + e.message } };
+  $('ai-cfg').onclick = () => { const f = $('ai-conf'); f.hidden = !f.hidden; if(f.hidden) return; const c = aiCfg(), H = horario(), A = azCfg();
+    $('aic-az-chave').value = A.chave; $('aic-az-regiao').value = A.regiao; $('aic-az-voz').value = A.voz; $('aic-az-st').textContent = A.chave ? 'Voz premium ativa.' : '';
     $('aic-nome').value = store.get('pv-ai-nome') || ''; $('aic-apelido').value = c.apelido; $('aic-tom').value = c.tom; $('aic-vel').value = c.vel; $('aic-avisa').checked = c.avisa;
     $('aic-ini').value = H.ini; $('aic-fim').value = H.fim; encherVozes(); rotulos() };
   $('aic-tom').oninput = $('aic-vel').oninput = rotulos;
-  const salvarCfg = () => { store.set('pv-ai-nome', trim($('aic-nome').value)); store.set('pv-ai-apelido', trim($('aic-apelido').value)); store.set('pv-ai-voz', $('aic-voz').value);
+  const salvarCfg = () => { const A = lerAz(); store.set('pv-az-chave', A.chave); store.set('pv-az-regiao', A.regiao); store.set('pv-az-voz', A.voz);
+    store.set('pv-ai-nome', trim($('aic-nome').value)); store.set('pv-ai-apelido', trim($('aic-apelido').value)); store.set('pv-ai-voz', $('aic-voz').value);
     store.set('pv-ai-tom', $('aic-tom').value); store.set('pv-ai-vel', $('aic-vel').value); store.set('pv-ai-avisa', $('aic-avisa').checked ? '1' : '0');
     if($('aic-ini').value) store.set('pv-hor-ini', $('aic-ini').value); if($('aic-fim').value) store.set('pv-hor-fim', $('aic-fim').value) };
   $('aic-testar').onclick = () => { salvarCfg(); falar(`Olá, ${nomeUser()}. Eu sou ${aiCfg().nome === 'Assistente' ? 'o seu assistente' : 'o ' + aiCfg().nome}. Pronto para começar o dia.`) };
@@ -2519,7 +2578,7 @@ function iniciarAI(){
   $('ai-auto').onchange = e => store.set('pv-ai-auto', e.target.checked ? '1' : '0');
   $('ai-perg').onsubmit = e => { e.preventDefault(); const v = trim($('ai-txt').value); if(v){ responderAI(v); $('ai-txt').value = '' } };
   $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(b && ACOES_AI[b.dataset.ai]) ACOES_AI[b.dataset.ai]() });
-  $('ai-resp').addEventListener('click', e => { if(e.target.closest('.ai-resp-x')){ $('ai-resp').hidden = true; try{ speechSynthesis.cancel() }catch{} } });
+  $('ai-resp').addEventListener('click', e => { if(e.target.closest('.ai-resp-x')){ $('ai-resp').hidden = true; pararFala() } });
   $('aic-mordomo').onclick = () => { const vs = vozesPt(), v = vs.find(x => VOZ_MASC.test(x.name) && /natural|online|neural/i.test(x.name)) || vs.find(x => VOZ_MASC.test(x.name));
     if(v) $('aic-voz').value = v.name; $('aic-tom').value = 0.7; $('aic-vel').value = 0.92; $('aic-tom').oninput();
     salvarCfg(); falar(`Às suas ordens, ${nomeUser()}.${v ? '' : ' Este navegador não tem voz masculina em português. No Microsoft Edge, a voz Antonio fica bem melhor.'}`) };
@@ -2530,7 +2589,7 @@ function iniciarAI(){
     $('ai-mic').classList.add('on'); $('ai-txt').placeholder = 'Ouvindo…';
     rec.onresult = e => { const r = e.results[e.results.length - 1]; $('ai-txt').value = r[0].transcript; if(r.isFinal){ responderAI(r[0].transcript); $('ai-txt').value = '' } };
     rec.onend = rec.onerror = () => { AI.rec = null; $('ai-mic').classList.remove('on'); $('ai-txt').placeholder = 'Pergunte: atrasados, novos, pedido 500123…' };
-    try{ speechSynthesis.cancel(); rec.start() }catch{ rec.onend() }
+    try{ pararFala(); rec.start() }catch{ rec.onend() }
   };
   try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); if(!$('ai-conf').hidden) encherVozes() } }catch{}
 }
