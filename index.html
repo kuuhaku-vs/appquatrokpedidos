@@ -1240,6 +1240,7 @@ table.res .r{text-align:right}
    <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-carregar">Carregar minhas vozes</button></div>
    <label>Voz<select id="aic-el-voz"><option value="">— carregue as vozes ou cole o ID abaixo —</option></select></label>
    <label>ou ID da voz<input id="aic-el-id" type="text" autocomplete="off" spellcheck="false" placeholder="ex.: 21m00Tcm4TlvDq8ikWAM"></label>
+   <button type="button" class="btn sec" id="aic-el-george" title="Voz de catálogo do ElevenLabs: masculina, britânica, grave e calma (a mesma do projeto jarvis do GitHub)">🎩 Usar a voz George (britânica, grave)</button>
    <div class="aic-2"><label>Modelo<select id="aic-el-modelo"></select></label><label>Estabilidade <small id="aic-el-estab-v"></small><input id="aic-el-estab" type="range" min="0.2" max="1" step="0.05"></label></div>
    <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-teste">▶ Ouvir amostra</button><span class="aic-az-st" id="aic-el-st"></span></div>
   </div>
@@ -2590,6 +2591,9 @@ function iniciarAI(){
   const lerEl = () => ({chave:trim($('aic-el-chave').value), voz:trim($('aic-el-id').value) || $('aic-el-voz').value, modelo:$('aic-el-modelo').value, estab:+$('aic-el-estab').value});
   $('aic-el-estab').oninput = () => $('aic-el-estab-v').textContent = (+$('aic-el-estab').value).toFixed(2);
   $('aic-el-voz').onchange = () => { if($('aic-el-voz').value) $('aic-el-id').value = '' };
+  // George: voz de catálogo do ElevenLabs (JBFqnCBsd6RMkjVDRZzb). Com o Multilingual v2 ela fala português (com leve sotaque britânico).
+  $('aic-el-george').onclick = () => { $('aic-el-voz').value = ''; $('aic-el-id').value = 'JBFqnCBsd6RMkjVDRZzb'; $('aic-el-modelo').value = 'eleven_multilingual_v2'; $('aic-el-estab').value = 0.7; $('aic-el-estab').oninput();
+    $('aic-el-st').textContent = 'Voz George selecionada. Clique em ▶ Ouvir amostra e depois em Salvar.' };
   $('aic-el-carregar').onclick = async () => { const ch = trim($('aic-el-chave').value); if(!ch){ $('aic-el-st').textContent = 'Cole a chave primeiro.'; return }
     $('aic-el-st').textContent = 'Carregando vozes…';
     try{ const r = await fetch('https://api.elevenlabs.io/v1/voices', {headers:{'xi-api-key':ch}}); if(!r.ok) throw new Error(r.status === 401 ? 'chave inválida (401)' : 'HTTP ' + r.status);

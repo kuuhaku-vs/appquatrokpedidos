@@ -122,4 +122,5 @@ Tem prioridade sobre o Azure. Ordem usada pelo assistente: ElevenLabs → Azure 
 2. **Voices → Voice Design**: descreva uma voz original (ex.: "voz masculina madura, grave, calma e formal, tom de mordomo sofisticado, português do Brasil"), gere, ouça as opções e salve a que mais gostar na sua biblioteca.
 3. Perfil → **API Keys** → crie uma chave (com permissão de Text to Speech e leitura de vozes) e copie.
 4. No site: assistente → **⚙** → **Voz premium · ElevenLabs** → cole a chave → **Carregar minhas vozes** → escolha a voz (as suas aparecem primeiro, marcadas "sua") → **▶ Ouvir amostra** → **Salvar**.
+Atalho: o botão **🎩 Usar a voz George** preenche a voz George, de catálogo do ElevenLabs (masculina, britânica, grave; fala português com leve sotaque).
 Modelo: **Multilingual v2** (melhor qualidade) ou **Flash v2.5** (mais rápido e gasta menos créditos). A chave fica só no computador onde foi colada.
