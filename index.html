@@ -53,7 +53,12 @@ main{max-width:1480px;margin:0 auto;padding:26px 28px 60px}
 .card + .card{margin-top:16px}
 
 /* filtros */
-.filters{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.filters{display:flex;gap:18px 28px;flex-wrap:wrap;align-items:flex-end}
+.f-sit{padding-right:28px;border-right:1px solid var(--line)}
+.f-datas{display:flex;align-items:flex-end;gap:10px}
+.f-ate{height:40px;display:grid;place-items:center;color:var(--dim);font-size:15px}
+.f-acts{display:flex;gap:10px;margin-left:auto}
+@media(max-width:1000px){.f-sit{padding-right:0;border-right:0}}
 .field{display:flex;flex-direction:column;gap:7px}
 .field > span{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
 .field input,.field select{height:40px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel-2);padding:0 12px;min-width:150px}
@@ -258,6 +263,7 @@ body:not(.logado) .app-shell{visibility:hidden}
 .stat.tipos .tp-leg span{display:inline;margin:0;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
 .stat.tipos .tp-leg .tp-dot{display:inline-block}
 .tp-leg b{color:var(--text);font-weight:700;margin-left:3px}
+.stat.tipos .tp-per{display:block;margin-top:3px;font-style:normal;font-size:11.5px;color:var(--dim)}
 .tp-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:0}
 .tp-pop{position:fixed;z-index:40;width:min(420px,calc(100vw - 32px));background:var(--panel);border:1px solid var(--line-2);border-radius:16px;padding:18px;box-shadow:0 24px 60px rgba(0,0,0,.6);display:none}
 .tp-pop.on{display:block;animation:pop-in .18s ease-out}
@@ -316,10 +322,13 @@ body:not(.logado) .app-shell{visibility:hidden}
  .quick input{width:100%}
  .card{padding:14px;border-radius:14px}
  .filters{gap:12px}
- .filters > .field:first-child{width:100%}
+ .f-sit{width:100%}
  .seg{width:100%;justify-content:space-between}
  .seg button{flex:1;padding:0 8px}
- .filters > label.field{flex:1 1 calc(50% - 6px);min-width:0}
+ .f-datas{width:100%;gap:8px}
+ .f-datas > label.field{flex:1 1 0;min-width:0}
+ .f-ate{display:none}
+ .f-acts{width:100%;margin-left:0}
  .field input,.field select{min-width:0;width:100%}
  #btn-buscar{width:100%}
  .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}
@@ -416,8 +425,8 @@ html body.preview .preview-bar .btn.sec{background:transparent;color:var(--head-
  .hero{margin-bottom:12px}
  .hero h2{font-size:22px}
  .stats{display:none}
- .filters > label.field{display:none}
- body.periodo .filters > label.field{display:flex}
+ .f-datas{display:none}
+ body.periodo .f-datas{display:flex}
  #btn-periodo{display:inline-flex}
  .filters{gap:10px}
  #btn-buscar{flex:1;width:auto}
@@ -574,6 +583,29 @@ body[data-tab="dash"] .tab-pedidos{display:none!important}
 .rk-t i{display:block;height:4px;border-radius:2px;margin-top:6px;background:color-mix(in srgb,var(--lime-t) 70%,transparent)}
 .rk > strong{font:700 15px var(--display);text-align:right;white-space:nowrap}
 .rk > strong small{display:block;font:500 10.5px var(--font);color:var(--dim)}
+/* ranking com colunas (quem mais solicita / top 10) */
+.rk-h{padding:0 0 8px;border-bottom:1px solid var(--line-2)}
+.rk-h span{font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.rk-h .n,.rk .n{text-align:right}
+.rk.c2{grid-template-columns:26px minmax(0,1fr) 70px 80px}
+.rk .num{font:700 15px var(--display);font-variant-numeric:tabular-nums;text-align:right}
+.rk .num.sec{font-weight:600;color:var(--muted)}
+.rk[data-tip]{cursor:default;border-radius:8px;transition:background .12s;padding-left:6px;padding-right:6px;margin:0 -6px}
+.rk[data-tip]:hover,.rk[data-tip].on{background:color-mix(in srgb,var(--lime-t) 7%,transparent)}
+.rk-dica{margin:10px 0 0;color:var(--dim);font-size:11.5px}
+.dsh-tip{position:fixed;z-index:45;width:min(340px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;box-shadow:0 20px 50px rgba(0,0,0,.55);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;visibility:hidden}
+.dsh-tip.on{opacity:1;transform:none;visibility:visible}
+.dsh-tip h4{margin:0;font:700 14.5px var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dsh-tip p{margin:3px 0 10px;color:var(--muted);font-size:12px}
+.dsh-tip table{width:100%;border-collapse:collapse;font-size:12.5px}
+.dsh-tip th{text-align:left;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:0 0 7px;border-bottom:1px solid var(--line)}
+.dsh-tip td{padding:7px 0;border-bottom:1px solid var(--line)}
+.dsh-tip tbody tr:last-child td{border-bottom:0}
+.dsh-tip .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;padding-left:12px}
+.dsh-tip tr.zero td{color:var(--dim);font-weight:400}
+.dsh-tip .mini{display:block;height:3px;border-radius:2px;margin-top:4px}
+.dsh-tip tfoot td{border-top:1px solid var(--line-2);border-bottom:0;font-weight:700;padding-top:8px}
+.dsh-tip .nota{margin:8px 0 0;font-size:11px;color:var(--dim)}
 .chip{display:inline-block;padding:0 6px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);font-size:10px;line-height:15px}
 .drow{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
 .drow:last-child{border-bottom:0}
@@ -755,7 +787,7 @@ table.res .r{text-align:right}
 
  <section class="card tab-pedidos">
   <div class="filters">
-   <div class="field"><span>Situação</span>
+   <div class="field f-sit"><span>Situação</span>
     <div class="seg" id="seg-status">
      <button type="button" data-v="aberto" aria-pressed="true">Em aberto</button>
      <button type="button" data-v="liberado" aria-pressed="false">Liberados</button>
@@ -764,10 +796,15 @@ table.res .r{text-align:right}
     </div>
     <select id="f-status" hidden><option value="aberto" selected>Em aberto</option><option value="liberado">Liberados</option><option value="faturado">Faturados</option><option value="todos">Todos</option></select>
    </div>
-   <label class="field"><span>Emissão de</span><input type="date" id="f-de"></label>
-   <label class="field"><span>Emissão até</span><input type="date" id="f-ate"></label>
-   <button class="btn sec" id="btn-periodo" type="button">Período</button>
-   <button class="btn" id="btn-buscar">Buscar pedidos</button>
+   <div class="f-datas">
+    <label class="field"><span>Emissão de</span><input type="date" id="f-de"></label>
+    <span class="f-ate" aria-hidden="true">→</span>
+    <label class="field"><span>Emissão até</span><input type="date" id="f-ate"></label>
+   </div>
+   <div class="f-acts">
+    <button class="btn sec" id="btn-periodo" type="button">Período</button>
+    <button class="btn" id="btn-buscar">Buscar pedidos</button>
+   </div>
   </div>
  </section>
 
@@ -778,7 +815,7 @@ table.res .r{text-align:right}
   <div class="stat hi"><span>A imprimir</span><strong id="st-pend">—</strong></div>
   <div class="stat"><span>Já impressos</span><strong id="st-imp">—</strong></div>
   <button class="stat tipos" id="st-tipos" type="button" title="Ver tabela de amostras em aberto por tipo">
-   <span>Amostras em aberto por tipo</span><strong id="tp-total">—</strong>
+   <span>Amostras em aberto por tipo</span><em class="tp-per" id="tp-per"></em><strong id="tp-total">—</strong>
    <div class="tp-bar" id="tp-bar"></div><div class="tp-leg" id="tp-leg"></div><i class="q" style="font-style:normal">?</i>
   </button>
  </div>
@@ -855,6 +892,7 @@ table.res .r{text-align:right}
 </dialog>
 
 
+<div class="dsh-tip" id="dsh-tip" role="tooltip"></div>
 <div class="print-confirm" id="print-confirm"></div>
 <div class="preview-warn" id="preview-warn"></div>
 <div id="print-area"></div>
@@ -1222,7 +1260,7 @@ const TIPOS_FORA_DASH = ['TAGS', 'DESENVOLVIMENTO DE COR']; // não aparecem no 
 async function carregarPainel(forcar = false){
   if(painelCarregando) return painelCarregando;
   if(!forcar){
-    try{ const c = JSON.parse(store.get('pv-painel4', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
+    try{ const c = JSON.parse(store.get('pv-painel5', true) || 'null'); if(c && Date.now() - c.ts < 10 * 60e3){ PAINEL = c; return PAINEL } }catch{}
   }
   painelCarregando = (async () => {
     const hoje = new Date(), mesAtual = ymd(hoje).slice(0, 6), hojeStr = ymd(hoje);
@@ -1249,21 +1287,23 @@ async function carregarPainel(forcar = false){
 
     const meses = listaMeses.map((mes, i) => {
       const vistos = new Set(), M = {mes, qtd:0, env:0, ped:0, cli:[], fat:0, ab:0, lib:0, tipos:{}, prod:{}, vend:{}, dias:{}};
-      const peds = new Map(), clis = new Set();
+      const peds = new Map(), clis = new Set(), vistosPT = new Set();
       porMes[i].forEach(r => {
         const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k); // ignora linhas repetidas entre páginas
         const qv = num(r.c6_qtdven), qe = num(r.c6_qtdent), am = qa(r), em = trim(r.c5_emissao).replace(/-/g, ''), tp = tipoDe(r);
         M.qtd += am; M.env += am; clis.add(trim(r.c5_cliente));
         M.tipos[tp] = (M.tipos[tp] || 0) + am;
-        const dsc = trim(r.c6_descri).toUpperCase().replace(/\s+/g, ' '), pc = dsc || trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0, trim(r.c6_produto)]); pr[1] += am; // agrupado pela descrição, como no Consolidado
+        const dsc = trim(r.c6_descri).toUpperCase().replace(/\s+/g, ' '), pc = dsc || trim(r.c6_produto); const pr = M.prod[pc] || (M.prod[pc] = [trim(r.c6_descri), 0, trim(r.c6_produto), {}, 0]); pr[1] += am; if(!vistosPT.has(pc + '||' + r.c5_num)){ vistosPT.add(pc + '||' + r.c5_num); pr[4]++ } // agrupado pela descrição, como no Consolidado
+        const prt = pr[3][tp] || (pr[3][tp] = {p:0, q:0}); prt.q += am; if(!vistosPT.has(pc + '|' + tp + '|' + r.c5_num)){ vistosPT.add(pc + '|' + tp + '|' + r.c5_num); prt.p++ }
         const dd = em.slice(6, 8); M.dias[dd] = (M.dias[dd] || 0) + am;
-        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0};
-        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; peds.set(r.c5_num, o);
+        const o = peds.get(r.c5_num) || {nota:trim(r.c5_nota), lib:trim(r.c5_liberok), aberto:false, v1:trim(r.c5_vend1), v2:trim(r.c5_vend2), q:0, tq:{}};
+        if(qv > qe && trim(r.c6_blq) !== 'R') o.aberto = true; o.q += am; o.tq[tp] = (o.tq[tp] || 0) + am; peds.set(r.c5_num, o);
       });
       peds.forEach(o => {
         M.ped++;
         if(o.nota) M.fat++; else if(o.aberto){ if(o.lib) M.lib++; else M.ab++ }
-        const vk = o.v2 || o.v1; if(vk){ const v = M.vend[vk] || (M.vend[vk] = {p:0, q:0, v1:o.v1}); v.p++; v.q += o.q }
+        const vk = o.v2 || o.v1; if(vk){ const v = M.vend[vk] || (M.vend[vk] = {p:0, q:0, v1:o.v1, t:{}}); v.p++; v.q += o.q;
+          Object.entries(o.tq).forEach(([t, q]) => { const x = v.t[t] || (v.t[t] = {p:0, q:0}); x.p++; x.q += q }) }
       });
       M.cli = [...clis].filter(Boolean); M.qtd = Math.round(M.qtd); M.env = Math.round(M.env);
       return M;
@@ -1296,13 +1336,14 @@ async function carregarPainel(forcar = false){
         ab:[...pp.values()].filter(l => !l).length, lib:[...pp.values()].filter(Boolean).length},
       cliAnoQ:cliAno, cliMesQ:cliMes, nomesV, nomesC
     };
-    try{ store.set('pv-painel4', JSON.stringify(dados), true) }catch{}
+    try{ store.set('pv-painel5', JSON.stringify(dados), true) }catch{}
     PAINEL = dados; return dados;
   })();
   try{ return await painelCarregando }finally{ painelCarregando = null }
 }
 function juntarVend(lista){
-  const out = {}; lista.forEach(m => Object.entries(m.vend).forEach(([k, v]) => { const o = out[k] || (out[k] = {p:0, q:0, v1:v.v1}); o.p += v.p; o.q += v.q }));
+  const out = {}; lista.forEach(m => Object.entries(m.vend).forEach(([k, v]) => { const o = out[k] || (out[k] = {p:0, q:0, v1:v.v1, t:{}}); o.p += v.p; o.q += v.q;
+    Object.entries(v.t || {}).forEach(([t, x]) => { const y = o.t[t] || (o.t[t] = {p:0, q:0}); y.p += x.p; y.q += x.q }) }));
   return out;
 }
 /* visão de um período: um mês ('AAAAMM') ou o ano atual ('ano') */
@@ -1313,7 +1354,8 @@ function visao(periodo){
   ms.forEach(m => {
     V.qtd += m.qtd; V.env += m.env; V.ped += m.ped; V.fat += m.fat; V.ab += m.ab; V.lib += m.lib; m.cli.forEach(c => V.cli.add(c));
     Object.entries(m.tipos).forEach(([t, q]) => { if(!TIPOS_FORA_DASH.includes(t)) V.tipos[t] = (V.tipos[t] || 0) + q });
-    Object.entries(m.prod).forEach(([c, [d, q, cod]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0, cod]); o[1] += q });
+    Object.entries(m.prod).forEach(([c, [d, q, cod, ts, np]]) => { const o = V.prod[c] || (V.prod[c] = [d, 0, cod, {}, 0]); o[1] += q; o[4] += np || 0;
+      Object.entries(ts || {}).forEach(([t, x]) => { const y = o[3][t] || (o[3][t] = {p:0, q:0}); y.p += x.p; y.q += x.q }) });
     Object.entries(m.dias).forEach(([d, q]) => V.dias[m.mes + d] = (V.dias[m.mes + d] || 0) + q);
     V.uteis += diasUteis(m.mes, m.mes === P.mesAtual ? new Date().getDate() : 0);
   });
@@ -1323,19 +1365,59 @@ function visao(periodo){
 const nomeVend = c => PAINEL?.nomesV?.[c] || c;
 const rotuloVend = (c, v) => { const n = nomeVend(c), s = setorVend(c, PAINEL?.nomesV?.[v?.v1]); return {n:cap(n.replace(/^[A-Z]\d+\s*-\s*/, '')), cod:c, setor:s} };
 
-/* ---------- cartão + tabelinha de tipos (página Pedidos) ---------- */
+/* ---------- cartão + tabelinha de tipos (página Pedidos): pendentes da emissão de/até ---------- */
+let TIPOS_PER = null, tiposSeq = 0;
+const dataBr = iso => iso ? iso.split('-').reverse().join('/') : '';
+function textoPeriodo(de, ate){
+  if(de && ate) return `emissão de ${dataBr(de)} até ${dataBr(ate)}`;
+  if(de) return `emissão a partir de ${dataBr(de)}`;
+  if(ate) return `emissão até ${dataBr(ate)}`;
+  return 'todas as emissões';
+}
+async function carregarTiposPeriodo(forcar = false){
+  if(!document.body.classList.contains('logado')) return;
+  const de = $('f-de').value, ate = $('f-ate').value, key = de + '|' + ate;
+  if(!forcar && TIPOS_PER && TIPOS_PER.key === key && Date.now() - TIPOS_PER.ts < 10 * 60e3) return TIPOS_PER;
+  const seq = ++tiposSeq;
+  if(!TIPOS_PER || TIPOS_PER.key !== key){ TIPOS_PER = null; renderTipos() }
+  try{
+    const tes = `C6_TES IN (${CONFIG.painel.tes.map(q).join(',')})`, campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
+    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, tes, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '",
+      "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'"];
+    if(campoTp) w.push(`${campoTp} IN (${CONFIG.painel.tiposAmostra.map(q).join(',')})`);
+    if(de) w.push(`C5_EMISSAO>=${q(isoToProtheus(de))}`);
+    if(ate) w.push(`C5_EMISSAO<=${q(isoToProtheus(ate))}`);
+    const extra = [campoTp, campoOri].filter(c => /^C6_/i.test(c || ''));
+    const rows = await gqSafe('SC5,SC6', ['C5_NUM','C5_LIBEROK','C6_ITEM','C6_QTDVEN','C6_QTDENT'], extra, w.join(' AND '));
+    if(seq !== tiposSeq) return TIPOS_PER;
+    const qa = r => { const o = get(r, campoOri); return Math.ceil(Math.max(0, num(o === undefined || o === null || o === '' ? r.c6_qtdven : o))) };
+    const tipoDe = r => (opcao(campoTp, get(r, campoTp)) || 'NÃO INFORMADO').toUpperCase();
+    const pt = new Map(), pp = new Set(), vistos = new Set();
+    rows.forEach(r => {
+      const k = r.c5_num + '|' + r.c6_item; if(vistos.has(k)) return; vistos.add(k);
+      const t = tipoDe(r); if(TIPOS_FORA_DASH.includes(t)) return;
+      const o = pt.get(t) || {qtd:0, ped:new Set()}, v = num(r.c6_qtdven);
+      o.qtd += Math.ceil(Math.max(0, qa(r) * (v > 0 ? (v - num(r.c6_qtdent)) / v : 1))); o.ped.add(r.c5_num); pt.set(t, o); pp.add(r.c5_num);
+    });
+    TIPOS_PER = {key, de, ate, ts:Date.now(), ped:pp.size,
+      tipos:[...pt].map(([t, v]) => ({tipo:t, qtd:Math.round(v.qtd), ped:v.ped.size})).sort((a, b) => b.qtd - a.qtd)};
+  }catch(e){ console.warn('tipos', e); if(seq === tiposSeq && !TIPOS_PER){ $('tp-leg').textContent = 'não foi possível carregar' } return TIPOS_PER }
+  renderTipos(); return TIPOS_PER;
+}
 function renderTipos(){
   const tile = $('st-tipos'); if(!tile) return;
-  if(!PAINEL){ $('tp-bar').innerHTML = ''; $('tp-leg').textContent = 'carregando…'; return }
-  const lista = PAINEL.pend.tipos, total = lista.reduce((s, t) => s + t.qtd, 0);
+  const D = TIPOS_PER;
+  { const t = textoPeriodo($('f-de').value, $('f-ate').value); $('tp-per').textContent = t[0].toUpperCase() + t.slice(1) }
+  if(!D){ $('tp-bar').innerHTML = ''; $('tp-total').textContent = '—'; $('tp-leg').textContent = 'carregando…'; $('tp-body').innerHTML = '<tr><td colspan="3" style="color:var(--muted)">Carregando…</td></tr>'; $('tp-foot').innerHTML = ''; $('tp-quando').textContent = ''; return }
+  const lista = D.tipos, total = lista.reduce((s, t) => s + t.qtd, 0);
   $('tp-total').textContent = fmtInt(total);
   $('tp-bar').innerHTML = total ? lista.map(t => `<i style="width:${100 * t.qtd / total}%;background:${corTipo(t.tipo)}" title="${esc(t.tipo)}: ${fmtInt(t.qtd)}"></i>`).join('') : '';
   $('tp-leg').innerHTML = lista.length ? lista.slice(0, 3).map(t => `<span><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<b>${fmtInt(t.qtd)}</b></span>`).join('') + (lista.length > 3 ? `<span>+${lista.length - 3}</span>` : '') : 'nenhuma amostra pendente';
   const max = Math.max(1, ...lista.map(t => t.qtd));
   $('tp-body').innerHTML = lista.length ? lista.map(t => `<tr><td><span class="tp-dot" style="background:${corTipo(t.tipo)}"></span>${esc(cap(t.tipo))}<span class="mini" style="width:${100 * t.qtd / max}%;background:${corTipo(t.tipo)}"></span></td><td class="n">${fmtInt(t.ped)}</td><td class="n">${fmtInt(t.qtd)}</td></tr>`).join('')
     : '<tr><td colspan="3" style="color:var(--muted)">Nenhuma amostra pendente.</td></tr>';
-  $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(PAINEL.pend.ped)}</td><td class="n">${fmtInt(total)}</td></tr>`;
-  $('tp-quando').textContent = `Em aberto + liberados (ainda não faturados) · atualizado às ${new Date(PAINEL.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`;
+  $('tp-foot').innerHTML = `<tr><td>Total</td><td class="n">${fmtInt(D.ped)}</td><td class="n">${fmtInt(total)}</td></tr>`;
+  $('tp-quando').textContent = `Em aberto + liberados (ainda não faturados) · ${textoPeriodo(D.de, D.ate)} · atualizado às ${new Date(D.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`;
 }
 function abrirTipos(){
   const pop = $('tp-pop'), r = $('st-tipos').getBoundingClientRect();
@@ -1380,6 +1462,7 @@ function iniciarLetreiro(){
 }
 async function atualizarPainel(forcar = false){
   const tinha = !!PAINEL;
+  carregarTiposPeriodo(forcar);
   try{ await carregarPainel(forcar) }catch(e){ console.warn('painel', e); if(e.auth) return; if(!PAINEL) $('dsh-quando') && ($('dsh-quando').textContent = 'Não foi possível carregar: ' + e.message) }
   renderTipos(); renderDash();
   if(!tinha && PAINEL){ telaAtual = 0; proximaTela() }
@@ -1542,13 +1625,54 @@ function renderDash(){
   const tps = Object.entries(V.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
   $('dsh-donut').innerHTML = tps.length ? `<div class="dn-wrap">${donut(tps, V.qtdTipos)}<div class="dn-leg">${tps.map(([t, q]) => `<div><span class="tp-dot" style="background:${cores(t)}"></span><em>${esc(cap(t))}</em><b>${fmtInt(q)}</b><small>${Math.round(100 * q / V.qtdTipos)}%</small></div>`).join('')}</div></div>` : '<p class="vazio">Sem amostras no período.</p>';
   // top 10 itens
+  const dica = `<p class="rk-dica">${matchMedia('(hover:hover)').matches ? 'Passe o mouse' : 'Toque'} em uma linha para ver por tipo de amostra.</p>`;
   const tp = Object.entries(V.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 10), tmax = Math.max(1, ...tp.map(x => x[1][1]));
-  $('dsh-top').innerHTML = tp.length ? tp.map(([c, [d, q, cod]], i) => `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(d || c)}</b><small>${esc(cod || '')}</small><i style="width:${100 * q / tmax}%"></i></div><strong>${fmtInt(q)}</strong></div>`).join('') : '<p class="vazio">Sem dados.</p>';
+  DSH_TIP = {per:rot, ordem:tps.map(x => x[0]), top:tp, vend:[]};
+  $('dsh-top').innerHTML = tp.length ? `<div class="rk rk-h"><span></span><span>Item</span><span class="n">Amostras</span></div><div class="rk-list">`
+    + tp.map(([c, [d, q, cod]], i) => `<div class="rk" data-tip="top:${i}"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(d || c)}</b><small>${esc(cod || '')}</small><i style="width:${100 * q / tmax}%"></i></div><span class="num">${fmtInt(q)}</span></div>`).join('') + '</div>' + dica : '<p class="vazio">Sem dados.</p>';
   // quem mais solicita
   const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 8), vmax = Math.max(1, ...tv.map(x => x[1].p));
-  $('dsh-vend').innerHTML = tv.length ? tv.map(([c, v], i) => { const r = rotuloVend(c, v); return `<div class="rk"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(r.n)}</b><small>${esc(r.cod)}${r.setor ? ' · <span class="chip">' + esc(r.setor) + '</span>' : ''}</small><i style="width:${100 * v.p / vmax}%"></i></div><strong>${fmtInt(v.p)}<small>ped. · ${fmtInt(v.q)} am.</small></strong></div>` }).join('') : '<p class="vazio">Sem dados.</p>';
+  DSH_TIP.vend = tv;
+  $('dsh-vend').innerHTML = tv.length ? `<div class="rk rk-h c2"><span></span><span>Vendedora</span><span class="n">Pedidos</span><span class="n">Amostras</span></div><div class="rk-list">`
+    + tv.map(([c, v], i) => { const r = rotuloVend(c, v); return `<div class="rk c2" data-tip="vend:${i}"><span class="pos">${i + 1}</span><div class="rk-t"><b>${esc(r.n)}</b><small>${esc(r.cod)}${r.setor ? ' · <span class="chip">' + esc(r.setor) + '</span>' : ''}</small><i style="width:${100 * v.p / vmax}%"></i></div><span class="num">${fmtInt(v.p)}</span><span class="num sec">${fmtInt(v.q)}</span></div>` }).join('') + '</div>' + dica : '<p class="vazio">Sem dados.</p>';
   // destaques
   $('dsh-dest').innerHTML = destaques(V, per).map(([a, b]) => `<div class="drow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('');
+}
+
+/* ---------- tooltip "por tipo" dos rankings do dashboard ---------- */
+let DSH_TIP = null;
+function tabelaTipos(titulo, sub, tipos, totP, totQ, colQ){
+  const cores = coresTipos(), ordem = [...new Set([...Object.keys(tipos).sort((a, b) => tipos[b].q - tipos[a].q), ...(DSH_TIP?.ordem || [])])];
+  const max = Math.max(1, ...Object.values(tipos).map(x => x.q)), somaP = Object.values(tipos).reduce((s, x) => s + x.p, 0);
+  const linhas = ordem.map(t => { const x = tipos[t] || {p:0, q:0}; return `<tr${x.q ? '' : ' class="zero"'}><td><span class="tp-dot" style="background:${cores(t)}"></span>${esc(cap(t))}${x.q ? `<span class="mini" style="width:${100 * x.q / max}%;background:${cores(t)}"></span>` : ''}</td><td class="n">${fmtInt(x.p)}</td><td class="n">${fmtInt(x.q)}</td></tr>` }).join('');
+  return `<h4>${esc(titulo)}</h4><p>${sub}</p><table><thead><tr><th>Tp.Amostra</th><th class="n">Pedidos</th><th class="n">${colQ}</th></tr></thead><tbody>${linhas}</tbody>
+    <tfoot><tr><td>Total</td><td class="n">${fmtInt(totP)}</td><td class="n">${fmtInt(totQ)}</td></tr></tfoot></table>${somaP > totP ? '<p class="nota">Um pedido pode ter mais de um tipo de amostra.</p>' : ''}`;
+}
+function htmlTip(id){
+  const [k, i] = id.split(':'), T = DSH_TIP; if(!T) return '';
+  if(k === 'vend'){ const e = T.vend[+i]; if(!e) return ''; const [c, v] = e, r = rotuloVend(c, v);
+    return tabelaTipos(r.n, `${esc(r.cod)}${r.setor ? ' · ' + esc(r.setor) : ''} · ${esc(T.per)}`, v.t || {}, v.p, v.q, 'Amostras') }
+  const e = T.top[+i]; if(!e) return ''; const [c, [d, q, cod, ts, np]] = e, tipos = ts || {};
+  return tabelaTipos(d || c, `${esc(cod || '')} · ${esc(T.per)}`, tipos, np || Math.max(...Object.values(tipos).map(x => x.p), 0), q, 'Quantidade');
+}
+function iniciarTipDash(){
+  const tip = $('dsh-tip'); let atual = null, fixo = false;
+  const pos = (x, y) => { const w = tip.offsetWidth, h = tip.offsetHeight; let l = x + 16, t = y + 16;
+    if(l + w > innerWidth - 12) l = Math.max(12, x - w - 16); if(t + h > innerHeight - 12) t = Math.max(12, y - h - 12);
+    tip.style.left = l + 'px'; tip.style.top = t + 'px' };
+  const mostrar = (row, x, y) => { const html = htmlTip(row.dataset.tip); if(!html) return esconder();
+    if(atual !== row){ atual?.classList.remove('on'); atual = row; row.classList.add('on'); tip.innerHTML = html } tip.classList.add('on'); pos(x, y) };
+  const esconder = () => { tip.classList.remove('on'); atual?.classList.remove('on'); atual = null; fixo = false };
+  ['dsh-top', 'dsh-vend'].forEach(id => {
+    const box = $(id);
+    box.addEventListener('mousemove', e => { if(fixo) return; const row = e.target.closest('.rk[data-tip]'); row ? mostrar(row, e.clientX, e.clientY) : esconder() });
+    box.addEventListener('mouseleave', () => { if(!fixo) esconder() });
+    box.addEventListener('click', e => { const row = e.target.closest('.rk[data-tip]'); if(!row) return; e.stopPropagation();
+      if(fixo && atual === row) return esconder(); const r = row.getBoundingClientRect(); fixo = false; mostrar(row, Math.min(e.clientX || r.left, innerWidth - 40), r.bottom - 8); fixo = true });
+  });
+  document.addEventListener('click', () => { if(fixo) esconder() });
+  addEventListener('scroll', () => { if(atual) esconder() }, {passive:true, capture:true});
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') esconder() });
 }
 
 /* visualização no celular em pé: gira as folhas para ficarem na horizontal */
@@ -1598,9 +1722,10 @@ function recolorirLogo(){
   img.src = 'icons/icon-192.png';
 }
 
-let pedidos = [];
+let pedidos = [], buscaSeq = 0;
 async function buscar(){
-  const btn = $('btn-buscar'); btn.disabled = true; msg('Consultando o Protheus…');
+  const btn = $('btn-buscar'), seq = ++buscaSeq; btn.disabled = true; msg('Consultando o Protheus…');
+  carregarTiposPeriodo();
   try{
     const st = $('f-status').value, de = isoToProtheus($('f-de').value), ate = isoToProtheus($('f-ate').value);
     const tesList = CONFIG.tesAmostras;
@@ -1613,6 +1738,7 @@ async function buscar(){
     const rows = await gqSafe('SC5,SC6',
       ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
       [CONFIG.campos.tpAmostra, CONFIG.campos.obs2].filter(c => /^C[56]_/i.test(c || '')), w);
+    if(seq !== buscaSeq) return;
     const map = new Map();
     rows.forEach(r => {
       const k = r.c5_filial + ':' + r.c5_num;
@@ -1629,8 +1755,8 @@ async function buscar(){
     if(avisos.size){ msg([...avisos].join(' • '), 'err'); avisos.clear(); btn.disabled = false; return }
     if(!pedidos.length) console.log('Consulta sem resultado. WHERE enviado:', w);
     msg(pedidos.length ? '' : `Nenhum pedido encontrado para os filtros selecionados.`, 'info');
-  }catch(e){ msg(e.message, 'err'); console.error(e) }
-  finally{ btn.disabled = false }
+  }catch(e){ if(seq === buscaSeq){ msg(e.message, 'err'); console.error(e) } }
+  finally{ if(seq === buscaSeq) btn.disabled = false }
 }
 const marcados = new Set();
 const visiveis = () => pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)));
@@ -2014,8 +2140,11 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('seg-status').addEventListener('click', e => {
     const b = e.target.closest('button[data-v]'); if(!b) return;
     $('seg-status').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    if($('f-status').value === b.dataset.v && pedidos.length) return;
     $('f-status').value = b.dataset.v;
+    buscar(); // já atualiza a lista ao trocar a situação
   });
+  ['f-de', 'f-ate'].forEach(id => $(id).addEventListener('change', () => carregarTiposPeriodo()));
   // configurações do controle de impressos
   atualizaCfgLabel();
   $('btn-cfg').onclick = () => { $('user-pop').classList.remove('on'); $('cfg-chave').value = IMP.chave(); $('cfg-st').textContent = ''; $('dlg-cfg').showModal() };
@@ -2039,7 +2168,7 @@ async function gerar(lista, imprimir, reprocessar = false){
     const u = e.target.closest('[data-undo]');
     if(u){ u.disabled = true; try{ await IMP.desmarcar(pedidos[+u.dataset.undo]); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } }
   });
-  iniciarTemas();
+  iniciarTemas(); iniciarTipDash();
   document.body.dataset.tab = 'pedidos';
   document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
   $('dsh-per').addEventListener('click', e => { const b = e.target.closest('button[data-per]'); if(b){ DSH_PER = b.dataset.per; renderDash() } });
@@ -2071,7 +2200,7 @@ async function gerar(lista, imprimir, reprocessar = false){
   };
   if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
   // tabelinha de tipos em aberto
-  $('st-tipos').onclick = e => { e.stopPropagation(); if($('tp-pop').classList.contains('on')) return $('tp-pop').classList.remove('on'); renderTipos(); abrirTipos(); if(!PAINEL) atualizarPainel().then(abrirTipos) };
+  $('st-tipos').onclick = e => { e.stopPropagation(); if($('tp-pop').classList.contains('on')) return $('tp-pop').classList.remove('on'); renderTipos(); abrirTipos(); carregarTiposPeriodo().then(abrirTipos) };
   $('tp-x').onclick = () => $('tp-pop').classList.remove('on');
   document.addEventListener('click', e => { if(!e.target.closest('#tp-pop')) $('tp-pop').classList.remove('on') });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') $('tp-pop').classList.remove('on') });

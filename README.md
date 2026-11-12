@@ -6,7 +6,7 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 
 ## Como usar
 1. Abra o link e entre com seu **usuário e senha do Protheus**. Com **Manter conectado** marcado, o site lembra o acesso neste navegador até você clicar em **Sair** (não marque em computador compartilhado). Desmarcado, o acesso vale só enquanto a aba estiver aberta.
-2. Escolha a **Situação** (Em aberto, Liberados, Faturados ou Todos) e o período e clique em **Buscar pedidos**. A busca considera as TES de amostra 811, 816, 817 e 827.
+2. Escolha o período de **Emissão** e clique em **Buscar pedidos**. Ao clicar numa **Situação** (Em aberto, Liberados, Faturados ou Todos) a lista já é atualizada. O cartão **Amostras em aberto por tipo** segue o mesmo período de emissão. A busca considera as TES de amostra 811, 816, 817 e 827.
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
 4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**.
 
@@ -31,6 +31,7 @@ Aba **Dashboard** no topo (computador) ou embaixo (celular):
 - **Cartões:** Em aberto, Liberados e Faturados **do mês** escolhido; Faturados, Amostras enviadas (quantidade faturada) e Clientes atendidos (distintos) **no ano**.
 - **Amostras solicitadas por mês:** clique em um mês para ler como foi (volume, variação, tipo e item mais pedidos, quem mais pediu, clientes, faturados, dia de pico). O mês clicado vira o período "Mensal" dos outros quadros.
 - **Mensal / Anual:** alterna rosca de tipos de amostra, Top 10 mais solicitados, Quem mais solicita (vendedora + setor: Televendas, Supervisão, Loja) e Destaques.
+- **Por tipo:** passe o mouse (ou toque, no celular) numa linha do Top 10 ou de Quem mais solicita para ver a tabela por tipo de amostra (Pilotagem, Bandeira, Cartela etc.) com pedidos e quantidade.
 - **Letreiro (AO VIVO):** fica dentro do topo, entre o logo e as abas; passe o mouse para pausar.
 
 Os painéis seguem as **mesmas regras do Relatório Consolidado**: só Tp.Amostra 1 a 6 (Pilotagem, Bandeira, Cartela de cores, PDV, Brindes, Talão de vendas), só TES 811/816/817, quantidade = **C6_QTDEORI** (quantidade original, arredondada para cima por item) e Top 10 agrupado pela descrição. Tags e Desenvolvimento de cor não entram em nenhum painel (dashboard, letreiro e cartão de tipos da tela Pedidos); os pedidos continuam aparecendo normalmente na lista para impressão.
