@@ -69,7 +69,7 @@ html[data-modo="escuro"] .field input::-webkit-calendar-picker-indicator{filter:
 .seg button:hover{color:var(--text)}
 .seg button[aria-pressed="true"]{background:var(--lime);color:var(--ink)}
 .quick{display:flex;gap:8px;align-items:flex-end}
-.quick input{width:140px;min-width:0}
+.quick input{width:230px;min-width:0}
 
 .btn{height:40px;border-radius:10px;border:1px solid var(--lime);background:var(--lime);color:var(--ink);font-weight:700;padding:0 18px;cursor:pointer;white-space:nowrap;transition:transform .08s,filter .15s}
 .btn:hover{filter:brightness(1.06)}
@@ -111,16 +111,49 @@ table.list tbody tr:hover td{background:var(--hover)}
 table.list tr.sel td{background:color-mix(in srgb,var(--lime) 5%,transparent)}
 table.list td.obs{white-space:normal;min-width:240px;color:var(--muted)}
 table.list td.num{text-align:right;font-variant-numeric:tabular-nums}
-table.list tr.impresso td:not(.imp){opacity:.42}
+table.list tr.impresso td:not(.c-imp){opacity:.42}
 table.list input[type=checkbox]{appearance:none;width:17px;height:17px;border-radius:5px;border:1.5px solid var(--line-2);background:transparent;cursor:pointer;display:grid;place-items:center;margin:0}
 table.list input[type=checkbox]:checked{background:var(--lime);border-color:var(--lime-t)}
 table.list input[type=checkbox]:checked::after{content:"";width:5px;height:9px;border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
 .link{color:var(--text);cursor:pointer;font-weight:700;background:none;border:0;padding:0;font-variant-numeric:tabular-nums;border-bottom:1px dashed var(--dim)}
 .link:hover{color:var(--lime-t);border-color:var(--lime-t)}
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.2px;border:1px solid transparent;white-space:nowrap}
-.b-aberto{color:var(--lime-t);border-color:color-mix(in srgb,var(--lime) 45%,transparent)}
-.b-liberado{color:var(--warn);border-color:rgba(255,201,77,.45)}
-.b-faturado{color:var(--muted);border-color:var(--line-2)}
+/* cores das situações (iguais em todos os temas) */
+:root{--st-ab:#3ddc84;--st-lib:#ffc94d;--st-fat:#ff6b6b}
+html[data-modo="claro"]{--st-ab:#16a34a;--st-lib:#c48a00;--st-fat:#dc2626}
+.b-aberto{color:var(--st-ab);border-color:color-mix(in srgb,var(--st-ab) 45%,transparent)}
+.b-liberado{color:var(--st-lib);border-color:color-mix(in srgb,var(--st-lib) 45%,transparent)}
+.b-faturado{color:var(--st-fat);border-color:color-mix(in srgb,var(--st-fat) 45%,transparent)}
+#seg-status button{display:inline-flex;align-items:center;gap:7px}
+#seg-status [data-v="aberto"]{--c:var(--st-ab)}
+#seg-status [data-v="liberado"]{--c:var(--st-lib)}
+#seg-status [data-v="faturado"]{--c:var(--st-fat)}
+#seg-status [data-v]:not([data-v="todos"])::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+#seg-status [data-v]:not([data-v="todos"])[aria-pressed="true"]{background:var(--c);color:#101010}
+#seg-status [data-v]:not([data-v="todos"])[aria-pressed="true"]::before{background:rgba(0,0,0,.35)}
+/* lista: situação discreta (faixa + texto) */
+table.list tr.st-aberto{--c:var(--st-ab)}
+table.list tr.st-liberado{--c:var(--st-lib)}
+table.list tr.st-faturado{--c:var(--st-fat)}
+table.list tbody tr[data-row]{cursor:pointer}
+table.list td.c-chk{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--c, transparent) 75%,transparent)}
+table.list .c-num b{font-variant-numeric:tabular-nums}
+table.list .sit{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:11px;font-weight:500;color:color-mix(in srgb,var(--c) 75%,var(--muted))}
+table.list .sit::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c);opacity:.85}
+table.list .c-cli b,table.list .c-vend b{font-weight:600;font-variant-numeric:tabular-nums}
+table.list .c-cli span,table.list .c-vend span{display:block;max-width:240px;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:12px;margin-top:1px}
+table.list .nf{display:inline-block;margin-left:6px;padding:0 6px;border-radius:6px;border:1px solid color-mix(in srgb,var(--st-fat) 35%,var(--line-2));color:var(--muted);font-size:10.5px;font-weight:600;vertical-align:1px}
+table.list td.obs .badge{margin:0 0 0 6px;font-size:10.5px;padding:1px 7px}
+table.list .c-imp{width:52px;text-align:center}
+.imp-ic{display:inline-grid;place-items:center;width:34px;height:30px;border-radius:9px;border:0;background:none;cursor:pointer;color:var(--lime-t);padding:0}
+.imp-ic svg{width:24px;height:24px}
+.imp-ic:hover{background:var(--panel-2)}
+.cli-chip{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:3px 4px 3px 10px;border-radius:999px;border:1px solid var(--lime-t);color:var(--text);font-size:12px;font-weight:600}
+.cli-chip[hidden]{display:none}
+.cli-chip button{width:20px;height:20px;border-radius:50%;border:0;background:var(--panel-2);color:var(--muted);cursor:pointer;font-size:13px;line-height:1}
+.seg-mini{padding:2px;border-radius:9px;align-self:flex-start}
+.seg-mini button{height:22px;padding:0 9px;border-radius:7px;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase}
+@media(max-width:700px){#seg-status button{gap:5px;padding:0 4px;font-size:12.5px}#seg-status [data-v]:not([data-v="todos"])::before{width:6px;height:6px}}
 .b-end{background:var(--panel-2);color:var(--text);border-color:var(--line-2)}
 .b-imp{background:var(--lime);color:var(--ink)}
 .b-novo{color:var(--dim);border-color:var(--line)}
@@ -347,22 +380,20 @@ body:not(.logado) .app-shell{visibility:hidden}
  .tablewrap{border:0;max-height:none;overflow:visible}
  table.list,table.list tbody{display:block}
  table.list thead{display:none}
- table.list tr{display:grid;grid-template-columns:30px 1fr auto;grid-template-areas:"chk num sit" "chk meta meta" "chk imp imp" "chk obs obs" "chk end end";gap:4px 8px;
-  padding:13px 12px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2)}
+ table.list tr{display:grid;grid-template-columns:30px 1fr auto;grid-template-areas:"chk num imp" "chk meta meta" "chk obs obs";gap:4px 8px;
+  padding:13px 12px;margin-bottom:10px;border:1px solid var(--line);border-left:3px solid color-mix(in srgb,var(--c, var(--line)) 75%,transparent);border-radius:14px;background:var(--panel-2)}
+ table.list td.c-chk{box-shadow:none}
  table.list tr.sel{border-color:color-mix(in srgb,var(--lime) 55%,transparent)}
  table.list td{padding:0;border:0!important;white-space:normal;background:none!important}
  table.list td.empty{grid-column:1/-1}
  table.list .c-chk{grid-area:chk;align-self:start;padding-top:2px}
  table.list .c-num{grid-area:num;font-size:16px}
- table.list .c-sit{grid-area:sit;justify-self:end}
- table.list .c-imp{grid-area:imp}
- table.list .c-imp small{display:inline;margin-left:6px}
+ table.list .c-imp{grid-area:imp;justify-self:end;width:auto}
  table.list .c-em,table.list .c-cli,table.list .c-vend,table.list .c-itens{display:none}
  table.list .c-meta{grid-area:meta;display:block!important;color:var(--muted);font-size:12.5px}
  table.list td.obs{grid-area:obs;min-width:0;font-size:12.5px}
- table.list .c-end{grid-area:end}
- table.list .c-end:empty{display:none}
- table.list tr.impresso td:not(.imp){opacity:.5}
+ table.list td.obs:empty{display:none}
+ table.list tr.impresso td:not(.c-imp){opacity:.5}
  table.list input[type=checkbox]{width:22px;height:22px;border-radius:7px}
  .switch{margin-right:0}
  .tp-pop{left:14px!important;right:14px;width:auto!important}
@@ -432,10 +463,8 @@ html body.preview .preview-bar .btn.sec{background:transparent;color:var(--head-
  #btn-buscar{flex:1;width:auto}
  .toolbar h3{font-size:15px}
  .toolbar .count{font-size:12px}
- table.list tr{grid-template-areas:"chk num sit" "chk meta meta" "chk imp end" "chk obs obs";padding:12px;gap:5px 8px}
+ table.list tr{padding:12px;gap:5px 8px}
  table.list td.obs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
- table.list .c-end{justify-self:end}
- table.list .c-imp small{display:none}
  table.list .badge{font-size:10.5px;padding:2px 8px}
  /* botões de imprimir só quando há seleção, acima das abas */
  .toolbar .right .btn{bottom:calc(76px + env(safe-area-inset-bottom));height:48px;transition:transform .2s,opacity .2s}
@@ -780,7 +809,7 @@ table.res .r{text-align:right}
  <div class="hero tab-pedidos">
   <div><h2>Pedidos de <em>amostra</em></h2><p>Busque, confira o que já foi impresso e mande para a impressora no layout do Foto Atual.</p></div>
   <div class="quick">
-   <label class="field"><span>Pedido avulso</span><input id="f-pedido" name="numero-pedido-avulso" type="search" placeholder="ex.: 567858" inputmode="numeric" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
+   <div class="field"><div class="seg seg-mini" id="seg-busca" aria-label="Pesquisar por"><button type="button" data-m="pedido" aria-pressed="true">Pedido avulso</button><button type="button" data-m="cliente" aria-pressed="false">Cliente</button></div><input id="f-pedido" name="numero-pedido-avulso" type="search" placeholder="nº do pedido, ex.: 567858" inputmode="numeric" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></div>
    <button class="btn sec" id="btn-um">Visualizar</button>
   </div>
  </div>
@@ -827,7 +856,7 @@ table.res .r{text-align:right}
 
  <section class="card tab-pedidos">
   <div class="toolbar">
-   <h3>Lista</h3><span class="count" id="count">—</span>
+   <h3>Lista</h3><span class="count" id="count">—</span><span class="cli-chip" id="cli-chip" hidden></span>
    <div class="right">
     <label class="switch"><input type="checkbox" id="f-ocultar"> Ocultar já impressos</label>
     <button class="btn sec" id="btn-preview" disabled>Visualizar</button>
@@ -836,7 +865,7 @@ table.res .r{text-align:right}
   </div>
   <div class="tablewrap">
    <table class="list" id="tbl">
-    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos os que ainda não foram impressos"></th><th>Pedido</th><th>Impressão</th><th>Emissão</th><th>Cliente</th><th>Vend.</th><th>Itens</th><th>Situação</th><th>Endereçar</th><th>Obs. para Separação</th></tr></thead>
+    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos os que ainda não foram impressos"></th><th>Pedido</th><th>Emissão</th><th>Cliente</th><th>Vendedor</th><th class="num">Itens</th><th>Obs. Separação</th><th class="c-imp" title="Impresso">Impr.</th></tr></thead>
     <tbody><tr><td colspan="10" class="empty">Clique em "Buscar pedidos".</td></tr></tbody>
    </table>
   </div>
@@ -1722,7 +1751,16 @@ function recolorirLogo(){
   img.src = 'icons/icon-192.png';
 }
 
-let pedidos = [], buscaSeq = 0;
+let pedidos = [], buscaSeq = 0, CLI_FILTRO = '';
+const ICONE_IMPRESSO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h9l3 3v3"/><rect x="2.5" y="9" width="19" height="8" rx="2"/><path d="M6 14h9v7H6z"/><circle cx="19" cy="18.5" r="4.2" fill="currentColor" stroke="var(--panel)" stroke-width="1.5"/><path d="m17.2 18.6 1.3 1.3 2.4-2.6" stroke="var(--ink)" stroke-width="1.6"/></svg>`;
+const NOMES_LISTA = {cli:null, vend:null};
+const nomeCliLista = p => { try{ return cap(trim(get(NOMES_LISTA.cli?.(p.cliente, p.loja), 'A1_NOME'))) }catch{ return '' } };
+const nomeVendLista = c => { if(!trim(c)) return ''; try{ return cap(trim(get(NOMES_LISTA.vend?.(c), CONFIG.nomeVendedor)).replace(/^[A-Z]\d+\s*-\s*/, '')) }catch{ return '' } };
+function atualizaChipCliente(){
+  const ch = $('cli-chip'); if(!CLI_FILTRO){ ch.hidden = true; ch.innerHTML = ''; return }
+  const p = pedidos.find(x => trim(x.cliente) === CLI_FILTRO), nome = p ? nomeCliLista(p) : '';
+  ch.hidden = false; ch.innerHTML = `Cliente ${esc(CLI_FILTRO)}${nome ? ' · ' + esc(nome) : ''} <button type="button" id="cli-x" title="Tirar o filtro de cliente" aria-label="Tirar o filtro de cliente">×</button>`;
+}
 async function buscar(){
   const btn = $('btn-buscar'), seq = ++buscaSeq; btn.disabled = true; msg('Consultando o Protheus…');
   carregarTiposPeriodo();
@@ -1732,18 +1770,18 @@ async function buscar(){
     const w = [
       'C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`,
       `C6_TES IN (${tesList.map(q).join(',')})`,
-      de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`,
+      de && `C5_EMISSAO>=${q(de)}`, ate && `C5_EMISSAO<=${q(ate)}`, CLI_FILTRO && `C5_CLIENTE=${q(CLI_FILTRO)}`,
       STATUS_WHERE[st], "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"
     ].filter(Boolean).join(' AND ');
     const rows = await gqSafe('SC5,SC6',
-      ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
+      ['C5_FILIAL','C5_NUM','C5_EMISSAO','C5_CLIENTE','C5_LOJACLI','C5_VEND1','C5_VEND2','C5_OBSSEP','C5_LIBEROK','C5_NOTA','C6_ITEM'],
       [CONFIG.campos.tpAmostra, CONFIG.campos.obs2].filter(c => /^C[56]_/i.test(c || '')), w);
     if(seq !== buscaSeq) return;
     const map = new Map();
     rows.forEach(r => {
       const k = r.c5_filial + ':' + r.c5_num;
       const o = map.get(k) || {filial:r.c5_filial, num:r.c5_num, emissao:r.c5_emissao, cliente:r.c5_cliente, loja:r.c5_lojacli,
-        vend:r.c5_vend1, obs:trim(r.c5_obssep), status:statusDe(r), itens:0, enderecar:new Set()};
+        vend:r.c5_vend1, vend2:trim(r.c5_vend2), nota:trim(r.c5_nota), obs:trim(r.c5_obssep), status:statusDe(r), itens:0, enderecar:new Set()};
       o.itens++;
       const mot = motivoEndereco(get(r, CONFIG.campos.tpAmostra), r.c5_obssep + ' ' + (get(r, CONFIG.campos.obs2) || ''));
       if(mot) o.enderecar.add(mot);
@@ -1751,7 +1789,12 @@ async function buscar(){
     });
     pedidos = [...map.values()].sort((a,b) => String(b.emissao).localeCompare(String(a.emissao)) || String(b.num).localeCompare(String(a.num)));
     try{ await IMP.carregar() }catch(e){ avisos.add('Impressos: ' + e.message) }
-    marcados.clear(); renderLista();
+    marcados.clear(); renderLista(); atualizaChipCliente();
+    // nomes de clientes e vendedores: carregam depois, sem atrasar a lista
+    Promise.allSettled([
+      carregarClientes(pedidos.map(p => p.cliente)).then(f => NOMES_LISTA.cli = f),
+      lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, pedidos.map(p => p.vend2).filter(Boolean)).then(f => NOMES_LISTA.vend = f)
+    ]).then(() => { if(seq === buscaSeq){ renderLista(); atualizaChipCliente() } });
     if(avisos.size){ msg([...avisos].join(' • '), 'err'); avisos.clear(); btn.disabled = false; return }
     if(!pedidos.length) console.log('Consulta sem resultado. WHERE enviado:', w);
     msg(pedidos.length ? '' : `Nenhum pedido encontrado para os filtros selecionados.`, 'info');
@@ -1769,24 +1812,22 @@ function renderLista(){
   const vis = visiveis();
   $('count').textContent = `${vis.length} de ${pedidos.length} pedido(s) · ${vis.reduce((s, {p}) => s + p.itens, 0)} item(ns)`;
   if(!vis.length){
-    tb.innerHTML = `<tr><td colspan="10" class="empty">${pedidos.length ? 'Todos os pedidos desta busca já foram impressos.' : 'Nenhum pedido.'}</td></tr>`;
+    tb.innerHTML = `<tr><td colspan="8" class="empty">${pedidos.length ? 'Todos os pedidos desta busca já foram impressos.' : 'Nenhum pedido.'}</td></tr>`;
     atualizaBotoes(); return;
   }
   tb.innerHTML = vis.map(({p, i}) => {
-    const k = chave(p.filial, p.num), im = IMP.get(p);
-    return `<tr class="${im ? 'impresso' : ''}${marcados.has(k) ? ' sel' : ''}">
+    const k = chave(p.filial, p.num), im = IMP.get(p), nc = nomeCliLista(p), nv = nomeVendLista(p.vend2);
+    const impTit = im ? `Impresso ${quando(im.data)}${im.usuario ? ' por ' + im.usuario : ''} · clique para desfazer` : '';
+    return `<tr class="st-${p.status[0]}${im ? ' impresso' : ''}${marcados.has(k) ? ' sel' : ''}" data-row="${i}" title="${esc(p.status[1])} · clique para abrir o pedido">
     <td class="c-chk"><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
-    <td class="c-num"><button class="link" data-ver="${i}">${esc(p.num)}</button></td>
-    <td class="c-meta">${esc(dLonga(p.emissao))} · cliente ${esc(p.cliente)} · vend. ${esc(p.vend)} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
-    <td class="imp c-imp">${im ? `<span class="badge b-imp">✓ Impresso</span><small>${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}<button class="undo" data-undo="${i}" title="Tirar a marcação de impresso">desfazer</button></small>`
-      : '<span class="badge b-novo">não impresso</span>'}</td>
+    <td class="c-num"><b>${esc(p.num)}</b><span class="sit">${esc(p.status[1])}</span></td>
+    <td class="c-meta">${esc(dLonga(p.emissao))} · ${esc(nc || 'cliente ' + p.cliente)}${p.nota ? ' · NF ' + esc(p.nota) : ''} · ${esc(nv || p.vend2 || '')} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
     <td class="c-em">${esc(dLonga(p.emissao))}</td>
-    <td class="c-cli">${esc(p.cliente)}-${esc(p.loja || '')}</td>
-    <td class="c-vend">${esc(p.vend)}</td>
+    <td class="c-cli"><b>${esc(p.cliente)}-${esc(p.loja || '')}</b>${p.nota ? `<em class="nf" style="font-style:normal">NF ${esc(p.nota)}</em>` : ''}${nc ? `<span title="${esc(nc)}">${esc(nc)}</span>` : ''}</td>
+    <td class="c-vend"><b>${esc(p.vend2 || '—')}</b>${nv ? `<span title="${esc(nv)}">${esc(nv)}</span>` : ''}</td>
     <td class="num c-itens">${p.itens}</td>
-    <td class="c-sit"><span class="badge b-${p.status[0]}">${p.status[1]}</span></td>
-    <td class="c-end">${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join(' ')}</td>
-    <td class="obs">${esc(p.obs)}</td></tr>`;
+    <td class="obs">${esc(p.obs)}${[...p.enderecar].map(m => `<span class="badge b-end">${esc(m)}</span>`).join('')}</td>
+    <td class="c-imp">${im ? `<button type="button" class="imp-ic" data-undo="${i}" title="${esc(impTit)}" aria-label="${esc(impTit)}">${ICONE_IMPRESSO}</button>` : ''}</td></tr>`;
   }).join('');
   const livres = vis.filter(({p}) => !IMP.get(p));
   $('chk-all').checked = livres.length > 0 && livres.every(({p}) => marcados.has(chave(p.filial, p.num)));
@@ -2124,7 +2165,19 @@ async function gerar(lista, imprimir, reprocessar = false){
   $('f-de').value = `${y}-01-01`; $('f-ate').value = `${y}-12-31`;
 
   $('btn-buscar').onclick = buscar;
-  $('btn-um').onclick = () => { const n = trim($('f-pedido').value).replace(/\D/g, '').padStart(6, '0'); if(n !== '000000') gerar([{filial:CONFIG.filial, num:n}], false) };
+  let modoBusca = 'pedido';
+  $('seg-busca').addEventListener('click', e => {
+    const b = e.target.closest('button[data-m]'); if(!b) return; modoBusca = b.dataset.m;
+    $('seg-busca').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $('f-pedido').placeholder = modoBusca === 'cliente' ? 'código do cliente, ex.: 012345' : 'nº do pedido, ex.: 567858';
+    $('btn-um').textContent = modoBusca === 'cliente' ? 'Buscar' : 'Visualizar'; $('f-pedido').focus();
+  });
+  $('btn-um').onclick = () => {
+    const v = trim($('f-pedido').value);
+    if(modoBusca === 'cliente'){ if(!v) return; CLI_FILTRO = /^\d+$/.test(v) ? v.padStart(6, '0') : v.toUpperCase(); trocarAba('pedidos'); return buscar() }
+    const n = v.replace(/\D/g, '').padStart(6, '0'); if(n !== '000000') gerar([{filial:CONFIG.filial, num:n}], false);
+  };
+  $('cli-chip').addEventListener('click', e => { if(e.target.closest('#cli-x')){ CLI_FILTRO = ''; atualizaChipCliente(); buscar() } });
   $('f-pedido').onkeydown = e => { if(e.key === 'Enter') $('btn-um').click() };
   $('btn-preview').onclick = () => gerar(selecionados(), false);
   $('btn-print').onclick = () => gerar(selecionados(), true);
@@ -2164,9 +2217,12 @@ async function gerar(lista, imprimir, reprocessar = false){
     e.target.closest('tr').classList.toggle('sel', e.target.checked); atualizaBotoes();
   });
   $('tbl').addEventListener('click', async e => {
-    const b = e.target.closest('[data-ver]'); if(b) return gerar([pedidos[+b.dataset.ver]], false);
     const u = e.target.closest('[data-undo]');
-    if(u){ u.disabled = true; try{ await IMP.desmarcar(pedidos[+u.dataset.undo]); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } }
+    if(u){ const p = pedidos[+u.dataset.undo]; if(!confirm(`Tirar a marcação de impresso do pedido ${p.num}?`)) return;
+      u.disabled = true; try{ await IMP.desmarcar(p); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } return }
+    if(e.target.closest('input.chk')) return;
+    const chkTd = e.target.closest('.c-chk'); if(chkTd){ chkTd.querySelector('input.chk')?.click(); return }
+    const tr = e.target.closest('tr[data-row]'); if(tr && !getSelection().toString()) gerar([pedidos[+tr.dataset.row]], false);
   });
   iniciarTemas(); iniciarTipDash();
   document.body.dataset.tab = 'pedidos';

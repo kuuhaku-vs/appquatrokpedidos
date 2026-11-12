@@ -7,8 +7,9 @@ App para imprimir pedidos de venda de amostra no layout do relatório **Foto Atu
 ## Como usar
 1. Abra o link e entre com seu **usuário e senha do Protheus**. Com **Manter conectado** marcado, o site lembra o acesso neste navegador até você clicar em **Sair** (não marque em computador compartilhado). Desmarcado, o acesso vale só enquanto a aba estiver aberta.
 2. Escolha o período de **Emissão** e clique em **Buscar pedidos**. Ao clicar numa **Situação** (Em aberto, Liberados, Faturados ou Todos) a lista já é atualizada. O cartão **Amostras em aberto por tipo** segue o mesmo período de emissão. A busca considera as TES de amostra 811, 816, 817 e 827.
+3. Clique em qualquer linha da lista para abrir o pedido. A lista mostra Pedido (com a situação: verde = em aberto, amarelo = liberado, vermelho = faturado), Emissão, Cliente + nome (e NF quando faturado), Vendedor 2 + nome, Itens, Obs. Separação e o ícone de impressora quando o pedido já foi impresso (clique no ícone para desfazer).
 3. Marque os pedidos e clique em **Imprimir selecionados**. Cada pedido sai em uma folha A4 deitada.
-4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**.
+4. Para um pedido só, digite o número em **Pedido avulso** e clique em **Visualizar**. Em **Cliente**, digite o código do cliente e clique em **Buscar** para listar só os pedidos dele (o × no filtro ao lado de Lista tira o filtro).
 
 ## Aplicativo no celular
 O site funciona como aplicativo (lista em cartões e botões de imprimir fixos embaixo):
