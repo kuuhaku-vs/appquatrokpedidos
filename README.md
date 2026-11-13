@@ -92,17 +92,16 @@ Menu do usuário → **Notificações de pedidos novos** (ou Ajustes, no celular
 - **No celular, com o site fechado:** instale o app gratuito **ntfy** e assine o canal mostrado na tela (o canal vem do código do grupo, então é o mesmo para toda a equipe). Em **um** computador que fica sempre com o site aberto (ex.: a TV da separação), ligue **"Este computador envia os avisos para os celulares"**. Ele confere a cada 30 min e avisa o canal.
 
 ### Assistente
-Bolinha no canto da tela: programação do dia (atrasados, o que vence hoje e amanhã, fila em aberto/liberados, sem estoque), o que teve de novo desde a última visita, como foi ontem e os números do mês. Abre sozinho 1x por dia. 🔊 lê o resumo em voz alta; 🎤 aceita perguntas por voz (Chrome/Edge): "atrasados", "novos", "vencem hoje", "liberados", "tempo até faturar", "pedido 500123", "modo TV", "dashboard", "resumo".
-- **Configurações do assistente (⚙):** nome do assistente, como ele te chama, voz (prefere masculina e grave; no Microsoft Edge aparece a voz "Antonio", mais natural), tom e velocidade.
-- **Tipos e pilotagens:** o resumo mostra as amostras em aberto por tipo e a lista de pilotagens para separar (item, quantidade e pedidos). Pergunte "pilotagens" ou "tipos".
-- **Aviso falado de pedido novo:** quando chega pedido novo, ele avisa pelo nome, dizendo os tipos e, se tiver pilotagem, os itens e as quantidades.
-- **Horário de uso:** os avisos de pedido novo só acontecem de segunda a sexta, das 07:30 às 17:18 (ajustável no ⚙), com o site aberto no computador.
+Botão **Assistente** no canto da tela (no celular, o botão redondo). Abre um painel com quatro abas:
+- **Hoje:** cumprimento, a frase do dia (atrasados, o que vence hoje ou tudo no prazo), quatro cartões (Atrasados, Vencem hoje, Em aberto, Liberados), o que há para separar (pilotagens e tipos) e o que está acontecendo (pedidos novos, vencem amanhã, sem estoque, ontem, tempo até faturar). Cada cartão ou linha abre a lista filtrada ou uma tabela.
+- **Atalhos:** todas as opções em botões: Atrasados, Vencem hoje, Vencem amanhã, Pedidos novos, Em aberto, Liberados, Sem estoque, Buscar, Pilotagens, Tipos em aberto, Imprimir não impressos, Modo TV, Dashboard, Exportar relatório, Por que atrasou?, Ouvir resumo, Tema claro/escuro, Notificações, Atualizar dados e Ajustes.
+- **Perguntar:** conversa em balões. Toque em uma sugestão, digite ou use o microfone (Chrome/Edge): "atrasados", "vencem hoje", "novos", "pilotagens", "tipos", "tempo até faturar", "como foi ontem", "pedido 500123" (abre a folha), "detalhe 500123" (linha do tempo), "cliente aurora" (procura na lista), "exportar relatório", "modo TV".
+- **Ajustes:** como ele te chama, nome do assistente, estilo de voz (Natural, Calma e grave, Rápida), voz do navegador, tom e velocidade, responder em voz alta, avisar pedido novo, abrir sozinho uma vez por dia, falar o resumo ao abrir, horário dos avisos (padrão: segunda a sexta, 07:30 às 17:18) e as vozes premium (ElevenLabs e Azure).
+
+O painel fecha no ✕ ou no Esc. Com o site aberto, ele avisa quando chega pedido novo, dizendo os tipos e as pilotagens.
 
 ### Por que atrasou?
 No Dashboard → **Tempo até faturar**, quando há pedidos faturados fora do prazo aparece o botão **"N pedidos passaram do prazo · ver o resumo do porquê"**. Ele abre um resumo: % fora do prazo, atraso médio, tipo e vendedora com mais atrasos, efeito de fim de semana, tamanho dos pedidos, em que etapa o pedido ficou parado (até liberar × da liberação ao faturamento, pela data de liberação da SC9), o pedido que mais destoou e a tabela dos pedidos fora do prazo.
-
-### Assistente (versão simples)
-Quatro cartões grandes (Atrasados, Em aberto, Liberados, Pilotagens), algumas linhas curtas e três botões. Clicar em **Atrasados / Em aberto / Liberados** filtra a lista (últimos 180 dias; o × no aviso volta ao filtro normal). **Pilotagens**, tipos, "vencem hoje" e "novos" abrem uma **tabela separada**, que fecha no ✕, no Esc ou clicando fora. As respostas do assistente também têm ✕. No ⚙, o botão **Estilo mordomo** deixa a voz grave e calma.
 
 ### Voz premium (Microsoft Azure)
 O assistente pode usar uma voz neural do Azure, bem mais natural, com um estilo próprio (calmo e formal, com pausas curtas). Sem chave, ou se o Azure falhar, ele volta sozinho para a voz do navegador.
@@ -110,19 +109,19 @@ O assistente pode usar uma voz neural do Azure, bem mais natural, com um estilo 
 2. **Criar um recurso** → procure **"Speech"** (Serviços de Fala / Azure AI Speech) → **Criar**.
 3. Escolha a assinatura, crie um grupo de recursos (ex.: `pedidos4k`), região **Brazil South**, um nome qualquer e o tipo de preço **Free F0** (gratuito; se não aparecer, o **Standard S0** cobra por caractere falado).
 4. Depois de criado, abra o recurso → **Chaves e Ponto de Extremidade** → copie a **Chave 1** e confira a **Região**.
-5. No site: bolinha do assistente → **⚙** → **Voz premium** → cole a chave, escolha a região e a voz (Antonio, Donato, Fabio, Humberto, Julio, Nicolau, Valerio ou Macerio) → **▶ Ouvir amostra** → **Salvar**.
+5. No site: **Assistente** → **Ajustes** → **Voz premium · Microsoft Azure** → cole a chave, escolha a região e a voz (Antonio, Donato, Fabio, Humberto, Julio, Nicolau, Valerio ou Macerio) → **▶ Ouvir amostra** → **Salvar**.
 A chave fica salva só no computador em que foi colada (faça o passo 5 em cada computador). Não compartilhe a chave.
 
 ### Tipos em aberto → itens
-Na tabela **Tipos em aberto** (assistente), clique em um tipo para ver todos os códigos de produto, as quantidades e os pedidos daquele tipo. **‹ Voltar aos tipos** volta para a lista.
+Na tabela **Tipos em aberto** (Assistente → Atalhos), clique em um tipo para ver todos os códigos de produto, as quantidades e os pedidos daquele tipo. **‹ Voltar aos tipos** volta para a lista.
 
 ### Voz premium (ElevenLabs)
 Tem prioridade sobre o Azure. Ordem usada pelo assistente: ElevenLabs → Azure → voz do navegador (se um falhar, tenta o próximo).
 1. Crie uma conta em https://elevenlabs.io.
 2. **Voices → Voice Design**: descreva uma voz original (ex.: "voz masculina madura, grave, calma e formal, tom de mordomo sofisticado, português do Brasil"), gere, ouça as opções e salve a que mais gostar na sua biblioteca.
 3. Perfil → **API Keys** → crie uma chave (com permissão de Text to Speech e leitura de vozes) e copie.
-4. No site: assistente → **⚙** → **Voz premium · ElevenLabs** → cole a chave → **Carregar minhas vozes** → escolha a voz (as suas aparecem primeiro, marcadas "sua") → **▶ Ouvir amostra** → **Salvar**.
-Atalho: o botão **🎩 Usar a voz George** preenche a voz George, de catálogo do ElevenLabs (masculina, britânica, grave; fala português com leve sotaque).
+4. No site: **Assistente** → **Ajustes** → **Voz premium · ElevenLabs** → cole a chave → **Carregar minhas vozes** → escolha a voz (as suas aparecem primeiro, marcadas "sua") → **▶ Ouvir amostra** → **Salvar**.
+Atalho: o botão **Usar a voz George** preenche a voz George, de catálogo do ElevenLabs (masculina, britânica, grave; fala português com leve sotaque).
 Modelo: **Multilingual v2** (melhor qualidade) ou **Flash v2.5** (mais rápido e gasta menos créditos). A chave fica só no computador onde foi colada.
 
 ### Ordenar a lista
@@ -131,7 +130,6 @@ Clique no título de **Pedido, Emissão, Cliente, Vendedor ou Itens** para orden
 ### Detalhe do pedido
 O botão **●─●─●** ao lado do número abre o detalhe sem ir para a impressão: linha do tempo **Emitido → Liberado → Faturado** (datas, dias entre as etapas e há quanto tempo está parado), prazo, impressão, dados do pedido, aviso da separação e os itens (com endereços, quando houver). **Visualizar impressão** abre a folha. Clicar na linha continua abrindo a visualização, como antes.
 
-### Dashboard: período, meta e exportação
+### Dashboard: período e exportação
 - **Período:** além de Mensal e Anual, escolha de qual mês até qual mês (dentro dos últimos 12 meses carregados) ou use os atalhos de 3, 6 e 12 meses. Todos os quadros passam a somar o período.
-- **Meta do mês:** defina uma meta de **pedidos faturados** ou de **amostras solicitadas**. O quadro mostra o progresso, onde deveria estar hoje (por dias úteis), o ritmo necessário, a projeção e os últimos meses. A meta de amostras também aparece como linha tracejada no gráfico. Fica salva só no aparelho.
 - **Exportar:** gera o relatório do que está selecionado (folha A4 em pé), em versão clara ou nas cores do site. **Baixar imagem (PNG)** salva o arquivo (no celular abre o compartilhar); **Salvar em PDF** abre a impressão do navegador: escolha "Salvar como PDF" no destino.

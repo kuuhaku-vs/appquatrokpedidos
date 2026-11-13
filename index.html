@@ -402,54 +402,6 @@ table.list .tag-novo{display:inline-block;margin-left:6px;padding:0 6px;border-r
 .tv-lead .ld-head,.tv-lead .ld-nota{display:none}
 @media(max-width:800px){.tv-big{grid-template-columns:1fr 1fr}.tv-big strong{font-size:12vw}.tv-big span{font-size:2.6vw}.tv-tit{font-size:5vw}.tv-rel{font-size:3vw}}
 /* assistente */
-.ai-orb{position:fixed;right:22px;bottom:22px;z-index:60;width:54px;height:54px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#fff 0,color-mix(in srgb,var(--lime) 85%,#fff) 18%,var(--lime) 45%,color-mix(in srgb,var(--lime) 40%,#000) 100%);box-shadow:0 0 0 4px color-mix(in srgb,var(--lime) 18%,transparent),0 10px 30px color-mix(in srgb,var(--lime) 35%,transparent);display:none}
-body.logado:not(.preview) .ai-orb{display:block}
-.ai-orb i{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--lime) 55%,transparent);animation:ai-anel 3s ease-out infinite;pointer-events:none}
-.ai-orb i:nth-child(2){animation-delay:1s}.ai-orb i:nth-child(3){animation-delay:2s}
-@keyframes ai-anel{from{transform:scale(.85);opacity:.9}to{transform:scale(1.55);opacity:0}}
-.ai-orb.tem::after{content:attr(data-n);position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--st-fat);color:#fff;font:700 11px/20px var(--font)}
-.ai-orb.fala i{animation-duration:1.1s}
-.ai-pan{position:fixed;right:22px;bottom:88px;z-index:61;width:min(400px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 120px));display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-2);border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.6);overflow:hidden;animation:pop-in .2s ease-out}
-.ai-pan[hidden]{display:none}
-.ai-head{display:flex;align-items:center;gap:12px;padding:14px 14px 12px 16px;border-bottom:1px solid var(--line)}
-.ai-head div{flex:1;min-width:0}.ai-head b{font:700 15px var(--display)}.ai-head small{display:block;color:var(--muted);font-size:12px}
-.ai-mini{position:relative;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--lime) 50%,color-mix(in srgb,var(--lime) 40%,#000));flex:none}
-.ai-ic{width:34px;height:34px;border-radius:10px;border:0;background:none;color:var(--muted);cursor:pointer;font-size:15px;flex:none}
-.ai-ic:hover{background:var(--panel-2);color:var(--text)}
-.ai-ic.on{background:var(--st-fat);color:#fff}
-.ai-corpo{flex:1;overflow:auto;padding:14px 16px 6px}
-.ai-ola{font:700 19px/1.25 var(--display);margin:0 0 12px}
-.ai-sec{margin:0 0 14px}
-.ai-sec h5{margin:0 0 6px;font-size:10.5px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
-.ai-it{display:flex;gap:10px;align-items:flex-start;width:100%;padding:9px 10px;margin:0 0 4px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);color:var(--text);font:400 13px/1.4 var(--font);text-align:left}
-button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
-.ai-it .ic{flex:none;width:22px;text-align:center}
-.ai-it b{font-weight:700}.ai-it.red{border-color:color-mix(in srgb,var(--st-fat) 45%,transparent)}.ai-it.red b{color:var(--st-fat)}
-.ai-it.ok b{color:var(--st-ab)}
-.ai-resp{margin:0 16px 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--lime) 12%,var(--panel-2));font-size:13px;line-height:1.45}
-.ai-perg{display:flex;gap:4px;align-items:center;padding:8px 10px 6px 14px;border-top:1px solid var(--line)}
-.ai-perg input{flex:1;min-width:0;height:36px;border:0!important;background:none!important;color:var(--text);font:inherit;font-size:13.5px;outline:none;box-shadow:none!important;padding:0!important}
-.ai-conf{max-height:58vh;overflow:auto;flex:none;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;background:var(--panel-2)}
-.ai-conf[hidden]{display:none}
-.ai-conf label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
-.ai-conf label small{font-weight:500;text-transform:none;color:var(--dim)}
-.ai-conf input[type=text],.ai-conf input[type=time],.ai-conf select{height:36px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel);color:var(--text);padding:0 10px;font:500 13px var(--font);text-transform:none;letter-spacing:0}
-.ai-conf input[type=range]{accent-color:var(--lime)}
-.aic-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ai-conf .aic-ck{flex-direction:row;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:12.5px;font-weight:500;color:var(--text)}
-.aic-nota{margin:0;font-size:11.5px;color:var(--dim)}
-.aic-az{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line-2);border-radius:12px;background:var(--panel)}
-.aic-az > b{font:700 13px var(--display)}.aic-az > small{color:var(--dim);font-size:11.5px;line-height:1.4}
-.ai-conf input[type=password]{height:36px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel-2);color:var(--text);padding:0 10px;font:500 13px var(--font);text-transform:none;letter-spacing:0}
-.aic-az-st{font-size:12px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:500}
-.aic-acts{display:flex;gap:8px;justify-content:flex-end}
-.ai-tab{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
-.ai-tab th{text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);padding:0 0 5px;border-bottom:1px solid var(--line-2)}
-.ai-tab td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top}
-.ai-tab td:nth-child(2){text-align:right;font-weight:700;padding:6px 10px;white-space:nowrap}
-.ai-tab td:nth-child(3){color:var(--muted);font-size:11.5px}
-.ai-tab td small{display:block;color:var(--dim);font-size:10.5px}
-.ai-resp{max-height:260px;overflow:auto}
 .dlg-tab{width:min(980px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;overflow:hidden}
 .dlg-tab[open]{display:flex;flex-direction:column}
 .tb-head{display:flex;align-items:flex-start;gap:12px;padding:18px 20px 14px;border-bottom:1px solid var(--line)}
@@ -480,26 +432,6 @@ button.ai-it{cursor:pointer}button.ai-it:hover{border-color:var(--lime-t)}
 .ld-atr{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 16px;padding:11px 14px;border-radius:12px;border:1px solid color-mix(in srgb,var(--st-fat) 45%,transparent);background:color-mix(in srgb,var(--st-fat) 8%,transparent);color:var(--text);font:500 13px var(--font);cursor:pointer;text-align:left}
 .ld-atr:hover{border-color:var(--st-fat)}.ld-atr b{color:var(--st-fat)}.ld-atr .go{margin-left:auto;color:var(--muted)}
 /* assistente simplificado */
-.ai-sub{margin:-8px 0 12px;color:var(--dim);font-size:11.5px;display:flex;align-items:center;gap:8px}
-.ai-sub button{border:0;background:none;color:var(--lime-t);font:600 11.5px var(--font);cursor:pointer;padding:0}
-.ai-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
-.ai-tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);cursor:pointer;text-align:left;font:inherit;transition:border-color .15s}
-.ai-tile:hover{border-color:var(--lime-t)}
-.ai-tile span{font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
-.ai-tile strong{font:700 28px/1.05 var(--display)}
-.ai-tile small{color:var(--dim);font-size:11px}
-.ai-tile.red{border-color:color-mix(in srgb,var(--st-fat) 45%,transparent)}.ai-tile.red strong{color:var(--st-fat)}
-.ai-tile.grn strong{color:var(--st-ab)}.ai-tile.yel strong{color:var(--st-lib)}
-.ai-lin{display:flex;flex-direction:column;gap:2px;margin:0 0 12px}
-.ai-l{display:flex;gap:10px;align-items:flex-start;width:100%;padding:8px 6px;border:0;border-radius:10px;background:none;color:var(--text);font:400 13px/1.4 var(--font);text-align:left}
-button.ai-l{cursor:pointer}button.ai-l:hover{background:var(--panel-2)}
-.ai-l .ic{flex:none;width:20px;text-align:center}.ai-l b{font-weight:700}.ai-l.red b{color:var(--st-fat)}
-.ai-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
-.ai-chips button{height:30px;padding:0 11px;border-radius:999px;border:1px solid var(--line-2);background:none;color:var(--text);font:500 12px var(--font);cursor:pointer}
-.ai-chips button:hover{border-color:var(--lime-t)}
-.ai-resp{position:relative;padding-right:34px!important}
-.ai-resp-x{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:7px;border:0;background:none;color:var(--muted);cursor:pointer}
-.ai-resp-x:hover{background:var(--panel);color:var(--text)}
 .tv-tab{width:100%;border-collapse:collapse;font-size:1.8vw}
 .tv-tab th{text-align:left;font:600 1.1vw var(--font);letter-spacing:.1vw;text-transform:uppercase;color:var(--muted);padding:0 1vw .8vw 0;border-bottom:1px solid var(--line-2)}
 .tv-tab td{padding:1vw 1vw 1vw 0;border-bottom:1px solid var(--line)}
@@ -510,9 +442,6 @@ button.ai-l{cursor:pointer}button.ai-l:hover{background:var(--panel-2)}
 .tv-tipo .tvb{height:2.4vw;border-radius:1vw;background:var(--panel-2);overflow:hidden}.tv-tipo .tvb i{display:block;height:100%;border-radius:1vw}
 .tv-tab th.n{font:600 1.1vw var(--font);text-align:right}
 .tv-tipo b{font:700 3vw var(--display);text-align:right}
-.ai-op{display:flex;align-items:center;gap:8px;padding:0 16px 12px;color:var(--dim);font-size:11.5px}
-@media(max-width:700px){.ai-orb{bottom:84px;right:14px;width:48px;height:48px}.ai-pan{right:12px;bottom:142px;max-height:calc(100vh - 200px)}}
-@media print{.ai-orb,.ai-pan,.tv{display:none!important}}
 /* dashboard: deltas, comparação e tempo até faturar */
 .dk .dl{display:inline-block;margin-left:6px;font-style:normal;font-size:11px;font-weight:700}
 .dl.up{color:var(--st-ab)}.dl.dn{color:var(--st-fat)}.dl.neu{color:var(--muted)}
@@ -980,7 +909,7 @@ table.res .r{text-align:right}
  #print-area .pv{margin:0!important;box-shadow:none!important;page-break-after:always;break-after:page}
  #print-area .pv:last-child{page-break-after:auto;break-after:auto}
 }
-/* ======================= NOVIDADES: ordenação, detalhe do pedido, período, meta e exportação ======================= */
+/* ======================= NOVIDADES: ordenação, detalhe do pedido, período e exportação ======================= */
 /* lista: ordenar pelas colunas */
 table.list th[data-ord]{cursor:pointer;user-select:none;transition:color .15s}
 table.list th[data-ord]:hover{color:var(--text)}
@@ -1043,7 +972,7 @@ table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
  .tl-c span{left:18px;transform:translateY(-50%)}
 }
 
-/* dashboard: período personalizado, meta e exportação */
+/* dashboard: período personalizado e exportação */
 .dsh-ctl{flex-wrap:wrap}
 #btn-exp{display:inline-flex;align-items:center;gap:7px}
 .dsh-faixa{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;margin:-4px 0 16px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
@@ -1056,33 +985,6 @@ table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
 .dsh-faixa small{margin-left:auto;color:var(--muted);font-size:12.5px}
 .fx-atalhos{display:flex;gap:6px;flex-wrap:wrap}
 @media(max-width:700px){.dsh-faixa > b{width:100%}.dsh-faixa label{flex:1}.dsh-faixa select{flex:1;min-width:0}.dsh-faixa .seta{display:none}.dsh-faixa small{margin-left:0;width:100%}}
-.bars{position:relative}
-.bars-meta{position:absolute;left:0;right:0;height:0;border-top:1.5px dashed color-mix(in srgb,var(--text) 55%,transparent);pointer-events:none;text-decoration:none}
-.bars-meta em{position:absolute;right:0;bottom:3px;padding:0 5px;border-radius:5px;background:var(--panel);font-style:normal;font-size:10.5px;font-weight:700;color:var(--muted)}
-.mt-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.mt-top span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
-.mt-top strong{display:block;margin-top:7px;font:700 34px/1 var(--display);letter-spacing:-1px}
-.mt-top strong small{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0}
-.mt-pct{font:700 26px/1 var(--display);font-style:normal;color:var(--lime-t)}
-.mt-pct.ok{color:var(--st-ab)}
-.mt-bar{position:relative;height:12px;margin:14px 0 8px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line)}
-.mt-bar i{position:absolute;left:0;top:0;bottom:0;min-width:10px;border-radius:999px;background:var(--lime-t);transition:width .4s}
-.mt-bar.ok i{background:var(--st-ab)}
-.mt-bar u{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;border-radius:2px;background:var(--text);opacity:.85}
-.mt-leg{margin:0 0 4px;color:var(--dim);font-size:11.5px}
-.mt-leg u{display:inline-block;width:2px;height:10px;margin-right:6px;background:var(--text);vertical-align:-1px}
-.mt-hist{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px}
-.mt-hist > span{margin-right:4px;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
-.mt-h{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;border-radius:999px;border:1px solid var(--line-2);font-size:11px;font-weight:700;color:var(--muted)}
-.mt-h.ok{color:var(--st-ab);border-color:color-mix(in srgb,var(--st-ab) 45%,transparent)}
-.mt-h.sel{background:var(--panel-2);box-shadow:0 0 0 1px var(--line-2)}
-.mt-vazio p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.55}
-.mt-form .field{margin-bottom:14px}
-.mt-form .field input{width:100%;max-width:220px}
-.mt-acts{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap}
-.mt-lnk{border:0;background:none;padding:0;color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.mt-lnk:hover{color:var(--lime-t)}
-.mt-lnk[hidden]{display:none}
 .dlg-exp{width:min(860px,calc(100vw - 32px))}
 .ex-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 20px;border-bottom:1px solid var(--line)}
 .ex-bar .grow{flex:1}
@@ -1097,6 +999,120 @@ table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
  body.print-rel #rel-print img{display:block;width:209.5mm;height:auto;margin:0 auto}
  body.print-rel #print-area{display:none!important}
 }
+/* ======================= ASSISTENTE (painel lateral com abas: Hoje, Atalhos, Perguntar, Ajustes) ======================= */
+.ai-orb{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:9px;height:50px;padding:0 20px 0 16px;border-radius:999px;border:0;cursor:pointer;background:var(--lime);color:var(--ink);font:700 14px var(--display);box-shadow:0 10px 30px rgba(0,0,0,.45);transition:transform .15s}
+body.logado:not(.preview):not(.as-on):not(.modo-tv) .ai-orb{display:inline-flex}
+.ai-orb:hover{transform:translateY(-2px)}
+.ai-orb svg{width:20px;height:20px}
+.ai-orb.tem::after{content:attr(data-n);position:absolute;top:-6px;right:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--st-fat);color:#fff;font:700 11px/22px var(--font);text-align:center;box-shadow:0 0 0 2px var(--bg)}
+.ai-orb.fala{animation:as-pulso 1.1s ease-in-out infinite}
+@keyframes as-pulso{50%{box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 9px color-mix(in srgb,var(--lime) 30%,transparent)}}
+.as{position:fixed;top:12px;right:12px;bottom:12px;z-index:61;width:min(430px,calc(100vw - 24px));display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-2);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.55);overflow:hidden;animation:as-entra .22s cubic-bezier(.2,.8,.2,1)}
+.as[hidden]{display:none}
+@keyframes as-entra{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.as-top{display:flex;align-items:center;gap:12px;padding:16px 14px 12px 18px}
+.as-ava{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--lime);color:var(--ink);flex:none}
+.as-ava svg{width:22px;height:22px}
+.as-ava.fala{animation:as-pulso 1.1s ease-in-out infinite}
+.as-id{flex:1;min-width:0}
+.as-id b{display:block;font:700 16px/1.2 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.as-id small{display:block;margin-top:1px;color:var(--muted);font-size:12px}
+.as-ic{width:38px;height:38px;border-radius:11px;border:0;background:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;flex:none;padding:0}
+.as-ic svg{width:19px;height:19px}
+.as-ic:hover{background:var(--panel-2);color:var(--text)}
+.as-ic.on{background:var(--st-fat);color:#fff}
+.as-ic[hidden]{display:none}
+.as-abas{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:0 14px;padding:4px;border-radius:15px;background:var(--panel-2);border:1px solid var(--line)}
+.as-abas button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border:0;border-radius:11px;background:none;color:var(--muted);font:600 11.5px var(--font);cursor:pointer;transition:color .15s}
+.as-abas svg{width:18px;height:18px}
+.as-abas button:hover{color:var(--text)}
+.as-abas button[aria-selected="true"]{background:var(--lime);color:var(--ink)}
+.as-corpo{flex:1;min-height:0;overflow:auto;padding:18px 18px 10px}
+.as-corpo > section{display:none}
+.as[data-aba="hoje"] [data-as="hoje"],.as[data-aba="atalhos"] [data-as="atalhos"],.as[data-aba="chat"] [data-as="chat"],.as[data-aba="ajustes"] [data-as="ajustes"]{display:block}
+.as-ola h3{margin:0;font:700 25px/1.15 var(--display);letter-spacing:-.6px}
+.as-frase{margin:6px 0 16px;font-size:14px;font-weight:600;color:var(--muted)}
+.as-frase.red{color:var(--st-fat)}.as-frase.grn{color:var(--st-ab)}.as-frase.yel{color:var(--st-lib)}
+.as-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.as-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:border-color .15s,transform .1s}
+.as-card:hover{border-color:var(--lime-t);transform:translateY(-1px)}
+.as-card strong{font:700 34px/1 var(--display);letter-spacing:-1px}
+.as-card span{font-size:13.5px;font-weight:600}
+.as-card small{color:var(--dim);font-size:11.5px}
+.as-card .seta{position:absolute;top:10px;right:14px;font-style:normal;font-size:18px;color:var(--dim)}
+.as-card.red{border-color:color-mix(in srgb,var(--st-fat) 50%,transparent);background:color-mix(in srgb,var(--st-fat) 8%,var(--panel-2))}
+.as-card.red strong{color:var(--st-fat)}.as-card.grn strong{color:var(--st-ab)}.as-card.yel strong{color:var(--st-lib)}
+.as-h{margin:0 0 8px;font-size:10.5px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+.as-lista{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.as-lin{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:none;color:var(--text);font:400 13.5px/1.35 var(--font);text-align:left}
+button.as-lin{cursor:pointer;transition:border-color .15s,background .15s}
+button.as-lin:hover{border-color:var(--lime-t);background:var(--panel-2)}
+.as-lin .ic,.as-op .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--panel-2);color:var(--lime-t);flex:none}
+.as-lin .ic svg,.as-op .ic svg{width:18px;height:18px}
+.as-lin > span:nth-child(2){flex:1;min-width:0}
+.as-lin b{font-weight:700}
+.as-lin small{display:block;margin-top:1px;color:var(--dim);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.as-lin.red .ic{color:var(--st-fat)}
+.as-lin .go{font-size:18px;color:var(--dim)}
+.as-pe{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.as-pe .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 12px}
+.as-pe svg{width:17px;height:17px}
+.as-atu{margin:0 0 6px;color:var(--dim);font-size:11.5px;text-align:center}
+.as-atu button{border:0;background:none;padding:0;margin-left:8px;color:var(--lime-t);font:600 11.5px var(--font);cursor:pointer}
+.as-grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:20px}
+.as-op{display:flex;align-items:center;gap:10px;min-height:58px;padding:11px 12px;border-radius:14px;border:1px solid var(--line);background:none;color:var(--text);font:600 13px/1.25 var(--font);text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.as-op:hover{border-color:var(--lime-t);background:var(--panel-2)}
+.as-op > span:nth-child(2){flex:1;min-width:0}
+.as-op em{flex:none;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line-2);font:700 12px/22px var(--font);font-style:normal;text-align:center}
+.as-op.red em{background:var(--st-fat);border-color:var(--st-fat);color:#fff}
+.as-chat{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.as-msg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.5;overflow-wrap:anywhere;animation:as-msg .18s ease-out}
+@keyframes as-msg{from{opacity:0;transform:translateY(6px)}}
+.as-msg.ai{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line);border-bottom-left-radius:5px}
+.as-msg.eu{align-self:flex-end;background:var(--lime);color:var(--ink);border-bottom-right-radius:5px;font-weight:600}
+.as-sug{display:flex;flex-wrap:wrap;gap:6px}
+.as-sug button{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:none;color:var(--text);font:500 12.5px var(--font);cursor:pointer;transition:color .15s,border-color .15s}
+.as-sug button:hover{border-color:var(--lime-t);color:var(--lime-t)}
+.as-perg{display:flex;align-items:center;gap:4px;margin:0 14px 14px;padding:4px 4px 4px 14px;border-radius:16px;border:1px solid var(--line-2);background:var(--panel-2)}
+.as-perg:focus-within{border-color:var(--lime-t)}
+.as-perg input{flex:1;min-width:0;height:40px;border:0;background:none;color:var(--text);font:inherit;font-size:14px;outline:none}
+.as-perg .enviar{background:var(--lime);color:var(--ink)}
+.as-perg .enviar:hover{background:var(--lime);color:var(--ink);filter:brightness(1.06)}
+.as[data-aba="ajustes"] .as-perg{display:none}
+.as-form{display:flex;flex-direction:column;gap:12px}
+.as-bloco{display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line);border-radius:16px}
+.as-bloco > h4{margin:0;font:700 14px var(--display)}
+.as-nota{margin:0;color:var(--dim);font-size:11.5px;line-height:1.45}
+.as-form label.cp{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+.as-form label.cp small{font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)}
+.as-form input[type=text],.as-form input[type=password],.as-form input[type=time],.as-form select{width:100%;min-width:0;height:40px;border-radius:11px;border:1px solid var(--line-2);background:var(--panel-2);color:var(--text);padding:0 12px;font:500 13.5px var(--font);text-transform:none;letter-spacing:0}
+.as-form input:focus,.as-form select:focus{border-color:var(--lime-t);outline:none}
+.as-form input[type=range]{width:100%;accent-color:var(--lime)}
+.as-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.as-form .seg{width:100%}
+.as-form .seg button{flex:1;padding:0 6px}
+.as-liga{display:flex;align-items:flex-start;gap:12px;margin:0;font-size:13px;line-height:1.4;color:var(--text)}
+.as-liga input{flex:none;margin-top:1px}
+.as-liga span{flex:1}
+.as-liga small{display:block;color:var(--dim);font-size:11.5px}
+details.as-bloco{display:block}
+details.as-bloco > summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;list-style:none;font:700 14px var(--display)}
+details.as-bloco > summary::-webkit-details-marker{display:none}
+details.as-bloco > summary small{display:block;margin-top:2px;font:500 11.5px var(--font);color:var(--dim)}
+details.as-bloco > summary::after{content:"+";flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--muted);font:600 16px var(--font)}
+details[open].as-bloco > summary::after{content:"–"}
+.as-det{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.as-linha{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap}
+.as-linha .btn{height:36px;padding:0 12px;font-size:12.5px}
+.as-st{font-size:12px;color:var(--muted)}
+.as-salvar{position:sticky;bottom:-10px;display:flex;gap:10px;align-items:center;padding:14px 0 12px;background:linear-gradient(transparent,var(--panel) 35%)}
+.as-salvar .btn{flex:1}
+@media(max-width:700px){
+ .ai-orb{right:14px;bottom:84px;width:52px;height:52px;padding:0;justify-content:center}
+ .ai-orb span{display:none}
+ .as{inset:0;width:auto;z-index:70;border:0;border-radius:0;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+}
+@media print{.ai-orb,.as,.tv{display:none!important}}
 </style>
 </head>
 <body>
@@ -1288,8 +1304,7 @@ table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
    <div class="dsh-card g6"><div class="ch"><h3>Quem mais solicita</h3><small class="dsh-rot"></small></div><div id="dsh-vend"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Comparação com o mês anterior</h3><small id="cmp-rot"></small></div><div id="dsh-cmp"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Tempo até faturar</h3><small class="dsh-rot"></small></div><div id="dsh-lead"></div></div>
-   <div class="dsh-card g6"><div class="ch"><h3>Meta do mês</h3><button type="button" class="mt-lnk" id="meta-edit" hidden>Alterar meta</button></div><div id="dsh-meta"></div></div>
-   <div class="dsh-card g6"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
+   <div class="dsh-card g6 g-centro"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
   </div>
  </section>
 
@@ -1355,44 +1370,70 @@ table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
  <div class="tv-pe"><div class="tv-dots" id="tv-dots"></div><div class="tv-prog"><i id="tv-prog"></i></div></div>
 </div>
 
-<button class="ai-orb" id="ai-orb" type="button" title="Assistente: programação do dia e novidades" aria-label="Abrir o assistente"><i></i><i></i><i></i></button>
-<div class="ai-pan" id="ai-pan" role="dialog" aria-label="Assistente" hidden>
- <div class="ai-head"><span class="ai-mini"><i></i></span><div><b id="ai-nome">Assistente</b><small id="ai-data"></small></div>
-  <button type="button" class="ai-ic" id="ai-falar" title="Ouvir o resumo">🔊</button><button type="button" class="ai-ic" id="ai-cfg" title="Nome, voz e avisos">⚙</button><button type="button" class="ai-ic" id="ai-x" title="Fechar">✕</button></div>
- <form class="ai-conf" id="ai-conf" hidden>
-  <label>Nome do assistente<input id="aic-nome" type="text" maxlength="20" placeholder="Assistente"></label>
-  <label>Como ele te chama<input id="aic-apelido" type="text" maxlength="20" placeholder="ex.: Kaue"></label>
-  <label>Voz<select id="aic-voz"></select></label>
-  <div class="aic-2"><label>Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label>Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
-  <button type="button" class="btn sec" id="aic-mordomo">🎩 Estilo mordomo (voz grave e calma)</button>
-  <div class="aic-az">
-   <b>Voz premium · ElevenLabs</b>
-   <small>A voz que vocês criarem no ElevenLabs (Voice Design). Tem prioridade sobre o Azure. Chave e voz ficam salvas só neste computador.</small>
-   <label>Chave da API<input id="aic-el-chave" type="password" autocomplete="off" spellcheck="false" placeholder="sk_…"></label>
-   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-carregar">Carregar minhas vozes</button></div>
-   <label>Voz<select id="aic-el-voz"><option value="">— carregue as vozes ou cole o ID abaixo —</option></select></label>
-   <label>ou ID da voz<input id="aic-el-id" type="text" autocomplete="off" spellcheck="false" placeholder="ex.: 21m00Tcm4TlvDq8ikWAM"></label>
-   <button type="button" class="btn sec" id="aic-el-george" title="Voz de catálogo do ElevenLabs: masculina, britânica, grave e calma (a mesma do projeto jarvis do GitHub)">🎩 Usar a voz George (britânica, grave)</button>
-   <div class="aic-2"><label>Modelo<select id="aic-el-modelo"></select></label><label>Estabilidade <small id="aic-el-estab-v"></small><input id="aic-el-estab" type="range" min="0.2" max="1" step="0.05"></label></div>
-   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-el-teste">▶ Ouvir amostra</button><span class="aic-az-st" id="aic-el-st"></span></div>
-  </div>
-  <div class="aic-az">
-   <b>Voz premium · Microsoft Azure</b>
-   <small>Voz neural, bem mais natural. Cole a chave do recurso "Speech" do Azure (fica salva só neste computador). Sem chave, usa a voz do navegador.</small>
-   <label>Chave<input id="aic-az-chave" type="password" autocomplete="off" spellcheck="false" placeholder="cole a Chave 1 do Azure"></label>
-   <div class="aic-2"><label>Região<select id="aic-az-regiao"></select></label><label>Voz<select id="aic-az-voz"></select></label></div>
-   <div class="aic-acts" style="justify-content:flex-start"><button type="button" class="btn sec" id="aic-az-teste">▶ Ouvir amostra</button><span class="aic-az-st" id="aic-az-st"></span></div>
-  </div>
-  <label class="aic-ck"><input type="checkbox" id="aic-avisa"> Avisar (falando) quando chegar pedido novo, com os tipos e as pilotagens</label>
-  <label class="aic-ck"><input type="checkbox" id="ai-auto"> Falar o resumo sozinho ao abrir o site (1x por dia)</label>
-  <div class="aic-2"><label>Horário de uso · início<input id="aic-ini" type="time"></label><label>fim<input id="aic-fim" type="time"></label></div>
-  <p class="aic-nota">Avisos de pedido novo só de segunda a sexta, dentro deste horário, com o site aberto no computador.</p>
-  <div class="aic-acts"><button type="button" class="btn sec" id="aic-testar">Testar voz</button><button type="submit" class="btn">Salvar</button></div>
- </form>
- <div class="ai-corpo" id="ai-corpo"></div>
- <div class="ai-resp" id="ai-resp" hidden></div>
- <form class="ai-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte ou fale com o 🎤…"><button type="button" class="ai-ic" id="ai-mic" title="Falar">🎤</button><button class="ai-ic" type="submit" title="Enviar">➤</button></form>
-</div>
+<button class="ai-orb" id="ai-orb" type="button" title="Abrir o assistente" aria-label="Abrir o assistente" data-ic="brilho"><span>Assistente</span></button>
+<aside class="as" id="ai-pan" role="dialog" aria-label="Assistente" data-aba="hoje" hidden>
+ <header class="as-top">
+  <span class="as-ava" id="as-ava" data-ic="brilho"></span>
+  <div class="as-id"><b id="ai-nome">Assistente</b><small id="ai-data"></small></div>
+  <button type="button" class="as-ic" id="ai-falar" title="Ouvir o resumo do dia (clique de novo para parar)" aria-label="Ouvir o resumo do dia" data-ic="som"></button>
+  <button type="button" class="as-ic" id="ai-x" title="Fechar (Esc)" aria-label="Fechar o assistente" data-ic="x"></button>
+ </header>
+ <nav class="as-abas" id="as-abas" role="tablist">
+  <button type="button" role="tab" data-as-aba="hoje" aria-selected="true" data-ic="casa">Hoje</button>
+  <button type="button" role="tab" data-as-aba="atalhos" aria-selected="false" data-ic="grade">Atalhos</button>
+  <button type="button" role="tab" data-as-aba="chat" aria-selected="false" data-ic="chat">Perguntar</button>
+  <button type="button" role="tab" data-as-aba="ajustes" aria-selected="false" data-ic="ajuste">Ajustes</button>
+ </nav>
+ <div class="as-corpo" id="as-corpo">
+  <section data-as="hoje" id="ai-corpo"></section>
+  <section data-as="atalhos" id="as-atalhos"></section>
+  <section data-as="chat"><div class="as-chat" id="as-chat" aria-live="polite"></div><h4 class="as-h">Toque para perguntar</h4><div class="as-sug" id="as-sug"></div></section>
+  <section data-as="ajustes">
+   <form class="as-form" id="ai-conf">
+    <div class="as-bloco"><h4>Nomes</h4>
+     <div class="as-2"><label class="cp">Como te chamo<input id="aic-apelido" type="text" maxlength="20" placeholder="ex.: Kaue"></label><label class="cp">Nome do assistente<input id="aic-nome" type="text" maxlength="20" placeholder="Assistente"></label></div>
+    </div>
+    <div class="as-bloco"><h4>Voz</h4>
+     <div class="seg" id="aic-estilo"><button type="button" data-voz-pre="natural">Natural</button><button type="button" data-voz-pre="calma">Calma e grave</button><button type="button" data-voz-pre="rapida">Rápida</button></div>
+     <label class="cp">Voz do navegador<select id="aic-voz"></select></label>
+     <div class="as-2"><label class="cp">Tom <small id="aic-tom-v"></small><input id="aic-tom" type="range" min="0.5" max="1.5" step="0.05"></label><label class="cp">Velocidade <small id="aic-vel-v"></small><input id="aic-vel" type="range" min="0.7" max="1.3" step="0.01"></label></div>
+     <div class="as-linha"><button type="button" class="btn sec" id="aic-testar">▶ Testar voz</button></div>
+    </div>
+    <div class="as-bloco"><h4>Quando falar e avisar</h4>
+     <label class="switch as-liga"><input type="checkbox" id="aic-fala"><span>Responder em voz alta<small>Além de escrever a resposta, o assistente fala.</small></span></label>
+     <label class="switch as-liga"><input type="checkbox" id="aic-avisa"><span>Avisar quando chegar pedido novo<small>Fala os tipos e as pilotagens do pedido.</small></span></label>
+     <label class="switch as-liga"><input type="checkbox" id="aic-abre"><span>Abrir sozinho uma vez por dia<small>Mostra o resumo no primeiro acesso do dia.</small></span></label>
+     <label class="switch as-liga"><input type="checkbox" id="ai-auto"><span>Falar o resumo ao abrir sozinho<small>Vale para a abertura do primeiro acesso do dia.</small></span></label>
+    </div>
+    <div class="as-bloco"><h4>Horário dos avisos</h4>
+     <div class="as-2"><label class="cp">Início<input id="aic-ini" type="time"></label><label class="cp">Fim<input id="aic-fim" type="time"></label></div>
+     <p class="as-nota">Avisos de pedido novo só de segunda a sexta, dentro deste horário, com o site aberto.</p>
+    </div>
+    <details class="as-bloco"><summary><span>Voz premium · ElevenLabs<small>Opcional. Tem prioridade sobre o Azure.</small></span></summary>
+     <div class="as-det">
+      <p class="as-nota">A voz que vocês criarem no ElevenLabs (Voice Design). Chave e voz ficam salvas só neste computador.</p>
+      <label class="cp">Chave da API<input id="aic-el-chave" type="password" autocomplete="off" spellcheck="false" placeholder="sk_…"></label>
+      <div class="as-linha"><button type="button" class="btn sec" id="aic-el-carregar">Carregar minhas vozes</button><button type="button" class="btn sec" id="aic-el-george" title="Voz de catálogo do ElevenLabs: masculina, britânica, grave e calma">Usar a voz George</button></div>
+      <label class="cp">Voz<select id="aic-el-voz"><option value="">— carregue as vozes ou cole o ID abaixo —</option></select></label>
+      <label class="cp">ou ID da voz<input id="aic-el-id" type="text" autocomplete="off" spellcheck="false" placeholder="ex.: 21m00Tcm4TlvDq8ikWAM"></label>
+      <div class="as-2"><label class="cp">Modelo<select id="aic-el-modelo"></select></label><label class="cp">Estabilidade <small id="aic-el-estab-v"></small><input id="aic-el-estab" type="range" min="0.2" max="1" step="0.05"></label></div>
+      <div class="as-linha"><button type="button" class="btn sec" id="aic-el-teste">▶ Ouvir amostra</button><span class="as-st" id="aic-el-st"></span></div>
+     </div>
+    </details>
+    <details class="as-bloco"><summary><span>Voz premium · Microsoft Azure<small>Opcional. Voz neural, mais natural.</small></span></summary>
+     <div class="as-det">
+      <p class="as-nota">Cole a chave do recurso "Speech" do Azure (fica salva só neste computador). Sem chave, usa a voz do navegador.</p>
+      <label class="cp">Chave<input id="aic-az-chave" type="password" autocomplete="off" spellcheck="false" placeholder="cole a Chave 1 do Azure"></label>
+      <div class="as-2"><label class="cp">Região<select id="aic-az-regiao"></select></label><label class="cp">Voz<select id="aic-az-voz"></select></label></div>
+      <div class="as-linha"><button type="button" class="btn sec" id="aic-az-teste">▶ Ouvir amostra</button><span class="as-st" id="aic-az-st"></span></div>
+     </div>
+    </details>
+    <div class="as-salvar"><button type="submit" class="btn">Salvar ajustes</button><span class="as-st" id="aic-st"></span></div>
+   </form>
+  </section>
+ </div>
+ <form class="as-perg" id="ai-perg"><input id="ai-txt" type="text" autocomplete="off" placeholder="Pergunte ou toque no microfone…" aria-label="Pergunte ao assistente"><button type="button" class="as-ic" id="ai-mic" title="Falar" aria-label="Falar a pergunta" data-ic="mic"></button><button class="as-ic enviar" type="submit" title="Enviar" aria-label="Enviar" data-ic="enviar"></button></form>
+</aside>
 
 <dialog id="dlg-tab" class="dlg-tab">
  <div class="tb-head"><div><h3 id="tb-tit"></h3><p id="tb-sub"></p></div><button type="button" class="tb-x" id="tb-x" title="Fechar (Esc)">✕</button></div>
@@ -2136,48 +2177,6 @@ function definirFaixa(de, ate){ if(de > ate) [de, ate] = [ate, de]; DSH_FX = {de
 const perDash = () => { if(DSH_PER === 'ano') return 'ano'; if(DSH_PER !== 'faixa') return DSH_MES; const f = faixaDash(); return `${f.de}:${f.ate}` };
 const rotDash = () => { if(DSH_PER === 'ano') return `${PAINEL.ano}`; if(DSH_PER !== 'faixa') return nomeMes(DSH_MES); const f = faixaDash(); return f.de === f.ate ? nomeMes(f.de) : `${nomeMes(f.de)} a ${nomeMes(f.ate)}` };
 
-/* ---------- meta mensal (salva neste aparelho) ---------- */
-const META_TIPOS = {
-  fat:{nome:'Pedidos faturados', um:'pedido', varios:'pedidos', v:m => m.fat},
-  qtd:{nome:'Amostras solicitadas', um:'amostra', varios:'amostras', v:m => m.qtd}
-};
-let META_EDIT = false, META_TIPO_ED = 'fat';
-function metaCfg(){ try{ const m = JSON.parse(store.get('pv-meta') || 'null'); return m && META_TIPOS[m.tipo] && m.valor > 0 ? m : null }catch{ return null } }
-function renderMeta(){
-  const box = $('dsh-meta'), P = PAINEL; if(!box || !P) return;
-  if(META_EDIT && $('mt-form')) return; // não apaga o que a pessoa está digitando quando o painel atualiza sozinho
-  const cfg = metaCfg();
-  $('meta-edit').hidden = !cfg || META_EDIT;
-  if(META_EDIT){
-    box.innerHTML = `<form class="mt-form" id="mt-form">
-      <div class="field"><span>O que acompanhar</span><div class="seg" id="mt-tipo">${Object.entries(META_TIPOS).map(([k, x]) => `<button type="button" data-mt="${k}" aria-pressed="${k === META_TIPO_ED}">${x.nome}</button>`).join('')}</div></div>
-      <label class="field"><span>Meta por mês</span><input id="mt-valor" type="number" min="1" step="1" inputmode="numeric" placeholder="ex.: 200" value="${cfg ? cfg.valor : ''}"></label>
-      <div class="mt-acts"><button class="btn" type="submit">Salvar meta</button><button type="button" class="btn sec" data-meta-cancel>Cancelar</button>${cfg ? '<button type="button" class="mt-lnk" data-meta-del>Remover meta</button>' : ''}</div>
-      <p class="ld-nota">A meta vale para todos os meses e fica salva neste aparelho.</p></form>`;
-    return;
-  }
-  if(!cfg){ box.innerHTML = `<div class="mt-vazio"><p>Defina uma meta mensal para acompanhar aqui o progresso, o ritmo necessário por dia útil e a projeção para o fim do mês.</p><button type="button" class="btn" data-meta-def>Definir meta</button></div>`; return }
-  const T = META_TIPOS[cfg.tipo], M = P.meses.find(m => m.mes === DSH_MES) || P.meses[P.meses.length - 1], v = T.v(M), pct = Math.round(100 * v / cfg.valor), bateu = v >= cfg.valor;
-  const atual = M.mes === P.mesAtual, ut = diasUteis(M.mes, 0), up = atual ? diasUteis(M.mes, new Date().getDate()) : ut, rest = ut - up;
-  const falta = Math.max(0, cfg.valor - v), proj = atual && up ? Math.round(v / up * ut) : v, esperado = ut ? Math.min(100, 100 * up / ut) : 100;
-  const un = n => n === 1 ? T.um : T.varios, linhas = [];
-  if(bateu) linhas.push(['Resultado', v > cfg.valor ? `Meta batida ✓ · ${pl(v - cfg.valor, T.um, T.varios)} acima` : 'Meta batida ✓']);
-  else if(atual){
-    linhas.push(['Faltam', pl(falta, T.um, T.varios)]);
-    linhas.push(['Ritmo necessário', rest > 0 ? `${fmtInt(Math.ceil(falta / rest))} por dia útil · ${pl(rest, 'dia útil restante', 'dias úteis restantes')}` : 'hoje é o último dia útil do mês']);
-  }else linhas.push(['Resultado', `Faltaram ${pl(falta, T.um, T.varios)} (${pct}% da meta)`]);
-  if(atual && up){
-    linhas.push(['Média até agora', `${(v / up).toLocaleString('pt-BR', {maximumFractionDigits:1})} por dia útil`]);
-    linhas.push(['Projeção no ritmo atual', `${fmtInt(proj)} ${un(proj)} · ${Math.round(100 * proj / cfg.valor)}% da meta`]);
-  }
-  const hist = P.meses.slice(-6).map(m => { const x = T.v(m), ok = x >= cfg.valor;
-    return `<span class="mt-h${ok ? ' ok' : ''}${m.mes === M.mes ? ' sel' : ''}" title="${nomeMes(m.mes)}: ${fmtInt(x)} de ${fmtInt(cfg.valor)}">${MESES[+m.mes.slice(4, 6) - 1]} ${ok ? '✓' : Math.round(100 * x / cfg.valor) + '%'}</span>` }).join('');
-  box.innerHTML = `<div class="mt-top"><div><span>${T.nome} · ${nomeMes(M.mes)}${atual ? ' · em andamento' : ''}</span><strong>${fmtInt(v)}<small> de ${fmtInt(cfg.valor)}</small></strong></div><em class="mt-pct${bateu ? ' ok' : ''}">${pct}%</em></div>
-    <div class="mt-bar${bateu ? ' ok' : ''}"><i style="width:${Math.min(100, pct)}%"></i>${atual && !bateu ? `<u style="left:${esperado}%"></u>` : ''}</div>
-    ${atual && !bateu ? `<p class="mt-leg"><u></u>onde deveria estar hoje (${up} de ${ut} dias úteis) · ${pct >= Math.round(esperado) ? 'no ritmo' : 'abaixo do ritmo'}</p>` : ''}
-    ${linhas.map(([a, b]) => `<div class="drow"><span>${a}</span><b>${b}</b></div>`).join('')}
-    <div class="mt-hist"><span>Últimos meses</span>${hist}</div>`;
-}
 function trocarAba(aba){
   document.body.dataset.tab = aba;
   document.querySelectorAll('[data-aba]').forEach(b => b.setAttribute('aria-current', String(b.dataset.aba === aba)));
@@ -2233,7 +2232,7 @@ function renderDash(){
   $('dsh-quando').textContent = P ? `Atualizado às ${new Date(P.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} · últimos 12 meses do Protheus` : 'Carregando dados do Protheus…';
   document.querySelectorAll('#dsh-per button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.per === DSH_PER)));
   $('dsh-faixa').hidden = !P || DSH_PER !== 'faixa';
-  if(!P){ ['dsh-kpis','dsh-meses','dsh-donut','dsh-top','dsh-vend','dsh-dest','dsh-meta'].forEach(id => $(id).innerHTML = '<p class="vazio">Carregando…</p>'); return }
+  if(!P){ ['dsh-kpis','dsh-meses','dsh-donut','dsh-top','dsh-vend','dsh-dest'].forEach(id => $(id).innerHTML = '<p class="vazio">Carregando…</p>'); return }
   if(!DSH_MES || !P.meses.some(m => m.mes === DSH_MES)) DSH_MES = P.mesAtual;
   const per = perDash(), V = visao(per), M = visao(DSH_MES), A = visao('ano');
   const rot = rotDash(), fx = DSH_PER === 'faixa' ? faixaDash() : null;
@@ -2252,13 +2251,10 @@ function renderDash(){
       : k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true, dlk(C?.at.ab, C?.an.ab, 0)) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês', false, dlk(C?.at.lib, C?.an.lib, 0)) + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês', false, dlk(C?.at.fat, C?.an.fat, 1)))
     + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade original dos itens') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
   // barras mês a mês (clicáveis)
-  const cfgMeta = metaCfg(), metaQ = cfgMeta?.tipo === 'qtd' ? cfgMeta.valor : 0; // meta de amostras: linha tracejada no gráfico
-  const ms = P.meses, max = Math.max(1, metaQ * 1.18, ...ms.map(m => m.qtd)); // folga acima da linha da meta
+  const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd));
   $('dsh-meses').innerHTML = `<div class="bars">${ms.map(m => `<button type="button" class="bar${(fx ? m.mes >= fx.de && m.mes <= fx.ate : m.mes === DSH_MES) ? ' sel' : ''}${m.mes === P.mesAtual ? ' cur' : ''}" data-mes="${m.mes}" title="Ver ${nomeMes(m.mes)}">
-      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></button>`).join('')}${metaQ ? `<u class="bars-meta" id="bars-meta"><em>meta ${fmtInt(metaQ)}</em></u>` : ''}</div>
+      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></button>`).join('')}</div>
     <div class="story">${historiaMes(DSH_MES)}</div>`;
-  { const bm = $('bars-meta'); if(bm){ const bx = bm.parentElement, rb = bx.getBoundingClientRect(), b0 = bx.querySelector('.bar'), ri = b0.querySelector('i').getBoundingClientRect();
-    if(rb.height) bm.style.bottom = (rb.bottom - ri.bottom + b0.getBoundingClientRect().height * metaQ / max) + 'px'; else bm.hidden = true } }
   // rosca por tipo
   const tps = Object.entries(V.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
   $('dsh-donut').innerHTML = tps.length ? `<div class="dn-wrap">${donut(tps, V.qtdTipos)}<div class="dn-leg">${tps.map(([t, q]) => `<div><span class="tp-dot" style="background:${cores(t)}"></span><em>${esc(cap(t))}</em><b>${fmtInt(q)}</b><small>${Math.round(100 * q / V.qtdTipos)}%</small></div>`).join('')}</div></div>` : '<p class="vazio">Sem amostras no período.</p>';
@@ -2283,7 +2279,6 @@ function renderDash(){
   $('dsh-lead').innerHTML = htmlLead(V);
   // destaques
   $('dsh-dest').innerHTML = destaques(V, per).map(([a, b]) => `<div class="drow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('');
-  renderMeta();
 }
 
 /* ---------- comparação com o mês anterior + tempo até faturar ---------- */
@@ -2595,8 +2590,8 @@ async function avisarNovos(nums){
   notificarLocal(titulo, D.texto);
   if(store.get('pv-ntfy-envia') === '1') enviarCelular(titulo + (D.pil.length ? ' · tem pilotagem' : ''), D.texto).catch(e => console.warn('ntfy', e));
   if(aiCfg().avisa && !TV.on){
-    if(!AI.aberto) abrirAI(false);
-    $('ai-resp').hidden = false; $('ai-resp').innerHTML = `<b>${esc(titulo)}</b><br>${esc(D.texto).replace(/\n/g, '<br>')}`;
+    if(!AI.aberto) abrirAI(false, 'chat'); else abaAI('chat');
+    dizerAI(`<b>${esc(titulo)}</b><br>${esc(D.texto).replace(/\n/g, '<br>')}`);
     falar(`${nomeUser()}, ${D.fala[0].toLowerCase() + D.fala.slice(1)}`);
   }
 }
@@ -2617,9 +2612,10 @@ function abrirNotif(){
 }
 
 /* ============================ assistente ============================ */
-const AI = {aberto:false, ultimo:'', rec:null};
+const AI = {aberto:false, ultimo:'', rec:null, aba:'hoje', conv:[], preencher:null};
 const aiCfg = () => ({nome:store.get('pv-ai-nome') || 'Assistente', apelido:store.get('pv-ai-apelido') || '', voz:store.get('pv-ai-voz') || '',
-  tom:+(store.get('pv-ai-tom') || 0.85), vel:+(store.get('pv-ai-vel') || 0.97), avisa:store.get('pv-ai-avisa') !== '0'});
+  tom:+(store.get('pv-ai-tom') || 0.85), vel:+(store.get('pv-ai-vel') || 0.97), avisa:store.get('pv-ai-avisa') !== '0',
+  falaResp:store.get('pv-ai-fala') !== '0', abre:store.get('pv-ai-abre') !== '0'});
 // horário de uso do site: avisos de pedido novo só dentro dele
 const horario = () => ({ini:store.get('pv-hor-ini') || '07:30', fim:store.get('pv-hor-fim') || '17:18', dias:store.get('pv-hor-dias') || '12345'});
 function dentroHorario(d = new Date()){
@@ -2655,10 +2651,11 @@ async function falarAzure(txt, cfg = azCfg()){
     url = URL.createObjectURL(await r.blob()); azCache.set(k, url); if(azCache.size > 60) azCache.delete(azCache.keys().next().value);
   }
   pararFala(); azAudio = new Audio(url);
-  azAudio.onplay = () => $('ai-orb').classList.add('fala'); azAudio.onended = azAudio.onpause = () => $('ai-orb').classList.remove('fala');
+  azAudio.onplay = () => marcaFala(true); azAudio.onended = azAudio.onpause = () => marcaFala(false);
   await azAudio.play();
 }
-function pararFala(){ try{ speechSynthesis.cancel() }catch{} try{ azAudio?.pause() }catch{} $('ai-orb')?.classList.remove('fala') }
+function marcaFala(on){ $('ai-orb')?.classList.toggle('fala', on); $('as-ava')?.classList.toggle('fala', on) }
+function pararFala(){ try{ speechSynthesis.cancel() }catch{} try{ azAudio?.pause() }catch{} marcaFala(false) }
 const falando = () => { try{ return speechSynthesis.speaking || (azAudio && !azAudio.paused && !azAudio.ended) }catch{ return false } };
 // ElevenLabs: voz criada pela equipe no site do ElevenLabs (Voice Design). Chave + ID da voz ficam só neste computador.
 const elCfg = () => ({chave:store.get('pv-el-chave') || '', voz:store.get('pv-el-voz') || '', modelo:store.get('pv-el-modelo') || 'eleven_multilingual_v2', estab:+(store.get('pv-el-estab') || 0.6)});
@@ -2673,7 +2670,7 @@ async function falarEleven(txt, cfg = elCfg()){
     url = URL.createObjectURL(await r.blob()); azCache.set(k, url); if(azCache.size > 60) azCache.delete(azCache.keys().next().value);
   }
   pararFala(); azAudio = new Audio(url);
-  azAudio.onplay = () => $('ai-orb').classList.add('fala'); azAudio.onended = azAudio.onpause = () => $('ai-orb').classList.remove('fala');
+  azAudio.onplay = () => marcaFala(true); azAudio.onended = azAudio.onpause = () => marcaFala(false);
   await azAudio.play();
 }
 // ordem: ElevenLabs → Azure → voz do navegador (se um falhar, tenta o próximo)
@@ -2687,7 +2684,7 @@ function falarNavegador(txt){
   try{
     pararFala(); const c = aiCfg(), u = new SpeechSynthesisUtterance(txt.replace(/·/g, ',')); u.lang = 'pt-BR'; u.rate = c.vel; u.pitch = c.tom;
     u.voice = escolherVoz();
-    u.onstart = () => $('ai-orb').classList.add('fala'); u.onend = u.onerror = () => $('ai-orb').classList.remove('fala');
+    u.onstart = () => marcaFala(true); u.onend = u.onerror = () => marcaFala(false);
     speechSynthesis.speak(u);
   }catch{}
 }
@@ -2713,32 +2710,85 @@ function falaResumo(){
   if(P){ const M = visao(P.mesAtual); if(M.lt?.n) f.push(`Tempo médio até faturar no mês: ${fmtDias(M.lt.s / M.lt.n)}.`) }
   return f.join(' ');
 }
+/* ---------- assistente: painel com abas (Hoje, Atalhos, Perguntar, Ajustes) ---------- */
+const IC_AI = {
+  brilho:'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15v4M17 17h4M5 3v3M3.5 4.5h3"/>',
+  casa:'<path d="M4 11l8-7 8 7v9h-5v-5H9v5H4z"/>', grade:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/>', ajuste:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>', som:'<path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>',
+  mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>', enviar:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  alerta:'<path d="M12 4L3 20h18z"/><path d="M12 10v4M12 17h.01"/>', relogio:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>', novo:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/>',
+  caixa:'<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/>', check:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+  rolo:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5"/>', camadas:'<path d="M12 4L3 9l9 5 9-5z"/><path d="M3 14l9 5 9-5"/>',
+  estoque:'<path d="M4 8h16v12H4z"/><path d="M4 8l2-4h12l2 4M9 13h6"/>', print:'<path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v6H7z"/>',
+  busca:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>', graf:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  baixar:'<path d="M12 4v11M12 15l-4-4M12 15l4-4M5 20h14"/>', ajuda:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 17h.01"/>',
+  tv:'<rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>', tema:'<path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/>',
+  sino:'<path d="M6 16v-5a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/>', atualizar:'<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/>'
+};
+const icAI = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC_AI[n] || ''}</svg>`;
+const semEstoqueLista = () => pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length);
+function abaAI(a){
+  AI.aba = a; $('ai-pan').dataset.aba = a;
+  $('as-abas').querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.asAba === a)));
+  if(a === 'ajustes') AI.preencher?.();
+  $('as-corpo').scrollTop = a === 'chat' ? $('as-corpo').scrollHeight : 0;
+}
 function renderAI(){
-  const F = FILA, P = PAINEL, O = ontemResumo();
-  $('ai-nome').textContent = aiCfg().nome; $('ai-data').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
-  const tile = (acao, cls, rot, n, sub) => `<button type="button" class="ai-tile ${cls}" data-ai="${acao}"><span>${rot}</span><strong>${n}</strong><small>${sub}</small></button>`;
-  const lin = (acao, cls, ic, h) => acao ? `<button type="button" class="ai-l ${cls}" data-ai="${acao}"><span class="ic">${ic}</span><span>${h}</span></button>` : `<div class="ai-l ${cls}"><span class="ic">${ic}</span><span>${h}</span></div>`;
-  let html = `<p class="ai-ola">${saud()}, ${esc(nomeUser())}.</p><p class="ai-sub">${F ? 'Atualizado às ' + new Date(F.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) : 'Carregando…'}<button type="button" data-ai="atualizar">↻ Atualizar</button></p>`;
+  const F = FILA, P = PAINEL, O = ontemResumo(), nov = F ? novidadesAI() : [], sem = semEstoqueLista().length;
+  $('ai-nome').textContent = aiCfg().nome; $('ai-data').textContent = c1(new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'}));
+  // ----- aba Hoje
+  const frase = !F ? ['', 'Carregando a fila do Protheus…'] : F.atr.length ? ['red', `${pl(F.atr.length, 'pedido atrasado precisa', 'pedidos atrasados precisam')} de atenção.`]
+    : F.hoje.length ? ['yel', `Nada atrasado. ${pl(F.hoje.length, 'pedido vence', 'pedidos vencem')} hoje.`] : ['grn', 'Tudo no prazo: nenhum pedido atrasado.'];
+  const card = (acao, cls, n, rot, sub) => `<button type="button" class="as-card ${cls}" data-ai="${acao}"><strong>${n}</strong><span>${rot}</span><small>${sub}</small><i class="seta">›</i></button>`;
+  const lin = (acao, cls, ic, h, sub) => { const m = `<span class="ic">${icAI(ic)}</span><span>${h}${sub ? `<small>${sub}</small>` : ''}</span>`;
+    return acao ? `<button type="button" class="as-lin ${cls}" data-ai="${acao}">${m}<span class="go">›</span></button>` : `<div class="as-lin ${cls}">${m}</div>` };
+  let h = `<div class="as-ola"><h3>${saud()}, ${esc(nomeUser())}.</h3><p class="as-frase ${frase[0]}">${frase[1]}</p></div>`;
   if(F){
     const tot = F.pilot.reduce((s, x) => s + x.qtd, 0);
-    html += `<div class="ai-tiles">${tile('atr', F.atr.length ? 'red' : 'grn', 'Atrasados', fmtInt(F.atr.length), F.atr[0] ? `mais antigo: ${F.atr[0].dias} dias` : 'tudo no prazo')}
-      ${tile('aberto', '', 'Em aberto', fmtInt(F.ab), 'ver na lista')}${tile('liberado', 'yel', 'Liberados', fmtInt(F.lib), 'ver na lista')}
-      ${tile('pilot', '', 'Pilotagens', fmtInt(F.pilot.length), pl(tot, 'peça', 'peças') + ' · ver tabela')}</div>`;
+    h += `<div class="as-cards">` + card('atr', F.atr.length ? 'red' : 'grn', fmtInt(F.atr.length), 'Atrasados', F.atr[0] ? `o mais antigo há ${F.atr[0].dias} dias` : 'tudo no prazo')
+      + card('hoje', F.hoje.length ? 'yel' : '', fmtInt(F.hoje.length), 'Vencem hoje', `${PRAZO_DIAS}º dia desde a emissão`)
+      + card('aberto', '', fmtInt(F.ab), 'Em aberto', 'aguardando liberação') + card('liberado', '', fmtInt(F.lib), 'Liberados', 'aguardando faturamento') + `</div>`;
+    h += `<h4 class="as-h">Para separar</h4><div class="as-lista">`
+      + lin('pilot', '', 'rolo', `<b>${pl(F.pilot.length, 'pilotagem', 'pilotagens')}</b> para separar`, F.pilot.length ? `${pl(tot, 'peça', 'peças')} · ver itens e pedidos` : 'nenhuma em aberto')
+      + lin('tipos', '', 'camadas', `<b>Tipos em aberto</b>`, F.tiposAb.length ? F.tiposAb.slice(0, 3).map(([t, q]) => `${esc(cap(t))} ${fmtInt(q)}`).join(' · ') : 'nenhuma amostra em aberto') + `</div>`;
     const ls = [];
-    if(F.hoje.length) ls.push(lin('hoje', 'red', '📌', `<b>${pl(F.hoje.length, 'vence', 'vencem')} hoje</b> (${PRAZO_DIAS}º dia)`));
-    if(F.amanha.length) ls.push(lin('amanha', '', '🗓️', `<b>${pl(F.amanha.length, 'vence', 'vencem')} amanhã</b>`));
-    const nov = novidadesAI(); if(nov.length) ls.push(lin('novos', '', '✨', `<b>${pl(nov.length, 'pedido novo', 'pedidos novos')}</b> desde a sua última visita`));
-    const sem = pedidos.filter(p => p.status[0] !== 'faturado' && semEstoque(p).length).length; if(sem) ls.push(lin('sem', 'red', '⚠️', `<b>${pl(sem, 'pedido', 'pedidos')} de pilotagem sem estoque</b>`));
-    if(O && (O.ped || O.fat)) ls.push(lin('', '', '📈', `${O.data.toDateString() === new Date(Date.now() - 864e5).toDateString() ? 'Ontem' : c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: <b>${pl(O.ped, 'pedido', 'pedidos')}</b> recebidos, <b>${fmtInt(O.fat)}</b> faturados`));
-    if(P){ const M = visao(P.mesAtual); if(M.lt?.n){ const m = M.lt.s / M.lt.n; ls.push(lin('dash', m > PRAZO_DIAS ? 'red' : '', '⏱️', `Tempo até faturar no mês: <b>${fmtDias(m)}</b> · ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo`)) } }
-    if(ls.length) html += `<div class="ai-lin">${ls.join('')}</div>`;
+    if(nov.length) ls.push(lin('novos', '', 'novo', `<b>${pl(nov.length, 'pedido novo', 'pedidos novos')}</b>`, 'desde a sua última visita'));
+    if(F.amanha.length) ls.push(lin('amanha', '', 'cal', `<b>${pl(F.amanha.length, 'pedido vence', 'pedidos vencem')} amanhã</b>`, 'para adiantar hoje'));
+    if(sem) ls.push(lin('sem', 'red', 'estoque', `<b>${pl(sem, 'pedido', 'pedidos')} sem estoque</b>`, 'pilotagem sem rolo nos armazéns'));
+    if(O && (O.ped || O.fat)) ls.push(lin('', '', 'graf', `${O.data.toDateString() === new Date(Date.now() - 864e5).toDateString() ? 'Ontem' : c1(O.data.toLocaleDateString('pt-BR', {weekday:'long'}))}: <b>${pl(O.ped, 'pedido recebido', 'pedidos recebidos')}</b>`, `${pl(O.fat, 'faturado', 'faturados')}`));
+    if(P){ const M = visao(P.mesAtual); if(M.lt?.n){ const m = M.lt.s / M.lt.n; ls.push(lin('dash', m > PRAZO_DIAS ? 'red' : '', 'relogio', `Tempo até faturar no mês: <b>${fmtDias(m)}</b>`, `${Math.round(100 * M.lt.ok / M.lt.n)}% dentro do prazo · ver no dashboard`)) } }
+    if(ls.length) h += `<h4 class="as-h">Acontecendo</h4><div class="as-lista">${ls.join('')}</div>`;
   }
-  html += `<div class="ai-chips"><button type="button" data-ai="falar">🔊 Ouvir resumo</button><button type="button" data-ai="tipos">🧵 Tipos em aberto</button><button type="button" data-ai="tv">📺 Modo TV</button></div>`;
-  $('ai-corpo').innerHTML = html;
-  const n = F ? F.atr.length + novidadesAI().length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
+  h += `<div class="as-pe"><button type="button" class="btn" data-ai="falar">${icAI('som')}Ouvir resumo</button><button type="button" class="btn sec" data-as-aba="atalhos">Todas as opções</button></div>
+    <p class="as-atu"><span>${F ? 'Atualizado às ' + new Date(F.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) : 'Carregando…'}</span><button type="button" data-ai="atualizar">Atualizar</button></p>`;
+  $('ai-corpo').innerHTML = h;
+  // ----- aba Atalhos: tudo o que o assistente faz, em botões
+  const naoImp = pedidos.length ? visiveis().filter(({p}) => !IMP.get(p)).length : null;
+  const grupos = [
+    ['Pedidos', [['atr', 'alerta', 'Atrasados', F?.atr.length, 'red'], ['hoje', 'relogio', 'Vencem hoje', F?.hoje.length], ['amanha', 'cal', 'Vencem amanhã', F?.amanha.length], ['novos', 'novo', 'Pedidos novos', F ? nov.length : null],
+      ['aberto', 'caixa', 'Em aberto', F?.ab], ['liberado', 'check', 'Liberados', F?.lib], ['sem', 'estoque', 'Sem estoque', sem, 'red'], ['buscar', 'busca', 'Buscar pedido ou cliente']]],
+    ['Separação', [['pilot', 'rolo', 'Pilotagens', F?.pilot.length], ['tipos', 'camadas', 'Tipos em aberto'], ['imprimir', 'print', 'Imprimir não impressos', naoImp], ['tv', 'tv', 'Modo TV']]],
+    ['Relatórios', [['dash', 'graf', 'Dashboard'], ['exportar', 'baixar', 'Exportar relatório'], ['porque', 'ajuda', 'Por que atrasou?'], ['falar', 'som', 'Ouvir resumo']]],
+    ['Este aparelho', [['tema', 'tema', modoAtual() === 'escuro' ? 'Tema claro' : 'Tema escuro'], ['notif', 'sino', 'Notificações'], ['atualizar', 'atualizar', 'Atualizar dados'], ['ajustes', 'ajuste', 'Ajustes do assistente']]]
+  ];
+  $('as-atalhos').innerHTML = grupos.map(([tit, ops]) => `<h4 class="as-h">${tit}</h4><div class="as-grade">${ops.map(([a, ic, rot, n, cls]) =>
+    `<button type="button" class="as-op${n && cls ? ' ' + cls : ''}" data-ai="${a}"><span class="ic">${icAI(ic)}</span><span>${rot}</span>${n == null ? '' : `<em>${fmtInt(n)}</em>`}</button>`).join('')}</div>`).join('');
+  const n = F ? F.atr.length + nov.length : 0; $('ai-orb').classList.toggle('tem', n > 0); $('ai-orb').dataset.n = n > 99 ? '99+' : n;
   AI.ultimo = falaResumo(); return {fala:AI.ultimo};
 }
+// ----- aba Perguntar: conversa em balões + sugestões de um toque
+const SUGESTOES_AI = ['Atrasados', 'Vencem hoje', 'Pedidos novos', 'Pilotagens', 'Tipos em aberto', 'Tempo até faturar', 'Como foi ontem?', 'Resumo do dia', 'Exportar relatório', 'Detalhe do pedido…'];
+function renderChat(){
+  const ola = `<div class="as-msg ai">Pode perguntar com as suas palavras ou tocar em uma sugestão. Para abrir um pedido, digite o número (ex.: <b>pedido 500123</b>); para a linha do tempo, <b>detalhe 500123</b>.</div>`;
+  $('as-chat').innerHTML = ola + AI.conv.map(m => `<div class="as-msg ${m.quem}">${m.html}</div>`).join('');
+  $('as-sug').innerHTML = SUGESTOES_AI.map(t => `<button type="button" data-perg="${esc(t)}">${esc(t)}</button>`).join('');
+  if(AI.aba === 'chat') $('as-corpo').scrollTop = $('as-corpo').scrollHeight;
+}
+function dizerAI(html, quem = 'ai'){ AI.conv.push({quem, html}); if(AI.conv.length > 40) AI.conv.shift(); renderChat() }
 // ações dos cartões / botões do assistente
+const PRECISA_FILA_AI = ['hoje', 'amanha', 'novos', 'pilot', 'tipos'];
 const ACOES_AI = {
   atr:      () => { fecharAI(); abrirListaAssist('atr') },
   aberto:   () => { fecharAI(); abrirListaAssist('aberto') },
@@ -2748,43 +2798,70 @@ const ACOES_AI = {
   hoje:     () => abrirTabela('Vencem hoje', `${PRAZO_DIAS}º dia desde a emissão`, tabelaPeds(FILA.hoje, 'Nenhum pedido vence hoje.')),
   amanha:   () => abrirTabela('Vencem amanhã', `${PRAZO_DIAS - 1}º dia desde a emissão`, tabelaPeds(FILA.amanha, 'Nenhum pedido vence amanhã.')),
   novos:    () => abrirTabela('Pedidos novos', 'desde a sua última visita', tabelaPeds(novidadesAI(), 'Nenhum pedido novo.')),
-  sem:      () => { fecharAI(); trocarAba('pedidos') },
+  sem:      () => { const l = semEstoqueLista(); abrirTabela('Pilotagem sem estoque', `sem rolo nos armazéns ${CONFIG.enderecamento.armazens.join('/')} · pedidos da lista atual`, l.length
+    ? `<table class="tb-t"><thead><tr><th>Pedido</th><th>Cliente</th><th>Itens sem estoque</th><th class="n">Parado</th></tr></thead><tbody>${l.map(p => `<tr data-ped="${esc(trim(p.num))}"><td><b>${esc(p.num)}</b></td><td>${esc(nomeCliLista(p) || p.cliente)}</td><td>${esc(semEstoque(p).join(', '))}</td><td class="n">${diasParado(p)} dias</td></tr>`).join('')}</tbody></table><p class="tb-dica">Clique em uma linha para abrir o pedido.</p>`
+    : '<p class="vazio">Nenhum pedido sem estoque na lista atual. ✓</p>') },
+  buscar:   () => { fecharAI(); trocarAba('pedidos'); $('f-busca').focus() },
+  imprimir: () => { fecharAI(); trocarAba('pedidos'); if(!$('btn-print-novos').disabled) $('btn-print-novos').click() },
   dash:     () => { fecharAI(); trocarAba('dash') },
+  exportar: async () => { fecharAI(); trocarAba('dash'); if(!PAINEL) await atualizarPainel(); abrirExportar() },
+  porque:   () => { const M = PAINEL && visao(PAINEL.mesAtual); if(M?.lt?.na) return abrirResumoAtrasos(M, nomeMes(PAINEL.mesAtual));
+    abaAI('chat'); dizerAI(PAINEL ? 'Neste mês nenhum pedido foi faturado fora do prazo.' : 'Ainda estou carregando os dados do mês. Tente de novo em alguns segundos.') },
   tv:       () => { fecharAI(); iniciarTV() },
-  falar:    () => falar(AI.ultimo || renderAI().fala),
-  atualizar: async () => { $('ai-corpo').querySelector('.ai-sub').firstChild.textContent = 'Atualizando…'; try{ await carregarFila(true) }catch{} renderAI() },
+  tema:     () => { store.set('pv-modo', modoAtual() === 'escuro' ? 'claro' : 'escuro'); aplicarTema(); renderAI() },
+  notif:    () => { fecharAI(); abrirNotif() },
+  ajustes:  () => abaAI('ajustes'),
+  falar:    () => { if(falando()) return pararFala(); falar(AI.ultimo || renderAI().fala) },
+  atualizar: async () => { const p = $('ai-corpo').querySelector('.as-atu span'); if(p) p.textContent = 'Atualizando…'; try{ await Promise.all([carregarFila(true), atualizarPainel(true)]) }catch{} renderAI() },
 };
+function fazerAI(acao){
+  if(!ACOES_AI[acao]) return;
+  if(PRECISA_FILA_AI.includes(acao) && !FILA){ abaAI('chat'); return dizerAI('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.') }
+  ACOES_AI[acao]();
+}
 // perguntas (texto ou voz): [palavras, resposta curta, ação]
 const COMANDOS_AI = [
+  [/(detalhe|linha do tempo|situacao|andamento)\D*(\d{3,6})/, m => { const n = m[2].padStart(6, '0'); return [`Abrindo o detalhe do pedido ${n}.`, () => abrirDetalhe({filial:CONFIG.filial, num:n})] }],
+  [/detalhe|linha do tempo/, () => ['Diga o número junto, por exemplo: detalhe 500123.']],
   [/pedido\D*(\d{3,6})|^\s*(\d{5,6})\s*$/, m => { const n = (m[1] || m[2]).padStart(6, '0'); return [`Abrindo o pedido ${n}.`, () => { fecharAI(); gerar([{filial:CONFIG.filial, num:n}], false) }] }],
+  [/cliente\s+(.{2,})/, m => [`Procurando “${m[1]}” na lista.`, () => { fecharAI(); trocarAba('pedidos'); $('f-busca').value = m[1]; $('f-busca').dispatchEvent(new Event('input')) }]],
   [/modo tv|televis|\btv\b/, () => ['Ligando o modo TV.', ACOES_AI.tv]],
+  [/export|relatorio|pdf|imagem/, () => ['Abrindo a exportação do relatório.', ACOES_AI.exportar]],
   [/dashboard|painel|grafico/, () => ['Abrindo o dashboard.', ACOES_AI.dash]],
+  [/imprim/, () => ['Abrindo a impressão dos pedidos que ainda não foram impressos.', ACOES_AI.imprimir]],
+  [/estoque/, () => { const n = semEstoqueLista().length; return n ? [`${pl(n, 'pedido', 'pedidos')} de pilotagem sem estoque na lista. Abri a tabela.`, ACOES_AI.sem] : ['Nenhum pedido sem estoque na lista atual.'] }],
+  [/tema|escuro|claro/, () => [`Mudando para o tema ${modoAtual() === 'escuro' ? 'claro' : 'escuro'}.`, ACOES_AI.tema]],
+  [/notific|aviso/, () => ['Abrindo as notificações.', ACOES_AI.notif]],
+  [/ajuda|opcoes|o que voce|atalho/, () => ['Estas são todas as opções.', () => abaAI('atalhos')]],
   [/pilot/, () => FILA.pilot.length ? [`${pl(FILA.pilot.length, 'item de pilotagem', 'itens de pilotagem')}, somando ${pl(FILA.pilot.reduce((s, x) => s + x.qtd, 0), 'peça', 'peças')}. Abri a tabela.`, ACOES_AI.pilot] : ['Nenhuma pilotagem em aberto.']],
   [/tipo/, () => [FILA.tiposAb.length ? `Em aberto: ${FILA.tiposAb.map(([t, q]) => `${fmtInt(q)} de ${cap(t).toLowerCase()}`).join(', ')}.` : 'Nenhuma amostra em aberto.', ACOES_AI.tipos]],
+  [/por ?que/, () => ['Vou mostrar o resumo dos atrasos do mês.', ACOES_AI.porque]],
   [/atras/, () => FILA.atr.length ? [`${pl(FILA.atr.length, 'pedido atrasado', 'pedidos atrasados')}. O mais antigo está há ${FILA.atr[0].dias} dias. Filtrei na lista.`, ACOES_AI.atr] : ['Nenhum pedido atrasado.']],
   [/novo|novidade|chegou|chegaram/, () => { const n = novidadesAI(); return n.length ? [`${pl(n.length, 'pedido novo', 'pedidos novos')} desde a sua última visita.`, ACOES_AI.novos] : ['Nenhum pedido novo desde a sua última visita.'] }],
   [/vence|venc/, () => [`Vencem hoje: ${fmtInt(FILA.hoje.length)}. Vencem amanhã: ${fmtInt(FILA.amanha.length)}.`, FILA.hoje.length ? ACOES_AI.hoje : null]],
   [/liberad/, () => [`${pl(FILA.lib, 'pedido liberado', 'pedidos liberados')} aguardando faturamento.`, ACOES_AI.liberado]],
   [/aberto|fila|pendente/, () => [`${fmtInt(FILA.ab)} em aberto e ${fmtInt(FILA.lib)} liberados.`, ACOES_AI.aberto]],
   [/fatur|tempo|demora/, () => { const M = PAINEL && visao(PAINEL.mesAtual); return M?.lt?.n ? [`Tempo médio até faturar: ${fmtDias(M.lt.s / M.lt.n)}, ${Math.round(100 * M.lt.ok / M.lt.n)}% no prazo.${M.lt.na ? ' Abri o resumo dos atrasos.' : ''}`, M.lt.na ? () => abrirResumoAtrasos(M, nomeMes(PAINEL.mesAtual)) : null] : ['Ainda sem dados de faturamento no mês.'] }],
-  [/hoje/, () => PAINEL ? [`Hoje chegaram ${pl(PAINEL.hoje.ped, 'pedido', 'pedidos')} com ${pl(PAINEL.hoje.qtd, 'amostra', 'amostras')}.`] : null],
   [/ontem/, () => { const O = ontemResumo(); return O ? [`${pl(O.ped, 'pedido recebido', 'pedidos recebidos')} e ${pl(O.fat, 'faturado', 'faturados')}.`] : null }],
+  [/hoje/, () => PAINEL ? [`Hoje chegaram ${pl(PAINEL.hoje.ped, 'pedido', 'pedidos')} com ${pl(PAINEL.hoje.qtd, 'amostra', 'amostras')}.`] : null],
   [/resumo|programa|bom dia|boa tarde|boa noite|status|como esta/, () => [falaResumo()]],
 ];
+const SEM_FILA_AI = /pedido|detalhe|linha do tempo|cliente|tv|dashboard|painel|export|relatorio|tema|escuro|claro|notific|ajuda|opcoes|imprim/;
 function responderAI(txt){
   const t = semAcento(txt).toLowerCase();
-  const mostrar = (msg, acao) => { $('ai-resp').hidden = false; $('ai-resp').innerHTML = `<button type="button" class="ai-resp-x" title="Fechar">✕</button>${esc(msg)}`; falar(msg); if(acao) setTimeout(acao, 500) };
-  if(!FILA && !/pedido|tv|dashboard|painel/.test(t)) return mostrar('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
+  abaAI('chat'); dizerAI(esc(txt), 'eu');
+  const mostrar = (msg, acao) => { dizerAI(esc(msg)); if(aiCfg().falaResp) falar(msg); if(acao) setTimeout(acao, 600) };
+  if(!FILA && !SEM_FILA_AI.test(t)) return mostrar('Ainda estou carregando a fila do Protheus. Tente de novo em alguns segundos.');
   for(const [re, fn] of COMANDOS_AI){ const m = t.match(re); if(m){ const r = fn(m); if(r) return mostrar(r[0], r[1]) } }
-  mostrar('Ainda não sei responder isso. Tente: atrasados, pilotagens, tipos, novos, vencem hoje, liberados, tempo até faturar, pedido 500123 ou modo TV.');
+  mostrar('Não entendi. Toque em uma das sugestões aqui embaixo ou veja todas as opções na aba Atalhos.');
 }
-async function abrirAI(falarJa = false){
-  AI.aberto = true; $('ai-pan').hidden = false; renderAI();
+async function abrirAI(falarJa = false, aba = 'hoje'){
+  AI.aberto = true; $('ai-pan').hidden = false; document.body.classList.add('as-on'); abaAI(aba); renderAI(); renderChat();
   try{ await Promise.all([carregarFila(), PAINEL ? null : atualizarPainel()]) }catch(e){ console.warn('ai', e) }
   renderAI(); if(falarJa) falar(AI.ultimo);
   setTimeout(marcarVistoAI, 4000);
 }
-function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; $('ai-resp').hidden = true; pararFala(); AI.rec?.abort?.() }
+function fecharAI(){ AI.aberto = false; $('ai-pan').hidden = true; document.body.classList.remove('as-on'); pararFala(); AI.rec?.abort?.() }
 let MODO_ASSIST = '';
 const ROT_ASSIST = {atr:'Atrasados', aberto:'Em aberto', liberado:'Liberados'};
 function abrirListaAssist(modo){
@@ -2795,13 +2872,16 @@ function abrirListaAssist(modo){
 }
 const abrirAtrasadosNaLista = () => abrirListaAssist('atr');
 function iniciarAI(){
+  document.querySelectorAll('#ai-orb[data-ic], #ai-pan [data-ic]').forEach(e => e.insertAdjacentHTML('afterbegin', icAI(e.dataset.ic)));
   $('ai-orb').onclick = () => AI.aberto ? fecharAI() : abrirAI(false);
   $('ai-x').onclick = fecharAI;
   $('ai-falar').onclick = () => { if(falando()){ pararFala(); return } falar(AI.ultimo || renderAI().fala) };
   $('ai-auto').checked = store.get('pv-ai-auto') === '1';
+  const ESTILOS_VOZ = {natural:[1, 1], calma:[0.7, 0.92], rapida:[1, 1.15]};
   const encherVozes = () => { const vs = vozesPt(), atual = aiCfg().voz;
     $('aic-voz').innerHTML = `<option value="">Automática (masculina, se houver)</option>` + vs.map(v => `<option value="${esc(v.name)}"${v.name === atual ? ' selected' : ''}>${esc(v.name.replace(/\s*-\s*Portuguese.*$/i, '').replace(/^Microsoft\s+/i, ''))}${VOZ_MASC.test(v.name) ? ' · masculina' : ''}</option>`).join('') };
-  const rotulos = () => { $('aic-tom-v').textContent = (+$('aic-tom').value).toFixed(2); $('aic-vel-v').textContent = (+$('aic-vel').value).toFixed(2) + 'x' };
+  const rotulos = () => { $('aic-tom-v').textContent = (+$('aic-tom').value).toFixed(2); $('aic-vel-v').textContent = (+$('aic-vel').value).toFixed(2) + 'x';
+    $('aic-estilo').querySelectorAll('button').forEach(b => { const [t, v] = ESTILOS_VOZ[b.dataset.vozPre]; b.setAttribute('aria-pressed', String(Math.abs(t - $('aic-tom').value) < .01 && Math.abs(v - $('aic-vel').value) < .01)) }) };
   $('aic-el-modelo').innerHTML = EL_MODELOS.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
   const lerEl = () => ({chave:trim($('aic-el-chave').value), voz:trim($('aic-el-id').value) || $('aic-el-voz').value, modelo:$('aic-el-modelo').value, estab:+$('aic-el-estab').value});
   $('aic-el-estab').oninput = () => $('aic-el-estab-v').textContent = (+$('aic-el-estab').value).toFixed(2);
@@ -2827,45 +2907,52 @@ function iniciarAI(){
     $('aic-az-st').textContent = 'Gerando…';
     try{ await falarAzure(`${saud()}, ${trim($('aic-apelido').value) || nomeUser()}. Às suas ordens. Hoje temos alguns pedidos para acompanhar.`, cfg); $('aic-az-st').textContent = '✓ Funcionando. Clique em Salvar.' }
     catch(e){ $('aic-az-st').textContent = /Failed to fetch|NetworkError|Load failed/i.test(e.message) ? 'Não conectou ao Azure (região errada ou rede bloqueada).' : 'Erro: ' + e.message } };
-  $('ai-cfg').onclick = () => { const f = $('ai-conf'); f.hidden = !f.hidden; if(f.hidden) return; const c = aiCfg(), H = horario(), A = azCfg();
+  AI.preencher = () => { const c = aiCfg(), H = horario(), A = azCfg();
     const E = elCfg(); $('aic-el-chave').value = E.chave; $('aic-el-modelo').value = E.modelo; $('aic-el-estab').value = E.estab; $('aic-el-estab').oninput();
     if(E.voz && ![...$('aic-el-voz').options].some(o => o.value === E.voz)) $('aic-el-id').value = E.voz; else $('aic-el-voz').value = E.voz;
     $('aic-el-st').textContent = E.chave && E.voz ? 'Voz ElevenLabs ativa.' : '';
     $('aic-az-chave').value = A.chave; $('aic-az-regiao').value = A.regiao; $('aic-az-voz').value = A.voz; $('aic-az-st').textContent = A.chave ? 'Voz premium ativa.' : '';
     $('aic-nome').value = store.get('pv-ai-nome') || ''; $('aic-apelido').value = c.apelido; $('aic-tom').value = c.tom; $('aic-vel').value = c.vel; $('aic-avisa').checked = c.avisa;
-    $('aic-ini').value = H.ini; $('aic-fim').value = H.fim; encherVozes(); rotulos() };
+    $('aic-ini').value = H.ini; $('aic-fim').value = H.fim; $('aic-fala').checked = c.falaResp; $('aic-abre').checked = c.abre; $('ai-auto').checked = store.get('pv-ai-auto') === '1'; $('aic-st').textContent = ''; encherVozes(); rotulos() };
   $('aic-tom').oninput = $('aic-vel').oninput = rotulos;
   const salvarCfg = () => { const E = lerEl(); store.set('pv-el-chave', E.chave); store.set('pv-el-voz', E.voz); store.set('pv-el-modelo', E.modelo); store.set('pv-el-estab', String(E.estab));
     const A = lerAz(); store.set('pv-az-chave', A.chave); store.set('pv-az-regiao', A.regiao); store.set('pv-az-voz', A.voz);
     store.set('pv-ai-nome', trim($('aic-nome').value)); store.set('pv-ai-apelido', trim($('aic-apelido').value)); store.set('pv-ai-voz', $('aic-voz').value);
     store.set('pv-ai-tom', $('aic-tom').value); store.set('pv-ai-vel', $('aic-vel').value); store.set('pv-ai-avisa', $('aic-avisa').checked ? '1' : '0');
+    store.set('pv-ai-fala', $('aic-fala').checked ? '1' : '0'); store.set('pv-ai-abre', $('aic-abre').checked ? '1' : '0'); store.set('pv-ai-auto', $('ai-auto').checked ? '1' : '0');
     if($('aic-ini').value) store.set('pv-hor-ini', $('aic-ini').value); if($('aic-fim').value) store.set('pv-hor-fim', $('aic-fim').value) };
   $('aic-testar').onclick = () => { salvarCfg(); falar(`Olá, ${nomeUser()}. Eu sou ${aiCfg().nome === 'Assistente' ? 'o seu assistente' : 'o ' + aiCfg().nome}. Pronto para começar o dia.`) };
-  $('ai-conf').onsubmit = e => { e.preventDefault(); salvarCfg(); $('ai-conf').hidden = true; renderAI(); falar(`Configurações salvas, ${nomeUser()}.`) };
+  $('ai-conf').onsubmit = e => { e.preventDefault(); salvarCfg(); renderAI(); $('aic-st').textContent = '✓ Ajustes salvos'; setTimeout(() => { if($('aic-st').textContent.startsWith('✓')) $('aic-st').textContent = '' }, 3000) };
   $('ai-auto').onchange = e => store.set('pv-ai-auto', e.target.checked ? '1' : '0');
   $('ai-perg').onsubmit = e => { e.preventDefault(); const v = trim($('ai-txt').value); if(v){ responderAI(v); $('ai-txt').value = '' } };
-  $('ai-corpo').addEventListener('click', e => { const b = e.target.closest('[data-ai]'); if(b && ACOES_AI[b.dataset.ai]) ACOES_AI[b.dataset.ai]() });
-  $('ai-resp').addEventListener('click', e => { if(e.target.closest('.ai-resp-x')){ $('ai-resp').hidden = true; pararFala() } });
-  $('aic-mordomo').onclick = () => { const vs = vozesPt(), v = vs.find(x => VOZ_MASC.test(x.name) && /natural|online|neural/i.test(x.name)) || vs.find(x => VOZ_MASC.test(x.name));
-    if(v) $('aic-voz').value = v.name; $('aic-tom').value = 0.7; $('aic-vel').value = 0.92; $('aic-tom').oninput();
-    salvarCfg(); falar(`Às suas ordens, ${nomeUser()}.${v ? '' : ' Este navegador não tem voz masculina em português. No Microsoft Edge, a voz Antonio fica bem melhor.'}`) };
+  $('ai-pan').addEventListener('click', e => {
+    const b = e.target.closest('[data-ai]'); if(b) return fazerAI(b.dataset.ai);
+    const a = e.target.closest('[data-as-aba]'); if(a) return abaAI(a.dataset.asAba);
+    const p = e.target.closest('[data-perg]'); if(!p) return;
+    if(p.dataset.perg.endsWith('…')){ $('ai-txt').value = 'detalhe '; return $('ai-txt').focus() } // falta o número: a pessoa completa
+    responderAI(p.dataset.perg);
+  });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && AI.aberto && !document.querySelector('dialog[open]') && !TV.on) fecharAI() });
+  // estilos de voz prontos: ajustam tom e velocidade, salvam e falam uma amostra
+  $('aic-estilo').addEventListener('click', e => { const b = e.target.closest('[data-voz-pre]'); if(!b) return; const [tom, vel] = ESTILOS_VOZ[b.dataset.vozPre];
+    $('aic-tom').value = tom; $('aic-vel').value = vel; rotulos(); salvarCfg(); falar(`${saud()}, ${nomeUser()}. É assim que eu vou falar.`) });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SR){ $('ai-mic').hidden = true } else $('ai-mic').onclick = () => {
     if(AI.rec){ AI.rec.abort(); return }
     const rec = new SR(); AI.rec = rec; rec.lang = 'pt-BR'; rec.interimResults = true; rec.maxAlternatives = 1;
     $('ai-mic').classList.add('on'); $('ai-txt').placeholder = 'Ouvindo…';
     rec.onresult = e => { const r = e.results[e.results.length - 1]; $('ai-txt').value = r[0].transcript; if(r.isFinal){ responderAI(r[0].transcript); $('ai-txt').value = '' } };
-    rec.onend = rec.onerror = () => { AI.rec = null; $('ai-mic').classList.remove('on'); $('ai-txt').placeholder = 'Pergunte: atrasados, novos, pedido 500123…' };
+    rec.onend = rec.onerror = () => { AI.rec = null; $('ai-mic').classList.remove('on'); $('ai-txt').placeholder = 'Pergunte ou toque no microfone…' };
     try{ pararFala(); rec.start() }catch{ rec.onend() }
   };
-  try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); if(!$('ai-conf').hidden) encherVozes() } }catch{}
+  try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); if(AI.aba === 'ajustes') encherVozes() } }catch{}
 }
 // 1x por dia, depois do login: abre o assistente sozinho (e fala, se a opção estiver ligada)
 async function assistenteDoDia(){
   const hoje = hojeYmd(); if(store.get('pv-ai-dia') === hoje) { carregarFila().then(renderAI).catch(() => {}); return }
   try{ await carregarFila() }catch(e){ return }
   store.set('pv-ai-dia', hoje);
-  if(!TV.on) abrirAI(store.get('pv-ai-auto') === '1');
+  if(!TV.on && aiCfg().abre) abrirAI(store.get('pv-ai-auto') === '1'); else renderAI();
 }
 
 /* visualização no celular em pé: gira as folhas para ficarem na horizontal */
@@ -3573,22 +3660,10 @@ function desenharRelatorio(modo){
     txt(v, px + 18, py + 70, fonte(700, 34, 1), hi ? c('ink') : c('text'), 'left', kw - 36);
     x.globalAlpha = hi ? .7 : 1; txt(s, px + 18, py + 90, fonte(500, 12), hi ? c('ink') : c('dim'), 'left', kw - 36); x.globalAlpha = 1;
   });
-  let y = 184 + 2 * kh + 16 + 20, sobra = 104;
-  // meta do mês (só na visão mensal)
-  const cfg = metaCfg();
-  if(cfg && DSH_PER === 'mes'){
-    const T = META_TIPOS[cfg.tipo], v = T.v(P.meses.find(m => m.mes === DSH_MES)), pct = Math.round(100 * v / cfg.valor), ok = v >= cfg.valor;
-    caixa(M, y, W - 2 * M, 84, 16, c('panel'), c('line'));
-    txt(`META DO MÊS · ${T.nome.toUpperCase()}`, M + 24, y + 32, fonte(600, 11.5), c('muted'));
-    txt(`${fmtInt(v)} de ${fmtInt(cfg.valor)}`, M + 24, y + 64, fonte(700, 24, 1), c('text'));
-    const bx = M + 330, bw = W - 2 * M - 330 - 140;
-    caixa(bx, y + 36, bw, 14, 7, c('panel-2'), c('line')); if(v > 0) caixa(bx, y + 36, Math.max(14, bw * Math.min(1, v / cfg.valor)), 14, 7, ok ? ST.ab : c('lime-t'));
-    txt(pct + '%', W - M - 24, y + 55, fonte(700, 32, 1), ok ? ST.ab : c('text'), 'right');
-    y += 104; sobra = 0;
-  }
+  let y = 184 + 2 * kh + 16 + 20;
   // amostras por mês
-  const ch = 380 + sobra; cartao(M, y, W - 2 * M, ch, 'Amostras solicitadas por mês', 'últimos 12 meses · em destaque, o período do relatório');
-  { const ms = P.meses, metaQ = cfg?.tipo === 'qtd' ? cfg.valor : 0, max = Math.max(1, metaQ, ...ms.map(m => m.qtd)), x0 = M + 24, x1 = W - M - 24, yb = y + ch - 52, yt = y + 96, slot = (x1 - x0) / ms.length, bw = Math.min(46, slot * .56);
+  const ch = 484; cartao(M, y, W - 2 * M, ch, 'Amostras solicitadas por mês', 'últimos 12 meses · em destaque, o período do relatório');
+  { const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd)), x0 = M + 24, x1 = W - M - 24, yb = y + ch - 52, yt = y + 96, slot = (x1 - x0) / ms.length, bw = Math.min(46, slot * .56);
     x.strokeStyle = c('line-2'); x.lineWidth = 1; x.beginPath(); x.moveTo(x0, yb + .5); x.lineTo(x1, yb + .5); x.stroke();
     ms.forEach((m, i) => {
       const cx = x0 + slot * (i + .5), h = Math.max(3, (yb - yt) * m.qtd / max), on = V.meses.includes(m);
@@ -3596,9 +3671,7 @@ function desenharRelatorio(modo){
       txt(fmtInt(m.qtd), cx, yb - h - 8, fonte(600, 12.5), on ? c('text') : c('muted'), 'center');
       txt(MESES[+m.mes.slice(4, 6) - 1], cx, yb + 22, fonte(600, 12), on ? c('text') : c('dim'), 'center');
       if(i === 0 || m.mes.endsWith('01')) txt(m.mes.slice(0, 4), cx, yb + 38, fonte(500, 10.5), c('dim'), 'center');
-    });
-    if(metaQ){ const ym = Math.round(yb - (yb - yt) * metaQ / max) + .5; x.save(); x.setLineDash([6, 5]); x.strokeStyle = c('muted'); x.lineWidth = 1.5; x.beginPath(); x.moveTo(x0, ym); x.lineTo(x1, ym); x.stroke(); x.restore();
-      txt(`meta ${fmtInt(metaQ)}`, x1, ym - 7, fonte(600, 11.5), c('muted'), 'right') } }
+    }); }
   y += ch + 20;
   // tipos de amostra + quem mais solicita
   const cw = (W - 2 * M - 20) / 2, rh = 370;
@@ -3753,20 +3826,9 @@ function iniciarExportar(){
   $('tbl').querySelector('thead').addEventListener('click', e => { const th = e.target.closest('th[data-ord]'); if(th) cicloOrdem(th) });
   $('tbl').querySelector('thead').addEventListener('keydown', e => { const th = e.target.closest('th[data-ord]'); if(th && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); cicloOrdem(th) } });
   $('f-ordem').onchange = e => { const [c, d] = e.target.value.split(':'); definirOrdem(c, +d || 1) };
-  // dashboard: período personalizado e meta mensal
+  // dashboard: período personalizado
   $('dsh-faixa').addEventListener('change', () => definirFaixa($('fx-de').value, $('fx-ate').value));
   $('dsh-faixa').addEventListener('click', e => { const b = e.target.closest('[data-fx]'); if(!b || !PAINEL) return; const ms = PAINEL.meses.map(m => m.mes); definirFaixa(ms[Math.max(0, ms.length - +b.dataset.fx)], ms[ms.length - 1]) });
-  const editarMeta = () => { META_TIPO_ED = metaCfg()?.tipo || 'fat'; META_EDIT = true; renderMeta(); $('mt-valor')?.focus() };
-  const fecharMeta = () => { META_EDIT = false; $('mt-form')?.remove(); renderDash() };
-  $('meta-edit').onclick = editarMeta;
-  $('dsh-meta').addEventListener('click', e => {
-    if(e.target.closest('[data-meta-def]')) return editarMeta();
-    const b = e.target.closest('[data-mt]'); if(b){ META_TIPO_ED = b.dataset.mt; $('mt-tipo').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); return }
-    if(e.target.closest('[data-meta-cancel]')) return fecharMeta();
-    if(e.target.closest('[data-meta-del]')){ store.set('pv-meta', ''); fecharMeta() }
-  });
-  $('dsh-meta').addEventListener('submit', e => { e.preventDefault(); const v = Math.round(num($('mt-valor').value)); if(!(v > 0)) return $('mt-valor').focus();
-    store.set('pv-meta', JSON.stringify({tipo:META_TIPO_ED, valor:v})); fecharMeta() });
   $('btn-notif').onclick = abrirNotif; $('aj-notif').onclick = abrirNotif;
   document.body.dataset.tab = 'pedidos';
   document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
