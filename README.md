@@ -124,3 +124,14 @@ Tem prioridade sobre o Azure. Ordem usada pelo assistente: ElevenLabs → Azure 
 4. No site: assistente → **⚙** → **Voz premium · ElevenLabs** → cole a chave → **Carregar minhas vozes** → escolha a voz (as suas aparecem primeiro, marcadas "sua") → **▶ Ouvir amostra** → **Salvar**.
 Atalho: o botão **🎩 Usar a voz George** preenche a voz George, de catálogo do ElevenLabs (masculina, britânica, grave; fala português com leve sotaque).
 Modelo: **Multilingual v2** (melhor qualidade) ou **Flash v2.5** (mais rápido e gasta menos créditos). A chave fica só no computador onde foi colada.
+
+### Ordenar a lista
+Clique no título de **Pedido, Emissão, Cliente, Vendedor ou Itens** para ordenar; o 2º clique inverte e o 3º volta ao padrão (mais recentes primeiro). No celular, use a caixa **Ordenar** embaixo da pesquisa. A ordem fica salva no aparelho e também vale para a impressão dos selecionados. A pesquisa aceita pedido, cliente, vendedora ou NF.
+
+### Detalhe do pedido
+O botão **●─●─●** ao lado do número abre o detalhe sem ir para a impressão: linha do tempo **Emitido → Liberado → Faturado** (datas, dias entre as etapas e há quanto tempo está parado), prazo, impressão, dados do pedido, aviso da separação e os itens (com endereços, quando houver). **Visualizar impressão** abre a folha. Clicar na linha continua abrindo a visualização, como antes.
+
+### Dashboard: período, meta e exportação
+- **Período:** além de Mensal e Anual, escolha de qual mês até qual mês (dentro dos últimos 12 meses carregados) ou use os atalhos de 3, 6 e 12 meses. Todos os quadros passam a somar o período.
+- **Meta do mês:** defina uma meta de **pedidos faturados** ou de **amostras solicitadas**. O quadro mostra o progresso, onde deveria estar hoje (por dias úteis), o ritmo necessário, a projeção e os últimos meses. A meta de amostras também aparece como linha tracejada no gráfico. Fica salva só no aparelho.
+- **Exportar:** gera o relatório do que está selecionado (folha A4 em pé), em versão clara ou nas cores do site. **Baixar imagem (PNG)** salva o arquivo (no celular abre o compartilhar); **Salvar em PDF** abre a impressão do navegador: escolha "Salvar como PDF" no destino.

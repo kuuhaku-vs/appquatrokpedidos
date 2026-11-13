@@ -980,6 +980,123 @@ table.res .r{text-align:right}
  #print-area .pv{margin:0!important;box-shadow:none!important;page-break-after:always;break-after:page}
  #print-area .pv:last-child{page-break-after:auto;break-after:auto}
 }
+/* ======================= NOVIDADES: ordenação, detalhe do pedido, período, meta e exportação ======================= */
+/* lista: ordenar pelas colunas */
+table.list th[data-ord]{cursor:pointer;user-select:none;transition:color .15s}
+table.list th[data-ord]:hover{color:var(--text)}
+table.list th[data-ord]::after{content:"↕";display:inline-block;margin-left:6px;font-size:10px;opacity:.35}
+table.list th[data-ord][aria-sort]{color:var(--text)}
+table.list th[data-ord][aria-sort]::after{opacity:1;color:var(--lime-t)}
+table.list th[data-ord][aria-sort="ascending"]::after{content:"▲"}
+table.list th[data-ord][aria-sort="descending"]::after{content:"▼"}
+.ord-sel{display:none;align-items:center;gap:8px;height:38px;padding:0 12px;border:1px solid var(--line-2);border-radius:11px;background:var(--panel-2);color:var(--muted)}
+.ord-sel:focus-within{border-color:var(--lime-t)}
+.ord-sel svg{width:16px;height:16px;flex:none}
+.ord-sel select{flex:1;min-width:0;height:100%;border:0;background:none;color:var(--text);font-size:13.5px;outline:none}
+@media(max-width:700px){.ord-sel{display:flex;width:100%;order:6}}
+.det-ic{display:inline-grid;place-items:center;width:28px;height:22px;margin-left:8px;padding:0;border-radius:7px;border:1px solid var(--line-2);background:none;color:var(--muted);cursor:pointer;vertical-align:-5px;transition:color .15s,border-color .15s}
+.det-ic svg{width:17px;height:17px}
+.det-ic:hover{color:var(--lime-t);border-color:var(--lime-t)}
+@media(max-width:700px){.det-ic{width:38px;height:28px;border-radius:9px;vertical-align:-7px}}
+
+/* detalhe do pedido */
+.dlg-ped .tb-head{align-items:center}
+#pd-print{flex:none}
+.pd-sit{display:inline-flex;align-items:center;gap:6px;margin-left:8px;padding:2px 10px;border-radius:999px;font:600 12px var(--font);vertical-align:3px;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent)}
+.pd-sit::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+.pd-sit.st-aberto,.tl .st-aberto{--c:var(--st-ab)}
+.pd-sit.st-liberado,.tl .st-liberado{--c:var(--st-lib)}
+.pd-sit.st-faturado,.tl .st-faturado{--c:var(--st-fat)}
+.pd-carga{display:flex;align-items:center;gap:12px;padding:34px 4px;color:var(--muted)}
+.pd-carga i{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--lime-t);animation:pd-gira .8s linear infinite}
+@keyframes pd-gira{to{transform:rotate(360deg)}}
+.pd-h{margin:0 0 8px;font:700 14px var(--display)}
+.tl{display:flex;align-items:flex-start;list-style:none;margin:0 0 16px;padding:24px 18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2)}
+.tl-e{flex:none;width:170px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.tl-b{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 15px var(--display);font-style:normal;border:2px dashed var(--line-2);color:transparent;background:var(--panel)}
+.tl-e.feito .tl-b{border:0;background:var(--c);color:#101010}
+.tl-e.agora .tl-b{box-shadow:0 0 0 5px color-mix(in srgb,var(--c) 22%,transparent)}
+.tl-e b{display:block;font:700 14px var(--display);color:var(--dim)}
+.tl-e.feito b{color:var(--text)}
+.tl-e span{display:block;margin-top:2px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl-e small{display:block;margin-top:3px;font-size:11.5px;color:var(--dim)}
+.tl-e.agora small{color:var(--c);font-weight:600}
+.tl-c{flex:1;min-width:34px;position:relative;height:2px;margin-top:17px;background:repeating-linear-gradient(90deg,var(--line-2) 0 6px,transparent 6px 11px)}
+.tl-c.feito{background:color-mix(in srgb,var(--text) 40%,transparent)}
+.tl-c span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;padding:2px 9px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);font-size:11.5px;font-weight:600;color:var(--muted)}
+.pd-cards{margin-bottom:16px}
+.pd-info{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px 20px;margin:0 0 16px;padding:16px;border:1px solid var(--line);border-radius:14px}
+.pd-info span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.pd-info b{display:block;margin-top:3px;font-weight:600;font-size:13.5px;overflow-wrap:anywhere}
+.pd-obs{margin:0 0 16px;padding:12px 16px;border-radius:14px;border:1px solid color-mix(in srgb,var(--st-lib) 40%,transparent);background:color-mix(in srgb,var(--st-lib) 7%,var(--panel));font-size:13.5px;line-height:1.5}
+.pd-obs h4{margin:0 0 3px;font:700 11.5px var(--display);letter-spacing:.5px;text-transform:uppercase;color:var(--st-lib)}
+.pd-scroll{overflow-x:auto}
+.pd-itens{min-width:660px}
+.pd-itens td.ok{color:var(--st-ab);font-weight:600}
+.pd-end{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:700px){
+ .dlg-ped .tb-head{flex-wrap:wrap}
+ #pd-print{order:3;width:100%;height:38px;font-size:13px}
+ .tl{flex-direction:column;padding:16px}
+ .tl-e{width:auto;flex-direction:row;align-items:center;text-align:left;gap:14px}
+ .tl-c{flex:none;width:2px;height:36px;min-width:0;margin:4px 0 4px 17px;background:repeating-linear-gradient(180deg,var(--line-2) 0 6px,transparent 6px 11px)}
+ .tl-c span{left:18px;transform:translateY(-50%)}
+}
+
+/* dashboard: período personalizado, meta e exportação */
+.dsh-ctl{flex-wrap:wrap}
+#btn-exp{display:inline-flex;align-items:center;gap:7px}
+.dsh-faixa{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;margin:-4px 0 16px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.dsh-faixa[hidden]{display:none}
+.dsh-faixa > b{font:700 13px var(--display);margin-right:4px}
+.dsh-faixa label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.dsh-faixa select{height:36px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel-2);padding:0 10px;font-size:13px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text)}
+.dsh-faixa select:focus{border-color:var(--lime-t);outline:none}
+.dsh-faixa .seta{color:var(--dim)}
+.dsh-faixa small{margin-left:auto;color:var(--muted);font-size:12.5px}
+.fx-atalhos{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:700px){.dsh-faixa > b{width:100%}.dsh-faixa label{flex:1}.dsh-faixa select{flex:1;min-width:0}.dsh-faixa .seta{display:none}.dsh-faixa small{margin-left:0;width:100%}}
+.bars{position:relative}
+.bars-meta{position:absolute;left:0;right:0;height:0;border-top:1.5px dashed color-mix(in srgb,var(--text) 55%,transparent);pointer-events:none;text-decoration:none}
+.bars-meta em{position:absolute;right:0;bottom:3px;padding:0 5px;border-radius:5px;background:var(--panel);font-style:normal;font-size:10.5px;font-weight:700;color:var(--muted)}
+.mt-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.mt-top span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.mt-top strong{display:block;margin-top:7px;font:700 34px/1 var(--display);letter-spacing:-1px}
+.mt-top strong small{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0}
+.mt-pct{font:700 26px/1 var(--display);font-style:normal;color:var(--lime-t)}
+.mt-pct.ok{color:var(--st-ab)}
+.mt-bar{position:relative;height:12px;margin:14px 0 8px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line)}
+.mt-bar i{position:absolute;left:0;top:0;bottom:0;min-width:10px;border-radius:999px;background:var(--lime-t);transition:width .4s}
+.mt-bar.ok i{background:var(--st-ab)}
+.mt-bar u{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;border-radius:2px;background:var(--text);opacity:.85}
+.mt-leg{margin:0 0 4px;color:var(--dim);font-size:11.5px}
+.mt-leg u{display:inline-block;width:2px;height:10px;margin-right:6px;background:var(--text);vertical-align:-1px}
+.mt-hist{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px}
+.mt-hist > span{margin-right:4px;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.mt-h{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;border-radius:999px;border:1px solid var(--line-2);font-size:11px;font-weight:700;color:var(--muted)}
+.mt-h.ok{color:var(--st-ab);border-color:color-mix(in srgb,var(--st-ab) 45%,transparent)}
+.mt-h.sel{background:var(--panel-2);box-shadow:0 0 0 1px var(--line-2)}
+.mt-vazio p{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.55}
+.mt-form .field{margin-bottom:14px}
+.mt-form .field input{width:100%;max-width:220px}
+.mt-acts{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap}
+.mt-lnk{border:0;background:none;padding:0;color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.mt-lnk:hover{color:var(--lime-t)}
+.mt-lnk[hidden]{display:none}
+.dlg-exp{width:min(860px,calc(100vw - 32px))}
+.ex-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 20px;border-bottom:1px solid var(--line)}
+.ex-bar .grow{flex:1}
+.ex-corpo{display:grid;place-items:start center;background:var(--bg)}
+#ex-img{display:block;width:min(100%,620px);height:auto;aspect-ratio:1240/1754;border-radius:10px;border:1px solid var(--line-2);box-shadow:0 12px 40px rgba(0,0,0,.35);transition:opacity .15s}
+#ex-img.carregando{opacity:.35}
+@media(max-width:700px){.ex-bar .grow{display:none}.ex-bar .btn{flex:1;padding:0 10px}}
+@media(max-width:700px){.dsh-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}} /* nomes compridos não empurram mais a tela para o lado no celular */
+#rel-print{display:none}
+@media print{
+ body.print-rel #rel-print{display:block!important}
+ body.print-rel #rel-print img{display:block;width:209.5mm;height:auto;margin:0 auto}
+ body.print-rel #print-area{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -1121,7 +1238,13 @@ table.res .r{text-align:right}
  <section class="card tab-pedidos">
   <div class="toolbar">
    <h3>Lista</h3>
-   <label class="busca" title="Digite o nº do pedido, o código ou nome do cliente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="f-busca" name="pesquisa-pedido-cliente" type="search" placeholder="Pedido ou cliente…" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
+   <label class="busca" title="Digite o nº do pedido, o código ou nome do cliente, ou a vendedora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="f-busca" name="pesquisa-pedido-cliente" type="search" placeholder="Pedido, cliente ou vendedor…" enterkeyhint="search" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-form-type="other"></label>
+   <label class="ord-sel" title="Ordenar a lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg><select id="f-ordem" aria-label="Ordenar a lista">
+    <option value="">Mais recentes primeiro</option><option value="emissao:1">Mais antigos primeiro</option><option value="emissao:-1">Emissão mais nova</option>
+    <option value="num:1">Pedido: menor número</option><option value="num:-1">Pedido: maior número</option>
+    <option value="cliente:1">Cliente: A → Z</option><option value="cliente:-1">Cliente: Z → A</option>
+    <option value="vend:1">Vendedor: A → Z</option><option value="vend:-1">Vendedor: Z → A</option>
+    <option value="itens:-1">Mais itens primeiro</option><option value="itens:1">Menos itens primeiro</option></select></label>
    <span class="count" id="count">—</span><span class="cli-chip" id="cli-chip" hidden></span>
    <button class="tg-chip atr" id="btn-atr" type="button" hidden></button>
    <button class="tg-chip novo" id="novo-chip" type="button" hidden></button>
@@ -1134,7 +1257,7 @@ table.res .r{text-align:right}
   </div>
   <div class="tablewrap">
    <table class="list" id="tbl">
-    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos os que ainda não foram impressos"></th><th>Pedido</th><th>Emissão</th><th>Cliente</th><th>Vendedor</th><th class="num">Itens</th><th>Obs. Separação</th><th class="c-imp" title="Impresso">Impr.</th></tr></thead>
+    <thead><tr><th><input type="checkbox" id="chk-all" title="Selecionar todos os que ainda não foram impressos"></th><th data-ord="num" tabindex="0" title="Ordenar por número do pedido">Pedido</th><th data-ord="emissao" tabindex="0" title="Ordenar por emissão">Emissão</th><th data-ord="cliente" tabindex="0" title="Ordenar por cliente">Cliente</th><th data-ord="vend" tabindex="0" title="Ordenar por vendedor">Vendedor</th><th class="num" data-ord="itens" tabindex="0" title="Ordenar por quantidade de itens">Itens</th><th>Obs. Separação</th><th class="c-imp" title="Impresso">Impr.</th></tr></thead>
     <tbody><tr><td colspan="10" class="empty">Clique em "Buscar pedidos".</td></tr></tbody>
    </table>
   </div>
@@ -1144,10 +1267,18 @@ table.res .r{text-align:right}
   <div class="dsh-head">
    <div><h2>Dashboard</h2><p id="dsh-quando">Carregando…</p></div>
    <div class="dsh-ctl">
-    <div class="seg" id="dsh-per"><button type="button" data-per="mes" aria-pressed="true">Mensal · <span id="dsh-per-mes">—</span></button><button type="button" data-per="ano" aria-pressed="false">Anual</button></div>
+    <div class="seg" id="dsh-per"><button type="button" data-per="mes" aria-pressed="true">Mensal · <span id="dsh-per-mes">—</span></button><button type="button" data-per="ano" aria-pressed="false">Anual</button><button type="button" data-per="faixa" aria-pressed="false" title="Escolher de qual mês até qual mês">Período</button></div>
+    <button class="btn sec" id="btn-exp" type="button" title="Gerar o relatório do período em imagem ou PDF"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M12 15l-4-4M12 15l4-4M5 20h14"/></svg>Exportar</button>
     <button class="btn sec" id="btn-tv" type="button" title="Tela cheia que passa sozinha entre os painéis (para a TV do setor)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Modo TV</button>
     <button class="icon-btn" id="dsh-refresh" type="button" title="Atualizar dados">↻</button>
    </div>
+  </div>
+  <div class="dsh-faixa" id="dsh-faixa" hidden>
+   <b>Período personalizado</b>
+   <label>De <select id="fx-de" aria-label="Mês inicial"></select></label><span class="seta" aria-hidden="true">→</span>
+   <label>Até <select id="fx-ate" aria-label="Mês final"></select></label>
+   <div class="fx-atalhos"><button type="button" class="tg-chip" data-fx="3">Últimos 3 meses</button><button type="button" class="tg-chip" data-fx="6">6 meses</button><button type="button" class="tg-chip" data-fx="12">12 meses</button></div>
+   <small id="fx-info"></small>
   </div>
   <div class="dsh-kpis" id="dsh-kpis"></div>
   <div class="dsh-grid">
@@ -1157,7 +1288,8 @@ table.res .r{text-align:right}
    <div class="dsh-card g6"><div class="ch"><h3>Quem mais solicita</h3><small class="dsh-rot"></small></div><div id="dsh-vend"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Comparação com o mês anterior</h3><small id="cmp-rot"></small></div><div id="dsh-cmp"></div></div>
    <div class="dsh-card g6"><div class="ch"><h3>Tempo até faturar</h3><small class="dsh-rot"></small></div><div id="dsh-lead"></div></div>
-   <div class="dsh-card g6 g-centro"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Meta do mês</h3><button type="button" class="mt-lnk" id="meta-edit" hidden>Alterar meta</button></div><div id="dsh-meta"></div></div>
+   <div class="dsh-card g6"><div class="ch"><h3>Destaques</h3><small class="dsh-rot"></small></div><div id="dsh-dest"></div></div>
   </div>
  </section>
 
@@ -1266,10 +1398,21 @@ table.res .r{text-align:right}
  <div class="tb-head"><div><h3 id="tb-tit"></h3><p id="tb-sub"></p></div><button type="button" class="tb-x" id="tb-x" title="Fechar (Esc)">✕</button></div>
  <div class="tb-corpo" id="tb-corpo"></div>
 </dialog>
+<dialog id="dlg-ped" class="dlg-tab dlg-ped">
+ <div class="tb-head"><div><h3 id="pd-tit"></h3><p id="pd-sub"></p></div><button type="button" class="btn sec" id="pd-print" title="Abrir a folha do pedido para conferir e imprimir">Visualizar impressão</button><button type="button" class="tb-x" id="pd-x" title="Fechar (Esc)">✕</button></div>
+ <div class="tb-corpo" id="pd-corpo"></div>
+</dialog>
+<dialog id="dlg-exp" class="dlg-tab dlg-exp">
+ <div class="tb-head"><div><h3>Exportar relatório</h3><p id="ex-sub"></p></div><button type="button" class="tb-x" id="ex-x" title="Fechar (Esc)">✕</button></div>
+ <div class="ex-bar"><div class="seg" id="ex-modo"><button type="button" data-exm="claro" aria-pressed="true">Claro</button><button type="button" data-exm="tema" aria-pressed="false">Cores do site</button></div><span class="grow"></span>
+  <button type="button" class="btn sec" id="ex-png">Baixar imagem (PNG)</button><button type="button" class="btn" id="ex-pdf">Salvar em PDF</button></div>
+ <div class="tb-corpo ex-corpo"><img id="ex-img" class="carregando" alt="Prévia do relatório"></div>
+</dialog>
 <div class="dsh-tip" id="dsh-tip" role="tooltip"></div>
 <div class="print-confirm" id="print-confirm"></div>
 <div class="preview-warn" id="preview-warn"></div>
 <div id="print-area"></div>
+<div id="rel-print"></div>
 
 <script>
 'use strict';
@@ -1764,7 +1907,8 @@ function juntarVend(lista){
 /* visão de um período: um mês ('AAAAMM') ou o ano atual ('ano') */
 function visao(periodo){
   const P = PAINEL; if(!P) return null;
-  const ms = periodo === 'ano' ? P.meses.filter(m => m.mes.startsWith(P.ano)) : P.meses.filter(m => m.mes === periodo);
+  const fx = String(periodo).includes(':') ? String(periodo).split(':') : null; // 'AAAAMM:AAAAMM' = período personalizado
+  const ms = periodo === 'ano' ? P.meses.filter(m => m.mes.startsWith(P.ano)) : fx ? P.meses.filter(m => m.mes >= fx[0] && m.mes <= fx[1]) : P.meses.filter(m => m.mes === periodo);
   const V = {periodo, qtd:0, env:0, ped:0, fat:0, ab:0, lib:0, cli:new Set(), tipos:{}, prod:{}, vend:juntarVend(ms), dias:{}, uteis:0, meses:ms, lt:{n:0, s:0, ok:0, t:{}, v:{}, sq:0, si:0, na:0, sqa:0, sia:0, atr:[]}};
   const somaLt = (a, b) => { a.n += b.n; a.s += b.s; a.ok += b.ok };
   ms.forEach(m => {
@@ -1927,9 +2071,8 @@ const escolher = (cands, fundo, min) => cands.find(c => contraste(c, fundo) >= m
 
 function temaAtual(){ return TEMAS.find(t => t.id === store.get('pv-tema')) || TEMAS[0] }
 function modoAtual(){ return store.get('pv-modo') === 'claro' ? 'claro' : 'escuro' }
-function aplicarTema(){
-  const t = temaAtual(), modo = modoAtual(), [marca, contra, dest] = t.c, R = document.documentElement;
-  const escuro = modo === 'escuro';
+function coresTema(t, modo){
+  const [marca, contra, dest] = t.c, escuro = modo === 'escuro';
   const bg = escuro ? misturar(marca, '#0f0f0f', marca === '#000000' || marca === '#101010' ? 0 : .10) : misturar(marca, '#f5f5f3', .035);
   const P = escuro
     ? {bg, panel:misturar('#ffffff', bg, .035), panel2:misturar('#ffffff', bg, .06), line:misturar('#ffffff', bg, .11), line2:misturar('#ffffff', bg, .17), text:'#ffffff', muted:'#a0a0a0', dim:'#6e6e6e', hover:misturar('#ffffff', bg, .045)}
@@ -1940,6 +2083,11 @@ function aplicarTema(){
   const v = {'--bg':P.bg, '--panel':P.panel, '--panel-2':P.panel2, '--line':P.line, '--line-2':P.line2, '--text':P.text, '--muted':P.muted, '--dim':P.dim, '--hover':P.hover,
     '--lime':acento, '--ink':tintaSobre(acento), '--lime-t':acentoTxt, '--led':led, '--led-ink':tintaSobre(led),
     '--head-bg':marca, '--head-fg':contra};
+  return v;
+}
+function aplicarTema(){
+  const t = temaAtual(), modo = modoAtual(), [marca, contra, dest] = t.c, R = document.documentElement;
+  const escuro = modo === 'escuro', v = coresTema(t, modo);
   Object.entries(v).forEach(([k, val]) => R.style.setProperty(k, val));
   R.dataset.modo = modo; R.style.colorScheme = escuro ? 'dark' : 'light';
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', marca);
@@ -1974,7 +2122,62 @@ function iniciarTemas(){
 }
 
 /* ============================ abas + dashboard (computador e celular) ============================ */
-let DSH_PER = 'mes', DSH_MES = null; // 'mes' (mês escolhido no gráfico) ou 'ano'
+let DSH_PER = 'mes', DSH_MES = null; // 'mes' (mês escolhido no gráfico), 'ano' ou 'faixa' (período personalizado)
+let DSH_FX = null;
+function faixaDash(){
+  const ms = PAINEL.meses.map(m => m.mes);
+  let f = DSH_FX; if(!f){ try{ f = JSON.parse(store.get('pv-dsh-faixa') || 'null') }catch{} }
+  let de = f?.de, ate = f?.ate;
+  if(!ms.includes(de) || !ms.includes(ate)){ ate = PAINEL.mesAtual; de = ms[Math.max(0, ms.length - 3)] } // padrão: últimos 3 meses
+  if(de > ate) [de, ate] = [ate, de];
+  return DSH_FX = {de, ate};
+}
+function definirFaixa(de, ate){ if(de > ate) [de, ate] = [ate, de]; DSH_FX = {de, ate}; store.set('pv-dsh-faixa', JSON.stringify(DSH_FX)); DSH_PER = 'faixa'; renderDash() }
+const perDash = () => { if(DSH_PER === 'ano') return 'ano'; if(DSH_PER !== 'faixa') return DSH_MES; const f = faixaDash(); return `${f.de}:${f.ate}` };
+const rotDash = () => { if(DSH_PER === 'ano') return `${PAINEL.ano}`; if(DSH_PER !== 'faixa') return nomeMes(DSH_MES); const f = faixaDash(); return f.de === f.ate ? nomeMes(f.de) : `${nomeMes(f.de)} a ${nomeMes(f.ate)}` };
+
+/* ---------- meta mensal (salva neste aparelho) ---------- */
+const META_TIPOS = {
+  fat:{nome:'Pedidos faturados', um:'pedido', varios:'pedidos', v:m => m.fat},
+  qtd:{nome:'Amostras solicitadas', um:'amostra', varios:'amostras', v:m => m.qtd}
+};
+let META_EDIT = false, META_TIPO_ED = 'fat';
+function metaCfg(){ try{ const m = JSON.parse(store.get('pv-meta') || 'null'); return m && META_TIPOS[m.tipo] && m.valor > 0 ? m : null }catch{ return null } }
+function renderMeta(){
+  const box = $('dsh-meta'), P = PAINEL; if(!box || !P) return;
+  if(META_EDIT && $('mt-form')) return; // não apaga o que a pessoa está digitando quando o painel atualiza sozinho
+  const cfg = metaCfg();
+  $('meta-edit').hidden = !cfg || META_EDIT;
+  if(META_EDIT){
+    box.innerHTML = `<form class="mt-form" id="mt-form">
+      <div class="field"><span>O que acompanhar</span><div class="seg" id="mt-tipo">${Object.entries(META_TIPOS).map(([k, x]) => `<button type="button" data-mt="${k}" aria-pressed="${k === META_TIPO_ED}">${x.nome}</button>`).join('')}</div></div>
+      <label class="field"><span>Meta por mês</span><input id="mt-valor" type="number" min="1" step="1" inputmode="numeric" placeholder="ex.: 200" value="${cfg ? cfg.valor : ''}"></label>
+      <div class="mt-acts"><button class="btn" type="submit">Salvar meta</button><button type="button" class="btn sec" data-meta-cancel>Cancelar</button>${cfg ? '<button type="button" class="mt-lnk" data-meta-del>Remover meta</button>' : ''}</div>
+      <p class="ld-nota">A meta vale para todos os meses e fica salva neste aparelho.</p></form>`;
+    return;
+  }
+  if(!cfg){ box.innerHTML = `<div class="mt-vazio"><p>Defina uma meta mensal para acompanhar aqui o progresso, o ritmo necessário por dia útil e a projeção para o fim do mês.</p><button type="button" class="btn" data-meta-def>Definir meta</button></div>`; return }
+  const T = META_TIPOS[cfg.tipo], M = P.meses.find(m => m.mes === DSH_MES) || P.meses[P.meses.length - 1], v = T.v(M), pct = Math.round(100 * v / cfg.valor), bateu = v >= cfg.valor;
+  const atual = M.mes === P.mesAtual, ut = diasUteis(M.mes, 0), up = atual ? diasUteis(M.mes, new Date().getDate()) : ut, rest = ut - up;
+  const falta = Math.max(0, cfg.valor - v), proj = atual && up ? Math.round(v / up * ut) : v, esperado = ut ? Math.min(100, 100 * up / ut) : 100;
+  const un = n => n === 1 ? T.um : T.varios, linhas = [];
+  if(bateu) linhas.push(['Resultado', v > cfg.valor ? `Meta batida ✓ · ${pl(v - cfg.valor, T.um, T.varios)} acima` : 'Meta batida ✓']);
+  else if(atual){
+    linhas.push(['Faltam', pl(falta, T.um, T.varios)]);
+    linhas.push(['Ritmo necessário', rest > 0 ? `${fmtInt(Math.ceil(falta / rest))} por dia útil · ${pl(rest, 'dia útil restante', 'dias úteis restantes')}` : 'hoje é o último dia útil do mês']);
+  }else linhas.push(['Resultado', `Faltaram ${pl(falta, T.um, T.varios)} (${pct}% da meta)`]);
+  if(atual && up){
+    linhas.push(['Média até agora', `${(v / up).toLocaleString('pt-BR', {maximumFractionDigits:1})} por dia útil`]);
+    linhas.push(['Projeção no ritmo atual', `${fmtInt(proj)} ${un(proj)} · ${Math.round(100 * proj / cfg.valor)}% da meta`]);
+  }
+  const hist = P.meses.slice(-6).map(m => { const x = T.v(m), ok = x >= cfg.valor;
+    return `<span class="mt-h${ok ? ' ok' : ''}${m.mes === M.mes ? ' sel' : ''}" title="${nomeMes(m.mes)}: ${fmtInt(x)} de ${fmtInt(cfg.valor)}">${MESES[+m.mes.slice(4, 6) - 1]} ${ok ? '✓' : Math.round(100 * x / cfg.valor) + '%'}</span>` }).join('');
+  box.innerHTML = `<div class="mt-top"><div><span>${T.nome} · ${nomeMes(M.mes)}${atual ? ' · em andamento' : ''}</span><strong>${fmtInt(v)}<small> de ${fmtInt(cfg.valor)}</small></strong></div><em class="mt-pct${bateu ? ' ok' : ''}">${pct}%</em></div>
+    <div class="mt-bar${bateu ? ' ok' : ''}"><i style="width:${Math.min(100, pct)}%"></i>${atual && !bateu ? `<u style="left:${esperado}%"></u>` : ''}</div>
+    ${atual && !bateu ? `<p class="mt-leg"><u></u>onde deveria estar hoje (${up} de ${ut} dias úteis) · ${pct >= Math.round(esperado) ? 'no ritmo' : 'abaixo do ritmo'}</p>` : ''}
+    ${linhas.map(([a, b]) => `<div class="drow"><span>${a}</span><b>${b}</b></div>`).join('')}
+    <div class="mt-hist"><span>Últimos meses</span>${hist}</div>`;
+}
 function trocarAba(aba){
   document.body.dataset.tab = aba;
   document.querySelectorAll('[data-aba]').forEach(b => b.setAttribute('aria-current', String(b.dataset.aba === aba)));
@@ -1985,7 +2188,8 @@ function trocarAba(aba){
 function destaques(V, periodo){
   if(!V) return [];
   const P = PAINEL, out = [];
-  const nomeP = periodo === 'ano' ? `em ${P.ano}` : (periodo === P.mesAtual ? 'no mês' : `em ${nomeMes(periodo)}`);
+  const faixa = String(periodo).includes(':');
+  const nomeP = periodo === 'ano' ? `em ${P.ano}` : faixa ? 'no período' : (periodo === P.mesAtual ? 'no mês' : `em ${nomeMes(periodo)}`);
   if(periodo === P.mesAtual) out.push(['Hoje', `${fmtInt(P.hoje.ped)} pedidos · ${fmtInt(P.hoje.qtd)} amostras`]);
   out.push([`Amostras ${nomeP}`, `${fmtInt(V.qtd)} em ${fmtInt(V.ped)} pedidos`]);
   if(V.uteis) out.push(['Média por dia útil', `${fmtInt(Math.round(V.qtd / V.uteis))} amostras`]);
@@ -1993,7 +2197,7 @@ function destaques(V, periodo){
   if(tps[0]) out.push([`Tipo mais pedido ${nomeP}`, `${cap(tps[0][0])} (${Math.round(100 * tps[0][1] / V.qtdTipos)}%)`]);
   const pico = Object.entries(V.dias).sort((a, b) => b[1] - a[1])[0];
   if(pico) out.push(['Dia mais movimentado', `${pico[0].slice(6, 8)}/${pico[0].slice(4, 6)} · ${fmtInt(pico[1])} amostras`]);
-  if(periodo === 'ano'){ const rec = V.meses.slice().sort((a, b) => b.qtd - a.qtd)[0]; if(rec) out.push(['Melhor mês', `${nomeMes(rec.mes)} · ${fmtInt(rec.qtd)} amostras`]) }
+  if(periodo === 'ano' || (faixa && V.meses.length > 1)){ const rec = V.meses.slice().sort((a, b) => b.qtd - a.qtd)[0]; if(rec) out.push(['Melhor mês', `${nomeMes(rec.mes)} · ${fmtInt(rec.qtd)} amostras`]) }
   out.push([`Clientes atendidos ${nomeP}`, fmtInt(V.cli.size)]);
   const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p)[0];
   if(tv){ const r = rotuloVend(tv[0], tv[1]); out.push([`Quem mais pediu ${nomeP}`, `${r.n}${r.setor ? ' · ' + r.setor : ''} (${fmtInt(tv[1].p)} ped.)`]) }
@@ -2028,23 +2232,33 @@ function renderDash(){
   const P = PAINEL;
   $('dsh-quando').textContent = P ? `Atualizado às ${new Date(P.ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} · últimos 12 meses do Protheus` : 'Carregando dados do Protheus…';
   document.querySelectorAll('#dsh-per button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.per === DSH_PER)));
-  if(!P){ ['dsh-kpis','dsh-meses','dsh-donut','dsh-top','dsh-vend','dsh-dest'].forEach(id => $(id).innerHTML = '<p class="vazio">Carregando…</p>'); return }
+  $('dsh-faixa').hidden = !P || DSH_PER !== 'faixa';
+  if(!P){ ['dsh-kpis','dsh-meses','dsh-donut','dsh-top','dsh-vend','dsh-dest','dsh-meta'].forEach(id => $(id).innerHTML = '<p class="vazio">Carregando…</p>'); return }
   if(!DSH_MES || !P.meses.some(m => m.mes === DSH_MES)) DSH_MES = P.mesAtual;
-  const per = DSH_PER === 'ano' ? 'ano' : DSH_MES, V = visao(per), M = visao(DSH_MES), A = visao('ano');
-  const rot = per === 'ano' ? `${P.ano}` : nomeMes(DSH_MES);
+  const per = perDash(), V = visao(per), M = visao(DSH_MES), A = visao('ano');
+  const rot = rotDash(), fx = DSH_PER === 'faixa' ? faixaDash() : null;
+  if(fx){
+    const ops = sel => P.meses.map(m => `<option value="${m.mes}"${m.mes === sel ? ' selected' : ''}>${cap(mesExt(m.mes))}</option>`).join('');
+    $('fx-de').innerHTML = ops(fx.de); $('fx-ate').innerHTML = ops(fx.ate);
+    $('fx-info').textContent = `${pl(V.meses.length, 'mês', 'meses')} · ${fmtInt(V.ped)} pedidos · ${fmtInt(V.qtd)} amostras`;
+  }
   document.querySelectorAll('.dsh-rot').forEach(el => el.textContent = rot);
   $('dsh-per-mes').textContent = nomeMes(DSH_MES);
   // KPIs: três do mês escolhido + três do ano
   const C = comparacaoMes(DSH_MES);
   const k = (lbl, v, sub, hi, dl = '') => `<div class="dk${hi ? ' hi' : ''}"><span>${lbl}</span><strong>${fmtInt(v)}</strong><small>${sub}${dl}</small></div>`;
   const mn = nomeMes(DSH_MES), dlk = (a, b, bom) => C ? ' ' + delta(a, b, bom) : '';
-  $('dsh-kpis').innerHTML = k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true, dlk(C?.at.ab, C?.an.ab, 0)) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês', false, dlk(C?.at.lib, C?.an.lib, 0)) + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês', false, dlk(C?.at.fat, C?.an.fat, 1))
+  $('dsh-kpis').innerHTML = (fx ? k('Em aberto · período', V.ab, esc(rot), true) + k('Liberados · período', V.lib, esc(rot)) + k('Faturados · período', V.fat, `de ${fmtInt(V.ped)} pedidos`)
+      : k(`Em aberto · ${mn}`, M.ab, 'pedidos do mês', true, dlk(C?.at.ab, C?.an.ab, 0)) + k(`Liberados · ${mn}`, M.lib, 'pedidos do mês', false, dlk(C?.at.lib, C?.an.lib, 0)) + k(`Faturados · ${mn}`, M.fat, 'pedidos do mês', false, dlk(C?.at.fat, C?.an.fat, 1)))
     + k(`Faturados em ${P.ano}`, A.fat, 'pedidos no ano') + k(`Amostras enviadas em ${P.ano}`, A.env, 'quantidade original dos itens') + k(`Clientes atendidos em ${P.ano}`, A.cli.size, 'clientes distintos');
   // barras mês a mês (clicáveis)
-  const ms = P.meses, max = Math.max(1, ...ms.map(m => m.qtd));
-  $('dsh-meses').innerHTML = `<div class="bars">${ms.map(m => `<button type="button" class="bar${m.mes === DSH_MES ? ' sel' : ''}${m.mes === P.mesAtual ? ' cur' : ''}" data-mes="${m.mes}" title="Ver ${nomeMes(m.mes)}">
-      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></button>`).join('')}</div>
+  const cfgMeta = metaCfg(), metaQ = cfgMeta?.tipo === 'qtd' ? cfgMeta.valor : 0; // meta de amostras: linha tracejada no gráfico
+  const ms = P.meses, max = Math.max(1, metaQ * 1.18, ...ms.map(m => m.qtd)); // folga acima da linha da meta
+  $('dsh-meses').innerHTML = `<div class="bars">${ms.map(m => `<button type="button" class="bar${(fx ? m.mes >= fx.de && m.mes <= fx.ate : m.mes === DSH_MES) ? ' sel' : ''}${m.mes === P.mesAtual ? ' cur' : ''}" data-mes="${m.mes}" title="Ver ${nomeMes(m.mes)}">
+      <b>${fmtInt(m.qtd)}</b><i style="height:${Math.max(3, 100 * m.qtd / max)}%"></i><span>${MESES[+m.mes.slice(4, 6) - 1]}</span></button>`).join('')}${metaQ ? `<u class="bars-meta" id="bars-meta"><em>meta ${fmtInt(metaQ)}</em></u>` : ''}</div>
     <div class="story">${historiaMes(DSH_MES)}</div>`;
+  { const bm = $('bars-meta'); if(bm){ const bx = bm.parentElement, rb = bx.getBoundingClientRect(), b0 = bx.querySelector('.bar'), ri = b0.querySelector('i').getBoundingClientRect();
+    if(rb.height) bm.style.bottom = (rb.bottom - ri.bottom + b0.getBoundingClientRect().height * metaQ / max) + 'px'; else bm.hidden = true } }
   // rosca por tipo
   const tps = Object.entries(V.tipos).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]), cores = coresTipos();
   $('dsh-donut').innerHTML = tps.length ? `<div class="dn-wrap">${donut(tps, V.qtdTipos)}<div class="dn-leg">${tps.map(([t, q]) => `<div><span class="tp-dot" style="background:${cores(t)}"></span><em>${esc(cap(t))}</em><b>${fmtInt(q)}</b><small>${Math.round(100 * q / V.qtdTipos)}%</small></div>`).join('')}</div></div>` : '<p class="vazio">Sem amostras no período.</p>';
@@ -2069,6 +2283,7 @@ function renderDash(){
   $('dsh-lead').innerHTML = htmlLead(V);
   // destaques
   $('dsh-dest').innerHTML = destaques(V, per).map(([a, b]) => `<div class="drow"><span>${esc(a)}</span><b>${esc(b)}</b></div>`).join('');
+  renderMeta();
 }
 
 /* ---------- comparação com o mês anterior + tempo até faturar ---------- */
@@ -2257,8 +2472,8 @@ function iniciarTVControles(){
   $('tv-dots').addEventListener('click', e => { const b = e.target.closest('[data-k]'); if(b) tvMostrar(+b.dataset.k) });
   document.addEventListener('keydown', e => { if(!TV.on) return; if(e.key === 'Escape') sairTV(); if(e.key === 'ArrowRight') tvMostrar(TV.i + 1); if(e.key === 'ArrowLeft') tvMostrar(TV.i - 1) });
   document.addEventListener('visibilitychange', async () => { if(TV.on && document.visibilityState === 'visible' && !TV.lock){ try{ TV.lock = await navigator.wakeLock?.request('screen') }catch{} } });
-  $('dsh-lead').addEventListener('click', e => { if(e.target.closest('[data-atrasos]')) return abrirResumoAtrasos(visao(DSH_PER === 'ano' ? 'ano' : DSH_MES), DSH_PER === 'ano' ? PAINEL.ano : nomeMes(DSH_MES));
-    const b = e.target.closest('[data-ld]'); if(!b) return; LEAD_MODO = b.dataset.ld; const per = DSH_PER === 'ano' ? 'ano' : DSH_MES; $('dsh-lead').innerHTML = htmlLead(visao(per)) });
+  $('dsh-lead').addEventListener('click', e => { if(e.target.closest('[data-atrasos]')) return abrirResumoAtrasos(visao(perDash()), rotDash());
+    const b = e.target.closest('[data-ld]'); if(!b) return; LEAD_MODO = b.dataset.ld; const per = perDash(); $('dsh-lead').innerHTML = htmlLead(visao(per)) });
 }
 
 /* ============== tabela flutuante (fora do assistente) ============== */
@@ -2701,6 +2916,20 @@ function recolorirLogo(){
 }
 
 let pedidos = [], buscaSeq = 0, TERMO_SRV = '', SO_ATR = false;
+// ordenação da lista: clique no título da coluna (computador) ou caixa "Ordenar" (celular). 1 = crescente, -1 = decrescente
+const ORD_PADRAO = {num:1, emissao:1, cliente:1, vend:1, itens:-1};
+let ORDEM = (() => { try{ const o = JSON.parse(store.get('pv-ordem') || 'null'); if(o && ORD_PADRAO[o.col]) return {col:o.col, dir:o.dir < 0 ? -1 : 1} }catch{} return {col:'', dir:1} })();
+const ordTexto = new Intl.Collator('pt-BR', {numeric:true, sensitivity:'base'});
+const ORD_CHAVE = {num:p => trim(p.num), emissao:p => String(p.emissao || '').replace(/-/g, ''), cliente:p => nomeCliLista(p) || trim(p.cliente), vend:p => nomeVendLista(p.vend2) || trim(p.vend2), itens:p => p.itens};
+function ordenarLista(v){
+  if(!ORDEM.col) return SO_ATR ? v.sort((a, b) => diasParado(b.p) - diasParado(a.p)) : v; // padrão: mais recentes primeiro (atrasados: mais antigos primeiro)
+  const f = ORD_CHAVE[ORDEM.col], d = ORDEM.dir;
+  return v.sort((a, b) => { const x = f(a.p), y = f(b.p);
+    if(x === '' || y === '') return x === y ? a.i - b.i : x === '' ? 1 : -1; // sem vendedor/cliente: sempre no fim
+    return (typeof x === 'number' ? x - y : ordTexto.compare(x, y)) * d || a.i - b.i });
+}
+function definirOrdem(col, dir){ ORDEM = col && ORD_PADRAO[col] ? {col, dir:dir < 0 ? -1 : 1} : {col:'', dir:1}; store.set('pv-ordem', JSON.stringify(ORDEM)); renderLista() }
+const ICONE_DET = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/><path d="M7.2 12h2.6M14.2 12h2.6"/></svg>`;
 const hojeYmd = () => ymd(new Date());
 const diasParado = p => { const x = parts(p.emissao); return x ? diasEntre(x.y + x.m + x.d, hojeYmd()) : 0 };
 const atrasado = p => p.status[0] !== 'faturado' && diasParado(p) > PRAZO_DIAS;
@@ -2819,10 +3048,12 @@ function bateBusca(p, t){
 }
 const visiveis = () => {
   const t = termoBusca(), v = pedidos.map((p, i) => ({p, i})).filter(({p}) => !($('f-ocultar').checked && IMP.get(p)) && bateBusca(p, t) && (!SO_ATR || atrasado(p)));
-  return SO_ATR ? v.sort((a, b) => diasParado(b.p) - diasParado(a.p)) : v; // atrasados: mais antigos primeiro
+  return ordenarLista(v);
 };
 function renderLista(){
   const tb = $('tbl').querySelector('tbody');
+  document.querySelectorAll('#tbl th[data-ord]').forEach(th => { if(th.dataset.ord === ORDEM.col) th.setAttribute('aria-sort', ORDEM.dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort') });
+  $('f-ordem').value = ORDEM.col ? `${ORDEM.col}:${ORDEM.dir}` : '';
   const imp = pedidos.filter(p => IMP.get(p)).length;
   $('st-total').textContent = pedidos.length;
   $('st-pend').textContent = pedidos.length - imp;
@@ -2846,7 +3077,7 @@ function renderLista(){
     const impTit = im ? `Impresso ${quando(im.data)}${im.usuario ? ' por ' + im.usuario : ''} · clique para desfazer` : '';
     return `<tr class="st-${p.status[0]}${im ? ' impresso' : ''}${marcados.has(k) ? ' sel' : ''}" data-row="${i}" title="${esc(p.status[1])} · clique para abrir o pedido">
     <td class="c-chk"><input type="checkbox" class="chk" data-i="${i}" ${marcados.has(k) ? 'checked' : ''}></td>
-    <td class="c-num"><b>${esc(p.num)}</b>${NOVOS.destacar.has(trim(p.num)) ? '<span class="tag-novo">NOVO</span>' : ''}<span class="sit">${esc(p.status[1])}</span></td>
+    <td class="c-num"><b>${esc(p.num)}</b>${NOVOS.destacar.has(trim(p.num)) ? '<span class="tag-novo">NOVO</span>' : ''}<button type="button" class="det-ic" data-det="${i}" title="Detalhes e linha do tempo do pedido" aria-label="Detalhes e linha do tempo do pedido ${esc(p.num)}">${ICONE_DET}</button><span class="sit">${esc(p.status[1])}</span></td>
     <td class="c-meta">${htmlDias(p).replace('class="dias', 'style="display:inline;margin-right:4px" class="dias')}${esc(dLonga(p.emissao))} · ${esc(nc || 'cliente ' + p.cliente)}${p.nota ? ' · NF ' + esc(p.nota) : ''} · ${esc(nv || p.vend2 || '')} · ${p.itens} ${p.itens === 1 ? 'item' : 'itens'}</td>
     <td class="c-em">${esc(dLonga(p.emissao))}${htmlDias(p)}</td>
     <td class="c-cli"><b>${esc(p.cliente)}-${esc(p.loja || '')}</b>${p.nota ? `<em class="nf" style="font-style:normal">NF ${esc(p.nota)}</em>` : ''}${nc ? `<span title="${esc(nc)}">${esc(nc)}</span>` : ''}</td>
@@ -3216,6 +3447,225 @@ async function gerar(lista, imprimir, reprocessar = false){
   }finally{ btns.forEach(b => b.disabled = false); atualizaBotoes() }
 }
 
+/* ============================ detalhe do pedido (linha do tempo + itens) ============================ */
+const DET = {seq:0, p:null};
+const d8 = v => trim(v).replace(/-/g, '');
+const qtdTxt = v => num(v).toLocaleString('pt-BR', {maximumFractionDigits:2});
+function htmlDetalhe(d, fat){
+  const {cab, itens, cliente, vend, cond, prod} = d, C = CONFIG.campos, ok8 = x => /^\d{8}$/.test(x);
+  const st = statusDe(cab), em = d8(cab.c5_emissao), lib = d8(d.dtLib), hoje = hojeYmd();
+  const df = fat.map(r => d8(r.c6_datfat)).filter(ok8).sort().pop() || '';
+  const nf = trim(cab.c5_nota) || fat.map(r => trim(r.c6_nota)).find(Boolean) || '';
+  const fLib = st[0] !== 'aberto', fFat = st[0] === 'faturado';
+  const dd = (a, b) => ok8(a) && ok8(b) ? Math.max(0, diasEntre(a, b)) : null;
+  const dur = n => n === 0 ? 'no mesmo dia' : n === 1 ? '1 dia' : `${n} dias`;
+  const ha = n => n == null ? '' : n <= 0 ? 'desde hoje' : n === 1 ? 'há 1 dia' : `há ${n} dias`;
+  // linha do tempo: emitido → liberado (SC9) → faturado (data de faturamento dos itens)
+  const etapa = (k, nome, feito, agora, data, sub) => `<li class="tl-e st-${k}${feito ? ' feito' : ''}${agora ? ' agora' : ''}"><i class="tl-b">${feito ? '✓' : ''}</i><div><b>${nome}</b><span>${ok8(data) ? esc(dLonga(data)) : '—'}</span>${sub ? `<small>${esc(sub)}</small>` : ''}</div></li>`;
+  const liga = (feito, n) => `<li class="tl-c${feito ? ' feito' : ''}">${feito && n != null ? `<span>${dur(n)}</span>` : ''}</li>`;
+  const tl = `<ol class="tl" aria-label="Linha do tempo do pedido">`
+    + etapa('aberto', 'Emitido', true, st[0] === 'aberto', em, st[0] === 'aberto' ? `aguardando liberação ${ha(dd(em, hoje))}` : '')
+    + liga(fLib, dd(em, lib))
+    + etapa('liberado', 'Liberado', fLib, st[0] === 'liberado', fLib ? lib : '', st[0] === 'liberado' ? `aguardando faturamento ${ha(dd(lib, hoje))}`.trim() : fLib && !ok8(lib) ? 'data não informada' : '')
+    + liga(fFat, dd(ok8(lib) ? lib : em, df))
+    + etapa('faturado', 'Faturado', fFat, fFat, fFat ? df : '', fFat && nf ? `NF ${nf}` : '')
+    + `</ol>`;
+  // resumo
+  const total = fFat ? dd(em, df) : dd(em, hoje), fora = total != null && total > PRAZO_DIAS;
+  const im = IMP.get({filial:cab.c5_filial, num:cab.c5_num}), parcial = !fFat && itens.some(i => num(i.c6_qtdent) > 0);
+  const qtd = itens.reduce((s, i) => s + num(i.c6_qtdven), 0);
+  const cards = `<div class="rs-cards pd-cards">
+    <div class="${fora ? 'red' : ''}"><span>${fFat ? 'Tempo até faturar' : 'Em andamento'}</span><strong>${total == null ? '—' : total === 0 ? (fFat ? 'No mesmo dia' : 'Desde hoje') : dur(total)}</strong><small>${total == null ? 'data de faturamento não informada' : fora ? `${total - PRAZO_DIAS} além do prazo de ${PRAZO_DIAS} dias` : `dentro do prazo de ${PRAZO_DIAS} dias`}</small></div>
+    <div><span>Itens</span><strong>${itens.length}</strong><small>${qtdTxt(qtd)} no total${parcial ? ' · entrega parcial' : ''}</small></div>
+    <div><span>Impressão</span><strong>${im ? 'Impresso' : 'Não impresso'}</strong><small>${im ? `${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}` : 'ainda não saiu na impressora'}</small></div></div>`;
+  // dados do pedido
+  const nomeV = c => { const n = trim(get(vend(c), CONFIG.nomeVendedor)); return trim(c) ? `${trim(c)}${n ? ' · ' + cap(n.replace(/^[A-Z]\d+\s*-\s*/, '')) : ''}` : '' };
+  const kv = (l, v) => `<div><span>${l}</span><b>${esc(trim(v) || '—')}</b></div>`;
+  const info = `<div class="pd-info">`
+    + kv('Cliente', `${trim(cab.c5_cliente)}-${trim(cab.c5_lojacli)} · ${cap(trim(cliente?.a1_nome))}${trim(cliente?.a1_est) ? ' (' + trim(cliente.a1_est) + ')' : ''}`)
+    + kv('Vendedor 1', nomeV(cab.c5_vend1)) + kv('Vendedor 2', nomeV(cab.c5_vend2))
+    + kv('Cond. de pagamento', trim(cond(cab.c5_condpag)?.e4_descri) || cab.c5_condpag)
+    + kv('Frete', FRETE[trim(cab.c5_tpfrete)] || cab.c5_tpfrete)
+    + kv('Tp. encomenda', opcao(C.tpEncomenda, get(cab, C.tpEncomenda)))
+    + kv('Centro de custo', d.cc ? `${d.cc}${d.ccDesc ? ' - ' + d.ccDesc : ''}` : '')
+    + kv('Tipo de venda', opcao(C.tipoVenda, get(cab, C.tipoVenda))) + `</div>`;
+  const obs = [trim(cab.c5_obssep), trim(get(cab, C.obs2))].filter(Boolean);
+  const temEnd = itens.some(i => i._end);
+  const tab = `<div class="pd-scroll"><table class="tb-t pd-itens"><thead><tr><th>Item</th><th>Produto</th><th>Tp.Amostra</th><th>Tonalidade</th><th class="n">Qtde.</th><th class="n">Entregue</th>${temEnd ? '<th>Endereços</th>' : ''}</tr></thead><tbody>`
+    + itens.map(i => { const qv = num(i.c6_qtdven), qe = num(i.c6_qtdent), tp = trim(valorItem(i, C.tpAmostra, prod));
+      return `<tr><td>${esc(trim(i.c6_item))}</td><td><b>${esc(trim(i.c6_produto))}</b><small>${esc(trim(i.c6_descri))}</small></td>
+        <td>${tp ? `<span class="tp-dot" style="background:${corTipo(tp.toUpperCase())}"></span>${esc(cap(tp))}` : '—'}</td><td>${esc(trim(valorItem(i, C.tonalidade, prod)) || '—')}</td>
+        <td class="n"><b>${qtdTxt(qv)}</b></td><td class="n${qe > 0 && qe >= qv ? ' ok' : ''}">${qe ? qtdTxt(qe) : '—'}</td>${temEnd ? `<td class="pd-end">${esc(textoEnderecos(i._end)) || '—'}</td>` : ''}</tr>` }).join('')
+    + `</tbody><tfoot><tr><td colspan="4">Total</td><td class="n">${qtdTxt(qtd)}</td><td></td>${temEnd ? '<td></td>' : ''}</tr></tfoot></table></div>`;
+  return tl + cards + info + (obs.length ? `<div class="pd-obs"><h4>Aviso para a separação</h4>${obs.map(esc).join('<br>')}</div>` : '')
+    + `<h4 class="pd-h">Itens do pedido</h4>` + tab
+    + `<p class="tb-dica">Liberação pela data da SC9 e faturamento pela data dos itens (C6_DATFAT). O prazo da equipe é de ${PRAZO_DIAS} dias corridos a partir da emissão.</p>`;
+}
+async function abrirDetalhe(p){
+  const seq = ++DET.seq, dlg = $('dlg-ped'); DET.p = {filial:p.filial || CONFIG.filial, num:p.num};
+  const cabecalho = (st, sub) => { $('pd-tit').innerHTML = `Pedido ${esc(trim(p.num))}${st ? ` <span class="pd-sit st-${st[0]}">${esc(st[1])}</span>` : ''}`; $('pd-sub').textContent = sub || '' };
+  cabecalho(p.status, p.cliente ? (nomeCliLista(p) || 'cliente ' + trim(p.cliente)) : '');
+  $('pd-corpo').innerHTML = `<div class="pd-carga"><i></i><span id="pd-prog">Lendo o pedido no Protheus…</span></div>`;
+  if(!dlg.open) dlg.showModal();
+  try{
+    const [res, fat] = await Promise.all([
+      carregarLote([DET.p], t => { if(seq === DET.seq && $('pd-prog')) $('pd-prog').textContent = t }),
+      gqSafe('SC6', ['C6_NUM', 'C6_ITEM'], ['C6_DATFAT', 'C6_NOTA'], `C6_FILIAL=${q(DET.p.filial)} AND C6_NUM=${q(p.num)} AND D_E_L_E_T_=' '`).catch(e => { if(e.auth) throw e; return [] })
+    ]);
+    if(seq !== DET.seq || !dlg.open) return;
+    if(!res[0]?.dados) throw Error(res[0]?.erro || 'pedido não carregado');
+    const d = res[0].dados;
+    cabecalho(statusDe(d.cab), `${cap(trim(d.cliente?.a1_nome)) || 'cliente ' + trim(d.cab.c5_cliente)} · emitido em ${dLonga(d.cab.c5_emissao)}`);
+    $('pd-corpo').innerHTML = htmlDetalhe(d, fat); $('pd-corpo').scrollTop = 0;
+  }catch(e){
+    if(seq !== DET.seq) return; console.error(e);
+    $('pd-corpo').innerHTML = `<p class="vazio">Não foi possível carregar o pedido: ${esc(e.message)}</p><button type="button" class="btn sec" id="pd-retry" style="margin-top:10px">Tentar de novo</button>`;
+    $('pd-retry').onclick = () => abrirDetalhe(p);
+  }
+}
+function iniciarDetalhe(){
+  const d = $('dlg-ped');
+  $('pd-x').onclick = () => d.close();
+  d.addEventListener('click', e => { if(e.target === d) d.close() }); // clique fora fecha
+  d.addEventListener('close', () => DET.seq++);
+  $('pd-print').onclick = () => { const p = DET.p; d.close(); if(p) gerar([p], false) };
+}
+
+/* ============================ exportar o relatório do dashboard (imagem PNG / PDF) ============================ */
+// O relatório é desenhado num <canvas> (folha A4 em pé), sem bibliotecas: a mesma imagem serve para baixar e para o PDF.
+const EXP = {modo:'claro', cv:null, nome:''};
+function desenharRelatorio(modo){
+  const P = PAINEL, per = perDash(), V = visao(per), rot = rotDash(), K = coresTema(temaAtual(), modo), c = n => K['--' + n];
+  const ST = modo === 'claro' ? {ab:'#16a34a', lib:'#c48a00', fat:'#dc2626'} : {ab:'#3ddc84', lib:'#ffc94d', fat:'#ff6b6b'};
+  const S = 2, W = 1240, H = 1754, M = 56, cv = document.createElement('canvas'); cv.width = W * S; cv.height = H * S;
+  const x = cv.getContext('2d'); x.scale(S, S);
+  const fonte = (peso, tam, disp) => `${peso} ${tam}px ${disp ? "'Space Grotesk'," : ''}'Inter',system-ui,'Segoe UI',Arial,sans-serif`;
+  const txt = (s, px, py, f, cor, al = 'left', max = 0) => {
+    x.font = f; x.fillStyle = cor; x.textAlign = al; x.textBaseline = 'alphabetic'; s = String(s ?? '');
+    if(max && x.measureText(s).width > max){ while(s.length > 1 && x.measureText(s + '…').width > max) s = s.slice(0, -1); s = s.trimEnd() + '…' }
+    x.fillText(s, px, py); return x.measureText(s).width;
+  };
+  const caixa = (px, py, w, h, r, fill, stroke) => {
+    x.beginPath(); if(x.roundRect) x.roundRect(px, py, w, h, Math.max(0, Math.min(r, w / 2, h / 2))); else x.rect(px, py, w, h);
+    if(fill){ x.fillStyle = fill; x.fill() } if(stroke){ x.strokeStyle = stroke; x.lineWidth = 1; x.stroke() }
+  };
+  const cartao = (px, py, w, h, titulo, sub) => { caixa(px, py, w, h, 18, c('panel'), c('line')); txt(titulo, px + 24, py + 40, fonte(700, 19, 1), c('text')); if(sub) txt(sub, px + w - 24, py + 40, fonte(500, 13), c('muted'), 'right') };
+  const corT = t => ({'PILOTAGEM':c('lime-t'), 'BANDEIRA':c('text'), 'CARTELA DE CORES':misturar(c('lime-t'), c('bg'), .55), 'BRINDES':c('muted'), 'PDV':misturar(c('lime-t'), c('text'), .55), 'TALAO DE VENDAS':c('line-2')}[t] || c('dim'));
+  const agora = new Date();
+  // fundo + faixa do topo
+  x.fillStyle = c('bg'); x.fillRect(0, 0, W, H);
+  x.fillStyle = c('head-bg'); x.fillRect(0, 0, W, 150); x.fillStyle = c('lime'); x.fillRect(0, 150, W, 6);
+  const hf = c('head-fg');
+  x.globalAlpha = .7; txt('GRUPO 4K  ·  PEDIDOS DE AMOSTRA', M, 58, fonte(600, 13), hf); txt('PERÍODO', W - M, 58, fonte(600, 13), hf, 'right'); x.globalAlpha = 1;
+  txt('Relatório de amostras', M, 110, fonte(700, 42, 1), hf); txt(rot, W - M, 108, fonte(700, 36, 1), hf, 'right');
+  x.globalAlpha = .7; txt(`Gerado em ${agora.toLocaleDateString('pt-BR')} às ${agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`, W - M, 132, fonte(500, 12.5), hf, 'right'); x.globalAlpha = 1;
+  // indicadores do período
+  const L = V.lt, media = L?.n ? L.s / L.n : null, noPrazo = L?.n ? Math.round(100 * L.ok / L.n) : null;
+  const kp = [['Pedidos', fmtInt(V.ped), 'emitidos no período', 1], ['Amostras solicitadas', fmtInt(V.qtd), V.uteis ? `${fmtInt(Math.round(V.qtd / V.uteis))} por dia útil` : ''],
+    ['Faturados', fmtInt(V.fat), V.ped ? `${Math.round(100 * V.fat / V.ped)}% dos pedidos` : ''], ['Clientes atendidos', fmtInt(V.cli.size), 'clientes distintos'],
+    ['Em aberto', fmtInt(V.ab), 'como está hoje'], ['Liberados', fmtInt(V.lib), 'como está hoje'],
+    ['Média até faturar', media == null ? '—' : fmtDias(media), 'da emissão ao faturamento'], ['Dentro do prazo', noPrazo == null ? '—' : noPrazo + '%', `faturados em até ${PRAZO_DIAS} dias`]];
+  const kw = (W - 2 * M - 3 * 16) / 4, kh = 104;
+  kp.forEach(([l, v, s, hi], i) => {
+    const px = M + (i % 4) * (kw + 16), py = 184 + Math.floor(i / 4) * (kh + 16);
+    caixa(px, py, kw, kh, 16, hi ? c('lime') : c('panel'), hi ? c('lime') : c('line'));
+    x.globalAlpha = hi ? .7 : 1; txt(l.toUpperCase(), px + 18, py + 30, fonte(600, 11.5), hi ? c('ink') : c('muted'), 'left', kw - 36); x.globalAlpha = 1;
+    txt(v, px + 18, py + 70, fonte(700, 34, 1), hi ? c('ink') : c('text'), 'left', kw - 36);
+    x.globalAlpha = hi ? .7 : 1; txt(s, px + 18, py + 90, fonte(500, 12), hi ? c('ink') : c('dim'), 'left', kw - 36); x.globalAlpha = 1;
+  });
+  let y = 184 + 2 * kh + 16 + 20, sobra = 104;
+  // meta do mês (só na visão mensal)
+  const cfg = metaCfg();
+  if(cfg && DSH_PER === 'mes'){
+    const T = META_TIPOS[cfg.tipo], v = T.v(P.meses.find(m => m.mes === DSH_MES)), pct = Math.round(100 * v / cfg.valor), ok = v >= cfg.valor;
+    caixa(M, y, W - 2 * M, 84, 16, c('panel'), c('line'));
+    txt(`META DO MÊS · ${T.nome.toUpperCase()}`, M + 24, y + 32, fonte(600, 11.5), c('muted'));
+    txt(`${fmtInt(v)} de ${fmtInt(cfg.valor)}`, M + 24, y + 64, fonte(700, 24, 1), c('text'));
+    const bx = M + 330, bw = W - 2 * M - 330 - 140;
+    caixa(bx, y + 36, bw, 14, 7, c('panel-2'), c('line')); if(v > 0) caixa(bx, y + 36, Math.max(14, bw * Math.min(1, v / cfg.valor)), 14, 7, ok ? ST.ab : c('lime-t'));
+    txt(pct + '%', W - M - 24, y + 55, fonte(700, 32, 1), ok ? ST.ab : c('text'), 'right');
+    y += 104; sobra = 0;
+  }
+  // amostras por mês
+  const ch = 380 + sobra; cartao(M, y, W - 2 * M, ch, 'Amostras solicitadas por mês', 'últimos 12 meses · em destaque, o período do relatório');
+  { const ms = P.meses, metaQ = cfg?.tipo === 'qtd' ? cfg.valor : 0, max = Math.max(1, metaQ, ...ms.map(m => m.qtd)), x0 = M + 24, x1 = W - M - 24, yb = y + ch - 52, yt = y + 96, slot = (x1 - x0) / ms.length, bw = Math.min(46, slot * .56);
+    x.strokeStyle = c('line-2'); x.lineWidth = 1; x.beginPath(); x.moveTo(x0, yb + .5); x.lineTo(x1, yb + .5); x.stroke();
+    ms.forEach((m, i) => {
+      const cx = x0 + slot * (i + .5), h = Math.max(3, (yb - yt) * m.qtd / max), on = V.meses.includes(m);
+      caixa(cx - bw / 2, yb - h, bw, h, 7, on ? c('lime-t') : misturar(c('lime-t'), c('panel-2'), .28));
+      txt(fmtInt(m.qtd), cx, yb - h - 8, fonte(600, 12.5), on ? c('text') : c('muted'), 'center');
+      txt(MESES[+m.mes.slice(4, 6) - 1], cx, yb + 22, fonte(600, 12), on ? c('text') : c('dim'), 'center');
+      if(i === 0 || m.mes.endsWith('01')) txt(m.mes.slice(0, 4), cx, yb + 38, fonte(500, 10.5), c('dim'), 'center');
+    });
+    if(metaQ){ const ym = Math.round(yb - (yb - yt) * metaQ / max) + .5; x.save(); x.setLineDash([6, 5]); x.strokeStyle = c('muted'); x.lineWidth = 1.5; x.beginPath(); x.moveTo(x0, ym); x.lineTo(x1, ym); x.stroke(); x.restore();
+      txt(`meta ${fmtInt(metaQ)}`, x1, ym - 7, fonte(600, 11.5), c('muted'), 'right') } }
+  y += ch + 20;
+  // tipos de amostra + quem mais solicita
+  const cw = (W - 2 * M - 20) / 2, rh = 370;
+  cartao(M, y, cw, rh, 'Tipos de amostra', 'amostras · % do período');
+  { const tps = Object.entries(V.tipos).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 6), mx = Math.max(1, ...tps.map(e => e[1])), px = M + 24, w = cw - 48;
+    if(!tps.length) txt('Sem amostras no período.', px, y + 88, fonte(500, 14), c('muted'));
+    tps.forEach(([t, q], i) => { const py = y + 72 + i * 48;
+      caixa(px, py + 5, 10, 10, 3, corT(t)); txt(cap(t), px + 20, py + 15, fonte(600, 14), c('text'), 'left', w - 170);
+      txt(fmtInt(q), px + w - 56, py + 15, fonte(700, 14), c('text'), 'right'); txt(Math.round(100 * q / V.qtdTipos) + '%', px + w, py + 15, fonte(500, 13), c('muted'), 'right');
+      caixa(px, py + 26, w, 6, 3, c('panel-2')); caixa(px, py + 26, Math.max(6, w * q / mx), 6, 3, corT(t)) }) }
+  cartao(M + cw + 20, y, cw, rh, 'Quem mais solicita', 'pedidos · amostras');
+  { const tv = Object.entries(V.vend).sort((a, b) => b[1].p - a[1].p).slice(0, 6), mx = Math.max(1, ...tv.map(e => e[1].p)), px = M + cw + 44, w = cw - 48;
+    if(!tv.length) txt('Sem pedidos no período.', px, y + 88, fonte(500, 14), c('muted'));
+    tv.forEach(([cod, v], i) => { const r = rotuloVend(cod, v), py = y + 72 + i * 48;
+      txt(String(i + 1), px, py + 15, fonte(700, 13, 1), c('dim'));
+      const nw = txt(r.n, px + 22, py + 15, fonte(600, 14), c('text'), 'left', w - 240);
+      if(r.setor) txt(r.setor, px + 22 + nw + 8, py + 15, fonte(500, 11.5), c('muted'), 'left', 86);
+      txt(fmtInt(v.p), px + w - 64, py + 15, fonte(700, 14), c('text'), 'right'); txt(fmtInt(v.q), px + w, py + 15, fonte(500, 13), c('muted'), 'right');
+      caixa(px + 22, py + 26, w - 22, 6, 3, c('panel-2')); caixa(px + 22, py + 26, Math.max(6, (w - 22) * v.p / mx), 6, 3, c('lime-t')) }) }
+  y += rh + 20;
+  // top 10
+  cartao(M, y, W - 2 * M, 320, 'Top 10 mais solicitados', 'quantidade de amostras');
+  { const tp = Object.entries(V.prod).sort((a, b) => b[1][1] - a[1][1]).slice(0, 10), mx = Math.max(1, ...tp.map(e => e[1][1])), colW = (W - 2 * M - 48 - 40) / 2;
+    if(!tp.length) txt('Sem dados no período.', M + 24, y + 88, fonte(500, 14), c('muted'));
+    tp.forEach(([k, [d, q]], i) => { const px = M + 24 + Math.floor(i / 5) * (colW + 40), py = y + 70 + (i % 5) * 48;
+      txt(String(i + 1), px, py + 15, fonte(700, 13, 1), c('dim')); txt(d || k, px + 26, py + 15, fonte(600, 13.5), c('text'), 'left', colW - 26 - 84);
+      txt(fmtInt(q), px + colW, py + 15, fonte(700, 14), c('text'), 'right');
+      caixa(px + 26, py + 26, colW - 26, 6, 3, c('panel-2')); caixa(px + 26, py + 26, Math.max(6, (colW - 26) * q / mx), 6, 3, misturar(c('lime-t'), c('panel-2'), .75)) }) }
+  txt(`Pedidos 4K · gerado por ${SESSAO.user || '—'} · dados do Protheus, mesmas regras do Relatório Consolidado`, W / 2, H - 30, fonte(500, 12), c('dim'), 'center', W - 2 * M);
+  return cv;
+}
+async function gerarExport(){
+  const img = $('ex-img'); img.classList.add('carregando');
+  document.querySelectorAll('#ex-modo button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.exm === EXP.modo)));
+  try{ await Promise.race([Promise.all([document.fonts.load("700 20px 'Space Grotesk'"), document.fonts.load("600 14px 'Inter'")]), dormir(1500)]) }catch{}
+  EXP.cv = desenharRelatorio(EXP.modo === 'tema' ? modoAtual() : 'claro');
+  EXP.nome = 'relatorio-amostras-' + semAcento(rotDash()).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  img.src = EXP.cv.toDataURL('image/png'); img.classList.remove('carregando');
+  $('ex-sub').textContent = `${rotDash()} · folha A4 em pé · o que está selecionado no dashboard`;
+}
+function abrirExportar(){ if(!PAINEL) return; const d = $('dlg-exp'); if(!d.open) d.showModal(); gerarExport() }
+async function baixarRelatorio(){
+  if(!EXP.cv) return;
+  const b = await new Promise(r => EXP.cv.toBlob(r, 'image/png')), nome = EXP.nome + '.png';
+  try{ // no celular: abre o "compartilhar" (WhatsApp, e-mail…); no computador: baixa o arquivo
+    const f = new File([b], nome, {type:'image/png'});
+    if(matchMedia('(pointer:coarse)').matches && navigator.canShare?.({files:[f]})){ await navigator.share({files:[f], title:'Relatório de amostras'}); return }
+  }catch(e){ if(e.name === 'AbortError') return }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+function imprimirRelatorio(){
+  if(!EXP.cv) return;
+  const box = $('rel-print'), titulo = document.title; box.innerHTML = `<img src="${EXP.cv.toDataURL('image/png')}" alt="Relatório de amostras">`;
+  const st = document.createElement('style'); st.textContent = '@page{size:A4 portrait;margin:0}'; document.head.appendChild(st); // a folha dos pedidos é deitada; o relatório é em pé
+  document.body.classList.add('print-rel'); document.title = EXP.nome; // o navegador sugere este nome para o PDF
+  const fim = () => { removeEventListener('afterprint', fim); document.body.classList.remove('print-rel'); st.remove(); box.innerHTML = ''; document.title = titulo };
+  addEventListener('afterprint', fim);
+  const img = box.querySelector('img'); (img.decode ? img.decode().catch(() => {}) : Promise.resolve()).then(() => window.print());
+}
+function iniciarExportar(){
+  const d = $('dlg-exp');
+  $('btn-exp').onclick = abrirExportar; $('ex-x').onclick = () => d.close();
+  d.addEventListener('click', e => { if(e.target === d) d.close() });
+  $('ex-modo').addEventListener('click', e => { const b = e.target.closest('[data-exm]'); if(b && b.dataset.exm !== EXP.modo){ EXP.modo = b.dataset.exm; gerarExport() } });
+  $('ex-png').onclick = baixarRelatorio; $('ex-pdf').onclick = imprimirRelatorio;
+}
+
 /* ============================ eventos ============================ */
 (function init(){
   const y = new Date().getFullYear();
@@ -3293,10 +3743,30 @@ async function gerar(lista, imprimir, reprocessar = false){
     if(u){ const p = pedidos[+u.dataset.undo]; if(!confirm(`Tirar a marcação de impresso do pedido ${p.num}?`)) return;
       u.disabled = true; try{ await IMP.desmarcar(p); renderLista() }catch(err){ msg(err.message, 'err'); u.disabled = false } return }
     if(e.target.closest('input.chk')) return;
+    const det = e.target.closest('[data-det]'); if(det) return abrirDetalhe(pedidos[+det.dataset.det]);
     const chkTd = e.target.closest('.c-chk'); if(chkTd){ chkTd.querySelector('input.chk')?.click(); return }
     const tr = e.target.closest('tr[data-row]'); if(tr && !getSelection().toString()) gerar([pedidos[+tr.dataset.row]], false);
   });
-  iniciarTemas(); iniciarTipDash(); iniciarTVControles(); iniciarAI(); iniciarTabela();
+  iniciarTemas(); iniciarTipDash(); iniciarTVControles(); iniciarAI(); iniciarTabela(); iniciarDetalhe(); iniciarExportar();
+  // ordenar a lista: título da coluna (1º clique = ordem natural da coluna, 2º = inverte, 3º = volta ao padrão) ou a caixa "Ordenar" do celular
+  const cicloOrdem = th => { const c = th.dataset.ord; if(ORDEM.col !== c) definirOrdem(c, ORD_PADRAO[c]); else if(ORDEM.dir === ORD_PADRAO[c]) definirOrdem(c, -ORD_PADRAO[c]); else definirOrdem('') };
+  $('tbl').querySelector('thead').addEventListener('click', e => { const th = e.target.closest('th[data-ord]'); if(th) cicloOrdem(th) });
+  $('tbl').querySelector('thead').addEventListener('keydown', e => { const th = e.target.closest('th[data-ord]'); if(th && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); cicloOrdem(th) } });
+  $('f-ordem').onchange = e => { const [c, d] = e.target.value.split(':'); definirOrdem(c, +d || 1) };
+  // dashboard: período personalizado e meta mensal
+  $('dsh-faixa').addEventListener('change', () => definirFaixa($('fx-de').value, $('fx-ate').value));
+  $('dsh-faixa').addEventListener('click', e => { const b = e.target.closest('[data-fx]'); if(!b || !PAINEL) return; const ms = PAINEL.meses.map(m => m.mes); definirFaixa(ms[Math.max(0, ms.length - +b.dataset.fx)], ms[ms.length - 1]) });
+  const editarMeta = () => { META_TIPO_ED = metaCfg()?.tipo || 'fat'; META_EDIT = true; renderMeta(); $('mt-valor')?.focus() };
+  const fecharMeta = () => { META_EDIT = false; $('mt-form')?.remove(); renderDash() };
+  $('meta-edit').onclick = editarMeta;
+  $('dsh-meta').addEventListener('click', e => {
+    if(e.target.closest('[data-meta-def]')) return editarMeta();
+    const b = e.target.closest('[data-mt]'); if(b){ META_TIPO_ED = b.dataset.mt; $('mt-tipo').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); return }
+    if(e.target.closest('[data-meta-cancel]')) return fecharMeta();
+    if(e.target.closest('[data-meta-del]')){ store.set('pv-meta', ''); fecharMeta() }
+  });
+  $('dsh-meta').addEventListener('submit', e => { e.preventDefault(); const v = Math.round(num($('mt-valor').value)); if(!(v > 0)) return $('mt-valor').focus();
+    store.set('pv-meta', JSON.stringify({tipo:META_TIPO_ED, valor:v})); fecharMeta() });
   $('btn-notif').onclick = abrirNotif; $('aj-notif').onclick = abrirNotif;
   document.body.dataset.tab = 'pedidos';
   document.querySelectorAll('.tabbar, .top-tabs').forEach(n => n.addEventListener('click', e => { const b = e.target.closest('button[data-aba]'); if(b) trocarAba(b.dataset.aba) }));
