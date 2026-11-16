@@ -1113,34 +1113,6 @@ details[open].as-bloco > summary::after{content:"–"}
  .as{inset:0;width:auto;z-index:70;border:0;border-radius:0;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 }
 @media print{.ai-orb,.as,.tv{display:none!important}}
-/* ======================= FOLHA: reimpressão, dados do rolo, prazo, conferência e folha-resumo do lote ======================= */
-.pv{padding-bottom:17mm}
-.pv .reimp{margin-left:auto;border:1.5px solid #000;padding:5px 12px;text-align:center;font-family:Arial Black,Arial,sans-serif;font-weight:900;font-size:13px;letter-spacing:.6px;line-height:1.25}
-.pv .reimp[hidden]{display:none}
-.pv .reimp small{display:block;font-family:Arial,Helvetica,sans-serif;font-weight:400;font-size:8px;letter-spacing:0}
-.pv .rolo{display:block;margin-top:1px;font-weight:400;font-size:7px;white-space:nowrap}
-.pv .pe{position:absolute;left:8mm;right:8mm;bottom:6mm;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-top:5px;border-top:1px solid #000;font-size:8.5px}
-.pv .pe .prazo.atr{font-weight:700}
-.pv .pe .conf{display:flex;gap:14px;white-space:nowrap}
-.pv .pe .conf i{display:inline-block;width:105px;margin-left:4px;border-bottom:1px solid #000;vertical-align:-1px}
-.pv .pe .conf i.dt{width:64px}
-.pv-lote .lote-peds{margin-top:18px;line-height:1.6;font-size:9px}
-.pv-lote table.itens{margin-top:12px}
-.pv-lote table.itens tbody td{vertical-align:top;border-bottom:.5px solid #bbb;padding-bottom:4px}
-.pv-lote .peds{font-weight:400}
-/* barra da visualização: pedido atual, situação, setas e detalhes */
-.pv-info{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px}
-.pv-info .pd-sit{margin-left:0;vertical-align:0;background:var(--panel);border-color:transparent}
-.pv-dias{padding:2px 9px;border-radius:999px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:600}
-.pv-dias.atr{color:var(--st-fat)}
-.preview-bar .pv-nav{flex:none!important;width:40px;padding:0;font-size:18px}
-.preview-bar .pv-lote{color:inherit;margin-right:2px}
-.preview-bar .pv-lote[hidden],.preview-bar .btn[hidden]{display:none}
-body.preview #print-area .pv,body.giro .giro-box{scroll-margin-top:90px}
-.pd-hist tr[data-det-ped]{cursor:pointer}
-.pd-hist tr[data-det-ped]:hover td{background:var(--hover)}
-.pd-end small{display:block;color:var(--dim);font-size:11px;margin-top:1px}
-@media screen and (max-width:700px){body.preview .preview-bar .pv-info{order:-1;width:100%}body.preview .preview-bar #preview-title{display:none}}
 </style>
 </head>
 <body>
@@ -1228,11 +1200,7 @@ body.preview #print-area .pv,body.giro .giro-box{scroll-margin-top:90px}
 </header>
 
 <div class="preview-bar">
- <span id="preview-title">Visualização</span>
- <button class="btn sec pv-nav" id="pv-ant" type="button" title="Pedido anterior" aria-label="Pedido anterior" hidden>‹</button><span class="pv-info" id="pv-info"></span><button class="btn sec pv-nav" id="pv-prox" type="button" title="Próximo pedido" aria-label="Próximo pedido" hidden>›</button>
- <span class="grow"></span>
- <label class="switch pv-lote" id="pv-lote-lb" title="Primeira página com a soma dos produtos e os endereços de todos os pedidos, para buscar os rolos de uma vez" hidden><input type="checkbox" id="pv-lote"> Folha-resumo</label>
- <button class="btn sec" id="pv-det" type="button" title="Linha do tempo, dados e itens do pedido" hidden>Detalhes</button>
+ <span id="preview-title">Visualização</span><span class="grow"></span>
  <button class="btn" id="btn-print-now">Imprimir</button>
  <button class="btn sec" id="btn-close-preview">Voltar à lista</button>
 </div>
@@ -3361,16 +3329,10 @@ function htmlPedido(d, usuario, agora){
   const obs1 = trim(cab.c5_obssep), obs2 = trim(get(cab, C.obs2));
   const contrib = trim(cliente?.a1_contrib);
   const f = (l, v, w, extra='') => `<div class="f" style="width:${w}px${extra}"><span class="l">${l}</span><span class="v">${esc(v)}</span></div>`;
-  // rodapé: prazo da equipe (contado da emissão) + linha de conferência
-  const kPed = chave(cab.c5_filial, cab.c5_num), em8 = trim(cab.c5_emissao).replace(/-/g, ''), faturado = !!trim(cab.c5_nota);
-  const diasEm = /^\d{8}$/.test(em8) ? diasEntre(em8, hojeYmd()) : null, foraPrazo = !faturado && diasEm != null && diasEm > PRAZO_DIAS;
-  const vence = diasEm == null ? '' : new Date(+em8.slice(0, 4), +em8.slice(4, 6) - 1, +em8.slice(6, 8) + PRAZO_DIAS).toLocaleDateString('pt-BR');
-  const prazoTxt = faturado ? `Pedido faturado · NF ${trim(cab.c5_nota)}` : diasEm == null ? '' : foraPrazo ? `ATRASADO: emitido há ${diasEm} dias · o prazo de ${PRAZO_DIAS} dias venceu em ${vence}`
-    : `Emitido ${diasEm <= 0 ? 'hoje' : diasEm === 1 ? 'há 1 dia' : `há ${diasEm} dias`} · prazo de ${PRAZO_DIAS} dias até ${vence}`;
 
-  return `<section class="pv" data-ped="${esc(kPed)}">
+  return `<section class="pv">
   <div class="top"><span class="prog">${PROGRAMA}</span><span class="user">${esc(usuario)}</span><span class="dt">${agora.d}</span><span class="hr">${agora.h}</span></div>
-  <div class="head"><img class="logo" src="${LOGO}" alt="Grupo Quatro K"><div class="title"><span class="n">P.V.&nbsp;&nbsp;&nbsp;${esc(trim(cab.c5_num))}</span><span>Foto Atual</span></div><div class="reimp" data-reimp="${esc(kPed)}" hidden></div></div>
+  <div class="head"><img class="logo" src="${LOGO}" alt="Grupo Quatro K"><div class="title"><span class="n">P.V.&nbsp;&nbsp;&nbsp;${esc(trim(cab.c5_num))}</span><span>Foto Atual</span></div></div>
   <div class="fields">
    <div class="frow">
     ${f('Ped.Venda :', trim(cab.c5_num), 160)}
@@ -3398,7 +3360,7 @@ function htmlPedido(d, usuario, agora){
      <td>${esc(trim(i.c6_produto))}</td><td>${esc(trim(i.c6_local))}</td><td>${esc(trim(i.c6_descri))}</td>
      <td>${esc(trim(prod(i.c6_produto)?.b1_grupo))}</td><td>${esc(valorItem(i, C.tonalidade, prod))}</td>
      <td>${esc(dLonga(i.c6_entreg))}</td><td class="r">${money(i.c6_qtdven)}</td><td class="r">${money(i.c6_prcven)}</td>
-     <td class="r">${money(i.c6_valor)}</td><td style="padding-left:18px;white-space:nowrap">${esc(valorItem(i, C.tpAmostra, prod))}</td><td style="white-space:nowrap">${esc(textoEnderecos(i._end))}${infoRolos(i._end) ? `<span class="rolo">${esc(infoRolos(i._end))}</span>` : ''}</td></tr>`).join('')}</tbody>
+     <td class="r">${money(i.c6_valor)}</td><td style="padding-left:18px;white-space:nowrap">${esc(valorItem(i, C.tpAmostra, prod))}</td><td style="white-space:nowrap">${esc(textoEnderecos(i._end))}</td></tr>`).join('')}</tbody>
   </table>
   <div class="aviso">
    AVISO P/ A SEPARACAO : ${esc(obs1)}<br>
@@ -3409,34 +3371,6 @@ function htmlPedido(d, usuario, agora){
    <table class="res"><thead><tr><th style="width:44px">Grupo</th><th>Nome</th><th class="r" style="width:60px">Qtde.</th><th style="width:110px"></th></tr></thead>
    <tbody>${[...resumo.values()].map(r => `<tr><td>${esc(r.g)}</td><td>${esc(r.nome)}</td><td class="r">${money(r.q)}</td><td></td></tr>`).join('')}</tbody></table>
   </div>
-  <div class="pe"><span class="prazo${foraPrazo ? ' atr' : ''}">${esc(prazoTxt)}</span><span class="conf"><span>Separado por:<i></i></span><span>Conferido por:<i></i></span><span>Data:<i class="dt"></i></span></span></div>
- </section>`;
-}
-/* Folha-resumo do lote: soma os produtos de todos os pedidos, na ordem dos endereços, para buscar os rolos em uma viagem só. */
-function htmlResumoLote(lista, usuario, agora){
-  const m = new Map();
-  lista.forEach(d => d.itens.forEach(i => {
-    const cod = trim(i.c6_produto), o = m.get(cod) || {cod, desc:trim(i.c6_descri), q:0, peds:[], end:null, tipos:[]};
-    o.q += num(i.c6_qtdven); const n = trim(d.cab.c5_num); if(!o.peds.includes(n)) o.peds.push(n);
-    if(i._end && !o.end) o.end = i._end;
-    const tp = trim(valorItem(i, CONFIG.campos.tpAmostra, d.prod)); if(tp && !o.tipos.includes(tp)) o.tipos.push(tp);
-    m.set(cod, o);
-  }));
-  // com endereço primeiro, na ordem dos endereços; depois os demais, por código
-  const linhas = [...m.values()].map(o => ({...o, ends:o.end ? textoEnderecos(o.end) : ''}))
-    .sort((a, b) => (a.ends ? 0 : 1) - (b.ends ? 0 : 1) || a.ends.localeCompare(b.ends) || a.cod.localeCompare(b.cod));
-  const total = linhas.reduce((t, o) => t + o.q, 0);
-  return `<section class="pv pv-lote">
-  <div class="top"><span class="prog">${PROGRAMA}</span><span class="user">${esc(usuario)}</span><span class="dt">${agora.d}</span><span class="hr">${agora.h}</span></div>
-  <div class="head"><img class="logo" src="${LOGO}" alt="Grupo Quatro K"><div class="title"><span class="n">RESUMO DO LOTE</span><span>${lista.length} pedidos · ${linhas.length} ${linhas.length === 1 ? 'produto' : 'produtos'}</span></div></div>
-  <div class="lote-peds"><b>Pedidos deste lote:</b> ${lista.map(d => `${esc(trim(d.cab.c5_num))} (${esc(trim(d.cliente?.a1_nome) || trim(d.cab.c5_cliente))})`).join(' · ')}</div>
-  <table class="itens">
-   <thead><tr><th style="width:80px">Prod.</th><th>Descrição</th><th style="width:150px">Tp.Amostra</th><th class="r" style="width:70px">Qtde. total</th><th style="width:190px;padding-left:18px">Pedidos</th><th style="width:150px">Endereços</th></tr></thead>
-   <tbody>${linhas.map(o => `<tr><td>${esc(o.cod)}</td><td>${esc(o.desc)}</td><td>${esc(o.tipos.join(', '))}</td><td class="r">${money(o.q)}</td>
-     <td class="peds" style="padding-left:18px">${esc(o.peds.join(', '))}</td><td style="white-space:nowrap">${esc(o.ends)}${infoRolos(o.end) ? `<span class="rolo">${esc(infoRolos(o.end))}</span>` : ''}</td></tr>`).join('')}
-    <tr><td colspan="3">TOTAL</td><td class="r">${money(total)}</td><td></td><td></td></tr></tbody>
-  </table>
-  <div class="pe"><span class="prazo">Folha de apoio para a separação: não substitui as folhas dos pedidos.</span><span class="conf"><span>Separado por:<i></i></span><span>Data:<i class="dt"></i></span></span></div>
  </section>`;
 }
 
@@ -3518,8 +3452,9 @@ const fmtN = (v, c=2) => num(v).toLocaleString('pt-BR', {minimumFractionDigits:c
 // Sempre até 3 endereços (os que terminam em número + REC; ignora CQSUJO etc.), na ordem do NOVA:
 // 1º aprovados p/ amostra (gramatura no padrão), com nível baixo (final 1, 2, 3) primeiro;
 // se não completar 3, completa com os demais rolos sem defeito: local prioritário → gramatura mais perto do ideal → ordem do NOVA (menor CMC → entrada).
-function rolosEscolhidos(e){
-  if(!e || !e.lista) return [];
+function textoEnderecos(e){
+  if(!e) return '';
+  if(e.erro && !e.lista) return 'ERRO AO CONSULTAR';
   const E = CONFIG.enderecamento;
   const fim = x => trim(x.r.z5_enderec).slice(-1), baixo = x => Number(E.niveisBaixos.includes(fim(x)));
   const aceito = x => { const ad = trim(x.r.z5_enderec).toUpperCase(); return /\d$/.test(ad) || (E.enderecosAceitos || []).some(p => ad.startsWith(p)) };
@@ -3527,18 +3462,10 @@ function rolosEscolhidos(e){
   const ok = validos.filter(({x}) => x.aprovado).sort((a, b) => baixo(b.x) - baixo(a.x) || a.i - b.i);
   const dist = x => { const g = num(x.r.z5_gramatu), id = num(x.ideal); return id > 0 && g > 0 ? Math.abs(g - id) / id : Infinity };
   const resto = validos.filter(({x}) => !x.aprovado && !x.defeito).sort((a, b) => b.x.loc - a.x.loc || dist(a.x) - dist(b.x) || a.i - b.i);
-  const ends = [], rolos = [];
-  for(const {x} of [...ok, ...resto]){ const ad = trim(x.r.z5_enderec); if(!ends.includes(ad)){ ends.push(ad); rolos.push(x) } if(ends.length >= E.quantidade) break }
-  return rolos;
+  const ends = [];
+  for(const {x} of [...ok, ...resto]){ const ad = trim(x.r.z5_enderec); if(!ends.includes(ad)) ends.push(ad); if(ends.length >= E.quantidade) break }
+  return ends.length ? ends.join(' - ') : 'SEM ROLO EM ESTOQUE';
 }
-function textoEnderecos(e){
-  if(!e) return '';
-  if(e.erro && !e.lista) return 'ERRO AO CONSULTAR';
-  const r = rolosEscolhidos(e);
-  return r.length ? r.map(x => trim(x.r.z5_enderec)).join(' - ') : 'SEM ROLO EM ESTOQUE';
-}
-// tonalidade e peso atual (SZ5) do rolo de cada endereço, na mesma ordem dos endereços
-const infoRolos = e => rolosEscolhidos(e).map(x => [trim(x.r.z5_tonalid), num(x.r.z5_pesoatu) ? num(x.r.z5_pesoatu).toLocaleString('pt-BR', {maximumFractionDigits:1}) + 'kg' : ''].filter(Boolean).join(' ')).filter(Boolean).join(' · ');
 
 async function pool(list, n, fn){
   const out = new Array(list.length); let i = 0;
@@ -3546,41 +3473,7 @@ async function pool(list, n, fn){
   return out;
 }
 
-let ultimo = {lista:[], paginas:new Map(), dados:new Map(), falhas:[], ctx:null};
-const PV = {i:0};
-const folhasPv = () => [...document.querySelectorAll('#print-area .pv[data-ped]')];
-// marca "REIMPRESSÃO" nas folhas de pedidos que já foram impressos antes
-function atualizaReimp(){
-  document.querySelectorAll('#print-area [data-reimp]').forEach(el => { const [f, n] = el.dataset.reimp.split(':'), im = IMP.get({filial:f, num:n});
-    el.hidden = !im; if(im) el.innerHTML = `REIMPRESSÃO<small>1ª via em ${esc(quando(im.data))}${im.usuario ? ' · ' + esc(im.usuario) : ''}</small>` });
-}
-function montarPreview(){
-  const ks = ultimo.lista.map(p => chave(p.filial, p.num)).filter(k => ultimo.paginas.has(k));
-  const comLote = store.get('pv-lote') !== '0';
-  $('pv-lote-lb').hidden = ks.length < 2; $('pv-lote').checked = comLote;
-  $('print-area').innerHTML = (ks.length > 1 && comLote ? htmlResumoLote(ks.map(k => ultimo.dados.get(k)), ultimo.ctx.usuario, ultimo.ctx.agora) : '') + ks.map(k => ultimo.paginas.get(k)).join('');
-  atualizaReimp(); PV.i = 0; atualizaBarraPv();
-}
-function atualizaBarraPv(){
-  const fs = folhasPv(), n = fs.length; PV.i = Math.max(0, Math.min(PV.i, n - 1));
-  $('pv-ant').hidden = $('pv-prox').hidden = n < 2; $('pv-ant').disabled = PV.i <= 0; $('pv-prox').disabled = PV.i >= n - 1;
-  const d = n ? ultimo.dados.get(fs[PV.i].dataset.ped) : null; $('pv-det').hidden = !d;
-  if(!d){ $('pv-info').innerHTML = ''; return }
-  const st = statusDe(d.cab), dias = diasEntre(trim(d.cab.c5_emissao).replace(/-/g, ''), hojeYmd()), atr = st[0] !== 'faturado' && dias > PRAZO_DIAS;
-  $('pv-info').innerHTML = `<b>${n > 1 ? `${PV.i + 1}/${n} · ` : ''}Pedido ${esc(trim(d.cab.c5_num))}</b><span class="pd-sit st-${st[0]}">${st[1]}</span>`
-    + (st[0] === 'faturado' ? '' : `<span class="pv-dias${atr ? ' atr' : ''}">${dias <= 0 ? 'emitido hoje' : dias === 1 ? 'há 1 dia' : `há ${dias} dias`}${atr ? ' · atrasado' : ''}</span>`);
-}
-function irFolha(i){
-  const fs = folhasPv(); if(!fs[i]) return; PV.i = i;
-  (fs[i].closest('.giro-box') || fs[i]).scrollIntoView({behavior:'smooth', block:'start'}); atualizaBarraPv();
-}
-// ao rolar a visualização, a barra acompanha o pedido que está na tela
-function acompanharFolha(){
-  if(!document.body.classList.contains('preview')) return;
-  const fs = folhasPv(), lim = innerHeight * .45; let i = 0;
-  fs.forEach((f, k) => { if((f.closest('.giro-box') || f).getBoundingClientRect().top <= lim) i = k });
-  if(i !== PV.i){ PV.i = i; atualizaBarraPv() }
-}
+let ultimo = {lista:[], paginas:new Map(), falhas:[]};
 function mostrarAvisoPreview(){
   const w = $('preview-warn'), f = ultimo.falhas, av = [...avisos];
   const ja = ultimo.lista.filter(p => ultimo.paginas.has(chave(p.filial, p.num)) && IMP.get(p));
@@ -3592,7 +3485,6 @@ function mostrarAvisoPreview(){
   if(av.length) partes.push(esc(av.join(' • ')));
   w.className = 'preview-warn' + (f.length ? ' err' : partes.length ? ' info' : '');
   w.innerHTML = partes.join('<br>');
-  atualizaReimp();
   if(f.length) $('btn-retry').onclick = () => gerar(f.map(x => x.p), false, true);
 }
 function perguntarSeImprimiu(){
@@ -3616,19 +3508,18 @@ async function gerar(lista, imprimir, reprocessar = false){
   const retry = $('btn-retry'); if(retry){ retry.disabled = true; retry.textContent = 'Carregando…' }
   try{
     msg(`Carregando ${lista.length} pedido(s)…`);
-    if(!reprocessar) ultimo = {lista:lista.slice(), paginas:new Map(), dados:new Map(), falhas:[], ctx:null};
+    if(!reprocessar) ultimo = {lista:lista.slice(), paginas:new Map(), falhas:[]};
     const now = new Date(), agora = {d: now.toLocaleDateString('pt-BR'), h: now.toLocaleTimeString('pt-BR')};
     const usuario = SESSAO.user;
     const res = await carregarLote(lista, t => { msg(t); if(retry) retry.textContent = t });
-    res.forEach(r => { if(r.dados){ const k = chave(r.p.filial, r.p.num); ultimo.paginas.set(k, htmlPedido(r.dados, usuario, agora)); ultimo.dados.set(k, r.dados) } });
-    ultimo.ctx = {usuario, agora};
+    res.forEach(r => { if(r.dados) ultimo.paginas.set(chave(r.p.filial, r.p.num), htmlPedido(r.dados, usuario, agora)) });
     ultimo.falhas = ultimo.lista
       .filter(p => !ultimo.paginas.has(chave(p.filial, p.num)))
       .map(p => res.find(r => r.erro && chave(r.p.filial, r.p.num) === chave(p.filial, p.num))
         || ultimo.falhas.find(x => chave(x.p.filial, x.p.num) === chave(p.filial, p.num)) || {p, erro:'não carregado'});
     const paginas = ultimo.lista.map(p => ultimo.paginas.get(chave(p.filial, p.num))).filter(Boolean);
     if(!paginas.length) throw Error('Nenhum pedido carregado: ' + ultimo.falhas.map(x => `${x.p.num} (${x.erro})`).join(' · '));
-    montarPreview();
+    $('print-area').innerHTML = paginas.join('');
     $('preview-title').textContent = `Visualização • ${paginas.length} de ${ultimo.lista.length} pedido(s)`;
     document.body.classList.add('preview'); window.scrollTo(0, 0); requestAnimationFrame(ajustarGiro);
     mostrarAvisoPreview(); msg('');
@@ -3691,38 +3582,17 @@ function htmlDetalhe(d, fat){
     + itens.map(i => { const qv = num(i.c6_qtdven), qe = num(i.c6_qtdent), tp = trim(valorItem(i, C.tpAmostra, prod));
       return `<tr><td>${esc(trim(i.c6_item))}</td><td><b>${esc(trim(i.c6_produto))}</b><small>${esc(trim(i.c6_descri))}</small></td>
         <td>${tp ? `<span class="tp-dot" style="background:${corTipo(tp.toUpperCase())}"></span>${esc(cap(tp))}` : '—'}</td><td>${esc(trim(valorItem(i, C.tonalidade, prod)) || '—')}</td>
-        <td class="n"><b>${qtdTxt(qv)}</b></td><td class="n${qe > 0 && qe >= qv ? ' ok' : ''}">${qe ? qtdTxt(qe) : '—'}</td>${temEnd ? `<td class="pd-end">${esc(textoEnderecos(i._end)) || '—'}${infoRolos(i._end) ? `<small>${esc(infoRolos(i._end))}</small>` : ''}</td>` : ''}</tr>` }).join('')
+        <td class="n"><b>${qtdTxt(qv)}</b></td><td class="n${qe > 0 && qe >= qv ? ' ok' : ''}">${qe ? qtdTxt(qe) : '—'}</td>${temEnd ? `<td class="pd-end">${esc(textoEnderecos(i._end)) || '—'}</td>` : ''}</tr>` }).join('')
     + `</tbody><tfoot><tr><td colspan="4">Total</td><td class="n">${qtdTxt(qtd)}</td><td></td>${temEnd ? '<td></td>' : ''}</tr></tfoot></table></div>`;
   return tl + cards + info + (obs.length ? `<div class="pd-obs"><h4>Aviso para a separação</h4>${obs.map(esc).join('<br>')}</div>` : '')
     + `<h4 class="pd-h">Itens do pedido</h4>` + tab
-    + `<h4 class="pd-h" style="margin-top:20px">Outros pedidos de amostra deste cliente</h4><div class="pd-hist" id="pd-hist"><p class="vazio">Carregando…</p></div>`
-    + `<p class="tb-dica">${temEnd ? 'Embaixo de cada endereço: tonalidade e peso atual do rolo. ' : ''}Liberação pela data da SC9 e faturamento pela data dos itens (C6_DATFAT). O prazo da equipe é de ${PRAZO_DIAS} dias corridos a partir da emissão.</p>`;
-}
-// últimos pedidos de amostra do mesmo cliente (12 meses), para ver o que ele já pediu e como está cada um
-async function historicoCliente(cab, seq){
-  try{
-    const campoTp = CONFIG.campos.tpAmostra, atual = trim(cab.c5_num);
-    const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(trim(cab.c5_filial))}`, `C5_CLIENTE=${q(trim(cab.c5_cliente))}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
-      `C5_EMISSAO>=${q(ymd(new Date(Date.now() - 365 * 864e5)))}`, "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
-    const rows = await gqSafe('SC5,SC6', ['C5_NUM', 'C5_EMISSAO', 'C5_LIBEROK', 'C5_NOTA', 'C6_ITEM'], [campoTp].filter(c => /^C6_/i.test(c || '')), w);
-    const box = $('pd-hist'); if(seq !== DET.seq || !box) return;
-    const m = new Map(), vistos = new Set();
-    rows.forEach(r => { const n = trim(r.c5_num), k = n + '|' + trim(r.c6_item); if(n === atual || vistos.has(k)) return; vistos.add(k);
-      const o = m.get(n) || {num:n, em:trim(r.c5_emissao).replace(/-/g, ''), st:statusDe(r), itens:0, tipos:[]}; o.itens++;
-      const tp = trim(opcao(campoTp, get(r, campoTp))); if(tp && !o.tipos.includes(tp)) o.tipos.push(tp); m.set(n, o) });
-    const todos = [...m.values()].sort((a, b) => b.em.localeCompare(a.em) || b.num.localeCompare(a.num)), l = todos.slice(0, 8);
-    if(!l.length){ box.innerHTML = '<p class="vazio">Nenhum outro pedido de amostra deste cliente nos últimos 12 meses.</p>'; return }
-    box.innerHTML = `<div class="pd-scroll"><table class="tb-t"><thead><tr><th>Pedido</th><th>Emissão</th><th>Tipos</th><th class="n">Itens</th><th>Situação</th></tr></thead><tbody>${l.map(o =>
-      `<tr data-det-ped="${esc(o.num)}" title="Ver o detalhe do pedido ${esc(o.num)}"><td><b>${esc(o.num)}</b></td><td>${esc(dLonga(o.em))}</td><td>${esc(o.tipos.map(cap).join(', ') || '—')}</td><td class="n">${o.itens}</td><td><span class="pd-sit st-${o.st[0]}" style="margin-left:0">${o.st[1]}</span></td></tr>`).join('')}</tbody></table></div>
-      <p class="tb-dica">${pl(todos.length, 'outro pedido', 'outros pedidos')} nos últimos 12 meses (${fmtInt(todos.filter(o => o.st[0] === 'faturado').length)} já faturados)${todos.length > l.length ? `; mostrando os ${l.length} mais recentes` : ''}. Clique em uma linha para ver o detalhe.</p>`;
-  }catch(e){ console.warn('histórico do cliente', e); const box = $('pd-hist'); if(box && seq === DET.seq) box.innerHTML = '<p class="vazio">Não foi possível carregar os outros pedidos do cliente.</p>' }
+    + `<p class="tb-dica">Liberação pela data da SC9 e faturamento pela data dos itens (C6_DATFAT). O prazo da equipe é de ${PRAZO_DIAS} dias corridos a partir da emissão.</p>`;
 }
 async function abrirDetalhe(p){
   const seq = ++DET.seq, dlg = $('dlg-ped'); DET.p = {filial:p.filial || CONFIG.filial, num:p.num};
   const cabecalho = (st, sub) => { $('pd-tit').innerHTML = `Pedido ${esc(trim(p.num))}${st ? ` <span class="pd-sit st-${st[0]}">${esc(st[1])}</span>` : ''}`; $('pd-sub').textContent = sub || '' };
   cabecalho(p.status, p.cliente ? (nomeCliLista(p) || 'cliente ' + trim(p.cliente)) : '');
   $('pd-corpo').innerHTML = `<div class="pd-carga"><i></i><span id="pd-prog">Lendo o pedido no Protheus…</span></div>`;
-  $('pd-print').hidden = document.body.classList.contains('preview'); // aberto pela visualização: a folha já está na tela
   if(!dlg.open) dlg.showModal();
   try{
     const [res, fat] = await Promise.all([
@@ -3734,7 +3604,6 @@ async function abrirDetalhe(p){
     const d = res[0].dados;
     cabecalho(statusDe(d.cab), `${cap(trim(d.cliente?.a1_nome)) || 'cliente ' + trim(d.cab.c5_cliente)} · emitido em ${dLonga(d.cab.c5_emissao)}`);
     $('pd-corpo').innerHTML = htmlDetalhe(d, fat); $('pd-corpo').scrollTop = 0;
-    historicoCliente(d.cab, seq);
   }catch(e){
     if(seq !== DET.seq) return; console.error(e);
     $('pd-corpo').innerHTML = `<p class="vazio">Não foi possível carregar o pedido: ${esc(e.message)}</p><button type="button" class="btn sec" id="pd-retry" style="margin-top:10px">Tentar de novo</button>`;
@@ -3747,7 +3616,6 @@ function iniciarDetalhe(){
   d.addEventListener('click', e => { if(e.target === d) d.close() }); // clique fora fecha
   d.addEventListener('close', () => DET.seq++);
   $('pd-print').onclick = () => { const p = DET.p; d.close(); if(p) gerar([p], false) };
-  $('pd-corpo').addEventListener('click', e => { const tr = e.target.closest('tr[data-det-ped]'); if(tr) abrirDetalhe({filial:DET.p.filial, num:tr.dataset.detPed}) });
 }
 
 /* ============================ exportar o relatório do dashboard (imagem PNG / PDF) ============================ */
@@ -3909,10 +3777,6 @@ function iniciarExportar(){
     buscar();
   };
   $('btn-print-now').onclick = () => window.print();
-  $('pv-ant').onclick = () => irFolha(PV.i - 1); $('pv-prox').onclick = () => irFolha(PV.i + 1);
-  $('pv-det').onclick = () => { const f = folhasPv()[PV.i]; if(!f) return; const [filial, num] = f.dataset.ped.split(':'); abrirDetalhe({filial, num}) };
-  $('pv-lote').onchange = e => { store.set('pv-lote', e.target.checked ? '1' : '0'); montarPreview(); requestAnimationFrame(ajustarGiro) };
-  let folhaT = 0; addEventListener('scroll', () => { if(folhaT) return; folhaT = setTimeout(() => { folhaT = 0; acompanharFolha() }, 120) }, {passive:true});
   $('btn-close-preview').onclick = () => { document.body.classList.remove('preview', 'giro'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn'; $('print-confirm').classList.remove('on') };
   window.addEventListener('afterprint', () => setTimeout(perguntarSeImprimiu, 200));
   $('chk-all').onchange = e => {
