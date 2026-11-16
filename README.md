@@ -133,3 +133,16 @@ O botão **●─●─●** ao lado do número abre o detalhe sem ir para a imp
 ### Dashboard: período e exportação
 - **Período:** além de Mensal e Anual, escolha de qual mês até qual mês (dentro dos últimos 12 meses carregados) ou use os atalhos de 3, 6 e 12 meses. Todos os quadros passam a somar o período.
 - **Exportar:** gera o relatório do que está selecionado (folha A4 em pé), em versão clara ou nas cores do site. **Baixar imagem (PNG)** salva o arquivo (no celular abre o compartilhar); **Salvar em PDF** abre a impressão do navegador: escolha "Salvar como PDF" no destino.
+
+### Folha impressa: o que tem além do Foto Atual
+- **REIMPRESSÃO:** se o pedido já foi marcado como impresso, a folha sai com um carimbo no canto de cima, com a data e quem imprimiu a 1ª via.
+- **Dados do rolo:** embaixo dos endereços de cada item, a tonalidade e o peso atual de cada rolo (campos `Z5_TONALID` e `Z5_PESOATU`), na mesma ordem dos endereços.
+- **Rodapé:** há quantos dias o pedido foi emitido e até quando vai o prazo de 7 dias (em negrito e escrito ATRASADO quando passou), mais a linha **Separado por / Conferido por / Data**.
+- **Folha-resumo do lote:** ao abrir 2 pedidos ou mais, a primeira página soma os produtos de todos, na ordem dos endereços, com os pedidos em que cada um aparece. Dá para desligar na chave **Folha-resumo** da barra da visualização (fica lembrado no aparelho).
+
+### Barra da visualização
+Mostra o pedido que está na tela, a situação e há quantos dias foi emitido. Com vários pedidos, as setas **‹ ›** passam de um para o outro. **Detalhes** abre a linha do tempo do pedido sem sair da visualização.
+
+### Outros pedidos do cliente
+No detalhe do pedido, embaixo dos itens, aparecem os últimos pedidos de amostra do mesmo cliente (12 meses, até 8), com tipos, itens e situação. Clicar em uma linha abre o detalhe daquele pedido.
+
