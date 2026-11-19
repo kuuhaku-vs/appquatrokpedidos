@@ -1202,7 +1202,6 @@ details[open].as-bloco > summary::after{content:"–"}
 
 <div class="preview-bar">
  <span id="preview-title">Visualização</span><span class="grow"></span>
- <button class="btn sec" id="btn-nova" hidden title="Enviar as pilotagens e bandeiras com endereço para a pasta do NOVA">📁 Enviar ao NOVA</button>
  <button class="btn" id="btn-print-now">Imprimir</button>
  <button class="btn sec" id="btn-close-preview">Voltar à lista</button>
 </div>
@@ -1268,6 +1267,7 @@ details[open].as-bloco > summary::after{content:"–"}
    <button class="tg-chip novo" id="novo-chip" type="button" hidden></button>
    <div class="right">
     <label class="switch"><input type="checkbox" id="f-ocultar"> Ocultar já impressos</label>
+    <button class="btn sec" id="btn-nova" title="Manda as pilotagens dos pedidos impressos para a pasta do NOVA (um item por produto, com os endereços)">📁 Pilotagens → NOVA</button>
     <button class="btn sec" id="btn-print-novos" disabled title="Imprime de uma vez todos os pedidos da lista que ainda não foram impressos">Imprimir não impressos</button>
     <button class="btn sec" id="btn-preview" disabled>Visualizar</button>
     <button class="btn" id="btn-print" disabled>Imprimir selecionados</button>
@@ -1520,12 +1520,12 @@ const CONFIG = {
     }
   },
 
-  /* Envio para o NOVA: as pilotagens/bandeiras com endereço viram uma OP na pasta do NOVA,
-     com os RGs sugeridos, o tipo (Pilotagem/Bandeira) e a observação já preenchidos. Usa o código do grupo. */
+  /* Pilotagens → NOVA: os pedidos impressos (não faturados) com pilotagem viram, na pasta do NOVA, um item por produto
+     com os endereços que têm mais RGs (mais de 2; senão o mais cheio). Usa o código do grupo. */
   nova: {
     url: 'https://script.google.com/macros/s/AKfycbyHBouPxpAfFQeOYGLMdvaqpvRF7XhZSJxCqeY13T_zXFauD8SS_DCGdPQt0hQpfw/exec',
     pasta: 'Pedidos',              // pasta do NOVA que recebe as sugestões (é criada se não existir)
-    aoImprimir: true               // ao confirmar "saíram na impressora", envia sozinho
+    aoImprimir: true               // ao confirmar "saíram na impressora", atualiza a pasta sozinho
   }
 };
 const PROGRAMA = 'QKRFotoPV';
@@ -3483,39 +3483,27 @@ function rolosSugeridos(e){
   return out;
 }
 
-/* ============================ envio para a pasta do NOVA ============================ */
-// Cada item de pilotagem/bandeira com endereço vira uma "OP" na pasta do NOVA:
-// os RGs sugeridos (os mesmos endereços da folha), já marcados como Pilotagem/Bandeira
-// e com a observação "PV 500123 · Loja Física - Gisela". No NOVA, a pessoa toca no RG que pegou e informa o peso.
-function itensParaNova(d){
-  const {cab, itens, vend} = d, C = CONFIG.campos;
-  const pv = trim(cab.c5_num), fil = trim(cab.c5_filial);
-  const v2 = vend(cab.c5_vend2), nomeV2 = trim(get(v2, CONFIG.nomeVendedor)).split(/\s+/)[0] || '';
-  const setor = setorVend(cab.c5_vend2, trim(get(vend(cab.c5_vend1), CONFIG.nomeVendedor)));
-  const quem = [setor, cap(nomeV2)].filter(Boolean).join(' - ');
-  const obs = `PV ${pv}${quem ? ' · ' + quem : ''}`.slice(0, 120);
-  const out = [], sem = [];
-  itens.forEach(i => {
-    if(!i._end) return;
-    const sug = rolosSugeridos(i._end);
-    if(!sug.length){ sem.push(`${pv}/${trim(i.c6_item)}`); return }
-    const t = trim(get(i, C.tpAmostra));
-    const tipo = {pilotagem: t === '1', bandeira: t === '2'};
-    const uniq = a => [...new Set(a.filter(Boolean))];
-    out.push({
-      key: `PV|${fil}|${pv}|${trim(i.c6_item)}`,
-      produto: trim(i.c6_produto).toUpperCase(), descricao: trim(i.c6_descri),
-      op: uniq(sug.map(x => trim(x.r.z5_op))).join(' / '), partida: uniq(sug.map(x => trim(x.r.z5_partida))).join(' / '),
-      enderecos: sug.map(x => trim(x.r.z5_enderec)).join(' - '),
-      status: `PV ${pv} · ${i._end.motivo}`.slice(0, 80), savedAt: Date.now(),
-      rolos: sug.map(x => ({rg: trim(x.r.z5_serie) + trim(x.r.z5_numero), endereco: trim(x.r.z5_enderec), armazem: trim(x.r.z5_almoxa),
-        peso: num0(x.r.z5_pesoatu), gramatura: num0(x.r.z5_gramatu), cmc: trim(x.r.z5_cmc) === '' ? null : num(x.r.z5_cmc),
-        picked: false, ...tipo, obsBaixa: obs}))
-    });
-  });
-  return {itens: out, sem};
-}
+/* ============================ pilotagens → pasta do NOVA ============================ */
+// Verifica todos os pedidos JÁ IMPRESSOS e não faturados que têm pilotagem e manda para a pasta do NOVA
+// UMA entrada por produto (código + descrição), mesmo que vários pedidos peçam o mesmo artigo.
+// Endereços indicados: os que têm mais de 2 RGs do produto (até 3, os mais cheios primeiro);
+// se nenhum tiver mais de 2, o endereço com mais RGs. No NOVA, o endereço é clicável e mostra os RGs dele.
+const NOVA_KEY = 'PIL|';
 const num0 = v => trim(v) === '' ? null : num(v);
+function enderecoAceito(ad){ ad = trim(ad).toUpperCase(); return /\d$/.test(ad) || (CONFIG.enderecamento.enderecosAceitos || []).some(p => ad.startsWith(p)) }
+function enderecosPorRgs(rolos, defeitos){
+  const E = CONFIG.enderecamento, por = new Map();
+  rolos.forEach(r => {
+    const ad = trim(r.z5_enderec); if(!ad || !enderecoAceito(ad)) return;
+    if(defeitos.get(trim(r.z5_prod).toUpperCase() + '|' + trim(r.z5_op))) return;   // malha com defeito fica de fora
+    const x = por.get(ad) || {ad, rolos:[], prio:0}; x.rolos.push(r);
+    x.prio = Math.max(x.prio, (trim(r.z5_almoxa) === E.armazemPrioritario ? 1 : 0) + (E.enderecosPrioritarios.some(p => ad.toUpperCase().startsWith(p)) ? 1 : 0));
+    por.set(ad, x);
+  });
+  const ord = [...por.values()].sort((a, b) => b.rolos.length - a.rolos.length || b.prio - a.prio || a.ad.localeCompare(b.ad, 'pt-BR', {numeric:true}));
+  const cheios = ord.filter(x => x.rolos.length > 2);
+  return cheios.length ? cheios.slice(0, 3) : ord.slice(0, 1);
+}
 async function chamarNova(body){
   const N = CONFIG.nova, key = CONFIG.enderecamento.defeitos.chave || IMP.chave();
   if(!N.url) throw Error('endereço da planilha do NOVA não configurado');
@@ -3527,43 +3515,72 @@ async function chamarNova(body){
   if(!j.ok) throw Error(j.error || 'falha na planilha do NOVA');
   return j;
 }
-// envia os pedidos já carregados (com endereços) para a pasta; não repete o que já está lá
-async function enviarParaNova(listaDados, progresso){
-  const todos = [], sem = [];
-  listaDados.forEach(d => { const r = itensParaNova(d); todos.push(...r.itens); sem.push(...r.sem) });
-  if(!todos.length) return {novos:0, ja:0, sem:sem.length, pasta:CONFIG.nova.pasta};
+let novaSyncP = null;
+function sincronizarNova(progresso){ return novaSyncP || (novaSyncP = sincNova(progresso).finally(() => { novaSyncP = null })) }
+async function sincNova(progresso){
+  progresso?.('Verificando os pedidos de pilotagem…');
+  await IMP.carregar().catch(() => {});
+  const F = await carregarFila(true);
+  // pedidos impressos, não faturados, com pilotagem pendente → agrupados por produto
+  const impressos = F.peds.filter(p => p.pilot.length && IMP.get({filial:CONFIG.filial, num:p.num}));
+  const vend = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, impressos.map(p => p.vend2)).catch(e => { if(e.auth) throw e; return () => null });
+  const quem = p => { const nome = trim(get(vend(p.vend2), CONFIG.nomeVendedor)).split(/\s+/)[0] || ''; return [setorVend(p.vend2, ''), cap(nome)].filter(Boolean).join(' - ') };
+  const prods = new Map();
+  impressos.forEach(p => p.pilot.forEach(i => {
+    const k = trim(i.prod).toUpperCase(); if(!k) return;
+    const x = prods.get(k) || {prod:k, desc:i.desc, qtd:0, peds:[]};
+    x.qtd += i.qtd; if(!x.peds.some(y => y.num === p.num)) x.peds.push({num:p.num, quem:quem(p)}); prods.set(k, x);
+  }));
   progresso?.('Abrindo a pasta do NOVA…');
   const pf = await chamarNova({action:'createFolder', name:CONFIG.nova.pasta});   // devolve a pasta existente, se já houver
   const fid = pf.folder.id, pasta = pf.folder.name;
-  const lista = (pf.folders || []).find(f => f.id === fid);
-  const jaTem = new Set((lista ? lista.items : []).map(it => it.key));
-  const novos = todos.filter(it => !jaTem.has(it.key));
+  const atuais = ((pf.folders || []).find(f => f.id === fid) || {items:[]}).items;
+  const pego = it => (it.rolos || []).some(r => r.picked);
+  const res = {pasta, enviados:0, emAndamento:0, semEstoque:[], removidos:0, produtos:prods.size, pedidos:impressos.length};
+  const defeitos = await carregarDefeitos();
   let n = 0;
-  for(const item of novos){ progresso?.(`Enviando ao NOVA… ${++n}/${novos.length}`); await chamarNova({action:'saveItem', folderId:fid, item}) }
-  return {novos:novos.length, ja:todos.length - novos.length, sem:sem.length, pasta};
+  for(const x of prods.values()){
+    progresso?.(`Procurando endereços… ${++n}/${prods.size}`);
+    const key = NOVA_KEY + x.prod, velho = atuais.find(it => it.key === key);
+    if(velho && pego(velho)){ res.emAndamento++; continue }   // alguém já pegou o RG: não mexe
+    let rolos = [];
+    try{ rolos = await rolosDoProduto(x.prod) }catch(e){ if(/401|conectar/.test(e.message)) throw e }
+    const ends = enderecosPorRgs(rolos, defeitos);
+    if(!ends.length){ res.semEstoque.push(x.desc || x.prod); continue }
+    const nums = x.peds.map(y => y.num), quemTxt = [...new Set(x.peds.map(y => y.quem).filter(Boolean))].join(', ');
+    const obs = (`PV ${nums.join(', ')}` + (quemTxt ? ' · ' + quemTxt : '')).slice(0, 120);
+    const uniq = a => [...new Set(a.map(trim).filter(Boolean))];
+    const todos = ends.flatMap(e => e.rolos);
+    const item = {key, produto:x.prod, descricao:x.desc, savedAt:Date.now(),
+      op:uniq(todos.map(r => r.z5_op)).join(' / '), partida:uniq(todos.map(r => r.z5_partida)).join(' / '),
+      enderecos:ends.map(e => e.ad).join(' - '),
+      status:`PILOTAGEM · PV ${nums.join(', ')}`.slice(0, 80),
+      rolos:todos.map(r => ({rg:trim(r.z5_serie) + trim(r.z5_numero), endereco:trim(r.z5_enderec), armazem:trim(r.z5_almoxa),
+        peso:num0(r.z5_pesoatu), gramatura:num0(r.z5_gramatu), cmc:num0(r.z5_cmc), picked:false, pilotagem:true, bandeira:false, obsBaixa:obs}))};
+    // só grava se mudou alguma coisa (pedidos ou RGs), para não regravar a planilha à toa
+    const assin = it => [it.status, (it.rolos || []).map(r => r.rg + '@' + r.endereco).sort().join(',')].join('#');
+    if(velho && assin(velho) === assin(item)) continue;
+    await chamarNova({action:'saveItem', folderId:fid, item}); res.enviados++;
+  }
+  // tira da pasta o que não está mais pendente (faturado) e ninguém pegou; limpa também as entradas do modelo antigo (PV|)
+  for(const it of atuais){
+    const antigo = /^PV\|/.test(it.key), meu = it.key.startsWith(NOVA_KEY);
+    if(!(antigo || (meu && !prods.has(it.key.slice(NOVA_KEY.length)))) || pego(it)) continue;
+    await chamarNova({action:'removeItem', folderId:fid, itemKey:it.key}); res.removidos++;
+  }
+  store.set('pv-nova-sync', new Date().toISOString());
+  return res;
 }
-const textoNova = r => r.novos || r.ja
-  ? `📁 NOVA · pasta "${r.pasta}": ${r.novos} item(ns) enviado(s)${r.ja ? `, ${r.ja} já estava(m) lá` : ''}${r.sem ? `, ${r.sem} sem rolo em estoque` : ''}.`
-  : `📁 Nenhuma pilotagem/bandeira com endereço nestes pedidos para enviar ao NOVA${r.sem ? ` (${r.sem} sem rolo em estoque)` : ''}.`;
-async function enviarVisualizacaoNova(btn){
-  const dados = ultimo.lista.map(p => ultimo.dados?.get(chave(p.filial, p.num))).filter(Boolean);
-  if(!dados.length) return;
-  const old = btn ? btn.textContent : '';
-  if(btn){ btn.disabled = true }
-  try{
-    const r = await enviarParaNova(dados, t => { if(btn) btn.textContent = t });
-    novaAviso(textoNova(r), 'ok');
-    return r;
-  }catch(e){ novaAviso('Não foi possível enviar ao NOVA: ' + e.message, 'err') }
-  finally{ if(btn){ btn.disabled = false; btn.textContent = old } }
-}
-function novaAviso(t, tipo){
-  const w = $('preview-warn'); if(!w) return;
-  const id = 'nova-aviso'; let el = $(id);
-  if(!el){ el = document.createElement('div'); el.id = id; }
-  el.className = 'nova-aviso ' + (tipo || ''); el.textContent = t;
-  if(!w.contains(el)) w.append(el);
-  if(!w.className.includes(' err') && !w.className.includes(' info')) w.className = 'preview-warn info';
+const textoNova = r => !r.produtos
+  ? `📁 NOVA: nenhuma pilotagem pendente nos pedidos impressos${r.removidos ? ` (${r.removidos} item(ns) antigo(s) tirado(s) da pasta)` : ''}.`
+  : `📁 NOVA · pasta "${r.pasta}": ${r.produtos} produto(s) de pilotagem de ${r.pedidos} pedido(s) impresso(s)`
+    + `${r.enviados ? ` · ${r.enviados} atualizado(s)` : ' · já estava tudo lá'}${r.emAndamento ? ` · ${r.emAndamento} já com RG pego` : ''}`
+    + `${r.semEstoque.length ? ` · sem rolo em estoque: ${r.semEstoque.slice(0, 3).join(', ')}${r.semEstoque.length > 3 ? '…' : ''}` : ''}${r.removidos ? ` · ${r.removidos} tirado(s) da pasta` : ''}.`;
+async function botaoNova(btn){
+  const old = btn.textContent; btn.disabled = true;
+  try{ const r = await sincronizarNova(t => { btn.textContent = t }); msg(textoNova(r), 'ok') }
+  catch(e){ msg('Não foi possível atualizar a pasta do NOVA: ' + e.message, 'err') }
+  finally{ btn.disabled = false; btn.textContent = old }
 }
 
 async function pool(list, n, fn){
@@ -3599,11 +3616,12 @@ function perguntarSeImprimiu(){
     try{
       await IMP.marcar(lista); lista.forEach(p => marcados.delete(chave(p.filial, p.num))); box.innerHTML = `<span>✓ ${lista.length} pedido(s) marcados como impressos.</span>`; renderLista(); mostrarAvisoPreview();
       // pilotagens/bandeiras com endereço vão sozinhas para a pasta do NOVA
-      if(CONFIG.nova.aoImprimir && CONFIG.nova.url && (CONFIG.enderecamento.defeitos.chave || IMP.chave()) && !$('btn-nova').hidden){
-        box.insertAdjacentHTML('beforeend', ' <span id="pc-nova">Enviando as pilotagens ao NOVA…</span>');
-        const r = await enviarVisualizacaoNova($('btn-nova'));
-        const sp = $('pc-nova'); if(sp) sp.textContent = r ? textoNova(r) : 'Envio ao NOVA falhou (veja o aviso acima).';
-        setTimeout(() => box.classList.remove('on'), 6000);
+      const temPilot = [...ultimo.dados.values()].some(d => d.itens.some(i => CONFIG.enderecamento.sempre.includes(trim(get(i, CONFIG.campos.tpAmostra)))));
+      if(CONFIG.nova.aoImprimir && CONFIG.nova.url && (CONFIG.enderecamento.defeitos.chave || IMP.chave()) && temPilot){
+        box.insertAdjacentHTML('beforeend', ' <span id="pc-nova">Atualizando as pilotagens na pasta do NOVA…</span>');
+        let t; try{ t = textoNova(await sincronizarNova()) }catch(e){ t = 'Não foi possível atualizar a pasta do NOVA: ' + e.message }
+        const sp = $('pc-nova'); if(sp) sp.textContent = t;
+        setTimeout(() => box.classList.remove('on'), 8000);
       } else setTimeout(() => box.classList.remove('on'), 3500);
     }
     catch(e){ box.innerHTML = `<span>Não foi possível marcar: ${esc(e.message)}</span> <button class="btn" id="pc-sim2">Tentar de novo</button>`; $('pc-sim2').onclick = perguntarSeImprimiu }
@@ -3621,7 +3639,6 @@ async function gerar(lista, imprimir, reprocessar = false){
     const usuario = SESSAO.user;
     const res = await carregarLote(lista, t => { msg(t); if(retry) retry.textContent = t });
     res.forEach(r => { if(r.dados){ const k = chave(r.p.filial, r.p.num); ultimo.paginas.set(k, htmlPedido(r.dados, usuario, agora)); ultimo.dados.set(k, r.dados) } });
-    $('btn-nova').hidden = ![...ultimo.dados.values()].some(d => d.itens.some(i => i._end));   // só aparece com pilotagem/bandeira
     ultimo.falhas = ultimo.lista
       .filter(p => !ultimo.paginas.has(chave(p.filial, p.num)))
       .map(p => res.find(r => r.erro && chave(r.p.filial, r.p.num) === chave(p.filial, p.num))
@@ -3886,7 +3903,7 @@ function iniciarExportar(){
     buscar();
   };
   $('btn-print-now').onclick = () => window.print();
-  $('btn-nova').onclick = () => enviarVisualizacaoNova($('btn-nova'));
+  $('btn-nova').onclick = () => botaoNova($('btn-nova'));
   $('btn-close-preview').onclick = () => { document.body.classList.remove('preview', 'giro'); $('print-area').innerHTML = ''; $('preview-warn').className = 'preview-warn'; $('print-confirm').classList.remove('on') };
   window.addEventListener('afterprint', () => setTimeout(perguntarSeImprimiu, 200));
   $('chk-all').onchange = e => {

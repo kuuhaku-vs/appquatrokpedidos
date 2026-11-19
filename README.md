@@ -62,12 +62,13 @@ Nos itens de **Pilotagem** e de **Bandeira** cuja observação diz para não alt
 
 Para considerar as **malhas com defeito** da planilha da equipe, informe o código da equipe em **Impressos** (menu do usuário) (fica salvo só no navegador). Não publique o código da equipe neste repositório público.
 
-## Enviar pilotagens para a pasta do NOVA
-As pilotagens (e bandeiras "não alterar a cor") que saem com endereço vão para a **pasta do NOVA** (padrão **Pedidos**), para buscar no estoque pelo celular:
-- **Automático:** ao confirmar **"Os pedidos saíram na impressora?" → Sim**, o site envia sozinho.
-- **Manual:** na visualização, botão **📁 Enviar ao NOVA** (aparece quando há pilotagem/bandeira).
-- Cada item vira uma entrada `PV 500123 · PILOTAGEM` com os mesmos RGs/endereços da folha, já marcada como **Pilotagem** ou **Bandeira** e com a observação `PV 500123 · setor - vendedora`. Item que já está na pasta não é enviado de novo; item sem rolo em estoque é ignorado.
-- Precisa do **código do grupo** (menu do usuário → Impressos), o mesmo das Pastas do NOVA. A pasta e o envio automático ficam em `CONFIG.nova` no `index.html`.
+## Pilotagens → pasta do NOVA
+O site verifica **todos os pedidos já impressos e não faturados que têm pilotagem** e monta, na pasta **Pedidos** do NOVA, **um item por produto** (código + descrição), com os endereços para buscar:
+- **Endereços indicados:** os que têm **mais de 2 RGs** do produto (até 3, os mais cheios primeiro). Se nenhum tiver mais de 2, vai o endereço com mais RGs. Ficam de fora malhas com defeito e endereços sem número (ex.: CQSUJO; REC entra).
+- **Sem duplicar:** se dois ou mais pedidos pedem o mesmo artigo, sai um item só, com todos os pedidos (`PILOTAGEM · PV 500123, 500130`) e a observação `PV 500123, 500130 · setor - vendedora`.
+- **No NOVA:** toque no item → toque no endereço → aparecem os RGs daquele endereço → escolha o que vai pegar. O tipo Pilotagem e a observação já vêm preenchidos na baixa.
+- **Quando atualiza:** ao confirmar **"Os pedidos saíram na impressora?" → Sim** (se houver pilotagem) ou no botão **📁 Pilotagens → NOVA** da lista. Item com RG já pego não é mexido; item de pedido que já faturou (e ninguém pegou) sai da pasta.
+- Precisa do **código do grupo** (menu do usuário → Impressos). A pasta e o automático ficam em `CONFIG.nova` no `index.html`.
 
 ## De onde vêm os dados
 Tudo vem direto do REST do Protheus (`/api/framework/v1/genericQuery`): SC5/SC6 (pedido), SA1 (cliente), SA3 (vendedor e centro de custo `A3_4KCC`), CTT (descrição do centro de custo), SE4 (condição de pagamento), SB1/SBM (grupo e gramatura) e SZ5 (rolos e endereços).
