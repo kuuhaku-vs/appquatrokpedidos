@@ -62,6 +62,13 @@ Nos itens de **Pilotagem** e de **Bandeira** cuja observação diz para não alt
 
 Para considerar as **malhas com defeito** da planilha da equipe, informe o código da equipe em **Impressos** (menu do usuário) (fica salvo só no navegador). Não publique o código da equipe neste repositório público.
 
+## Enviar pilotagens para a pasta do NOVA
+As pilotagens (e bandeiras "não alterar a cor") que saem com endereço vão para a **pasta do NOVA** (padrão **Pedidos**), para buscar no estoque pelo celular:
+- **Automático:** ao confirmar **"Os pedidos saíram na impressora?" → Sim**, o site envia sozinho.
+- **Manual:** na visualização, botão **📁 Enviar ao NOVA** (aparece quando há pilotagem/bandeira).
+- Cada item vira uma entrada `PV 500123 · PILOTAGEM` com os mesmos RGs/endereços da folha, já marcada como **Pilotagem** ou **Bandeira** e com a observação `PV 500123 · setor - vendedora`. Item que já está na pasta não é enviado de novo; item sem rolo em estoque é ignorado.
+- Precisa do **código do grupo** (menu do usuário → Impressos), o mesmo das Pastas do NOVA. A pasta e o envio automático ficam em `CONFIG.nova` no `index.html`.
+
 ## De onde vêm os dados
 Tudo vem direto do REST do Protheus (`/api/framework/v1/genericQuery`): SC5/SC6 (pedido), SA1 (cliente), SA3 (vendedor e centro de custo `A3_4KCC`), CTT (descrição do centro de custo), SE4 (condição de pagamento), SB1/SBM (grupo e gramatura) e SZ5 (rolos e endereços).
 
