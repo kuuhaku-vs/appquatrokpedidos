@@ -1360,6 +1360,7 @@ details[open].as-bloco > summary::after{content:"–"}
     <li>Pronto. Quando descer pedido novo, o celular avisa.</li>
    </ol>
    <label class="switch nt-envia"><input type="checkbox" id="nt-envia"> <span><b>Este computador envia os avisos para os celulares</b><small>Ligue em <u>um só</u> computador que fica sempre com o site aberto (ex.: a TV da separação). Ele confere a cada 30 min e avisa o canal.</small></span></label>
+   <label class="switch nt-envia"><input type="checkbox" id="nt-nova"> <span><b>Este computador atualiza a pasta Pedidos do NOVA sozinho</b><small>A cada 15 min, no horário de expediente: manda as pilotagens/bandeiras dos pedidos impressos e avisa o canal quando entra separação nova. Por padrão fica ligado no computador que envia os avisos.</small></span></label>
    <div class="nt-linha"><button class="btn sec" id="nt-teste" type="button">Enviar teste para o celular</button><span class="st" id="nt-st"></span></div>
   </div>
   <div class="acts"><button class="btn" value="cancel">Fechar</button></div>
@@ -1525,7 +1526,8 @@ const CONFIG = {
   nova: {
     url: 'https://script.google.com/macros/s/AKfycbyHBouPxpAfFQeOYGLMdvaqpvRF7XhZSJxCqeY13T_zXFauD8SS_DCGdPQt0hQpfw/exec',
     pasta: 'Pedidos',              // pasta do NOVA que recebe as sugestões (é criada se não existir)
-    aoImprimir: true               // ao confirmar "saíram na impressora", atualiza a pasta sozinho
+    aoImprimir: true,              // ao confirmar "saíram na impressora", atualiza a pasta sozinho
+    autoMin: 15                    // sincronização automática (minutos), no horário de expediente — veja Notificações
   }
 };
 const PROGRAMA = 'QKRFotoPV';
@@ -2382,12 +2384,12 @@ async function carregarFila(forcar = false){
     const w = ['C5_FILIAL=C6_FILIAL', 'C5_NUM=C6_NUM', `C5_FILIAL=${q(CONFIG.filial)}`, `C6_TES IN (${CONFIG.tesAmostras.map(q).join(',')})`,
       `C5_EMISSAO>=${q(desde)}`, "C5_NOTA=' '", 'C6_QTDVEN>C6_QTDENT', "C6_BLQ<>'R'", "SC5.D_E_L_E_T_=' '", "SC6.D_E_L_E_T_=' '"].join(' AND ');
     const campoTp = CONFIG.campos.tpAmostra, campoOri = CONFIG.painel.campoQtdOriginal;
-    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_LIBEROK','C5_CLIENTE','C5_LOJACLI','C5_VEND2','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT'],
-      [campoTp, campoOri].filter(c => /^C6_/i.test(c || '')), w);
+    const rows = await gqConferido('SC5,SC6', ['C5_NUM','C5_EMISSAO','C5_LIBEROK','C5_CLIENTE','C5_LOJACLI','C5_VEND2','C5_OBSSEP','C6_ITEM','C6_PRODUTO','C6_DESCRI','C6_QTDVEN','C6_QTDENT'],
+      [campoTp, campoOri, CONFIG.campos.obs2].filter(c => /^C[56]_/i.test(c || '')), w);
     const map = new Map(), vistos = new Set();
     rows.forEach(r => {
       const n = trim(r.c5_num), k = n + '|' + trim(r.c6_item); if(vistos.has(k)) return; vistos.add(k);
-      const o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0, tipos:{}, pilot:[], lista:[]};
+      const o = map.get(n) || {num:n, emissao:r.c5_emissao, lib:!!trim(r.c5_liberok), cliente:trim(r.c5_cliente), loja:trim(r.c5_lojacli), vend2:trim(r.c5_vend2), itens:0, tipos:{}, pilot:[], band:[], lista:[]};
       o.itens++;
       // quantidade de amostras pendente do item (mesma regra do cartão de tipos)
       const ori = get(r, campoOri), qa = Math.ceil(Math.max(0, num(ori === undefined || ori === null || ori === '' ? r.c6_qtdven : ori)));
@@ -2395,6 +2397,8 @@ async function carregarFila(forcar = false){
       const cod = trim(get(r, campoTp)), tipo = (opcao(campoTp, cod) || 'NÃO INFORMADO').toUpperCase();
       if(!TIPOS_FORA_DASH.includes(tipo)){ o.tipos[tipo] = (o.tipos[tipo] || 0) + qtd; o.lista.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd, tipo}) }
       if(CONFIG.enderecamento.sempre.includes(cod)) o.pilot.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd});
+      // bandeira com "não alterar a cor" nas obs. da separação: também vai para a pasta do NOVA
+      else if(CONFIG.enderecamento.seNaoAlterarCor.includes(cod) && motivoEndereco(cod, trim(r.c5_obssep) + ' ' + trim(get(r, CONFIG.campos.obs2)))) o.band.push({prod:trim(r.c6_produto), desc:trim(r.c6_descri), qtd});
       map.set(n, o);
     });
     const peds = [...map.values()].map(p => ({...p, dias:diasParado(p)}));
@@ -2614,7 +2618,9 @@ function abrirNotif(){
   topicoNtfy().then(t => $('nt-topico').textContent = t);
   $('nt-perm').onclick = async () => { try{ await Notification.requestPermission() }catch{} st(); if(Notification.permission === 'granted') notificarLocal('Avisos ativados', 'Você será avisado quando descer pedido novo.') };
   $('nt-copiar').onclick = async () => { try{ await navigator.clipboard.writeText($('nt-topico').textContent); $('nt-copiar').textContent = 'Copiado ✓' }catch{ $('nt-copiar').textContent = 'Copie manualmente' } setTimeout(() => $('nt-copiar').textContent = 'Copiar', 2000) };
-  $('nt-envia').onchange = e => store.set('pv-ntfy-envia', e.target.checked ? '1' : '0');
+  $('nt-envia').onchange = e => { store.set('pv-ntfy-envia', e.target.checked ? '1' : '0'); $('nt-nova').checked = novaAutoLigado() };
+  $('nt-nova').checked = novaAutoLigado();
+  $('nt-nova').onchange = e => store.set('pv-nova-auto', e.target.checked ? '1' : '0');
   $('nt-teste').onclick = async () => { $('nt-st').textContent = 'Enviando…';
     try{ await enviarCelular('Teste do Pedidos 4K', `Tudo certo, ${SESSAO.user}! Este celular vai receber os pedidos novos.`); $('nt-st').textContent = '✓ Enviado. Chegou no celular?' }
     catch(e){ $('nt-st').textContent = 'Não foi possível enviar: ' + e.message } };
@@ -3522,29 +3528,33 @@ async function sincNova(progresso){
   await IMP.carregar().catch(() => {});
   const F = await carregarFila(true);
   // pedidos impressos, não faturados, com pilotagem pendente → agrupados por produto
-  const impressos = F.peds.filter(p => p.pilot.length && IMP.get({filial:CONFIG.filial, num:p.num}));
+  const impressos = F.peds.filter(p => (p.pilot.length || (p.band || []).length) && IMP.get({filial:CONFIG.filial, num:p.num}));
   const vend = await lookup(cache.sa3, 'SA3', 'A3_COD', {base:[CONFIG.nomeVendedor]}, impressos.map(p => p.vend2)).catch(e => { if(e.auth) throw e; return () => null });
   const quem = p => { const nome = trim(get(vend(p.vend2), CONFIG.nomeVendedor)).split(/\s+/)[0] || ''; return [setorVend(p.vend2, ''), cap(nome)].filter(Boolean).join(' - ') };
+  // chave: PIL|<produto> (pilotagem) ou PIL|BAND|<produto> (bandeira "não alterar a cor")
   const prods = new Map();
-  impressos.forEach(p => p.pilot.forEach(i => {
-    const k = trim(i.prod).toUpperCase(); if(!k) return;
-    const x = prods.get(k) || {prod:k, desc:i.desc, qtd:0, peds:[]};
-    x.qtd += i.qtd; if(!x.peds.some(y => y.num === p.num)) x.peds.push({num:p.num, quem:quem(p)}); prods.set(k, x);
-  }));
+  const juntar = (p, i, band) => {
+    const prod = trim(i.prod).toUpperCase(); if(!prod) return;
+    const key = NOVA_KEY + (band ? 'BAND|' : '') + prod;
+    const x = prods.get(key) || {key, prod, band, desc:i.desc, qtd:0, peds:[]};
+    x.qtd += i.qtd; if(!x.peds.some(y => y.num === p.num)) x.peds.push({num:p.num, quem:quem(p)}); prods.set(key, x);
+  };
+  impressos.forEach(p => { p.pilot.forEach(i => juntar(p, i, false)); (p.band || []).forEach(i => juntar(p, i, true)) });
   progresso?.('Abrindo a pasta do NOVA…');
   const pf = await chamarNova({action:'createFolder', name:CONFIG.nova.pasta});   // devolve a pasta existente, se já houver
   const fid = pf.folder.id, pasta = pf.folder.name;
   const atuais = ((pf.folders || []).find(f => f.id === fid) || {items:[]}).items;
   const pego = it => (it.rolos || []).some(r => r.picked);
-  const res = {pasta, enviados:0, emAndamento:0, semEstoque:[], removidos:0, produtos:prods.size, pedidos:impressos.length};
+  const res = {pasta, enviados:0, emAndamento:0, semEstoque:[], removidos:0, produtos:prods.size, pedidos:impressos.length, novos:[]};
   const defeitos = await carregarDefeitos();
   let n = 0;
   for(const x of prods.values()){
     progresso?.(`Procurando endereços… ${++n}/${prods.size}`);
-    const key = NOVA_KEY + x.prod, velho = atuais.find(it => it.key === key);
+    const key = x.key, velho = atuais.find(it => it.key === key);
     if(velho && pego(velho)){ res.emAndamento++; continue }   // alguém já pegou o RG: não mexe
+    const naoAchou = naoEncontrados(velho);   // RGs que alguém marcou "não encontrei" no NOVA: não voltam como sugestão
     let rolos = [];
-    try{ rolos = await rolosDoProduto(x.prod) }catch(e){ if(/401|conectar/.test(e.message)) throw e }
+    try{ rolos = (await rolosDoProduto(x.prod)).filter(r => !naoAchou.includes(trim(r.z5_serie) + trim(r.z5_numero))) }catch(e){ if(/401|conectar/.test(e.message)) throw e }
     const ends = enderecosPorRgs(rolos, defeitos);
     if(!ends.length){ res.semEstoque.push(x.desc || x.prod); continue }
     const nums = x.peds.map(y => y.num), quemTxt = [...new Set(x.peds.map(y => y.quem).filter(Boolean))].join(', ');
@@ -3554,26 +3564,44 @@ async function sincNova(progresso){
     const item = {key, produto:x.prod, descricao:x.desc, savedAt:Date.now(),
       op:uniq(todos.map(r => r.z5_op)).join(' / '), partida:uniq(todos.map(r => r.z5_partida)).join(' / '),
       enderecos:ends.map(e => e.ad).join(' - '),
-      status:`PILOTAGEM · PV ${nums.join(', ')}`.slice(0, 80),
+      status:`${x.band ? 'BANDEIRA' : 'PILOTAGEM'} · PV ${nums.join(', ')}` + (naoAchou.length ? ` · NÃO ENCONTRADO: ${naoAchou.join(', ')}` : ''),
       rolos:todos.map(r => ({rg:trim(r.z5_serie) + trim(r.z5_numero), endereco:trim(r.z5_enderec), armazem:trim(r.z5_almoxa),
-        peso:num0(r.z5_pesoatu), gramatura:num0(r.z5_gramatu), cmc:num0(r.z5_cmc), picked:false, pilotagem:true, bandeira:false, obsBaixa:obs}))};
+        peso:num0(r.z5_pesoatu), gramatura:num0(r.z5_gramatu), cmc:num0(r.z5_cmc), picked:false, pilotagem:!x.band, bandeira:x.band, obsBaixa:obs}))};
     // só grava se mudou alguma coisa (pedidos ou RGs), para não regravar a planilha à toa
     const assin = it => [it.status, (it.rolos || []).map(r => r.rg + '@' + r.endereco).sort().join(',')].join('#');
     if(velho && assin(velho) === assin(item)) continue;
     await chamarNova({action:'saveItem', folderId:fid, item}); res.enviados++;
+    if(!velho) res.novos.push(`${x.band ? 'Bandeira' : 'Pilotagem'}: ${x.desc || x.prod} (PV ${nums.join(', ')})`);
   }
   // tira da pasta o que não está mais pendente (faturado) e ninguém pegou; limpa também as entradas do modelo antigo (PV|)
   for(const it of atuais){
     const antigo = /^PV\|/.test(it.key), meu = it.key.startsWith(NOVA_KEY);
-    if(!(antigo || (meu && !prods.has(it.key.slice(NOVA_KEY.length)))) || pego(it)) continue;
+    if(!(antigo || (meu && !prods.has(it.key))) || pego(it)) continue;
     await chamarNova({action:'removeItem', folderId:fid, itemKey:it.key}); res.removidos++;
   }
   store.set('pv-nova-sync', new Date().toISOString());
+  // aviso no celular (ntfy, mesmo canal dos pedidos novos) quando entram itens novos na pasta
+  if(res.novos.length) enviarCelular(`📁 ${res.novos.length === 1 ? 'Nova separação' : res.novos.length + ' novas separações'} na pasta ${pasta} do NOVA`,
+    res.novos.slice(0, 8).join('\n') + (res.novos.length > 8 ? `\n… e mais ${res.novos.length - 8}` : '')).catch(e => console.warn('ntfy', e));
   return res;
 }
+const naoEncontrados = it => { const m = String(it?.status || '').match(/NÃO ENCONTRADO:\s*([^·]+)/); return m ? m[1].split(',').map(t => t.trim()).filter(Boolean) : [] };
+// sincronização automática: a cada CONFIG.nova.autoMin minutos, no horário de expediente, no computador que tiver a opção ligada
+// (por padrão, o mesmo que envia os avisos para os celulares). A atualização ao confirmar a impressão continua valendo.
+const novaAutoLigado = () => { const v = store.get('pv-nova-auto'); return v === null ? store.get('pv-ntfy-envia') === '1' : v === '1' };
+let novaAutoT = null;
+function iniciarNovaAuto(){
+  clearInterval(novaAutoT);
+  novaAutoT = setInterval(() => {
+    if(!novaAutoLigado() || !document.body.classList.contains('logado') || !dentroHorario() || !(CONFIG.enderecamento.defeitos.chave || IMP.chave())) return;
+    const ult = Date.parse(store.get('pv-nova-sync') || '') || 0;
+    if(Date.now() - ult < (CONFIG.nova.autoMin || 15) * 60e3) return;
+    sincronizarNova().catch(e => console.warn('NOVA auto', e));
+  }, 60e3);
+}
 const textoNova = r => !r.produtos
-  ? `📁 NOVA: nenhuma pilotagem pendente nos pedidos impressos${r.removidos ? ` (${r.removidos} item(ns) antigo(s) tirado(s) da pasta)` : ''}.`
-  : `📁 NOVA · pasta "${r.pasta}": ${r.produtos} produto(s) de pilotagem de ${r.pedidos} pedido(s) impresso(s)`
+  ? `📁 NOVA: nenhuma pilotagem/bandeira pendente nos pedidos impressos${r.removidos ? ` (${r.removidos} item(ns) antigo(s) tirado(s) da pasta)` : ''}.`
+  : `📁 NOVA · pasta "${r.pasta}": ${r.produtos} item(ns) de pilotagem/bandeira de ${r.pedidos} pedido(s) impresso(s)`
     + `${r.enviados ? ` · ${r.enviados} atualizado(s)` : ' · já estava tudo lá'}${r.emAndamento ? ` · ${r.emAndamento} já com RG pego` : ''}`
     + `${r.semEstoque.length ? ` · sem rolo em estoque: ${r.semEstoque.slice(0, 3).join(', ')}${r.semEstoque.length > 3 ? '…' : ''}` : ''}${r.removidos ? ` · ${r.removidos} tirado(s) da pasta` : ''}.`;
 async function botaoNova(btn){
@@ -3616,7 +3644,7 @@ function perguntarSeImprimiu(){
     try{
       await IMP.marcar(lista); lista.forEach(p => marcados.delete(chave(p.filial, p.num))); box.innerHTML = `<span>✓ ${lista.length} pedido(s) marcados como impressos.</span>`; renderLista(); mostrarAvisoPreview();
       // pilotagens/bandeiras com endereço vão sozinhas para a pasta do NOVA
-      const temPilot = [...ultimo.dados.values()].some(d => d.itens.some(i => CONFIG.enderecamento.sempre.includes(trim(get(i, CONFIG.campos.tpAmostra)))));
+      const temPilot = [...ultimo.dados.values()].some(d => d.itens.some(i => i._end));   // pilotagem ou bandeira "não alterar a cor"
       if(CONFIG.nova.aoImprimir && CONFIG.nova.url && (CONFIG.enderecamento.defeitos.chave || IMP.chave()) && temPilot){
         box.insertAdjacentHTML('beforeend', ' <span id="pc-nova">Atualizando as pilotagens na pasta do NOVA…</span>');
         let t; try{ t = textoNova(await sincronizarNova()) }catch(e){ t = 'Não foi possível atualizar a pasta do NOVA: ' + e.message }
@@ -3995,6 +4023,7 @@ function iniciarExportar(){
   window.addEventListener('resize', () => $('tp-pop').classList.remove('on'));
   setInterval(() => { if(document.body.classList.contains('logado')) atualizarPainel(true) }, 10 * 60e3);
   setInterval(checarNovos, NOVOS_MIN * 60e3);
+  iniciarNovaAuto();   // pilotagens → pasta do NOVA a cada 15 min (no computador com a opção ligada)
   iniciarLogin();
 })();
 </script>
